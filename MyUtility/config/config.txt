@@ -1,0 +1,27 @@
+rainbow=RAINBOW|CARDIDUSR|CARDid12
+sunrise=SUNRISE|EM00931695|emg1234
+cosmos=COSMOS|DEVAZR|GALAXY3
+daybreak=DAYBREAK|DEVAXR|GALAXY3
+sunbeam=SUNBEAM|SPTAXR|GALAXY3
+
+sourceOracle=//exapn04-scan:51521/FSAPSRV2|FSA_USER|f2ap5fus3r
+destOracle=//lwacdndbv02:51521/FSADEV|FSA_STG|fsadev15
+
+header=<HTML><TITLE>QUERY OUTPUT</TITLE><BODY><TABLE style="width: 100%;" border="1">
+rowStart=<TR style="white-space:nowrap;">
+rowStartHeader=<TR bgcolor="#99CCFF" style="white-space:nowrap;">
+rowStartBgColor=<TR bgcolor="#DADCDC" style="white-space:nowrap;">
+rowEnd=</TR>
+columnStart=<TD style="white-space:nowrap;">
+columnEnd=</TD>
+footer=</TABLE></BODY></HTML>
+centreStart=<center><b>
+centreEnd=</b></center>
+
+mail.host=staples-gw.staples.com
+mail.recipients=abhijit.roy@Staples.com
+#mail.sender=creditcardaccounting@staples.com
+mail.sender=sncsupport@staples.com
+mail.subject=Settlement Report for Today
+mail.attachmentFileName=SettlementReport.pdf
+

@@ -1,0 +1,66 @@
+package com.myutility.code;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
+public class FileUtil {
+
+	@SuppressWarnings("rawtypes")
+	public static List getListOfFiles(String directoryName,boolean absolutepath) {
+	    File directory = new File(directoryName);
+	    ArrayList<String> files=new ArrayList<String>();
+	    // get all the files from a directory
+	    File[] fList = directory.listFiles();
+	    for (File file : fList) {
+	        if (file.isFile()) {
+	            files.add((absolutepath)?file.getAbsolutePath():file.getName());
+	        } else if (file.isDirectory()) {
+	        	getListOfFiles(file.getAbsolutePath(),absolutepath);
+	        }
+	    }
+	    Collections.sort(files, new Comparator<String>() {
+	        @Override
+	        public int compare(String s1, String s2) {
+	            return s1.compareToIgnoreCase(s2);
+	        }
+	    });
+	    return files;
+	}
+	
+	public static void writeToFile(String content,String fileName){
+		FileOutputStream fop = null;
+		File file;
+		try {
+ 
+			file = new File(fileName);
+			fop = new FileOutputStream(file);
+			// if file doesnt exists, then create it
+			if (!file.exists()) {
+				file.createNewFile();
+			}
+			// get the content in bytes
+			byte[] contentInBytes = content.getBytes();
+			fop.write(contentInBytes);
+			fop.flush();
+			fop.close();
+			System.out.println(fileName+ " Created Successfully.");
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (fop != null) {
+					fop.close();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+	
+}
