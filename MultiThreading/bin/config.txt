@@ -1,0 +1,3 @@
+proxy.worker_threads=5
+proxy.semaphore.permits=5
+proxy.semaphore.threadLimit=6

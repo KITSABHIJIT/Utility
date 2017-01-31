@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Request-Envelope>
+	<Client_Msg_Info>RTL08004151029002014070000054406</Client_Msg_Info>
+	<Client_Msg_GMT>2015-10-29-19.06.53.358721</Client_Msg_GMT>
+	<Signature />
+	<Version>5.0</Version>
+	<Salt />
+	<View />
+	<PKC />
+	<Content View='0'>
+		<![CDATA[
+		<Payment-Request>
+	<Transaction-Header>
+		<Payment-Type>Credit</Payment-Type>
+		<Request-Type>Authorization</Request-Type>
+		<GMT-Date-Time>2016-03-02-20.25.06.309802</GMT-Date-Time>
+		<Country>USA</Country>
+		<Currency />
+		<Company />
+		<Business-Unit>RTL</Business-Unit>
+		<Division>RTL</Division>
+		<Tran-ID>0850200400337</Tran-ID>
+		<Parent-GUID>RTLRR502160302004003370000055502</Parent-GUID>
+		<Child-GUID>RTLRR502160302004003370000055502</Child-GUID>
+		<Originating-GUID />
+		<Reversal-GUID />
+		<Client-Reference-Key>RTLRR502160302004003370000055502</Client-Reference-Key>
+		<Local-Date-Time>2016-03-02-15.25.06.309802</Local-Date-Time>
+	</Transaction-Header>
+	<Transaction-Detail>
+		<Account/>
+		<Alias-Account view="0">MqwItRw6D8pQ2222</Alias-Account>
+		<Reference-Token view="28">0M9BM5KCBLG2PLZM9DZ8XJLWMAV06PXSCIJ5YYC74FLQN1K8HKQMYVXF45NZJNY691WFYUPPI6QU7HRXZEZAPOW4</Reference-Token>
+		<Transaction-Amount>1.00</Transaction-Amount>
+		<Sale-Amount>1.00</Sale-Amount>
+		<PO-Number />
+		<POS-Data-Code>TER10500ONL040</POS-Data-Code>
+		<Recurring-Installment />
+		<Cashback-Amount>0</Cashback-Amount>
+		<Associate-ID />
+		<Supervisor-ID />
+	</Transaction-Detail>
+	<Card-Info>
+		<CardType>Credit</CardType>
+		<PaymentType>VI</PaymentType>
+		<StaplesPaymentType>VI</StaplesPaymentType>
+		<PORequired />
+		<PinRequired>N</PinRequired>
+		<PurchasingCard>B</PurchasingCard>
+		<PrePaidCard>N</PrePaidCard>
+		<IssuerCountry>IND</IssuerCountry>
+		<Cryptogram />
+		<ECIData />
+		<BankID>BOA</BankID>
+		<CardIdSignature>UktNQzI3MAD/////AAAABW11aWQAAAAAIGMi4/As1aqHnqWko3gtkbXycl0mp2HDocIJnJjRYn4w/////wAAAAVvcmlkAAAAACBFIfw8OdeRz1Ug99UINEbT3vZVle3gzo0QVoDPlePcWv////8AAAAFY3N1bQAAAAAgoMUY69WzWFYBKSgDtnutDvYufY8ogiO/d/25ubTEceAYgb7sNJJrO0YTat6Gx9rC9k7lGcxLMqFKisz5+WcIwQ==</CardIdSignature>
+		<CCIN/>
+		<Expiration-Date/>
+		<Track1-Data/>
+		<Track2-Data/>
+		<EMV />
+	</Card-Info>
+	<Pin-Info />
+	<EMV-Info>
+		<CardSeqNum>09</CardSeqNum>
+		<XCodeResp />
+		<EMV-Data>
+			<EMVDataElement>
+				<TagSeqNo>1</TagSeqNo>
+				<TagName>82</TagName>
+				<TagLength>4</TagLength>
+				<TagValue>5C00</TagValue>
+			</EMVDataElement>
+			<EMVDataElement>
+				<TagSeqNo>2</TagSeqNo>
+				<TagName>95</TagName>
+				<TagLength>A</TagLength>
+				<TagValue>0200008000</TagValue>
+			</EMVDataElement>
+			<EMVDataElement>
+				<TagSeqNo>3</TagSeqNo>
+				<TagName>9A</TagName>
+				<TagLength>6</TagLength>
+				<TagValue>160302</TagValue>
+			</EMVDataElement>
+			<EMVDataElement>
+				<TagSeqNo>4</TagSeqNo>
+				<TagName>9C</TagName>
+				<TagLength>2</TagLength>
+				<TagValue>00</TagValue>
+			</EMVDataElement>
+			<EMVDataElement>
+				<TagSeqNo>5</TagSeqNo>
+				<TagName>5F24</TagName>
+				<TagLength>6</TagLength>
+				<TagValue>221231</TagValue>
+			</EMVDataElement>
+			<EMVDataElement>
+				<TagSeqNo>6</TagSeqNo>
+				<TagName>5F2A</TagName>
+				<TagLength>4</TagLength>
+				<TagValue>0840</TagValue>
+			</EMVDataElement>
+			<EMVDataElement>
+				<TagSeqNo>7</TagSeqNo>
+				<TagName>5F34</TagName>
+				<TagLength>2</TagLength>
+				<TagValue>09</TagValue>
+			</EMVDataElement>
+			<EMVDataElement>
+				<TagSeqNo>8</TagSeqNo>
+				<TagName>9F02</TagName>
+				<TagLength>C</TagLength>
+				<TagValue>000000000125</TagValue>
+			</EMVDataElement>
+			<EMVDataElement>
+				<TagSeqNo>9</TagSeqNo>
+				<TagName>9F03</TagName>
+				<TagLength>C</TagLength>
+				<TagValue>000000000000</TagValue>
+			</EMVDataElement>
+			<EMVDataElement>
+				<TagSeqNo>10</TagSeqNo>
+				<TagName>9F09</TagName>
+				<TagLength>4</TagLength>
+				<TagValue>008C</TagValue>
+			</EMVDataElement>
+			<EMVDataElement>
+				<TagSeqNo>11</TagSeqNo>
+				<TagName>9F1A</TagName>
+				<TagLength>4</TagLength>
+				<TagValue>0840</TagValue>
+			</EMVDataElement>
+			<EMVDataElement>
+				<TagSeqNo>12</TagSeqNo>
+				<TagName>9F1E</TagName>
+				<TagLength>10</TagLength>
+				<TagValue>3530303035383434</TagValue>
+			</EMVDataElement>
+			<EMVDataElement>
+				<TagSeqNo>13</TagSeqNo>
+				<TagName>9F26</TagName>
+				<TagLength>10</TagLength>
+				<TagValue>EF37AC3B5C13F9A0</TagValue>
+			</EMVDataElement>
+			<EMVDataElement>
+				<TagSeqNo>14</TagSeqNo>
+				<TagName>9F27</TagName>
+				<TagLength>2</TagLength>
+				<TagValue>80</TagValue>
+			</EMVDataElement>
+			<EMVDataElement>
+				<TagSeqNo>15</TagSeqNo>
+				<TagName>9F33</TagName>
+				<TagLength>6</TagLength>
+				<TagValue>E0F8C8</TagValue>
+			</EMVDataElement>
+			<EMVDataElement>
+				<TagSeqNo>16</TagSeqNo>
+				<TagName>9F34</TagName>
+				<TagLength>6</TagLength>
+				<TagValue>1E0300</TagValue>
+			</EMVDataElement>
+			<EMVDataElement>
+				<TagSeqNo>17</TagSeqNo>
+				<TagName>9F35</TagName>
+				<TagLength>2</TagLength>
+				<TagValue>22</TagValue>
+			</EMVDataElement>
+			<EMVDataElement>
+				<TagSeqNo>18</TagSeqNo>
+				<TagName>9F36</TagName>
+				<TagLength>4</TagLength>
+				<TagValue>0003</TagValue>
+			</EMVDataElement>
+			<EMVDataElement>
+				<TagSeqNo>19</TagSeqNo>
+				<TagName>9F37</TagName>
+				<TagLength>8</TagLength>
+				<TagValue>D8349A9B</TagValue>
+			</EMVDataElement>
+			<EMVDataElement>
+				<TagSeqNo>20</TagSeqNo>
+				<TagName>9F39</TagName>
+				<TagLength>2</TagLength>
+				<TagValue>05</TagValue>
+			</EMVDataElement>
+			<EMVDataElement>
+				<TagSeqNo>21</TagSeqNo>
+				<TagName>9F41</TagName>
+				<TagLength>6</TagLength>
+				<TagValue>000385</TagValue>
+			</EMVDataElement>
+			<EMVDataElement>
+				<TagSeqNo>22</TagSeqNo>
+				<TagName>9F53</TagName>
+				<TagLength>0</TagLength>
+				<TagValue/>
+			</EMVDataElement>
+			<EMVDataElement>
+				<TagSeqNo>23</TagSeqNo>
+				<TagName>84</TagName>
+				<TagLength>10</TagLength>
+				<TagValue>A000000003101005</TagValue>
+			</EMVDataElement>
+			<EMVDataElement>
+				<TagSeqNo>24</TagSeqNo>
+				<TagName>9F10</TagName>
+				<TagLength>E</TagLength>
+				<TagValue>06010A03A00000</TagValue>
+			</EMVDataElement>
+			<EMVDataElement>
+				<TagSeqNo>25</TagSeqNo>
+				<TagName>9F6E</TagName>
+				<TagLength>0</TagLength>
+				<TagValue/>
+			</EMVDataElement>
+		</EMV-Data>
+	</EMV-Info>
+</Payment-Request>
+]]>
+	</Content>
+</Request-Envelope>

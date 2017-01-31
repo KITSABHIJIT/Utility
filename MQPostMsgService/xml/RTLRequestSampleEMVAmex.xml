@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Request-Envelope>
+	<Client_Msg_Info>RTL08502160302005002620000043476</Client_Msg_Info>
+	<Client_Msg_GMT>2016-03-02-17.04.42.757379</Client_Msg_GMT>
+	<Signature />
+	<Version>5.0</Version>
+	<Salt />
+	<View />
+	<PKC />
+	<Content View='0'>
+		<![CDATA[
+		<Payment-Request>
+	<Transaction-Header>
+		<Payment-Type>Credit</Payment-Type>
+		<Request-Type>Authorization</Request-Type>
+		<GMT-Date-Time>2016-03-02-17.04.42.757379</GMT-Date-Time>
+		<Country>USA</Country>
+		<Currency />
+		<Company />
+		<Business-Unit>RTL</Business-Unit>
+		<Division>RTL</Division>
+		<Tran-ID>0850200500262</Tran-ID>
+		<Parent-GUID>RTL08502160302005002620043396876</Parent-GUID>
+		<Child-GUID>RTL08502160302005002620000043476</Child-GUID>
+		<Originating-GUID />
+		<Reversal-GUID />
+		<Client-Reference-Key>RTL08502160302005002620000043476</Client-Reference-Key>
+		<Local-Date-Time>2016-03-02-12.04.42.757379</Local-Date-Time>
+	</Transaction-Header>
+	<Transaction-Detail>
+		<Account/>
+		<Alias-Account view="0">AV6Hk4533lIW1007</Alias-Account>
+		<Reference-Token view="28">0M9BM5KCBLG2PLZM9DZ8XJLWMAV06PXSCIJ5YYC74FLQN1K8HKQMYVXF45NZJNY691WFYUPPI6QU7HRXZEZAPOW4</Reference-Token>
+		<Transaction-Amount>1.00</Transaction-Amount>
+		<Sale-Amount>1.00</Sale-Amount>
+		<PO-Number />
+		<POS-Data-Code>TER19000ONL040</POS-Data-Code>
+		<Recurring-Installment />
+		<Cashback-Amount>0</Cashback-Amount>
+		<Associate-ID />
+		<Supervisor-ID />
+	</Transaction-Detail>
+	<Card-Info>
+		<CardType>Credit</CardType>
+		<PaymentType>AM</PaymentType>
+		<StaplesPaymentType>PC</StaplesPaymentType>
+		<PORequired />
+		<PinRequired>N</PinRequired>
+		<PurchasingCard />
+		<PrePaidCard>N</PrePaidCard>
+		<IssuerCountry />
+		<Cryptogram />
+		<ECIData />
+		<BankID>American Express</BankID>
+		<CardIdSignature>UktNQzI3MAD/////AAAABW11aWQAAAAAIGMi4/As1aqHnqWko3gtkbXycl0mp2HDocIJnJjRYn4w/////wAAAAVvcmlkAAAAACDF5je18u+VjKocji2SxKzvnFFQMz5T2tvYJs9gAQ0Yc/////8AAAAFY3N1bQAAAAAgW6Etb5m5dyVMDCI/Ys6yB9ZmVxejeLha53fzdQpiWXUzrCxbKIiQrcAZV/pSu3nW73nb3Rccjqz4j5SM040R8Q==</CardIdSignature>
+		<CCIN/>
+		<Expiration-Date/>
+		<Track1-Data/>
+		<Track2-Data/>
+		<EMV />
+	</Card-Info>
+	<Pin-Info />
+	<EMV-Info />
+</Payment-Request>
+		]]>
+	</Content>
+</Request-Envelope>

@@ -1,0 +1,48 @@
+<Request-Envelope>
+<Client_Msg_Info>RTL09001150211002002170000062099</Client_Msg_Info>
+<Client_Msg_GMT>2015-11-17-09.54.09.750649</Client_Msg_GMT>
+<Signature />
+<Version>4.0</Version>   
+<Salt/><View/><PKC/>
+<Content View='0'><![CDATA[
+<Payment-Request>
+                <Transaction-Header>
+                                <Payment-Type>Credit</Payment-Type>
+                                <Request-Type>Authorization</Request-Type>
+                                <GMT-Date-Time>2015-04-13-14.36.26.228590</GMT-Date-Time>
+                                <Country>USA</Country>
+                                <Currency/>
+                                <Company/>
+                                <Business-Unit>RTL</Business-Unit>
+                                <Division>SSC</Division>
+                                <Tran-ID>0900102600002</Tran-ID>
+                                <Parent-GUID>SSC09001150413001014710000001011</Parent-GUID>
+                                <Child-GUID>SSC09001150413001014710000001011</Child-GUID>
+                                <Originating-GUID/>
+                                <Reversal-GUID/>
+                                <Client-Reference-Key>SSC09001150413001014710000001011</Client-Reference-Key>
+                                <Local-Date-Time>2015-04-13-10.36.26.228590</Local-Date-Time>
+                </Transaction-Header>
+                <Transaction-Detail>
+                                <Account/>
+                                <Alias-Account view="31">UktNQzI3MAD/////AAAABW11aWQAAAAAIDUSb2fJAa+3XCNM4rpgVIWvJULCQN46Cbv6uPf1Ajhr/////wAAAANpdgAAAAAQPuTF4MFzZQ5/kV4t9aAO0P////8AAAAFb3JpZAAAAAAgRSH8PDnXkc9VIPfVCDRG0972VZXt4M6NEFaAz5Xj3Fr/////AAAABWNzdW0AAAAAIA1tT5/lZKnfwPN8T9kHbwRMNmrEJxyM57oQcre88Cmh1nVguWa182S/O9aMV+xgxMqCROnQAXtbvFXrmc4NK+o=</Alias-Account>
+                                <Reference-Token view="31">KQG35OMBOOCYO9IZJ8UMC26F7C5WCWKUGGCTS07MCICRIKRLVFBB457UFEKRRZLMH4E1U8</Reference-Token>
+                                <Transaction-Amount>5.28</Transaction-Amount>
+                                <Sale-Amount>5.28</Sale-Amount>
+                                <PO-Number/>
+                                <POS-Data-Code>TERPINSWPCRP</POS-Data-Code>
+                                <Recurring-Installment/>
+                </Transaction-Detail>
+                <Card-Info>
+                                <CardType/>
+                                <PaymentType>MC</PaymentType>
+                                <StaplesPaymentType>MC</StaplesPaymentType>
+                                <BankID/>
+								<CardIdSignature>UktNQzI3MAD/////AAAABW11aWQAAAAAIGMi4/As1aqHnqWko3gtkbXycl0mp2HDocIJnJjRYn4w/////wAAAAVvcmlkAAAAACBFIfw8OdeRz1Ug99UINEbT3vZVle3gzo0QVoDPlePcWv////8AAAAFY3N1bQAAAAAgoMUY69WzWFYBKSgDtnutDvYufY8ogiO/d/25ubTEceCj3Eo+Ly9tw7zhsPq4kv0xNlbICYsk3y+0Ix7tUojoig==</CardIdSignature>
+                                <CCIN/>
+                                <Expiration-Date/>
+                                <Track1-Data/>
+                                <Track2-Data/>
+                </Card-Info>
+</Payment-Request>                                  
+]]></Content></Request-Envelope>

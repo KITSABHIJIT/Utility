@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Request-Envelope>
+	<Client_Msg_Info>RTL09002160302005000740051402283</Client_Msg_Info>
+	<Client_Msg_GMT>2016-03-02-19.16.42.283801</Client_Msg_GMT>
+	<Signature />
+	<Version>5.0</Version>
+	<Salt />
+	<View />
+	<PKC />
+	<Content View='0'>
+		<![CDATA[
+		<Payment-Request>
+	<Transaction-Header>
+		<Payment-Type>Gift Card</Payment-Type>
+		<Request-Type>Redemption</Request-Type>
+		<GMT-Date-Time>2016-03-02-18.37.19.627400</GMT-Date-Time>
+		<Country>USA</Country>
+		<Currency />
+		<Company />
+		<Business-Unit>RTL</Business-Unit>
+		<Division>RTL</Division>
+		<Tran-ID>0850200100845</Tran-ID>
+		<Parent-GUID>RTL08502160302001008450049039627</Parent-GUID>
+		<Child-GUID>RTL08502160302001008450049039627</Child-GUID>
+		<Originating-GUID />
+		<Reversal-GUID />
+		<Client-Reference-Key>RTL08502160302001008450049039627</Client-Reference-Key>
+		<Local-Date-Time>2016-03-02-13.37.19.627400</Local-Date-Time>
+	</Transaction-Header>
+	<Transaction-Detail>
+		<Account view="29B7D9914A3465AD0DD63A75CC6AC246##BFfb+ATvxp0fmmEe9QSUWEFU3BFzgImeBcg/tkmB3Ll7R/LKmGe1Hi4sQ0iRl9gKB824IIIWdyAXadUq+SPk0g64BtHQe/PrQIiDAvKhlHCh9WFZSrTDBz6A90wtAC/kWmAHlEC7MjXCsEyt0Zs1V8n3M5uZLn8HyKH4IWs9RqM=">g+3VDCCzWiNmAT02h3yALpYZ4lsqeAUKcS1z6srHkOU=</Account>
+		<Alias-Account />
+		<Reference-Token />
+		<Transaction-Amount>1.00</Transaction-Amount>
+		<Sale-Amount>1.00</Sale-Amount>
+		<PO-Number />
+		<POS-Data-Code>TER19000ONL040</POS-Data-Code>
+		<Recurring-Installment />
+		<Cashback-Amount>0</Cashback-Amount>
+		<Associate-ID />
+		<Supervisor-ID />
+	</Transaction-Detail>
+	<Card-Info>
+		<CardType />
+		<PaymentType />
+		<StaplesPaymentType />
+		<PORequired />
+		<PinRequired />
+		<PurchasingCard />
+		<PrePaidCard />
+		<IssuerCountry />
+		<Cryptogram />
+		<ECIData />
+		<BankID />
+		<CardIdSignature />
+		<CCIN/>
+		<Expiration-Date/>
+		<Track1-Data/>
+		<Track2-Data view="29B7D9914A3465AD0DD63A75CC6AC246##BFfb+ATvxp0fmmEe9QSUWEFU3BFzgImeBcg/tkmB3Ll7R/LKmGe1Hi4sQ0iRl9gKB824IIIWdyAXadUq+SPk0g64BtHQe/PrQIiDAvKhlHCh9WFZSrTDBz6A90wtAC/kWmAHlEC7MjXCsEyt0Zs1V8n3M5uZLn8HyKH4IWs9RqM=">g+3VDCCzWiNmAT02h3yALofUVGVdb6fbJdLiydId7zxQecf4yeaSJxEv9VV10ZqN</Track2-Data>
+		<EMV />
+	</Card-Info>
+	<Pin-Info />
+	<EMV-Info />
+</Payment-Request>
+		]]>
+	</Content>
+</Request-Envelope>
