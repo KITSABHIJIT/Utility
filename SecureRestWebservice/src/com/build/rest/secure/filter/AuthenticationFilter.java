@@ -58,7 +58,7 @@ public class AuthenticationFilter implements ContainerRequestFilter
             //If no authorization information present; block access
             if(authorization == null || authorization.isEmpty())
             {
-                requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED).entity("You cannot access this resource").build());
+                requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED).entity("You cannot access this resource without credentials").build());
                 return ;
             }
               
@@ -71,25 +71,30 @@ public class AuthenticationFilter implements ContainerRequestFilter
   
             //Split username and password tokens
             final StringTokenizer tokenizer = new StringTokenizer(usernameAndPassword, ":");
-            final String username = tokenizer.nextToken();
-            final String password = tokenizer.nextToken();
-              
-            //Verifying Username and password
-            System.out.println(username);
-            System.out.println(password);
-              
-            //Verify user access
-            if(method.isAnnotationPresent(RolesAllowed.class))
-            {
-                RolesAllowed rolesAnnotation = method.getAnnotation(RolesAllowed.class);
-                Set<String> rolesSet = new HashSet<String>(Arrays.asList(rolesAnnotation.value()));
-                  
-                //Is user valid?
-                if( ! isUserAllowed(username, password, rolesSet))
-                {
-                    requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED).entity("You cannot access this resource").build());
-                    return;
-                }
+            if(tokenizer.hasMoreElements()){
+            	final String username = tokenizer.nextToken();
+            	final String password = tokenizer.nextToken();
+
+            	//Verifying Username and password
+            	System.out.println(username);
+            	System.out.println(password);
+
+            	//Verify user access
+            	if(method.isAnnotationPresent(RolesAllowed.class))
+            	{
+            		RolesAllowed rolesAnnotation = method.getAnnotation(RolesAllowed.class);
+            		Set<String> rolesSet = new HashSet<String>(Arrays.asList(rolesAnnotation.value()));
+
+            		//Is user valid?
+            		if( ! isUserAllowed(username, password, rolesSet))
+            		{
+            			requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED).entity("You cannot access this resource").build());
+            			return;
+            		}
+            	}
+            }else{
+            	 requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED).entity("You cannot access this resource without credentials").build());
+                 return ;
             }
         }
     }
