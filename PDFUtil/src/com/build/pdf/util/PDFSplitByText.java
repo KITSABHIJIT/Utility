@@ -1,0 +1,81 @@
+package com.build.pdf.util;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+import com.lowagie.text.Document;
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.pdf.BadPdfFormatException;
+import com.lowagie.text.pdf.PdfCopy;
+import com.lowagie.text.pdf.PdfImportedPage;
+import com.lowagie.text.pdf.PdfReader;
+import com.lowagie.text.pdf.parser.PdfTextExtractor;
+
+public class PDFSplitByText {
+	public static final String SRC = CommonConstants.FILE_PATH+"/PODODRP_PKG000937.pdf";
+    public static final String DEST = CommonConstants.FILE_PATH+"/splitpdfs";
+    public static final String DEST_FILE = DEST+"/%s.pdf";
+    public static final String SEARCH_INDEX="Invoice Number:";
+ 
+    public static void main(String[] args) throws IOException, DocumentException {
+        File source =new File(SRC);
+        if(source.exists()){
+        	split(SRC);
+        }else{
+        	System.err.print("No source file found");
+        }
+    }
+ 
+ 
+    public static void split(String filename) throws IOException, BadPdfFormatException {
+        PdfReader reader = new PdfReader(filename);
+        PdfTextExtractor extractor= new PdfTextExtractor(reader);
+        int n = reader.getNumberOfPages();
+        String invoice,prevInvoice="";
+        System.out.println(n);
+        PdfCopy writer=null;
+        Document document=null;
+        File dest =new File(DEST);
+        if(!dest.exists()){
+        	dest.mkdirs();
+        }
+        for (int page = 1; page <= reader.getNumberOfPages(); page++) {
+            //fos.write(extractor.getTextFromPage(page).getBytes("UTF-8"));
+        	
+            
+            String data= new String(extractor.getTextFromPage(page).getBytes("UTF-8"));
+            int beginIndex=data.indexOf(SEARCH_INDEX)+SEARCH_INDEX.length()+1;
+            invoice=data.substring(beginIndex, beginIndex+10).trim();
+            
+            if(page == 1 || !prevInvoice.equals(invoice)){
+            	prevInvoice=invoice;
+            	if(writer != null)
+            		writer.close();
+            	if(document != null)
+            		document.close();
+            	document = new Document(reader.getPageSizeWithRotation(1));
+        		try {
+        			writer = new PdfCopy(document, new FileOutputStream(String.format(DEST_FILE,invoice)));
+        		} catch (DocumentException e) {
+        			// TODO Auto-generated catch block
+        			e.printStackTrace();
+        		}
+        		document.open();
+                PdfImportedPage splitPdfs = writer.getImportedPage(reader, page);
+            	
+            	writer.addPage(splitPdfs);
+            	//System.out.println(invoice);
+            }else{
+            	System.out.println("multiple:"+invoice);
+            	PdfImportedPage splitPdfs = writer.getImportedPage(reader, page);
+            	writer.addPage(splitPdfs);
+            }
+            
+        }
+        if(writer != null)
+    		writer.close();
+    	if(document != null)
+    		document.close();
+    }
+}
