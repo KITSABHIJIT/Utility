@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
-Implementation-Vendor: Pivotal Software, Inc.
 Implementation-Title: springBoot
 Implementation-Version: 0.0.1-SNAPSHOT
-Implementation-Vendor-Id: com.build.maven.simple
-Build-Jdk: 1.7.0_79
 Built-By: royab001
+Implementation-Vendor-Id: com.build.maven.simple
+Build-Jdk: 1.8.0_121
 Created-By: Maven Integration for Eclipse
+Implementation-Vendor: Pivotal Software, Inc.
 
