@@ -1,0 +1,42 @@
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/security
+	http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+
+	<http auto-config="true">
+		<intercept-url pattern="/admin**" access="ROLE_USER" />
+		<form-login login-page="/login" default-target-url="/welcome"
+			authentication-failure-url="/login?error" username-parameter="username"
+			password-parameter="password" />
+		<logout logout-success-url="/login?logout" />
+		<!-- enable csrf protection -->
+		<csrf />
+	</http>
+
+	<authentication-manager>
+		<authentication-provider>
+			<password-encoder ref="encoder" />
+			<user-service>
+				<user name="Abhijit"
+					password="$2a$10$b.rMLemtYT36fppBUmlxM.nD1XoGNw0Ev48m2L3zz1yJBZbkUWuw6"
+					authorities="ROLE_USER" />
+				<user name="Abhijit1"
+					password="$2a$10$GuZ.6iNco8oZrDu1b6oyv.D8mIKC60vfuMNUQk4pHvpf1UF8FJOHm"
+					authorities="ROLE_USER" />
+				<user name="Abhijit2"
+					password="$2a$10$6SYLS.UUBX6CUplTEiQAyelrPnIr7S1EX6wordvb3XcVJ5Hsl0A4."
+					authorities="ROLE_USER" />
+				<user name="Abhijit3"
+					password="$2a$10$0n45bhZA2Y9Yjs3g6zVil.yrgYLK69kROqnVSa3D8RG59CFZ8GpzC"
+					authorities="ROLE_USER" />
+			</user-service>
+		</authentication-provider>
+	</authentication-manager>
+
+	<beans:bean id="encoder"
+		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+		<beans:constructor-arg name="strength" value="11" />
+	</beans:bean>
+</beans:beans>
