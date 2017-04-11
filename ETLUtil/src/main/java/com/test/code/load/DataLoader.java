@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.test.code.pojo.Expense;
+import com.test.code.pojo.Merchant;
 import com.test.code.util.ConnectionUtil;
 import com.test.code.util.PropertiesUtil;
 
@@ -18,14 +19,10 @@ public class DataLoader {
 			for (Expense exp : expList) {
 				statement.setDate(1, exp.getTransactionDate());
 				statement.setString(2, exp.getMerchant());
-				statement.setString(3, exp.getDescription());
-				statement.setString(4, exp.getExpensePlace());
-				statement.setString(5, exp.getExpenseCategory());
-				statement.setString(6, exp.getModeOfPayment());
-				statement.setDouble(7, exp.getAmount());
-				statement.setString(8, exp.getDescription());
-				statement.setString(9, exp.getExpensePlace());
-				statement.setString(10, exp.getExpenseCategory());
+				statement.setString(3, exp.getExpensePlace());
+				statement.setString(4, exp.getModeOfPayment());
+				statement.setDouble(5, exp.getAmount());
+				statement.setString(6, exp.getExpensePlace());
 				statement.addBatch();
 				i++;
 				if (i % 1000 == 0 || i == expList.size()) {
@@ -39,7 +36,30 @@ public class DataLoader {
 		}
 	}
 
-
+	public static void loadMerchantData(List<Merchant> dataList){
+		try (Connection connection = ConnectionUtil.getConnection();
+				PreparedStatement statement = connection.prepareStatement(PropertiesUtil.getProperty("SQL_INSERT_MERCHANT"));
+				) {
+			int i = 0;
+			for (Merchant merchant : dataList) {
+				statement.setString(1, merchant.getMerchant());
+				statement.setString(2, merchant.getCategory());
+				statement.setString(3, merchant.getDescription());
+				statement.setString(4, merchant.getCategory());
+				statement.setString(5, merchant.getDescription());
+				statement.addBatch();
+				i++;
+				if (i % 1000 == 0 || i == dataList.size()) {
+					statement.executeBatch(); // Execute every 1000 items.
+				}
+				//System.out.println(exp.toString());
+			}
+			System.out.println("Total number of records added: "+dataList.size());
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+	}
+	
 	public static void loadData(List<String> dataList){
 
 		try (Connection connection = ConnectionUtil.getConnection();

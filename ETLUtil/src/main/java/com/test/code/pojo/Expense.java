@@ -7,9 +7,7 @@ import java.sql.Date;
 public class Expense{
 	private Date transactionDate;
 	private String merchant;
-	private String description;
 	private String expensePlace;
-	private String expenseCategory;
 	private String modeOfPayment;
 	private double amount;
 	
@@ -25,23 +23,11 @@ public class Expense{
 	public void setMerchant(String merchant) {
 		this.merchant = merchant;
 	}
-	public String getDescription() {
-		return description;
-	}
-	public void setDescription(String description) {
-		this.description = description;
-	}
 	public String getExpensePlace() {
 		return expensePlace;
 	}
 	public void setExpensePlace(String expensePlace) {
 		this.expensePlace = expensePlace;
-	}
-	public String getExpenseCategory() {
-		return expenseCategory;
-	}
-	public void setExpenseCategory(String expenseCategory) {
-		this.expenseCategory = expenseCategory;
 	}
 	public String getModeOfPayment() {
 		return modeOfPayment;
@@ -58,8 +44,7 @@ public class Expense{
 	@Override
 	public String toString() {
 		return "Expense [transactionDate=" + transactionDate + ", merchant="
-				+ merchant  + ", expensePlace=" + expensePlace+ ", expenseCetaegory=" + expenseCategory
-				+ ", description=" + description+ ", modeOfPayment=" + modeOfPayment + ", amount=" + amount
+				+ merchant  + ", expensePlace=" + expensePlace+ ", modeOfPayment=" + modeOfPayment + ", amount=" + amount
 				+ "]";
 	}
 	
