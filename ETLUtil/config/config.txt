@@ -1,5 +1,5 @@
-sourceDirPath=C:\\Users\\royab001\\Google Drive\\Expense\\Expense Details\\Statements
-sourceDirPathMerchant=C:\\Users\\royab001\\Google Drive\\Expense\\Expense Details\\Merchant
+sourceDirPath=C:\\Users\\royab001\\Google Drive\\Expense\\Expense Dumps\\Statements
+sourceDirPathMerchant=C:\\Users\\royab001\\Google Drive\\Expense\\Expense Dumps\\Merchant
 #sourceDirPath=C:\\Users\\royab001\\Desktop\\New folder
 delimeter=[|]
 
