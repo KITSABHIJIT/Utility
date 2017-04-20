@@ -23,7 +23,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
 public class LineChart {  
         public static void main(String[] args) throws Exception{                
                 /* Read the bar chart data from the excel file */
-                FileInputStream chart_file_input = new FileInputStream(new File("C:\\Users\\royab001\\Google Drive\\Expense\\Expense Dumps\\Test Exported Data\\expense_010116_013116.xls"));
+                FileInputStream chart_file_input = new FileInputStream(new File("C:\\Users\\royab001\\Google Drive\\Expense\\Expense Dumps\\Test Exported Data\\2017-Jan.xls"));
                 /* HSSFWorkbook object reads the full Excel document. We will manipulate this object and
                 write it back to the disk with the chart */
                 HSSFWorkbook my_workbook = new HSSFWorkbook(chart_file_input);
@@ -34,8 +34,8 @@ public class LineChart {
                 /* We have to load bar chart data now */
                 /* Begin by iterating over the worksheet*/
                 /* Create an Iterator object */
-                Iterator<Row> rowIterator = my_sheet.iterator(); 
-                /* Loop through worksheet data and populate bar chart dataset */
+               /* Iterator<Row> rowIterator = my_sheet.iterator(); 
+                 Loop through worksheet data and populate bar chart dataset 
                 String chart_label="a";
                 Number chart_data=0;            
                 while(rowIterator.hasNext()) {
@@ -54,11 +54,16 @@ public class LineChart {
                                                 break;
                                         }
                                 }
-                /* Add data to the data set */          
-                /* We don't have grouping in the bar chart, so we put them in fixed group */
+                 Add data to the data set           
+                 We don't have grouping in the bar chart, so we put them in fixed group 
                 chart_label+="abc";
                 my_bar_chart_dataset.addValue(chart_data.doubleValue(),"Marks",chart_label);
-                }               
+                }  */       
+                my_bar_chart_dataset.addValue(2.65,"Marks","sdas");
+                my_bar_chart_dataset.addValue(3.65,"Marks","dass");
+                my_bar_chart_dataset.addValue(45.32,"Marks","453ff");
+                my_bar_chart_dataset.addValue(6.32,"Marks","r4few");
+                
                 /* Create a logical chart object with the chart data collected */
                 JFreeChart BarChartObject=ChartFactory.createBarChart("Subject Vs Marks","Subject","Marks",my_bar_chart_dataset,PlotOrientation.VERTICAL,true,true,false);  
                 /* Dimensions of the bar chart */               
@@ -88,7 +93,7 @@ public class LineChart {
                 /* Close the FileInputStream */
                 chart_file_input.close();               
                 /* Write changes to the workbook */
-                FileOutputStream out = new FileOutputStream(new File("C:\\Users\\royab001\\Google Drive\\Expense\\Expense Dumps\\Test Exported Data\\expense_010116_013116.xls"));
+                FileOutputStream out = new FileOutputStream(new File("C:\\Users\\royab001\\Google Drive\\Expense\\Expense Dumps\\Test Exported Data\\2017-Jan.xls"));
                 my_workbook.write(out);
                 out.close();            
         }
