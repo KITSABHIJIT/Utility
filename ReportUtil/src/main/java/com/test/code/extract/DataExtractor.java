@@ -7,10 +7,14 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.jfree.data.general.DefaultPieDataset;
+
+import com.test.code.pojo.PieChartData;
+import com.test.code.pojo.ReportData;
 import com.test.code.util.ConnectionUtil;
 import com.test.code.util.DateUtil;
 import com.test.code.util.PropertiesUtil;
@@ -46,18 +50,66 @@ public class DataExtractor {
 		}
 		return data;
 	}
-	
-	public static Map<String,List<List<Object>>> getReportData(Date startDate, Date endDate){
-		Map<String,List<List<Object>>> data=new HashMap<String, List<List<Object>>>();
-		String reports=PropertiesUtil.getProperty("REPORTS");
-		String[] reportList =reports.split(PropertiesUtil.getProperty("delimeter"));
-		for(int i=0;i<reportList.length;i++){
-			String query=PropertiesUtil.getProperty(reportList[i]);
-			query=query.replaceAll(PropertiesUtil.getProperty("STARTDATE"), DateUtil.getDateToString(startDate,"yyyy-MM-dd"));
-			query=query.replaceAll(PropertiesUtil.getProperty("ENDDATE"), DateUtil.getDateToString(endDate,"yyyy-MM-dd"));
-			data.put(reportList[i].replaceAll("_", " "), getData(query));
+
+	public static DefaultPieDataset getPeiGraphData(String query){
+		DefaultPieDataset data = new DefaultPieDataset();
+		try (Connection connection = ConnectionUtil.getConnection();
+				PreparedStatement statement = connection.prepareStatement(query);
+				) {
+			ResultSet rs = statement.executeQuery();
+			while (rs.next()) {
+				data.setValue(rs.getString(1),rs.getDouble(2));
+			}
+		}catch(SQLException e){
+			e.printStackTrace();
 		}
 		return data;
 	}
-	
+
+	public static String updateQueryWithDates(String query,Date startDate, Date endDate){
+		query=query.replaceAll(PropertiesUtil.getProperty("STARTDATE"), DateUtil.getDateToString(startDate,"yyyy-MM-dd"));
+		query=query.replaceAll(PropertiesUtil.getProperty("ENDDATE"), DateUtil.getDateToString(endDate,"yyyy-MM-dd"));
+		return query;
+	}
+	public static Map<String,ReportData> getReportData(Date startDate, Date endDate){
+		Map<String,ReportData> data=new LinkedHashMap<String, ReportData>();
+		String reports=PropertiesUtil.getProperty("REPORTS");
+		String[] sheetList =reports.split(PropertiesUtil.getProperty("delimeter"));
+		String sheetname="";
+		for(String sheet:sheetList){
+			ReportData reportData = new ReportData();
+			List<PieChartData> pieChartData=new ArrayList<PieChartData>();
+			String[] figureList =sheet.split(PropertiesUtil.getProperty("figureDelimeter"));
+			String query=PropertiesUtil.getProperty(figureList[0]);
+			sheetname=figureList[0];
+			query=updateQueryWithDates(query,startDate,endDate);
+			reportData.setReportData(getData(query));
+			if(figureList.length>1){
+				String[] chartList =figureList[1].split(PropertiesUtil.getProperty("commaDelimeter"));
+				for(String chart:chartList){
+					if(chart.startsWith("PIE")){
+						PieChartData peiChart =new PieChartData();
+						String chartQuery=updateQueryWithDates(PropertiesUtil.getProperty(chart),startDate,endDate);
+						peiChart.setDataset(getPeiGraphData(chartQuery));
+						String [] chartConfig=PropertiesUtil.getProperty("CONFIG_"+chart).split(PropertiesUtil.getProperty("delimeter"));
+						peiChart.setTitle(chartConfig[0]);
+						peiChart.setLegend(Boolean.parseBoolean(chartConfig[1]));
+						peiChart.setTooltips(Boolean.parseBoolean(chartConfig[2]));
+						peiChart.setUrls(Boolean.parseBoolean(chartConfig[3]));
+						peiChart.setLength(Integer.parseInt(chartConfig[4]));
+						peiChart.setHeight(Integer.parseInt(chartConfig[5]));
+						peiChart.setRowPosition(Integer.parseInt(chartConfig[6]));
+						peiChart.setColumnPosition(Integer.parseInt(chartConfig[7]));
+						pieChartData.add(peiChart);
+					}else if(PropertiesUtil.getProperty("chart").startsWith("BAR")){
+
+					}
+				}
+				reportData.setPieData(pieChartData);
+			}
+			data.put(sheetname.replaceAll("_", " "), reportData);
+		}
+		return data;
+	}
+
 }

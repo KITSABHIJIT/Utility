@@ -139,8 +139,8 @@ public class DateUtil {
 		//DateUtil.getSomeDateString(localTime,TimeZone.getTimeZone("GMT"),"yyyy-MM-dd HH:mm:ss");
 		//DateUtil.getWebMethodsDateString(DateUtil.getSomeDate("20150722 110912", "yyyyMMdd HHmmss"),"{0, date, yyyy-MM-dd}T{0, date, HH:mm:ss}");
 		//System.out.println(getSQLDate(getSomeDate("12/01/2015", "MM/dd/yyyy")));
-		System.out.println(getDatesFromDateRange(getSomeDate("20150112", "yyyyMMdd"),getSomeDate("20170417", "yyyyMMdd"),"YEARLY"));
-
+		//System.out.println(getDatesFromDateRange(getSomeDate("20150112", "yyyyMMdd"),getSomeDate("20170417", "yyyyMMdd"),"YEARLY"));
+		System.out.println(DateUtil.getDateToString(new Date(), "yyyyMMM"));
 	}	
 
 
