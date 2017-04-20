@@ -7,6 +7,7 @@ import com.test.code.extract.DataExtractor;
 import com.test.code.load.DataLoader;
 import com.test.code.pojo.Expense;
 import com.test.code.pojo.Merchant;
+import com.test.code.pojo.PayMode;
 import com.test.code.transform.DataTransformer;
 import com.test.code.util.PropertiesUtil;
 
@@ -28,6 +29,15 @@ public class StartLoadingData {
 		List<Merchant> merchantList=DataTransformer.transformDataUsingDelimeterMerchant(rawDataMerchant, PropertiesUtil.getProperty("delimeter"));
 		// Load Data
 		DataLoader.loadMerchantData(merchantList);
+
+		//PAYMODE Load
+		// Extract Data
+		Map<String,List<String>> rawDataPayMode =DataExtractor.extractDataWithFileName(PropertiesUtil.getProperty("sourceDirPathPayMode"));
+		// Transform Data
+		List<PayMode> payModeList=DataTransformer.transformDataUsingDelimeterPayMode(rawDataPayMode, PropertiesUtil.getProperty("delimeter"));
+		// Load Data
+		DataLoader.loadPayModeData(payModeList);
+
 
 		// Extract Data
 		//List<String> rawData =DataExtractor.extractData(PropertiesUtil.getProperty("sourceDirPath"));

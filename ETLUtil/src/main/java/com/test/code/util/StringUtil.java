@@ -58,6 +58,14 @@ public class StringUtil {
 			return Integer.parseInt(str);
 		}
 	}
+	public static long getStrToLong(String str){
+		int result=0;
+		if(isBlankOrEmpty(str)){
+			return result;
+		}else{
+			return Long.parseLong(str);
+		}
+	}
 	
 	public static double getDouble(String str){
 		double result=0D;

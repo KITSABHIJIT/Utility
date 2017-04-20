@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.test.code.pojo.Expense;
 import com.test.code.pojo.Merchant;
+import com.test.code.pojo.PayMode;
 import com.test.code.util.ConnectionUtil;
 import com.test.code.util.PropertiesUtil;
 
@@ -47,6 +48,34 @@ public class DataLoader {
 				statement.setString(3, merchant.getDescription());
 				statement.setString(4, merchant.getCategory());
 				statement.setString(5, merchant.getDescription());
+				statement.addBatch();
+				i++;
+				if (i % 1000 == 0 || i == dataList.size()) {
+					statement.executeBatch(); // Execute every 1000 items.
+				}
+				//System.out.println(exp.toString());
+			}
+			System.out.println("Total number of records added: "+dataList.size());
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+	}
+	
+	public static void loadPayModeData(List<PayMode> dataList){
+		try (Connection connection = ConnectionUtil.getConnection();
+				PreparedStatement statement = connection.prepareStatement(PropertiesUtil.getProperty("SQL_INSERT_PAYMODE"));
+				) {
+			int i = 0;
+			for (PayMode payMode : dataList) {
+				statement.setLong(1, payMode.getPaymentId());
+				statement.setString(2, payMode.getPaymentType());
+				statement.setString(3, payMode.getPaymentMethod());
+				statement.setDouble(4, payMode.getPayLimit());
+				statement.setDate(5, payMode.getActiveDate());
+				statement.setString(6, payMode.getBillDate());
+				statement.setDouble(7, payMode.getPayLimit());
+				statement.setDate(8, payMode.getActiveDate());
+				statement.setString(9, payMode.getBillDate());
 				statement.addBatch();
 				i++;
 				if (i % 1000 == 0 || i == dataList.size()) {

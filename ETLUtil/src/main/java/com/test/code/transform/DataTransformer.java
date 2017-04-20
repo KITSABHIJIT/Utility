@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.test.code.pojo.Expense;
 import com.test.code.pojo.Merchant;
+import com.test.code.pojo.PayMode;
 import com.test.code.util.DateUtil;
 import com.test.code.util.StringUtil;
 
@@ -41,7 +42,7 @@ public class DataTransformer {
 		List<Merchant> merchantList=new ArrayList<Merchant>();
 
 		for (Map.Entry<String, List<String>> entry : rawData.entrySet()) {
-			System.out.println("Expense File : " + entry.getKey() + " Record Count : " + entry.getValue().size());
+			System.out.println("Merchant File : " + entry.getKey() + " Record Count : " + entry.getValue().size());
 			for(String data:entry.getValue()){
 				String [] segmentList = data.split(delimeter);
 				if(segmentList.length>1){
@@ -61,5 +62,32 @@ public class DataTransformer {
 			}
 		}
 		return merchantList;
+	}
+	
+	public static List<PayMode> transformDataUsingDelimeterPayMode(Map<String,List<String>> rawData, String delimeter){
+		List<PayMode> payModeList=new ArrayList<PayMode>();
+
+		for (Map.Entry<String, List<String>> entry : rawData.entrySet()) {
+			System.out.println("Paymode File : " + entry.getKey() + " Record Count : " + entry.getValue().size());
+			for(String data:entry.getValue()){
+				String [] segmentList = data.split(delimeter);
+				if(segmentList.length>1){
+					PayMode payMode = new PayMode();
+					try {
+						payMode.setPaymentId(StringUtil.getStrToLong(segmentList[0].trim()));
+						payMode.setPaymentType(segmentList[1].trim());
+						payMode.setPaymentMethod(segmentList[2].trim());
+						payMode.setPayLimit(StringUtil.getDouble(segmentList[3].trim()));
+						payMode.setActiveDate(DateUtil.getSQLData(DateUtil.getSomeDate(segmentList[4].trim(), "MM/dd/yyyy")));
+						payMode.setBillDate(segmentList[5].trim());
+						payModeList.add(payMode);
+					} catch (Exception e) {
+						System.err.println("Error file: "+entry.getKey()+"\n Error Data: "+data);
+						e.printStackTrace();
+					}
+				}
+			}
+		}
+		return payModeList;
 	}
 }
