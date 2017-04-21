@@ -21,6 +21,7 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.ClientAnchor;
 import org.apache.poi.ss.usermodel.CreationHelper;
+import org.apache.poi.ss.usermodel.DataFormat;
 import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -80,41 +81,65 @@ public class ReportExcel {
 	public static void writeTabularData(Workbook workbook,HSSFSheet sheet,TableData data){
 		int rowCount=0;
 		int startRowPosition = data.getRowPosition();
+		
+		CellStyle cellStyleHeader = workbook.createCellStyle();
+		Font font = workbook.createFont();//Create font
+		font.setBoldweight(Font.BOLDWEIGHT_BOLD);//Make font bold
+		cellStyleHeader.setFont(font);//set it to bold
+		cellStyleHeader.setAlignment(CellStyle.ALIGN_CENTER);
+		cellStyleHeader.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+		cellStyleHeader.setBorderTop(HSSFCellStyle.BORDER_THIN);
+		cellStyleHeader.setBorderRight(HSSFCellStyle.BORDER_THIN);
+		cellStyleHeader.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+		
+		CellStyle cellStyleBodyDate = workbook.createCellStyle();
+		cellStyleBodyDate.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+		cellStyleBodyDate.setBorderTop(HSSFCellStyle.BORDER_THIN);
+		cellStyleBodyDate.setBorderRight(HSSFCellStyle.BORDER_THIN);
+		cellStyleBodyDate.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+		CreationHelper createHelper = workbook.getCreationHelper();
+		cellStyleBodyDate.setDataFormat(createHelper.createDataFormat().getFormat(PropertiesUtil.getProperty("excelDateFormat")));
+		
+		CellStyle cellStyleBodyNumeric = workbook.createCellStyle();
+		cellStyleBodyNumeric.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+		cellStyleBodyNumeric.setBorderTop(HSSFCellStyle.BORDER_THIN);
+		cellStyleBodyNumeric.setBorderRight(HSSFCellStyle.BORDER_THIN);
+		cellStyleBodyNumeric.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+		//DataFormat format = workbook.createDataFormat();
+		//cellStyleBodyNumeric.setDataFormat(format.getFormat(PropertiesUtil.getProperty("excelNumericFormat")));
+		cellStyleBodyNumeric.setDataFormat(workbook.createDataFormat().getFormat("0.00"));
+		
+		CellStyle cellStyleBody= workbook.createCellStyle();
+		cellStyleBody.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+		cellStyleBody.setBorderTop(HSSFCellStyle.BORDER_THIN);
+		cellStyleBody.setBorderRight(HSSFCellStyle.BORDER_THIN);
+		cellStyleBody.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+		
 		for (List<Object> aBook : data.getReportData()) {
 			Row row = sheet.createRow(startRowPosition);
 			int StartColumnPosition = data.getColumnPosition();
+			
 			for (Object field : aBook) {
 				Cell cell = row.createCell(StartColumnPosition);
-				CellStyle cellStyle = workbook.createCellStyle();
-
 				sheet.autoSizeColumn((short) (StartColumnPosition));//Set word wrap
-
-				cellStyle.setBorderBottom(HSSFCellStyle.BORDER_THIN);
-				cellStyle.setBorderTop(HSSFCellStyle.BORDER_THIN);
-				cellStyle.setBorderRight(HSSFCellStyle.BORDER_THIN);
-				cellStyle.setBorderLeft(HSSFCellStyle.BORDER_THIN);
-
 				if(rowCount==0){
-					Font font = workbook.createFont();//Create font
-					font.setBoldweight(Font.BOLDWEIGHT_BOLD);//Make font bold
-					cellStyle.setFont(font);//set it to bold
-					cellStyle.setAlignment(CellStyle.ALIGN_CENTER);
+					cell.setCellStyle(cellStyleHeader);
+				}else{
+					cell.setCellStyle(cellStyleBody);
 				}
-
 				if (field instanceof String) {
 					cell.setCellValue((String) field);
 				} else if (field instanceof Integer) {
 					cell.setCellValue((Integer) field);
 				} else if (field instanceof Double) {
 					cell.setCellValue((Double) field);
+					cell.setCellStyle(cellStyleBodyNumeric);
 				} else if (field instanceof Date) {
-					CreationHelper createHelper = workbook.getCreationHelper();
-					cellStyle.setDataFormat(createHelper.createDataFormat().getFormat(PropertiesUtil.getProperty("excelDataFormat")));
 					cell.setCellValue((Date) field);
+					cell.setCellStyle(cellStyleBodyDate);
 				}else if (field instanceof BigDecimal) {
 					cell.setCellValue(((BigDecimal) field).doubleValue());
 				}
-				cell.setCellStyle(cellStyle);//Apply style to cell
 				StartColumnPosition++;
 			}
 			startRowPosition++;
