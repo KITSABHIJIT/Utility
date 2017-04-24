@@ -14,7 +14,7 @@ import com.test.code.util.PropertiesUtil;
 public class GenerateReport {
 
 	public static void main (String ...strings) throws ParseException{
-		Date startDate=DateUtil.getSomeDate("20170101", "yyyyMMdd");
+		Date startDate=DateUtil.getSomeDate("20150601", "yyyyMMdd");
 		Date endDate=DateUtil.getSomeDate("20170131", "yyyyMMdd");
 		List<Date> dateList =DateUtil.getDatesFromDateRange(startDate, endDate, "Monthly");
 		int counter=0;
