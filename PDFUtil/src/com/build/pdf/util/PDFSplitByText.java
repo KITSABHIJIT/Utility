@@ -4,16 +4,18 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import com.lowagie.text.Document;
-import com.lowagie.text.DocumentException;
-import com.lowagie.text.pdf.BadPdfFormatException;
-import com.lowagie.text.pdf.PdfCopy;
-import com.lowagie.text.pdf.PdfImportedPage;
-import com.lowagie.text.pdf.PdfReader;
-import com.lowagie.text.pdf.parser.PdfTextExtractor;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.pdf.BadPdfFormatException;
+import com.itextpdf.text.pdf.PdfCopy;
+import com.itextpdf.text.pdf.PdfImportedPage;
+import com.itextpdf.text.pdf.PdfReader;
+import com.itextpdf.text.pdf.parser.PdfTextExtractor;
+
+
 
 public class PDFSplitByText {
-	public static final String SRC = CommonConstants.FILE_PATH+"/PODODRP_PKG000937.pdf";
+	public static final String SRC = CommonConstants.FILE_PATH+"/3329296713_22008926.pdf";
 	public static final String DEST = CommonConstants.FILE_PATH+"/splitpdfs";
 	public static final String DEST_FILE = DEST+"/%s.pdf";
 	public static final String SEARCH_INDEX="Invoice Number:";
@@ -30,7 +32,6 @@ public class PDFSplitByText {
 
 	public static void split(String filename,File source) throws IOException, BadPdfFormatException {
 		PdfReader reader = new PdfReader(filename);
-		PdfTextExtractor extractor= new PdfTextExtractor(reader);
 		int n = reader.getNumberOfPages();
 		String invoice,prevInvoice="";
 		System.out.println(n);
@@ -44,7 +45,8 @@ public class PDFSplitByText {
 			//fos.write(extractor.getTextFromPage(page).getBytes("UTF-8"));
 
 
-			String data= new String(extractor.getTextFromPage(page).getBytes("UTF-8"));
+			String data= new String(PdfTextExtractor.getTextFromPage(reader, page).getBytes("UTF-8"));
+			
 			if(data.indexOf(SEARCH_INDEX)>-1){
 				int beginIndex=data.indexOf(SEARCH_INDEX)+SEARCH_INDEX.length()+1;
 				invoice=data.substring(beginIndex, beginIndex+10).trim();
