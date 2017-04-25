@@ -6,6 +6,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -24,15 +26,20 @@ import org.apache.poi.ss.usermodel.CreationHelper;
 import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.jfree.chart.ChartColor;
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
 import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.axis.CategoryLabelPositions;
+import org.jfree.chart.labels.PieSectionLabelGenerator;
+import org.jfree.chart.labels.StandardCategoryItemLabelGenerator;
+import org.jfree.chart.labels.StandardPieSectionLabelGenerator;
+import org.jfree.chart.plot.PiePlot;
 import org.jfree.chart.plot.PiePlot3D;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.BarRenderer;
+import org.jfree.chart.renderer.category.BarRenderer3D;
 import org.jfree.chart.renderer.category.CategoryItemRenderer;
 import org.jfree.chart.title.LegendTitle;
 import org.jfree.data.category.DefaultCategoryDataset;
@@ -162,8 +169,19 @@ public class ReportExcel {
 				plot.setForegroundAlpha(data.getForeGroundAlpha());             
 				plot.setInteriorGap(data.getInteriorGap()); 
 				plot.setDepthFactor(0.07);
+				PieSectionLabelGenerator gen = new StandardPieSectionLabelGenerator(
+						"{0}: {1} ({2})", new DecimalFormat("0"), new DecimalFormat("0%"));
+				plot.setLabelGenerator(gen);
 			}else{
 				myPieChart=ChartFactory.createPieChart(data.getTitle(),my_pie_chart_data,data.isLegend(),data.isTooltips(),data.isUrls());
+				final PiePlot plot = ( PiePlot ) myPieChart.getPlot( );             
+				plot.setStartAngle(data.getStartAngle());             
+				plot.setForegroundAlpha(data.getForeGroundAlpha());             
+				plot.setInteriorGap(data.getInteriorGap()); 
+				PieSectionLabelGenerator gen = new StandardPieSectionLabelGenerator(
+						"{0}: {1} ({2})", new DecimalFormat("0"), new DecimalFormat("0%"));
+				plot.setLabelGenerator(gen);
+
 			}
 			ChartUtilities.writeChartAsPNG(chart_out,myPieChart,data.getLength(),data.getHeight());
 			int my_picture_id = workbook.addPicture(chart_out.toByteArray(), Workbook.PICTURE_TYPE_JPEG);                
@@ -181,23 +199,27 @@ public class ReportExcel {
 
 	public static void writeBarChart(Workbook workbook,HSSFSheet sheet,BarChartData data){
 		DefaultCategoryDataset bar_chart_data = data.getDataset();
-		JFreeChart BarChartObject=(data.isIs3D()?ChartFactory.createBarChart3D(data.getTitle(),data.getCategoryAxisLabel(),data.getValueAxisLabel(),bar_chart_data,PlotOrientation.VERTICAL,data.isLegend(),data.isTooltips(),data.isUrls())
-				:ChartFactory.createBarChart(data.getTitle(),data.getCategoryAxisLabel(),data.getValueAxisLabel(),bar_chart_data,PlotOrientation.VERTICAL,data.isLegend(),data.isTooltips(),data.isUrls()));  
+		JFreeChart barChartObject=(data.isIs3D())?ChartFactory.createBarChart3D(data.getTitle(),data.getCategoryAxisLabel(),data.getValueAxisLabel(),bar_chart_data,PlotOrientation.VERTICAL,data.isLegend(),data.isTooltips(),data.isUrls())
+				:ChartFactory.createBarChart(data.getTitle(),data.getCategoryAxisLabel(),data.getValueAxisLabel(),bar_chart_data,PlotOrientation.VERTICAL,data.isLegend(),data.isTooltips(),data.isUrls());  
 		try {
 			ByteArrayOutputStream chart_out = new ByteArrayOutputStream();
 
-			LegendTitle legend = BarChartObject.getLegend();
+			LegendTitle legend = barChartObject.getLegend();
 			legend.setPosition(RectangleEdge.RIGHT);
-			CategoryAxis domainAxis = BarChartObject.getCategoryPlot().getDomainAxis();  
+			CategoryAxis domainAxis = barChartObject.getCategoryPlot().getDomainAxis();  
 			if(data.isVertcalLabel()){
 				domainAxis.setCategoryLabelPositions(CategoryLabelPositions.createUpRotationLabelPositions(Math.PI/2));
 			}
-
-			final CategoryItemRenderer renderer = BarChartObject.getCategoryPlot().getRenderer();
-			final BarRenderer r = (BarRenderer) renderer;
-			r.setMaximumBarWidth(0.035);
-
-			ChartUtilities.writeChartAsPNG(chart_out,BarChartObject,data.getLength(),data.getHeight());
+			if(data.isDisplayValueOnBar()){
+				final CategoryItemRenderer renderer = barChartObject.getCategoryPlot().getRenderer();
+				BarRenderer r = (BarRenderer) renderer;
+				r.setMaximumBarWidth(0.05);
+				StandardCategoryItemLabelGenerator categoryItemLabelGenerator =new StandardCategoryItemLabelGenerator("{2}", NumberFormat.getInstance());
+				r.setBaseItemLabelGenerator(categoryItemLabelGenerator);
+				r.setBaseItemLabelsVisible(true);
+				barChartObject.getCategoryPlot().setRenderer(r);
+			}
+			ChartUtilities.writeChartAsPNG(chart_out,barChartObject,data.getLength(),data.getHeight());
 			int my_picture_id = workbook.addPicture(chart_out.toByteArray(), Workbook.PICTURE_TYPE_JPEG);                
 			chart_out.close();
 			HSSFPatriarch drawing = sheet.createDrawingPatriarch();

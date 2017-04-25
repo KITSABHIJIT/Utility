@@ -247,6 +247,7 @@ public class DataExtractor {
 							barChart.setVertcalLabel(Boolean.parseBoolean(chartConfig[10]));
 							if(chartConfig.length>11){
 								barChart.setIs3D(Boolean.parseBoolean(chartConfig[11]));
+								barChart.setDisplayValueOnBar(Boolean.parseBoolean(chartConfig[12]));
 							}
 						}
 						barChart.setDataset(getBarGraphData(chartQuery,barChart));
@@ -268,6 +269,7 @@ public class DataExtractor {
 							barChart.setVertcalLabel(Boolean.parseBoolean(chartConfig[10]));
 							if(chartConfig.length>11){
 								barChart.setIs3D(Boolean.parseBoolean(chartConfig[11]));
+								barChart.setDisplayValueOnBar(Boolean.parseBoolean(chartConfig[12]));
 							}
 						}
 						barChart.setDataset(getBarGraphPeriodData(barChart,startDate,endDate,chart));
@@ -289,6 +291,7 @@ public class DataExtractor {
 							barChart.setVertcalLabel(Boolean.parseBoolean(chartConfig[10]));
 							if(chartConfig.length>11){
 								barChart.setIs3D(Boolean.parseBoolean(chartConfig[11]));
+								barChart.setDisplayValueOnBar(Boolean.parseBoolean(chartConfig[12]));
 							}
 						}
 						barChart.setDataset(getMultiBarGraphPeriodData(barChart,startDate,endDate,chart));
