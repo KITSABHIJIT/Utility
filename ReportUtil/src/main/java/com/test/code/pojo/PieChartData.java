@@ -12,6 +12,10 @@ public class PieChartData {
 	int height;
 	int rowPosition;
 	int columnPosition;
+	boolean is3D;
+	double startAngle;
+	float foreGroundAlpha;
+	double interiorGap;
 	
 	public String getTitle() {
 		return title;
@@ -66,5 +70,29 @@ public class PieChartData {
 	}
 	public void setColumnPosition(int columnPosition) {
 		this.columnPosition = columnPosition;
+	}
+	public boolean is3D() {
+		return is3D;
+	}
+	public void setIs3D(boolean is3d) {
+		is3D = is3d;
+	}
+	public double getStartAngle() {
+		return startAngle;
+	}
+	public void setStartAngle(double startAngle) {
+		this.startAngle = startAngle;
+	}
+	public float getForeGroundAlpha() {
+		return foreGroundAlpha;
+	}
+	public void setForeGroundAlpha(float foreGroundAlpha) {
+		this.foreGroundAlpha = foreGroundAlpha;
+	}
+	public double getInteriorGap() {
+		return interiorGap;
+	}
+	public void setInteriorGap(double interiorGap) {
+		this.interiorGap = interiorGap;
 	}
 }

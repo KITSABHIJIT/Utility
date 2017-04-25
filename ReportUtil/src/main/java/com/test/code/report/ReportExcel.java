@@ -21,16 +21,19 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.ClientAnchor;
 import org.apache.poi.ss.usermodel.CreationHelper;
-import org.apache.poi.ss.usermodel.DataFormat;
 import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
 import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.axis.CategoryLabelPositions;
+import org.jfree.chart.plot.PiePlot3D;
 import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.renderer.category.BarRenderer;
+import org.jfree.chart.renderer.category.CategoryItemRenderer;
 import org.jfree.chart.title.LegendTitle;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
@@ -81,7 +84,7 @@ public class ReportExcel {
 	public static void writeTabularData(Workbook workbook,HSSFSheet sheet,TableData data){
 		int rowCount=0;
 		int startRowPosition = data.getRowPosition();
-		
+
 		CellStyle cellStyleHeader = workbook.createCellStyle();
 		Font font = workbook.createFont();//Create font
 		font.setBoldweight(Font.BOLDWEIGHT_BOLD);//Make font bold
@@ -91,7 +94,7 @@ public class ReportExcel {
 		cellStyleHeader.setBorderTop(HSSFCellStyle.BORDER_THIN);
 		cellStyleHeader.setBorderRight(HSSFCellStyle.BORDER_THIN);
 		cellStyleHeader.setBorderLeft(HSSFCellStyle.BORDER_THIN);
-		
+
 		CellStyle cellStyleBodyDate = workbook.createCellStyle();
 		cellStyleBodyDate.setBorderBottom(HSSFCellStyle.BORDER_THIN);
 		cellStyleBodyDate.setBorderTop(HSSFCellStyle.BORDER_THIN);
@@ -99,7 +102,7 @@ public class ReportExcel {
 		cellStyleBodyDate.setBorderLeft(HSSFCellStyle.BORDER_THIN);
 		CreationHelper createHelper = workbook.getCreationHelper();
 		cellStyleBodyDate.setDataFormat(createHelper.createDataFormat().getFormat(PropertiesUtil.getProperty("excelDateFormat")));
-		
+
 		CellStyle cellStyleBodyNumeric = workbook.createCellStyle();
 		cellStyleBodyNumeric.setBorderBottom(HSSFCellStyle.BORDER_THIN);
 		cellStyleBodyNumeric.setBorderTop(HSSFCellStyle.BORDER_THIN);
@@ -108,17 +111,17 @@ public class ReportExcel {
 		//DataFormat format = workbook.createDataFormat();
 		//cellStyleBodyNumeric.setDataFormat(format.getFormat(PropertiesUtil.getProperty("excelNumericFormat")));
 		cellStyleBodyNumeric.setDataFormat(workbook.createDataFormat().getFormat("0.00"));
-		
+
 		CellStyle cellStyleBody= workbook.createCellStyle();
 		cellStyleBody.setBorderBottom(HSSFCellStyle.BORDER_THIN);
 		cellStyleBody.setBorderTop(HSSFCellStyle.BORDER_THIN);
 		cellStyleBody.setBorderRight(HSSFCellStyle.BORDER_THIN);
 		cellStyleBody.setBorderLeft(HSSFCellStyle.BORDER_THIN);
-		
+
 		for (List<Object> aBook : data.getReportData()) {
 			Row row = sheet.createRow(startRowPosition);
 			int StartColumnPosition = data.getColumnPosition();
-			
+
 			for (Object field : aBook) {
 				Cell cell = row.createCell(StartColumnPosition);
 				sheet.autoSizeColumn((short) (StartColumnPosition));//Set word wrap
@@ -149,9 +152,19 @@ public class ReportExcel {
 
 	public static void writePieChart(Workbook workbook,HSSFSheet sheet,PieChartData data){
 		DefaultPieDataset my_pie_chart_data = data.getDataset();
-		JFreeChart myPieChart=ChartFactory.createPieChart(data.getTitle(),my_pie_chart_data,data.isLegend(),data.isTooltips(),data.isUrls());
+		JFreeChart myPieChart=null;
 		try {
 			ByteArrayOutputStream chart_out = new ByteArrayOutputStream();          
+			if(data.is3D()){
+				myPieChart=ChartFactory.createPieChart3D(data.getTitle(),my_pie_chart_data,data.isLegend(),data.isTooltips(),data.isUrls());
+				final PiePlot3D plot = ( PiePlot3D ) myPieChart.getPlot( );             
+				plot.setStartAngle(data.getStartAngle());             
+				plot.setForegroundAlpha(data.getForeGroundAlpha());             
+				plot.setInteriorGap(data.getInteriorGap()); 
+				plot.setDepthFactor(0.07);
+			}else{
+				myPieChart=ChartFactory.createPieChart(data.getTitle(),my_pie_chart_data,data.isLegend(),data.isTooltips(),data.isUrls());
+			}
 			ChartUtilities.writeChartAsPNG(chart_out,myPieChart,data.getLength(),data.getHeight());
 			int my_picture_id = workbook.addPicture(chart_out.toByteArray(), Workbook.PICTURE_TYPE_JPEG);                
 			chart_out.close();
@@ -168,16 +181,21 @@ public class ReportExcel {
 
 	public static void writeBarChart(Workbook workbook,HSSFSheet sheet,BarChartData data){
 		DefaultCategoryDataset bar_chart_data = data.getDataset();
-		JFreeChart BarChartObject=ChartFactory.createBarChart(data.getTitle(),data.getCategoryAxisLabel(),data.getValueAxisLabel(),bar_chart_data,PlotOrientation.VERTICAL,data.isLegend(),data.isTooltips(),data.isUrls());  
+		JFreeChart BarChartObject=(data.isIs3D()?ChartFactory.createBarChart3D(data.getTitle(),data.getCategoryAxisLabel(),data.getValueAxisLabel(),bar_chart_data,PlotOrientation.VERTICAL,data.isLegend(),data.isTooltips(),data.isUrls())
+				:ChartFactory.createBarChart(data.getTitle(),data.getCategoryAxisLabel(),data.getValueAxisLabel(),bar_chart_data,PlotOrientation.VERTICAL,data.isLegend(),data.isTooltips(),data.isUrls()));  
 		try {
 			ByteArrayOutputStream chart_out = new ByteArrayOutputStream();
 
 			LegendTitle legend = BarChartObject.getLegend();
 			legend.setPosition(RectangleEdge.RIGHT);
-			
 			CategoryAxis domainAxis = BarChartObject.getCategoryPlot().getDomainAxis();  
-			domainAxis.setCategoryLabelPositions(CategoryLabelPositions.createUpRotationLabelPositions(Math.PI/2));
+			if(data.isVertcalLabel()){
+				domainAxis.setCategoryLabelPositions(CategoryLabelPositions.createUpRotationLabelPositions(Math.PI/2));
+			}
 
+			final CategoryItemRenderer renderer = BarChartObject.getCategoryPlot().getRenderer();
+			final BarRenderer r = (BarRenderer) renderer;
+			r.setMaximumBarWidth(0.035);
 
 			ChartUtilities.writeChartAsPNG(chart_out,BarChartObject,data.getLength(),data.getHeight());
 			int my_picture_id = workbook.addPicture(chart_out.toByteArray(), Workbook.PICTURE_TYPE_JPEG);                

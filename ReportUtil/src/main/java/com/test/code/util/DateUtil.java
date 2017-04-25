@@ -134,6 +134,36 @@ public class DateUtil {
 		return dateList;
 	}
 	
+	public static Date getFirstDayOfTheMonth(Date input){
+		Calendar calendar  = Calendar.getInstance();
+		calendar .setTime(input);
+		calendar.set(Calendar.DAY_OF_MONTH, 1);
+		return calendar.getTime();
+	}
+	
+	public static Date getFirstDayOfTheYear(Date input){
+		Calendar calendar  = Calendar.getInstance();
+		calendar .setTime(input);
+		calendar.set(Calendar.DAY_OF_YEAR, 1);
+		return calendar.getTime();
+	}
+	
+	public static Date getLastDayOfTheMonth(Date input){
+		Calendar calendar  = Calendar.getInstance();
+		calendar .setTime(input);
+		calendar.add(Calendar.MONTH, 1);
+		calendar.add(Calendar.DATE, -1); 
+		return calendar.getTime();
+	}
+	
+	public static Date getLastDayOfTheYear(Date input){
+		Calendar calendar  = Calendar.getInstance();
+		calendar .setTime(input);
+		calendar.add(Calendar.YEAR, 1);
+		calendar.add(Calendar.DATE, -1); 
+		return calendar.getTime();
+	}
+	
 	public static void main(String ...strings) throws ParseException{
 		//Date localTime=DateUtil.getSomeDateWithTimZone("20151101 200912", TimeZone.getDefault(),"yyyyMMdd HHmmss");
 		//DateUtil.getSomeDateString(localTime,TimeZone.getTimeZone("GMT"),"yyyy-MM-dd HH:mm:ss");

@@ -43,9 +43,6 @@ public class PropertiesUtil {
 		
 		loadProperties();
 		String propertyValue = properties.getProperty(propertyName);
-		if (propertyValue == null) {
-			propertyValue = "NULL";
-		}
 		return propertyValue;
 	}
 	

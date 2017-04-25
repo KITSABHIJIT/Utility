@@ -15,6 +15,10 @@ public class BarChartData {
 	int height;
 	int rowPosition;
 	int columnPosition;
+	boolean vertcalLabel;
+	boolean is3D;
+	
+	
 	public String getTitle() {
 		return title;
 	}
@@ -80,6 +84,18 @@ public class BarChartData {
 	}
 	public void setColumnPosition(int columnPosition) {
 		this.columnPosition = columnPosition;
+	}
+	public boolean isVertcalLabel() {
+		return vertcalLabel;
+	}
+	public void setVertcalLabel(boolean vertcalLabel) {
+		this.vertcalLabel = vertcalLabel;
+	}
+	public boolean isIs3D() {
+		return is3D;
+	}
+	public void setIs3D(boolean is3d) {
+		is3D = is3d;
 	}
 	
 	
