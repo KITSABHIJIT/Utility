@@ -15,7 +15,7 @@ import com.itextpdf.text.pdf.parser.PdfTextExtractor;
 
 
 public class PDFSplitByText {
-	public static final String SRC = CommonConstants.FILE_PATH+"/3329296713_22008926.pdf";
+	public static final String SRC = CommonConstants.FILE_PATH+"/PODODRP_PKG000004.pdf";
 	public static final String DEST = CommonConstants.FILE_PATH+"/splitpdfs";
 	public static final String DEST_FILE = DEST+"/%s.pdf";
 	public static final String SEARCH_INDEX="Invoice Number:";
