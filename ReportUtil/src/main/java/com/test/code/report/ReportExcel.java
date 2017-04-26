@@ -1,5 +1,6 @@
 package com.test.code.report;
 
+import java.awt.BasicStroke;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -13,20 +14,15 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFClientAnchor;
 import org.apache.poi.hssf.usermodel.HSSFPatriarch;
 import org.apache.poi.hssf.usermodel.HSSFPicture;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.ClientAnchor;
-import org.apache.poi.ss.usermodel.CreationHelper;
-import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.jfree.chart.ChartColor;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
@@ -39,7 +35,6 @@ import org.jfree.chart.plot.PiePlot;
 import org.jfree.chart.plot.PiePlot3D;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.BarRenderer;
-import org.jfree.chart.renderer.category.BarRenderer3D;
 import org.jfree.chart.renderer.category.CategoryItemRenderer;
 import org.jfree.chart.renderer.category.LineAndShapeRenderer;
 import org.jfree.chart.title.LegendTitle;
@@ -52,21 +47,20 @@ import com.test.code.pojo.LineChartData;
 import com.test.code.pojo.PieChartData;
 import com.test.code.pojo.ReportData;
 import com.test.code.pojo.TableData;
-import com.test.code.util.PropertiesUtil;
 import com.test.code.util.StringUtil;
 
 public class ReportExcel {
 
 	public static void writeExcel(Map<String,ReportData> data, String excelFilePath){
 		HSSFWorkbook workbook = new HSSFWorkbook();
-
+		CellStyleUtil cellStyleUtil=new CellStyleUtil(workbook);
 		Set<Entry<String, ReportData>> mapData=data.entrySet();
 		for(Entry<String, ReportData> dataSet:mapData){
 			HSSFSheet sheet = (HSSFSheet) workbook.createSheet(dataSet.getKey());
 
 			if(!StringUtil.isBlankOrEmpty(dataSet.getValue().getTableData())){
 				for(TableData tableData : dataSet.getValue().getTableData()){
-					writeTabularData(workbook,sheet,tableData);
+					writeTabularData(workbook,cellStyleUtil,sheet,tableData);
 				}
 			}
 			if(!StringUtil.isBlankOrEmpty(dataSet.getValue().getPieData())){
@@ -95,54 +89,20 @@ public class ReportExcel {
 		System.out.println("File generated: "+excelFilePath);
 	}
 
-	public static void writeTabularData(Workbook workbook,HSSFSheet sheet,TableData data){
+	public static void writeTabularData(Workbook workbook,CellStyleUtil cellStyleUtil,HSSFSheet sheet,TableData data){
 		int rowCount=0;
 		int startRowPosition = data.getRowPosition();
-
-		CellStyle cellStyleHeader = workbook.createCellStyle();
-		Font font = workbook.createFont();//Create font
-		font.setBoldweight(Font.BOLDWEIGHT_BOLD);//Make font bold
-		cellStyleHeader.setFont(font);//set it to bold
-		cellStyleHeader.setAlignment(CellStyle.ALIGN_CENTER);
-		cellStyleHeader.setBorderBottom(HSSFCellStyle.BORDER_THIN);
-		cellStyleHeader.setBorderTop(HSSFCellStyle.BORDER_THIN);
-		cellStyleHeader.setBorderRight(HSSFCellStyle.BORDER_THIN);
-		cellStyleHeader.setBorderLeft(HSSFCellStyle.BORDER_THIN);
-
-		CellStyle cellStyleBodyDate = workbook.createCellStyle();
-		cellStyleBodyDate.setBorderBottom(HSSFCellStyle.BORDER_THIN);
-		cellStyleBodyDate.setBorderTop(HSSFCellStyle.BORDER_THIN);
-		cellStyleBodyDate.setBorderRight(HSSFCellStyle.BORDER_THIN);
-		cellStyleBodyDate.setBorderLeft(HSSFCellStyle.BORDER_THIN);
-		CreationHelper createHelper = workbook.getCreationHelper();
-		cellStyleBodyDate.setDataFormat(createHelper.createDataFormat().getFormat(PropertiesUtil.getProperty("excelDateFormat")));
-
-		CellStyle cellStyleBodyNumeric = workbook.createCellStyle();
-		cellStyleBodyNumeric.setBorderBottom(HSSFCellStyle.BORDER_THIN);
-		cellStyleBodyNumeric.setBorderTop(HSSFCellStyle.BORDER_THIN);
-		cellStyleBodyNumeric.setBorderRight(HSSFCellStyle.BORDER_THIN);
-		cellStyleBodyNumeric.setBorderLeft(HSSFCellStyle.BORDER_THIN);
-		//DataFormat format = workbook.createDataFormat();
-		//cellStyleBodyNumeric.setDataFormat(format.getFormat(PropertiesUtil.getProperty("excelNumericFormat")));
-		cellStyleBodyNumeric.setDataFormat(workbook.createDataFormat().getFormat("0.00"));
-
-		CellStyle cellStyleBody= workbook.createCellStyle();
-		cellStyleBody.setBorderBottom(HSSFCellStyle.BORDER_THIN);
-		cellStyleBody.setBorderTop(HSSFCellStyle.BORDER_THIN);
-		cellStyleBody.setBorderRight(HSSFCellStyle.BORDER_THIN);
-		cellStyleBody.setBorderLeft(HSSFCellStyle.BORDER_THIN);
 
 		for (List<Object> aBook : data.getReportData()) {
 			Row row = sheet.createRow(startRowPosition);
 			int StartColumnPosition = data.getColumnPosition();
-
 			for (Object field : aBook) {
 				Cell cell = row.createCell(StartColumnPosition);
 				sheet.autoSizeColumn((short) (StartColumnPosition));//Set word wrap
 				if(rowCount==0){
-					cell.setCellStyle(cellStyleHeader);
+					cell.setCellStyle(cellStyleUtil.getHeaderCellStyle());
 				}else{
-					cell.setCellStyle(cellStyleBody);
+					cell.setCellStyle(cellStyleUtil.getBodyCellStyle());
 				}
 				if (field instanceof String) {
 					cell.setCellValue((String) field);
@@ -150,10 +110,10 @@ public class ReportExcel {
 					cell.setCellValue((Integer) field);
 				} else if (field instanceof Double) {
 					cell.setCellValue((Double) field);
-					cell.setCellStyle(cellStyleBodyNumeric);
+					cell.setCellStyle(cellStyleUtil.getBodyNumericCellStyle());
 				} else if (field instanceof Date) {
 					cell.setCellValue((Date) field);
-					cell.setCellStyle(cellStyleBodyDate);
+					cell.setCellStyle(cellStyleUtil.getBodyDateCellStyle());
 				}else if (field instanceof BigDecimal) {
 					cell.setCellValue(((BigDecimal) field).doubleValue());
 				}
@@ -167,8 +127,7 @@ public class ReportExcel {
 	public static void writePieChart(Workbook workbook,HSSFSheet sheet,PieChartData data){
 		DefaultPieDataset my_pie_chart_data = data.getDataset();
 		JFreeChart myPieChart=null;
-		try {
-			ByteArrayOutputStream chart_out = new ByteArrayOutputStream();          
+		try(ByteArrayOutputStream chart_out = new ByteArrayOutputStream();) {
 			if(data.is3D()){
 				myPieChart=ChartFactory.createPieChart3D(data.getTitle(),my_pie_chart_data,data.isLegend(),data.isTooltips(),data.isUrls());
 				final PiePlot3D plot = ( PiePlot3D ) myPieChart.getPlot( );             
@@ -177,7 +136,7 @@ public class ReportExcel {
 				plot.setInteriorGap(data.getInteriorGap()); 
 				plot.setDepthFactor(0.07);
 				PieSectionLabelGenerator gen = new StandardPieSectionLabelGenerator(
-						"{0}: {1} ({2})", new DecimalFormat("0"), new DecimalFormat("0%"));
+						"{0}: ${1} ({2})", new DecimalFormat("0"), new DecimalFormat("0%"));
 				plot.setLabelGenerator(gen);
 			}else{
 				myPieChart=ChartFactory.createPieChart(data.getTitle(),my_pie_chart_data,data.isLegend(),data.isTooltips(),data.isUrls());
@@ -186,13 +145,12 @@ public class ReportExcel {
 				plot.setForegroundAlpha(data.getForeGroundAlpha());             
 				plot.setInteriorGap(data.getInteriorGap()); 
 				PieSectionLabelGenerator gen = new StandardPieSectionLabelGenerator(
-						"{0}: {1} ({2})", new DecimalFormat("0"), new DecimalFormat("0%"));
+						"{0}: ${1} ({2})", new DecimalFormat("0"), new DecimalFormat("0%"));
 				plot.setLabelGenerator(gen);
 
 			}
 			ChartUtilities.writeChartAsPNG(chart_out,myPieChart,data.getLength(),data.getHeight());
 			int my_picture_id = workbook.addPicture(chart_out.toByteArray(), Workbook.PICTURE_TYPE_JPEG);                
-			chart_out.close();
 			HSSFPatriarch drawing = sheet.createDrawingPatriarch();
 			ClientAnchor my_anchor = new HSSFClientAnchor();
 			my_anchor.setCol1(data.getColumnPosition());
@@ -208,8 +166,8 @@ public class ReportExcel {
 		DefaultCategoryDataset bar_chart_data = data.getDataset();
 		JFreeChart barChartObject=(data.isIs3D())?ChartFactory.createBarChart3D(data.getTitle(),data.getCategoryAxisLabel(),data.getValueAxisLabel(),bar_chart_data,PlotOrientation.VERTICAL,data.isLegend(),data.isTooltips(),data.isUrls())
 				:ChartFactory.createBarChart(data.getTitle(),data.getCategoryAxisLabel(),data.getValueAxisLabel(),bar_chart_data,PlotOrientation.VERTICAL,data.isLegend(),data.isTooltips(),data.isUrls());  
-		try {
-			ByteArrayOutputStream chart_out = new ByteArrayOutputStream();
+		try (
+			ByteArrayOutputStream chart_out = new ByteArrayOutputStream();){
 
 			LegendTitle legend = barChartObject.getLegend();
 			legend.setPosition(RectangleEdge.RIGHT);
@@ -221,14 +179,13 @@ public class ReportExcel {
 				final CategoryItemRenderer renderer = barChartObject.getCategoryPlot().getRenderer();
 				BarRenderer r = (BarRenderer) renderer;
 				r.setMaximumBarWidth(0.05);
-				StandardCategoryItemLabelGenerator categoryItemLabelGenerator =new StandardCategoryItemLabelGenerator("{2}", NumberFormat.getInstance());
+				StandardCategoryItemLabelGenerator categoryItemLabelGenerator =new StandardCategoryItemLabelGenerator("${2}", NumberFormat.getInstance());
 				r.setBaseItemLabelGenerator(categoryItemLabelGenerator);
 				r.setBaseItemLabelsVisible(true);
 				barChartObject.getCategoryPlot().setRenderer(r);
 			}
 			ChartUtilities.writeChartAsPNG(chart_out,barChartObject,data.getLength(),data.getHeight());
 			int my_picture_id = workbook.addPicture(chart_out.toByteArray(), Workbook.PICTURE_TYPE_JPEG);                
-			chart_out.close();
 			HSSFPatriarch drawing = sheet.createDrawingPatriarch();
 			ClientAnchor my_anchor = new HSSFClientAnchor();
 			my_anchor.setCol1(data.getColumnPosition());
@@ -243,8 +200,8 @@ public class ReportExcel {
 	public static void writeLineChart(Workbook workbook,HSSFSheet sheet,LineChartData data){
 		DefaultCategoryDataset bar_chart_data = data.getDataset();
 		JFreeChart lineChartObject=ChartFactory.createLineChart(data.getTitle(),data.getCategoryAxisLabel(),data.getValueAxisLabel(),bar_chart_data,PlotOrientation.VERTICAL,data.isLegend(),data.isTooltips(),data.isUrls());  
-		try {
-			ByteArrayOutputStream chart_out = new ByteArrayOutputStream();
+		try (
+				ByteArrayOutputStream chart_out = new ByteArrayOutputStream();){
 
 			LegendTitle legend = lineChartObject.getLegend();
 			legend.setPosition(RectangleEdge.RIGHT);
@@ -255,14 +212,14 @@ public class ReportExcel {
 			if(data.isDisplayValueOnBar()){
 				final CategoryItemRenderer renderer = lineChartObject.getCategoryPlot().getRenderer();
 				LineAndShapeRenderer  r = (LineAndShapeRenderer ) renderer;
-				StandardCategoryItemLabelGenerator categoryItemLabelGenerator =new StandardCategoryItemLabelGenerator("{2}", NumberFormat.getInstance());
+				StandardCategoryItemLabelGenerator categoryItemLabelGenerator =new StandardCategoryItemLabelGenerator("${2}", NumberFormat.getInstance());
 				r.setBaseItemLabelGenerator(categoryItemLabelGenerator);
 				r.setBaseItemLabelsVisible(true);
+				r.setSeriesStroke(0, new BasicStroke(4));
 				lineChartObject.getCategoryPlot().setRenderer(r);
 			}
 			ChartUtilities.writeChartAsPNG(chart_out,lineChartObject,data.getLength(),data.getHeight());
 			int my_picture_id = workbook.addPicture(chart_out.toByteArray(), Workbook.PICTURE_TYPE_JPEG);                
-			chart_out.close();
 			HSSFPatriarch drawing = sheet.createDrawingPatriarch();
 			ClientAnchor my_anchor = new HSSFClientAnchor();
 			my_anchor.setCol1(data.getColumnPosition());
