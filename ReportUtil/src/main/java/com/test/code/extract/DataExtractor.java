@@ -15,6 +15,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 
 import com.test.code.pojo.BarChartData;
+import com.test.code.pojo.LineChartData;
 import com.test.code.pojo.PieChartData;
 import com.test.code.pojo.ReportData;
 import com.test.code.pojo.TableData;
@@ -80,6 +81,23 @@ public class DataExtractor {
 			while (rs.next()) {
 				if(rs.getDouble(2)>0){
 					data.setValue(rs.getDouble(2),barChart.getValueAxisLabel(),rs.getString(1));
+				}
+			}
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		return data;
+	}
+	
+	public static DefaultCategoryDataset getLineGraphData(String query,LineChartData lineChart){
+		DefaultCategoryDataset data = new DefaultCategoryDataset();
+		try (Connection connection = ConnectionUtil.getConnection();
+				PreparedStatement statement = connection.prepareStatement(query);
+				) {
+			ResultSet rs = statement.executeQuery();
+			while (rs.next()) {
+				if(rs.getDouble(2)>0){
+					data.setValue(rs.getDouble(2),lineChart.getValueAxisLabel(),rs.getString(1));
 				}
 			}
 		}catch(SQLException e){
@@ -187,6 +205,7 @@ public class DataExtractor {
 			List<TableData> tableData=new ArrayList<TableData>();
 			List<PieChartData> pieChartData=new ArrayList<PieChartData>();
 			List<BarChartData> barChartData=new ArrayList<BarChartData>();
+			List<LineChartData> lineChartData=new ArrayList<LineChartData>();
 			String[] figureList =sheet.split(PropertiesUtil.getProperty("figureDelimeter"));
 			if(figureList.length>0){
 				String[] tableList =figureList[0].split(PropertiesUtil.getProperty("commaDelimeter"));
@@ -296,12 +315,35 @@ public class DataExtractor {
 						}
 						barChart.setDataset(getMultiBarGraphPeriodData(barChart,startDate,endDate,chart));
 						barChartData.add(barChart);
+					}else if(chart.startsWith("LINE")){
+						LineChartData lineChart =new LineChartData();
+						String chartQuery=updateQueryWithDates(PropertiesUtil.getProperty(chart),startDate,endDate);
+						String [] chartConfig=PropertiesUtil.getProperty("CONFIG_"+chart).split(PropertiesUtil.getProperty("delimeter"));
+						if(chartConfig.length>0){
+							lineChart.setTitle(chartConfig[0]);
+							lineChart.setCategoryAxisLabel(chartConfig[1]);
+							lineChart.setValueAxisLabel(chartConfig[2]);
+							lineChart.setLegend(Boolean.parseBoolean(chartConfig[3]));
+							lineChart.setTooltips(Boolean.parseBoolean(chartConfig[4]));
+							lineChart.setUrls(Boolean.parseBoolean(chartConfig[5]));
+							lineChart.setLength(Integer.parseInt(chartConfig[6]));
+							lineChart.setHeight(Integer.parseInt(chartConfig[7]));
+							lineChart.setRowPosition(Integer.parseInt(chartConfig[8]));
+							lineChart.setColumnPosition(Integer.parseInt(chartConfig[9]));
+							lineChart.setVertcalLabel(Boolean.parseBoolean(chartConfig[10]));
+							if(chartConfig.length>11){
+								lineChart.setDisplayValueOnBar(Boolean.parseBoolean(chartConfig[11]));
+							}
+						}
+						lineChart.setDataset(getLineGraphData(chartQuery,lineChart));
+						lineChartData.add(lineChart);
 					}
 				}
 			}
 			reportData.setTableData(tableData);
 			reportData.setPieData(pieChartData);
 			reportData.setBarData(barChartData);
+			reportData.setLineData(lineChartData);
 			data.put(sheetname.replaceAll("_", " "), reportData);
 		}
 		return data;

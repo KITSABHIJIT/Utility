@@ -41,12 +41,14 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.chart.renderer.category.BarRenderer3D;
 import org.jfree.chart.renderer.category.CategoryItemRenderer;
+import org.jfree.chart.renderer.category.LineAndShapeRenderer;
 import org.jfree.chart.title.LegendTitle;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.ui.RectangleEdge;
 
 import com.test.code.pojo.BarChartData;
+import com.test.code.pojo.LineChartData;
 import com.test.code.pojo.PieChartData;
 import com.test.code.pojo.ReportData;
 import com.test.code.pojo.TableData;
@@ -75,6 +77,11 @@ public class ReportExcel {
 			if(!StringUtil.isBlankOrEmpty(dataSet.getValue().getBarData())){
 				for(BarChartData barData : dataSet.getValue().getBarData()){
 					writeBarChart(workbook, sheet, barData);
+				}
+			}
+			if(!StringUtil.isBlankOrEmpty(dataSet.getValue().getLineData())){
+				for(LineChartData barData : dataSet.getValue().getLineData()){
+					writeLineChart(workbook, sheet, barData);
 				}
 			}
 		}
@@ -220,6 +227,40 @@ public class ReportExcel {
 				barChartObject.getCategoryPlot().setRenderer(r);
 			}
 			ChartUtilities.writeChartAsPNG(chart_out,barChartObject,data.getLength(),data.getHeight());
+			int my_picture_id = workbook.addPicture(chart_out.toByteArray(), Workbook.PICTURE_TYPE_JPEG);                
+			chart_out.close();
+			HSSFPatriarch drawing = sheet.createDrawingPatriarch();
+			ClientAnchor my_anchor = new HSSFClientAnchor();
+			my_anchor.setCol1(data.getColumnPosition());
+			my_anchor.setRow1(data.getRowPosition());
+			HSSFPicture  my_picture = drawing.createPicture(my_anchor, my_picture_id);
+			my_picture.resize();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void writeLineChart(Workbook workbook,HSSFSheet sheet,LineChartData data){
+		DefaultCategoryDataset bar_chart_data = data.getDataset();
+		JFreeChart lineChartObject=ChartFactory.createLineChart(data.getTitle(),data.getCategoryAxisLabel(),data.getValueAxisLabel(),bar_chart_data,PlotOrientation.VERTICAL,data.isLegend(),data.isTooltips(),data.isUrls());  
+		try {
+			ByteArrayOutputStream chart_out = new ByteArrayOutputStream();
+
+			LegendTitle legend = lineChartObject.getLegend();
+			legend.setPosition(RectangleEdge.RIGHT);
+			CategoryAxis domainAxis = lineChartObject.getCategoryPlot().getDomainAxis();  
+			if(data.isVertcalLabel()){
+				domainAxis.setCategoryLabelPositions(CategoryLabelPositions.createUpRotationLabelPositions(Math.PI/2));
+			}
+			if(data.isDisplayValueOnBar()){
+				final CategoryItemRenderer renderer = lineChartObject.getCategoryPlot().getRenderer();
+				LineAndShapeRenderer  r = (LineAndShapeRenderer ) renderer;
+				StandardCategoryItemLabelGenerator categoryItemLabelGenerator =new StandardCategoryItemLabelGenerator("{2}", NumberFormat.getInstance());
+				r.setBaseItemLabelGenerator(categoryItemLabelGenerator);
+				r.setBaseItemLabelsVisible(true);
+				lineChartObject.getCategoryPlot().setRenderer(r);
+			}
+			ChartUtilities.writeChartAsPNG(chart_out,lineChartObject,data.getLength(),data.getHeight());
 			int my_picture_id = workbook.addPicture(chart_out.toByteArray(), Workbook.PICTURE_TYPE_JPEG);                
 			chart_out.close();
 			HSSFPatriarch drawing = sheet.createDrawingPatriarch();

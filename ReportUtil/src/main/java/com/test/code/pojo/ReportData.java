@@ -6,6 +6,7 @@ public class ReportData {
 	public List<TableData> tableData;
 	public List<PieChartData> pieData;
 	public List<BarChartData> barData;
+	public List<LineChartData> lineData;
 	public List<TableData> getTableData() {
 		return tableData;
 	}
@@ -23,5 +24,11 @@ public class ReportData {
 	}
 	public void setBarData(List<BarChartData> barData) {
 		this.barData = barData;
+	}
+	public List<LineChartData> getLineData() {
+		return lineData;
+	}
+	public void setLineData(List<LineChartData> lineData) {
+		this.lineData = lineData;
 	}
 }
