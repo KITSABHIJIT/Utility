@@ -29,14 +29,13 @@ public class GenerateReport {
 				StringBuilder exportFilename =new StringBuilder(PropertiesUtil.getProperty("excelPath"));
 				exportFilename.append(DateUtil.getDateToString(dateList.get(i), "yyyy-MMM"))
 				.append(PropertiesUtil.getProperty("excelFileExtn"));
-				//System.out.println(exportFilename.toString());
 				// Generate Report
 				ReportExcel.writeExcel(data,exportFilename.toString());
 			}
 			counter++;
 		}	
 		long endTime=new  Date().getTime();
-		logger.info("Process started...");
+		logger.info("Process ended...");
 		logger.info("Total time taken: "+DateUtil.getHrMinSec(endTime-startTime));
 	}
 }
