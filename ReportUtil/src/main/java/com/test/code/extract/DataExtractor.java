@@ -11,6 +11,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 
@@ -19,13 +20,14 @@ import com.test.code.pojo.LineChartData;
 import com.test.code.pojo.PieChartData;
 import com.test.code.pojo.ReportData;
 import com.test.code.pojo.TableData;
+import com.test.code.report.ReportExcel;
 import com.test.code.util.ConnectionUtil;
 import com.test.code.util.DateUtil;
 import com.test.code.util.PropertiesUtil;
 import com.test.code.util.StringUtil;
 
 public class DataExtractor {
-
+	final static Logger logger = Logger.getLogger(ReportExcel.class);
 	public static List<List<Object>> getData(String query){
 		int recordCount=0;
 		List<List<Object>> data = new ArrayList<List<Object>>();
@@ -48,7 +50,7 @@ public class DataExtractor {
 				data.add(rowData);
 				recordCount++;
 			}
-			System.out.println("Total number of records fetched: "+recordCount);
+			logger.debug("Total number of Tabular records fetched: "+recordCount);
 		}catch(SQLException e){
 			e.printStackTrace();
 		}
@@ -57,6 +59,7 @@ public class DataExtractor {
 
 	public static DefaultPieDataset getPeiGraphData(String query){
 		DefaultPieDataset data = new DefaultPieDataset();
+		int recordCount=0;
 		try (Connection connection = ConnectionUtil.getConnection();
 				PreparedStatement statement = connection.prepareStatement(query);
 				) {
@@ -65,15 +68,18 @@ public class DataExtractor {
 				if(rs.getDouble(2)>0){
 					data.setValue(rs.getString(1),rs.getDouble(2));
 				}
+				recordCount++;
 			}
 		}catch(SQLException e){
 			e.printStackTrace();
 		}
+		logger.debug("Total number of Pie records fetched: "+recordCount);
 		return data;
 	}
 
 	public static DefaultCategoryDataset getBarGraphData(String query,BarChartData barChart){
 		DefaultCategoryDataset data = new DefaultCategoryDataset();
+		int recordCount=0;
 		try (Connection connection = ConnectionUtil.getConnection();
 				PreparedStatement statement = connection.prepareStatement(query);
 				) {
@@ -82,15 +88,18 @@ public class DataExtractor {
 				if(rs.getDouble(2)>0){
 					data.setValue(rs.getDouble(2),barChart.getValueAxisLabel(),rs.getString(1));
 				}
+				recordCount++;
 			}
 		}catch(SQLException e){
 			e.printStackTrace();
 		}
+		logger.debug("Total number of Bar records fetched: "+recordCount);
 		return data;
 	}
 	
 	public static DefaultCategoryDataset getLineGraphData(String query,LineChartData lineChart){
 		DefaultCategoryDataset data = new DefaultCategoryDataset();
+		int recordCount=0;
 		try (Connection connection = ConnectionUtil.getConnection();
 				PreparedStatement statement = connection.prepareStatement(query);
 				) {
@@ -99,10 +108,12 @@ public class DataExtractor {
 				if(rs.getDouble(2)>0){
 					data.setValue(rs.getDouble(2),lineChart.getValueAxisLabel(),rs.getString(1));
 				}
+				recordCount++;
 			}
 		}catch(SQLException e){
 			e.printStackTrace();
 		}
+		logger.debug("Total number of Bar records fetched: "+recordCount);
 		return data;
 	}
 	

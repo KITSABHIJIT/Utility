@@ -14,6 +14,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFClientAnchor;
 import org.apache.poi.hssf.usermodel.HSSFPatriarch;
 import org.apache.poi.hssf.usermodel.HSSFPicture;
@@ -50,7 +51,7 @@ import com.test.code.pojo.TableData;
 import com.test.code.util.StringUtil;
 
 public class ReportExcel {
-
+	final static Logger logger = Logger.getLogger(ReportExcel.class);
 	public static void writeExcel(Map<String,ReportData> data, String excelFilePath){
 		HSSFWorkbook workbook = new HSSFWorkbook();
 		CellStyleUtil cellStyleUtil=new CellStyleUtil(workbook);
@@ -61,23 +62,28 @@ public class ReportExcel {
 			if(!StringUtil.isBlankOrEmpty(dataSet.getValue().getTableData())){
 				for(TableData tableData : dataSet.getValue().getTableData()){
 					writeTabularData(workbook,cellStyleUtil,sheet,tableData);
+					logger.debug(dataSet.getKey()+" table added to sheet");
 				}
 			}
 			if(!StringUtil.isBlankOrEmpty(dataSet.getValue().getPieData())){
 				for(PieChartData pieData : dataSet.getValue().getPieData()){
 					writePieChart(workbook, sheet, pieData);
+					logger.debug(pieData.getTitle()+" Pie chart added to sheet: "+dataSet.getKey());
 				}
 			}
 			if(!StringUtil.isBlankOrEmpty(dataSet.getValue().getBarData())){
 				for(BarChartData barData : dataSet.getValue().getBarData()){
 					writeBarChart(workbook, sheet, barData);
+					logger.debug(barData.getTitle()+" Pie chart added to sheet: "+dataSet.getKey());
 				}
 			}
 			if(!StringUtil.isBlankOrEmpty(dataSet.getValue().getLineData())){
-				for(LineChartData barData : dataSet.getValue().getLineData()){
-					writeLineChart(workbook, sheet, barData);
+				for(LineChartData lineData : dataSet.getValue().getLineData()){
+					writeLineChart(workbook, sheet, lineData);
+					logger.debug(lineData.getTitle()+" Pie chart added to sheet: "+dataSet.getKey());
 				}
 			}
+			logger.debug("Sheet: "+dataSet.getKey()+" added to Excel.");
 		}
 		try (FileOutputStream outputStream = new FileOutputStream(excelFilePath)) {
 			workbook.write(outputStream);
@@ -86,7 +92,7 @@ public class ReportExcel {
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-		System.out.println("File generated: "+excelFilePath);
+		logger.debug("File generated: "+excelFilePath);
 	}
 
 	public static void writeTabularData(Workbook workbook,CellStyleUtil cellStyleUtil,HSSFSheet sheet,TableData data){

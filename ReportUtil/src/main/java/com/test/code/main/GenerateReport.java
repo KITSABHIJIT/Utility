@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import com.test.code.extract.DataExtractor;
 import com.test.code.pojo.ReportData;
 import com.test.code.report.ReportExcel;
@@ -12,12 +14,14 @@ import com.test.code.util.DateUtil;
 import com.test.code.util.PropertiesUtil;
 
 public class GenerateReport {
-
+	final static Logger logger = Logger.getLogger(GenerateReport.class);
 	public static void main (String ...strings) throws ParseException{
+		long startTime=new  Date().getTime();
 		Date startDate=DateUtil.getSomeDate("20150601", "yyyyMMdd");
 		Date endDate=DateUtil.getSomeDate("20170431", "yyyyMMdd");
 		List<Date> dateList =DateUtil.getDatesFromDateRange(startDate, endDate, "Monthly");
 		int counter=0;
+		logger.info("Process started...");
 		for(int i=1;i<dateList.size();i++){
 			if(counter%2==0){
 			// Extract Data
@@ -31,5 +35,8 @@ public class GenerateReport {
 			}
 			counter++;
 		}	
+		long endTime=new  Date().getTime();
+		logger.info("Process started...");
+		logger.info("Total time taken: "+DateUtil.getHrMinSec(endTime-startTime));
 	}
 }
