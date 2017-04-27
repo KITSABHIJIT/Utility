@@ -1,4 +1,4 @@
-package com.test.code.report;
+package com.test.code.util;
 
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -6,16 +6,14 @@ import org.apache.poi.ss.usermodel.CreationHelper;
 import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.Workbook;
 
-import com.test.code.util.PropertiesUtil;
-
-public class CellStyleUtil {
+public class ExcelCellStyleUtil {
 	
 	public CellStyle headerCellStyle;
 	public CellStyle bodyCellStyle;
 	public CellStyle bodyNumericCellStyle;
 	public CellStyle bodyDateCellStyle;
 	
-	public CellStyleUtil(Workbook workbook){
+	public ExcelCellStyleUtil(Workbook workbook){
 
 		Font fontHeader = workbook.createFont();//Create font
 		fontHeader.setFontName("Calibri");

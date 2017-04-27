@@ -1,5 +1,6 @@
 package com.test.code.extract;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,8 +13,11 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.apache.xmlbeans.impl.jam.JSourcePosition;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 import com.test.code.pojo.BarChartData;
 import com.test.code.pojo.LineChartData;
@@ -96,6 +100,7 @@ public class DataExtractor {
 		logger.debug("Total number of Bar records fetched: "+recordCount);
 		return data;
 	}
+	
 	
 	public static DefaultCategoryDataset getLineGraphData(String query,LineChartData lineChart){
 		DefaultCategoryDataset data = new DefaultCategoryDataset();
@@ -360,6 +365,43 @@ public class DataExtractor {
 		return data;
 	}
 
-	
+	public static void main(String ...strings){
+		System.out.println(getJsonData(PropertiesUtil.getProperty("JSON")));
+	}
 
+	@SuppressWarnings("unchecked")
+	public static JSONArray getJsonData(String query){
+		int recordCount=0;
+		JSONArray data = new JSONArray();
+		try (Connection connection = ConnectionUtil.getConnection();
+				PreparedStatement statement = connection.prepareStatement(query);
+				) {
+			ResultSet rs = statement.executeQuery();
+			ResultSetMetaData rsmd = rs.getMetaData();
+			int columnCount = rsmd.getColumnCount();
+			while (rs.next()) {
+				JSONObject rowData = new JSONObject();
+				for (int i = 1; i <= columnCount; i++ ) {
+					if (rs.getObject(i) instanceof String) {
+						rowData.put(rsmd.getColumnName(i), rs.getString(i));
+					} else if (rs.getObject(i) instanceof Integer) {
+						rowData.put(rsmd.getColumnName(i), rs.getInt(i));
+					} else if (rs.getObject(i) instanceof Double) {
+						rowData.put(rsmd.getColumnName(i), rs.getDouble(i));
+					} else if (rs.getObject(i) instanceof Date) {
+						rowData.put(rsmd.getColumnName(i), rs.getString(i));
+					}else if (rs.getObject(i) instanceof BigDecimal) {
+						rowData.put(rsmd.getColumnName(i), rs.getBigDecimal(i));
+					}
+				}
+				data.add(rowData);
+				recordCount++;
+			}
+			logger.debug("Total number of Tabular records fetched: "+recordCount);
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		return data;
+	}
+	
 }

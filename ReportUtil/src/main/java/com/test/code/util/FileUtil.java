@@ -87,4 +87,31 @@ public class FileUtil {
 		}
 		return list;
 	}
+	
+	public static String getStringFromFile(String fileName){
+		StringBuffer buffer=new StringBuffer();
+		BufferedReader br = null;
+		FileReader fr = null;
+		try {
+			fr = new FileReader(fileName);
+			br = new BufferedReader(fr);
+			String sCurrentLine;
+			br = new BufferedReader(new FileReader(fileName));
+			while ((sCurrentLine = br.readLine()) != null) {
+				buffer.append(sCurrentLine);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (br != null)
+					br.close();
+				if (fr != null)
+					fr.close();
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
+		}
+		return buffer.toString();
+	}
 }

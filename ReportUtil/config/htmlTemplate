@@ -1,0 +1,217 @@
+<!-- Styles -->
+<style>
+#chartdiv {
+  width: 100%;
+  height: 100%;
+}						
+
+#chartdiv1 {
+	width	: 100%;
+	height	: 100%;
+}				
+
+#chartdiv2 {
+  width: 100%;
+  height: 100%;
+}		
+
+#chartdiv3 {
+  width: 100%;
+  height: 100%;
+}
+</style>
+
+<!-- Resources -->
+<script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+<script src="https://www.amcharts.com/lib/3/pie.js"></script>
+<script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+<link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+<script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+<script src="https://www.amcharts.com/lib/3/serial.js"></script>
+
+<!-- Chart code -->
+<script>
+
+var chart = AmCharts.makeChart( "chartdiv", {
+  "type": "pie",
+  "theme": "light",
+  "titles": [ {
+    "text": "Expense by Pay Mode",
+    "size": 16
+  } ],
+    "legend":{
+   	"position":"right",
+    "marginRight":100,
+    "autoMargins":false
+  },
+  "dataProvider": <PIE_DATA>,
+  "valueField": "Amount",
+  "titleField": "Pay Mode",
+  "outlineAlpha": 0.4,
+  "depth3D": 15,
+  "balloonText": "[[title]]<br><span style='font-size:14px'><b>[[value]]</b> ([[percents]]%)</span>",
+  "angle": 30,
+  "export": {
+    "enabled": true
+  }
+} );
+
+var chartStock = AmCharts.makeChart("chartdiv1", {
+    "type": "serial",
+    "theme": "light",
+    "titles": [ {
+    "text": "Expense by Date",
+    "size": 16
+  } ],
+    "marginRight": 40,
+    "marginLeft": 40,
+    "autoMarginOffset": 20,
+    "mouseWheelZoomEnabled":true,
+    "dataDateFormat": "YYYY-MM-DD",
+    "valueAxes": [{
+        "id": "v1",
+        "axisAlpha": 0,
+        "position": "left",
+        "ignoreAxisWidth":true
+    }],
+    "balloon": {
+        "borderThickness": 1,
+        "shadowAlpha": 0
+    },
+    "graphs": [{
+        "id": "g1",
+        "balloon":{
+          "drop":true,
+          "adjustBorderColor":false,
+          "color":"#ffffff"
+        },
+        "bullet": "round",
+        "bulletBorderAlpha": 1,
+        "bulletColor": "#FFFFFF",
+        "bulletSize": 5,
+        "hideBulletsCount": 50,
+        "lineThickness": 2,
+        "title": "red line",
+        "useLineColorForBulletBorder": true,
+        "valueField": "value",
+        "balloonText": "<span style='font-size:18px;'>[[value]]</span>"
+    }],
+    "chartScrollbar": {
+        "graph": "g1",
+        "oppositeAxis":false,
+        "offset":30,
+        "scrollbarHeight": 80,
+        "backgroundAlpha": 0,
+        "selectedBackgroundAlpha": 0.1,
+        "selectedBackgroundColor": "#888888",
+        "graphFillAlpha": 0,
+        "graphLineAlpha": 0.5,
+        "selectedGraphFillAlpha": 0,
+        "selectedGraphLineAlpha": 1,
+        "autoGridCount":true,
+        "color":"#AAAAAA"
+    },
+    "chartCursor": {
+        "pan": true,
+        "valueLineEnabled": true,
+        "valueLineBalloonEnabled": true,
+        "cursorAlpha":1,
+        "cursorColor":"#258cbb",
+        "limitToGraph":"g1",
+        "valueLineAlpha":0.2,
+        "valueZoomable":true
+    },
+    "valueScrollbar":{
+      "oppositeAxis":false,
+      "offset":50,
+      "scrollbarHeight":10
+    },
+    "categoryField": "date",
+    "categoryAxis": {
+        "parseDates": true,
+        "dashLength": 1,
+        "minorGridEnabled": true
+    },
+    "export": {
+        "enabled": true
+    },
+    "dataProvider": <LINE_DATA>
+});
+
+chartStock.addListener("rendered", zoomChart);
+
+zoomChart();
+
+function zoomChart() {
+    chartStock.zoomToIndexes(chartStock.dataProvider.length - 40, chartStock.dataProvider.length - 1);
+}
+
+
+var chartDonut = AmCharts.makeChart( "chartdiv2", {
+  "type": "pie",
+  "theme": "light",
+  "titles": [ {
+    "text": "Expense by Category",
+    "size": 16
+  } ],
+  "dataProvider": <DONUT_DATA>,
+  "valueField": "amount",
+  "titleField": "category",
+  "startEffect": "elastic",
+  "startDuration": 2,
+  "labelRadius": 15,
+  "innerRadius": "50%",
+  "legend":{
+   	"position":"right",
+    "marginRight":100,
+    "autoMargins":false
+  },
+  "depth3D": 10,
+  "balloonText": "[[title]]<br><span style='font-size:14px'><b>[[value]]</b> ([[percents]]%)</span>",
+  "angle": 15,
+  "export": {
+    "enabled": true
+  }
+} );
+
+var chartBar = AmCharts.makeChart("chartdiv3", {
+    "theme": "light",
+    "type": "serial",
+    "titles": [ {
+    "text": "Expense by Month",
+    "size": 16
+  } ],
+	"startDuration": 2,
+    "dataProvider": <BAR_DATA>,
+    "graphs": [{
+        "balloonText": "[[category]]: <b>[[value]]</b>",
+        "fillColorsField": "color",
+        "fillAlphas": 1,
+        "lineAlpha": 0.1,
+        "type": "column",
+        "valueField": "Expense"
+    }],
+    "depth3D": 20,
+	"angle": 30,
+    "chartCursor": {
+        "categoryBalloonEnabled": false,
+        "cursorAlpha": 0,
+        "zoomable": false
+    },
+    "categoryField": "Month",
+    "categoryAxis": {
+        "gridPosition": "start",
+        "labelRotation": 90
+    },
+    "export": {
+    	"enabled": true
+     }
+
+});
+</script>
+
+<!-- HTML -->
+<div id="chartdiv"></div>
+<div id="chartdiv1"></div>
+<div id="chartdiv2"></div>
+<div id="chartdiv3"></div>

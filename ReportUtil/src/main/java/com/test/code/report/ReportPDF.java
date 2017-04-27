@@ -43,57 +43,70 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.ui.RectangleEdge;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.pdf.PdfWriter;
 import com.test.code.pojo.BarChartData;
 import com.test.code.pojo.LineChartData;
 import com.test.code.pojo.PieChartData;
 import com.test.code.pojo.ReportData;
 import com.test.code.pojo.TableData;
 import com.test.code.util.ExcelCellStyleUtil;
+import com.test.code.util.PDFCellStyleUtil;
 import com.test.code.util.StringUtil;
 
-public class ReportExcel {
-	final static Logger logger = Logger.getLogger(ReportExcel.class);
-	public static void writeExcel(Map<String,ReportData> data, String excelFilePath){
-		HSSFWorkbook workbook = new HSSFWorkbook();
-		ExcelCellStyleUtil cellStyleUtil=new ExcelCellStyleUtil(workbook);
-		Set<Entry<String, ReportData>> mapData=data.entrySet();
-		for(Entry<String, ReportData> dataSet:mapData){
-			HSSFSheet sheet = (HSSFSheet) workbook.createSheet(dataSet.getKey());
+public class ReportPDF {
+	final static Logger logger = Logger.getLogger(ReportPDF.class);
+	public static void writePDF(Map<String,ReportData> data, String pdfFilePath){
+		Document document = new Document();
+		try (FileOutputStream outputStream = new FileOutputStream(pdfFilePath)) {
+			PdfWriter.getInstance(document, outputStream);
+			document.open();
+			PDFCellStyleUtil cellStyleUtil=new PDFCellStyleUtil();
+			
+			
+			Set<Entry<String, ReportData>> mapData=data.entrySet();
+			for(Entry<String, ReportData> dataSet:mapData){
+			/*	
+				
+				HSSFSheet sheet = (HSSFSheet) workbook.createSheet(dataSet.getKey());
 
-			if(!StringUtil.isBlankOrEmpty(dataSet.getValue().getTableData())){
-				for(TableData tableData : dataSet.getValue().getTableData()){
-					writeTabularData(workbook,cellStyleUtil,sheet,tableData);
-					logger.debug(dataSet.getKey()+" table added to sheet");
+				if(!StringUtil.isBlankOrEmpty(dataSet.getValue().getTableData())){
+					for(TableData tableData : dataSet.getValue().getTableData()){
+						writeTabularData(workbook,cellStyleUtil,sheet,tableData);
+						logger.debug(dataSet.getKey()+" table added to sheet");
+					}
 				}
-			}
-			if(!StringUtil.isBlankOrEmpty(dataSet.getValue().getPieData())){
-				for(PieChartData pieData : dataSet.getValue().getPieData()){
-					writePieChart(workbook, sheet, pieData);
-					logger.debug(pieData.getTitle()+" Pie chart added to sheet: "+dataSet.getKey());
+				if(!StringUtil.isBlankOrEmpty(dataSet.getValue().getPieData())){
+					for(PieChartData pieData : dataSet.getValue().getPieData()){
+						writePieChart(workbook, sheet, pieData);
+						logger.debug(pieData.getTitle()+" Pie chart added to sheet: "+dataSet.getKey());
+					}
 				}
-			}
-			if(!StringUtil.isBlankOrEmpty(dataSet.getValue().getBarData())){
-				for(BarChartData barData : dataSet.getValue().getBarData()){
-					writeBarChart(workbook, sheet, barData);
-					logger.debug(barData.getTitle()+" Pie chart added to sheet: "+dataSet.getKey());
+				if(!StringUtil.isBlankOrEmpty(dataSet.getValue().getBarData())){
+					for(BarChartData barData : dataSet.getValue().getBarData()){
+						writeBarChart(workbook, sheet, barData);
+						logger.debug(barData.getTitle()+" Pie chart added to sheet: "+dataSet.getKey());
+					}
 				}
-			}
-			if(!StringUtil.isBlankOrEmpty(dataSet.getValue().getLineData())){
-				for(LineChartData lineData : dataSet.getValue().getLineData()){
-					writeLineChart(workbook, sheet, lineData);
-					logger.debug(lineData.getTitle()+" Pie chart added to sheet: "+dataSet.getKey());
+				if(!StringUtil.isBlankOrEmpty(dataSet.getValue().getLineData())){
+					for(LineChartData lineData : dataSet.getValue().getLineData()){
+						writeLineChart(workbook, sheet, lineData);
+						logger.debug(lineData.getTitle()+" Pie chart added to sheet: "+dataSet.getKey());
+					}
 				}
+				logger.debug("Sheet: "+dataSet.getKey()+" added to Excel.");*/
 			}
-			logger.debug("Sheet: "+dataSet.getKey()+" added to Excel.");
-		}
-		try (FileOutputStream outputStream = new FileOutputStream(excelFilePath)) {
-			workbook.write(outputStream);
+			document.close();
 		} catch (FileNotFoundException e1) {
 			e1.printStackTrace();
 		} catch (IOException e1) {
 			e1.printStackTrace();
+		} catch (DocumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		logger.debug("File generated: "+excelFilePath);
+		logger.debug("File generated: "+pdfFilePath);
 	}
 
 	public static void writeTabularData(Workbook workbook,ExcelCellStyleUtil cellStyleUtil,HSSFSheet sheet,TableData data){
