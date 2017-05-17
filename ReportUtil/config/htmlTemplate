@@ -174,24 +174,31 @@ var chartDonut = AmCharts.makeChart( "chartdiv2", {
   }
 } );
 
+
 var chartBar = AmCharts.makeChart("chartdiv3", {
     "theme": "light",
     "type": "serial",
+    "startDuration": 2,
     "titles": [ {
     "text": "Expense by Month",
     "size": 16
-  } ],
-	"startDuration": 2,
+ 	 } ],
     "dataProvider": <BAR_DATA>,
+    "valueAxes": [{
+        "position": "left",
+        "axisAlpha":0,
+        "gridAlpha":0
+    }],
     "graphs": [{
         "balloonText": "[[category]]: <b>[[value]]</b>",
-        "fillColorsField": "color",
-        "fillAlphas": 1,
+        "colorField": "color",
+        "fillAlphas": 0.85,
         "lineAlpha": 0.1,
         "type": "column",
+        "topRadius":1,
         "valueField": "Expense"
     }],
-    "depth3D": 20,
+    "depth3D": 40,
 	"angle": 30,
     "chartCursor": {
         "categoryBalloonEnabled": false,
@@ -201,13 +208,15 @@ var chartBar = AmCharts.makeChart("chartdiv3", {
     "categoryField": "Month",
     "categoryAxis": {
         "gridPosition": "start",
-        "labelRotation": 90
+        "axisAlpha":0,
+        "gridAlpha":0
+
     },
     "export": {
     	"enabled": true
      }
 
-});
+}, 0);
 </script>
 
 <!-- HTML -->
