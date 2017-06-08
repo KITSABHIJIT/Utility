@@ -8,7 +8,7 @@ import org.apache.pdfbox.util.PDFMergerUtility;
 
 public class MergePDF {
 	public static void main(String args[]) {
-		String sourceDir="C:\\Users\\royab001\\Google Drive\\Domain Knowledge\\Payment Systems"+System.getProperty("file.separator");
+		String sourceDir="C:\\Users\\royab001\\pdfUtil\\source"+System.getProperty("file.separator");
 		String destDir="C:\\Users\\royab001\\pdfUtil\\Merge PDF"+System.getProperty("file.separator");
 		decryptcombine(sourceDir,destDir,"Combined.pdf");
 	} 
