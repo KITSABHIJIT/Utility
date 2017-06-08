@@ -171,15 +171,15 @@ public class ReportExcel {
 
 	public static void writeBarChart(Workbook workbook,HSSFSheet sheet,BarChartData data){
 		DefaultCategoryDataset bar_chart_data = data.getDataset();
-		JFreeChart barChartObject=(data.isIs3D())?ChartFactory.createBarChart3D(data.getTitle(),data.getCategoryAxisLabel(),data.getValueAxisLabel(),bar_chart_data,PlotOrientation.VERTICAL,data.isLegend(),data.isTooltips(),data.isUrls())
-				:ChartFactory.createBarChart(data.getTitle(),data.getCategoryAxisLabel(),data.getValueAxisLabel(),bar_chart_data,PlotOrientation.VERTICAL,data.isLegend(),data.isTooltips(),data.isUrls());  
+		JFreeChart barChartObject=(data.isIs3D())?ChartFactory.createBarChart3D(data.getTitle(),data.getCategoryAxisLabel(),data.getValueAxisLabel(),bar_chart_data,(data.isVerticalBar())?PlotOrientation.VERTICAL:PlotOrientation.HORIZONTAL,data.isLegend(),data.isTooltips(),data.isUrls())
+				:ChartFactory.createBarChart(data.getTitle(),data.getCategoryAxisLabel(),data.getValueAxisLabel(),bar_chart_data,(data.isVerticalBar())?PlotOrientation.VERTICAL:PlotOrientation.HORIZONTAL,data.isLegend(),data.isTooltips(),data.isUrls());  
 		try (
 			ByteArrayOutputStream chart_out = new ByteArrayOutputStream();){
 
 			LegendTitle legend = barChartObject.getLegend();
 			legend.setPosition(RectangleEdge.RIGHT);
 			CategoryAxis domainAxis = barChartObject.getCategoryPlot().getDomainAxis();  
-			if(data.isVertcalLabel()){
+			if(data.isVerticalLabel()){
 				domainAxis.setCategoryLabelPositions(CategoryLabelPositions.createUpRotationLabelPositions(Math.PI/2));
 			}
 			if(data.isDisplayValueOnBar()){

@@ -15,9 +15,10 @@ public class BarChartData {
 	int height;
 	int rowPosition;
 	int columnPosition;
-	boolean vertcalLabel;
+	boolean verticalLabel;
 	boolean is3D;
 	boolean displayValueOnBar;
+	boolean verticalBar;
 	
 	
 	public String getTitle() {
@@ -86,11 +87,11 @@ public class BarChartData {
 	public void setColumnPosition(int columnPosition) {
 		this.columnPosition = columnPosition;
 	}
-	public boolean isVertcalLabel() {
-		return vertcalLabel;
+	public boolean isVerticalLabel() {
+		return verticalLabel;
 	}
-	public void setVertcalLabel(boolean vertcalLabel) {
-		this.vertcalLabel = vertcalLabel;
+	public void setVerticalLabel(boolean vertcalLabel) {
+		this.verticalLabel = vertcalLabel;
 	}
 	public boolean isIs3D() {
 		return is3D;
@@ -103,6 +104,12 @@ public class BarChartData {
 	}
 	public void setDisplayValueOnBar(boolean displayValueOnBar) {
 		this.displayValueOnBar = displayValueOnBar;
+	}
+	public boolean isVerticalBar() {
+		return verticalBar;
+	}
+	public void setVerticalBar(boolean verticalBar) {
+		this.verticalBar = verticalBar;
 	}
 	
 	

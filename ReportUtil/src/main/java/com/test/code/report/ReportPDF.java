@@ -192,7 +192,7 @@ public class ReportPDF {
 			LegendTitle legend = barChartObject.getLegend();
 			legend.setPosition(RectangleEdge.RIGHT);
 			CategoryAxis domainAxis = barChartObject.getCategoryPlot().getDomainAxis();  
-			if(data.isVertcalLabel()){
+			if(data.isVerticalLabel()){
 				domainAxis.setCategoryLabelPositions(CategoryLabelPositions.createUpRotationLabelPositions(Math.PI/2));
 			}
 			if(data.isDisplayValueOnBar()){

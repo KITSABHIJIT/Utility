@@ -279,10 +279,11 @@ public class DataExtractor {
 							barChart.setHeight(Integer.parseInt(chartConfig[7]));
 							barChart.setRowPosition(Integer.parseInt(chartConfig[8]));
 							barChart.setColumnPosition(Integer.parseInt(chartConfig[9]));
-							barChart.setVertcalLabel(Boolean.parseBoolean(chartConfig[10]));
+							barChart.setVerticalLabel(Boolean.parseBoolean(chartConfig[10]));
 							if(chartConfig.length>11){
 								barChart.setIs3D(Boolean.parseBoolean(chartConfig[11]));
 								barChart.setDisplayValueOnBar(Boolean.parseBoolean(chartConfig[12]));
+								barChart.setVerticalBar(Boolean.parseBoolean(chartConfig[13]));
 							}
 						}
 						barChart.setDataset(getBarGraphData(chartQuery,barChart));
@@ -301,10 +302,11 @@ public class DataExtractor {
 							barChart.setHeight(Integer.parseInt(chartConfig[7]));
 							barChart.setRowPosition(Integer.parseInt(chartConfig[8]));
 							barChart.setColumnPosition(Integer.parseInt(chartConfig[9]));
-							barChart.setVertcalLabel(Boolean.parseBoolean(chartConfig[10]));
+							barChart.setVerticalLabel(Boolean.parseBoolean(chartConfig[10]));
 							if(chartConfig.length>11){
 								barChart.setIs3D(Boolean.parseBoolean(chartConfig[11]));
 								barChart.setDisplayValueOnBar(Boolean.parseBoolean(chartConfig[12]));
+								barChart.setVerticalBar(Boolean.parseBoolean(chartConfig[13]));
 							}
 						}
 						barChart.setDataset(getBarGraphPeriodData(barChart,startDate,endDate,chart));
@@ -323,10 +325,11 @@ public class DataExtractor {
 							barChart.setHeight(Integer.parseInt(chartConfig[7]));
 							barChart.setRowPosition(Integer.parseInt(chartConfig[8]));
 							barChart.setColumnPosition(Integer.parseInt(chartConfig[9]));
-							barChart.setVertcalLabel(Boolean.parseBoolean(chartConfig[10]));
+							barChart.setVerticalLabel(Boolean.parseBoolean(chartConfig[10]));
 							if(chartConfig.length>11){
 								barChart.setIs3D(Boolean.parseBoolean(chartConfig[11]));
 								barChart.setDisplayValueOnBar(Boolean.parseBoolean(chartConfig[12]));
+								barChart.setVerticalBar(Boolean.parseBoolean(chartConfig[13]));
 							}
 						}
 						barChart.setDataset(getMultiBarGraphPeriodData(barChart,startDate,endDate,chart));
