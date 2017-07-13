@@ -1,5 +1,7 @@
 package com.myutility.code;
 
+import org.apache.commons.lang3.StringUtils;
+
 public class StringUtil {
 
 	public static boolean isBlankOrEmpty (String word) {
@@ -74,8 +76,17 @@ public class StringUtil {
 	}
 
 	public static void main(String ...strings ){
-		double value=0.92;
-		System.out.println((int)value);
+		//double value=0.92;
+		//System.out.println((int)value);
+		String data="00000000000000000000009404096506";
+		System.out.println(StringUtils.substring(data, 5, 8));
+		System.out.println(StringUtils.substring(data, 5, 8));
+		System.out.println(StringUtils.substring(data, 8, 13));
+		System.out.println(StringUtils.substring(data, 13, 32));
+		System.out.println(StringUtils.substring(data, 0, 5));
+		System.out.println(StringUtils.substring(data, 13, 23));
+		System.out.println(StringUtils.substring(data, 0, 5));
+		//detail.getAccount()).substring(0, 8)
 
 	}
 

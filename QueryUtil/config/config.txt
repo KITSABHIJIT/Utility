@@ -7,6 +7,7 @@ sunbeam=SUNBEAM|SPTAXR|GALAXY4
 eods=jdbc:db2://eodsprdb11.staples.com:40009/ODSPRDDB|polardev|dU4naika
 fsa=jdbc:oracle:thin:@exapn04-scan:51521/FSAPSRV2|FSA_USER|f2ap5fus3r
 polar=jdbc:oracle:thin:@exapn01-scan:51521/PLRPRD|PLR01_OWN|rEW9zyBP
+automatch=jdbc:oracle:thin:@autd1db01:51521/AUTMDEV|glx_owner|glxd3vown3r
 
 header=<HTML><TITLE>QUERY OUTPUT</TITLE><BODY><TABLE style="width: 100%;" border="1">
 rowStart=<TR style="white-space:nowrap;">

@@ -1,5 +1,7 @@
 package com.myutility.code;
 
+import java.io.File;
+
 public class StringUtil {
 
 	public static boolean isBlankOrEmpty (String word) {
@@ -115,5 +117,14 @@ public class StringUtil {
 			return String.format("%."+decimalPlace+"f", 0.00);
 		}
 	}
-	
+	public static String getFileNameWithoutExtn(String fileName){
+		String file=null;
+		File fl=new File(fileName);
+		if(fl.exists()){
+			if (fl.getName().indexOf(".") > 0) {
+				file = fl.getName().substring(0, fl.getName().lastIndexOf("."));
+			}
+		}
+		return file;
+	}
 }

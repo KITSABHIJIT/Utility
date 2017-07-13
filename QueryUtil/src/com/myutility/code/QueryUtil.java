@@ -1,6 +1,7 @@
 package com.myutility.code;
 
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -142,11 +143,36 @@ public class QueryUtil {
 		StringBuffer dataBuffer=new StringBuffer();
 		PreparedStatement stmt=null;
 		try{
-		if(inputRequired){
-		List<String> inputData=FileUtil.readFromFile(PropertiesUtil.inputDataPath);
-			int loopCounter=0;
-			for(String data:inputData){
-				if(loopCounter==threshold){
+			if(inputRequired){
+				List<String> inputData=FileUtil.readFromFile(PropertiesUtil.inputDataPath);
+				int loopCounter=0;
+				for(String data:inputData){
+					if(loopCounter==threshold){
+						String tempQuery=query.replaceAll("<DATA>", dataBuffer.toString());
+						System.out.println("Query Executed: "+tempQuery);
+						stmt=con.prepareStatement(tempQuery);
+						rs = stmt.executeQuery();
+						if (rs.next()) {
+							int tempCount=rs.getInt(1);
+							System.out.println("Query Count from "+server+" with "+loopCounter+" input is: "+tempCount);
+							count=count+tempCount;
+						}
+						loopCounter=0;
+						//clear the Stringbuffer content
+						dataBuffer.delete(0, dataBuffer.length());
+					}
+					if(dataBuffer.length()<=0){
+						dataBuffer.append("'");
+						dataBuffer.append(data);
+						dataBuffer.append("'");
+					}else{
+						dataBuffer.append(",'");
+						dataBuffer.append(data);
+						dataBuffer.append("'");
+					}
+					loopCounter++;
+				}
+				if(loopCounter<threshold){
 					String tempQuery=query.replaceAll("<DATA>", dataBuffer.toString());
 					System.out.println("Query Executed: "+tempQuery);
 					stmt=con.prepareStatement(tempQuery);
@@ -157,43 +183,18 @@ public class QueryUtil {
 						count=count+tempCount;
 					}
 					loopCounter=0;
-					//clear the Stringbuffer content
-					dataBuffer.delete(0, dataBuffer.length());
 				}
-				if(dataBuffer.length()<=0){
-					dataBuffer.append("'");
-					dataBuffer.append(data);
-					dataBuffer.append("'");
-				}else{
-					dataBuffer.append(",'");
-					dataBuffer.append(data);
-					dataBuffer.append("'");
-				}
-				loopCounter++;
-			}
-			if(loopCounter<threshold){
-				String tempQuery=query.replaceAll("<DATA>", dataBuffer.toString());
-				System.out.println("Query Executed: "+tempQuery);
-				stmt=con.prepareStatement(tempQuery);
+			}else{
+				stmt=con.prepareStatement(query);
 				rs = stmt.executeQuery();
 				if (rs.next()) {
 					int tempCount=rs.getInt(1);
-					System.out.println("Query Count from "+server+" with "+loopCounter+" input is: "+tempCount);
-					count=count+tempCount;
+					System.out.println("Query Executed: "+query);
+					count=tempCount;
 				}
-				loopCounter=0;
 			}
-		}else{
-			stmt=con.prepareStatement(query);
-			rs = stmt.executeQuery();
-			if (rs.next()) {
-				int tempCount=rs.getInt(1);
-				System.out.println("Query Executed: "+query);
-				count=tempCount;
-			}
-		}
 			System.out.println("Total Query Count from "+server+" is: "+count);
-			
+
 
 		} catch (SQLException e) {
 			System.out.println("Error while executing Query...");
@@ -202,6 +203,81 @@ public class QueryUtil {
 			ConnectionUtil.closeResultSet(rs);
 			ConnectionUtil.closeStatement(stmt);
 			ConnectionUtil.closeConnection(con);
+		}
+	}
+
+
+	public static void runDMLQuery(final String queryDir,final String server,boolean dropExisting){
+
+
+		System.out.println("Server: "+server);
+		Connection con=ConnectionUtil.getJDBCConnection(server);
+		PreparedStatement stmt=null;
+		boolean isError=false;
+		try{
+			con.setAutoCommit(false);
+			for(String fileName:FileUtil.getListOfFiles(queryDir, true)){
+				if(!isError){
+					String tableName=StringUtil.getFileNameWithoutExtn(fileName);
+					boolean tableExists=false;
+					DatabaseMetaData meta = con.getMetaData();
+					ResultSet res = meta.getTables(null, null, tableName,new String[] {"TABLE"});
+					if(res.next()) {
+						tableExists=true;
+					}
+					if(tableExists && dropExisting){
+						String dropSQL="DROP TABLE "+tableName;
+						try{
+							stmt=con.prepareStatement(dropSQL);
+							stmt.executeUpdate();
+							System.out.println("Success: "+dropSQL);
+							tableExists=false;
+						} catch (SQLException e) {
+							System.out.println("Error: "+dropSQL);
+							con.rollback();
+							isError=true;
+							e.printStackTrace();
+						}finally {
+							ConnectionUtil.closeStatement(stmt);
+						}
+					}
+					if(!tableExists){
+						for(String query:FileUtil.readFromFile(fileName)){
+							if(!isError){
+								try{
+									stmt=con.prepareStatement(query);
+									stmt.executeUpdate();
+									System.out.println("Success: "+query);
+								} catch (SQLException e) {
+									System.out.println("Error: "+query);
+									con.rollback();
+									isError=true;
+									e.printStackTrace();
+								}finally {
+									ConnectionUtil.closeStatement(stmt);
+								}
+							}else{
+								break;
+							}
+						}
+					}else{
+						System.out.println("***********"+tableName+" already existed***********");
+					}
+
+				}else{
+					break;
+				}
+			}
+			if(!isError){
+				con.commit();
+			}else{
+				con.rollback();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			ConnectionUtil.closeConnection(con);
+
 		}
 	}
 

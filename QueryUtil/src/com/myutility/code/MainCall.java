@@ -6,16 +6,20 @@ public class MainCall {
 	public static final String LIBRARY="library";
 	public static final String OUTPUTFORMAT="outputFormat";
 	public static final String SENDEMAIL="sendEmail";
+	public static String OUTPUT_DIR="C:\\Users\\royab001\\Desktop\\work done\\Galaxy Remediation\\SQL Details\\Moonbeam Tables"; 
 	public static void main(String ...strings){
 		//String eods=PropertiesUtil.getProperty("lomseods");
 		//String fsa=PropertiesUtil.getProperty("lomsfsa");
 		//QueryUtil.runCountQuery(eods,"eods",true);
 		//QueryUtil.runCountQuery(fsa,"fsa",true);
 		
-		String eods=PropertiesUtil.getProperty("somseods");
-		String fsa=PropertiesUtil.getProperty("somsfsa");
-		QueryUtil.runCountQuery(eods,"eods",false);
-		QueryUtil.runCountQuery(fsa,"fsa",false);
+		//String eods=PropertiesUtil.getProperty("somseods");
+		//String fsa=PropertiesUtil.getProperty("somsfsa");
+		//QueryUtil.runCountQuery(eods,"eods",false);
+		//QueryUtil.runCountQuery(fsa,"fsa",false);
+		
+			QueryUtil.runDMLQuery(OUTPUT_DIR, "automatch",true);
+		
 	}
 	
 

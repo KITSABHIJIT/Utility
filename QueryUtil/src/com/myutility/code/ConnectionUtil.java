@@ -19,6 +19,7 @@ public class ConnectionUtil {
 	public static final String EODS="eods";
 	public static final String FSA="fsa";
 	public static final String POLAR="polar";
+	public static final String AUTOMATCH="automatch";
 
 	public static Connection getAS400Connection(String serverName,String library) {            
 		System.out.println("Connect to Database Called");
@@ -86,6 +87,9 @@ public class ConnectionUtil {
 			}else if(POLAR.equalsIgnoreCase(serverName)){
 				connectionArray=PropertiesUtil.getProperty(FSA).split("[|]");
 				con =  DriverManager.getConnection(connectionArray[0],connectionArray[1],connectionArray[2]);
+			}else if(AUTOMATCH.equalsIgnoreCase(serverName)){
+				connectionArray=PropertiesUtil.getProperty(AUTOMATCH).split("[|]");
+				con =  DriverManager.getConnection(connectionArray[0],connectionArray[1],connectionArray[2]);
 			}else{
 				System.out.println("Unknown Server...");
 			}
@@ -116,7 +120,7 @@ public class ConnectionUtil {
 		try {
 			if (null != stmt) {
 				stmt.close();
-				System.out.println("Statement closed Sucesfully");
+				//System.out.println("Statement closed Sucesfully");
 			}
 		} catch (Exception e) {
 			System.out.println("Could not close Statement object");

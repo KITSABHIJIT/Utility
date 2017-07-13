@@ -10,8 +10,7 @@ import java.util.List;
 
 public class FileUtil {
 
-	@SuppressWarnings("rawtypes")
-	public static List getListOfFiles(String directoryName,boolean absolutepath) {
+	public static List<String> getListOfFiles(String directoryName,boolean absolutepath) {
 		File directory = new File(directoryName);
 		ArrayList<String> files=new ArrayList<String>();
 		// get all the files from a directory
