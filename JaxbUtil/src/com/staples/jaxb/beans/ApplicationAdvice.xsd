@@ -1,0 +1,56 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="ApplicationAdvice">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Details">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Detail">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Error">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="Item">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element type="xs:string" name="SKU"/>
+                                <xs:element type="xs:string" name="PurchaseOrderNumber"/>
+                                <xs:element type="xs:string" name="UPCCode"/>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element type="xs:string" name="Description"/>
+                          <xs:element type="xs:string" name="Code"/>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element type="xs:string" name="TransactionNmb"/>
+                    <xs:element type="xs:float" name="Amount"/>
+                    <xs:element type="xs:int" name="Date"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Header">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ApplicationAdviceHeader">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:int" name="ReferenceDate"/>
+                    <xs:element type="xs:string" name="ReferenceNumber"/>
+                    <xs:element type="xs:string" name="TransactionType"/>
+                    <xs:element type="xs:string" name="VendorNumber"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

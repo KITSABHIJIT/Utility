@@ -1,0 +1,16 @@
+ <jaxb:bindings 
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+        version="2.1">
+	<jaxb:bindings schemaLocation="EDI810.xsd">
+		<jaxb:bindings node="/xsd:schema/xsd:element[@name='Invoice']/xsd:complexType/xsd:sequence/xsd:element[@name='Header']/xsd:complexType/xsd:sequence/xsd:element[@name='InvoiceHeader']/xsd:complexType/xsd:sequence/xsd:element[@name='TotalList']/xsd:complexType/xsd:sequence/xsd:element[@name='AmountList']/xsd:complexType/xsd:sequence/xsd:element[@name='Invoice']/xsd:complexType">
+			<jaxb:class name="Invoice1"/>
+		</jaxb:bindings>
+		<jaxb:bindings node="/xsd:schema/xsd:element[@name='Invoice']/xsd:complexType/xsd:sequence/xsd:element[@name='Details']/xsd:complexType/xsd:sequence/xsd:element[@name='Detail']/xsd:complexType/xsd:sequence/xsd:element[@name='ItemList']/xsd:complexType/xsd:sequence/xsd:element[@name='Invoice']/xsd:complexType">
+			<jaxb:class name="Invoice2"/>
+		</jaxb:bindings>
+		<jaxb:bindings node="/xsd:schema/xsd:element[@name='Invoice']/xsd:complexType/xsd:sequence/xsd:element[@name='Details']/xsd:complexType/xsd:sequence/xsd:element[@name='Detail']/xsd:complexType/xsd:sequence/xsd:element[@name='QuantityList']/xsd:complexType/xsd:sequence/xsd:element[@name='Invoice']/xsd:complexType">
+			<jaxb:class name="Invoice3"/>
+		</jaxb:bindings>
+	</jaxb:bindings>
+</jaxb:bindings>
