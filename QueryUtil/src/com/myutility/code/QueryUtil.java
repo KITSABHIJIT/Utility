@@ -207,9 +207,7 @@ public class QueryUtil {
 	}
 
 
-	public static void runDMLQuery(final String queryDir,final String server,boolean dropExisting){
-
-
+	public static void runDMLQuery(final String queryDir,final String server,boolean dropExisting,String objectType){
 		System.out.println("Server: "+server);
 		Connection con=ConnectionUtil.getJDBCConnection(server);
 		PreparedStatement stmt=null;
@@ -221,12 +219,12 @@ public class QueryUtil {
 					String tableName=StringUtil.getFileNameWithoutExtn(fileName);
 					boolean tableExists=false;
 					DatabaseMetaData meta = con.getMetaData();
-					ResultSet res = meta.getTables(null, null, tableName,new String[] {"TABLE"});
+					ResultSet res = meta.getTables(null, null, tableName,new String[] {objectType});
 					if(res.next()) {
 						tableExists=true;
 					}
 					if(tableExists && dropExisting){
-						String dropSQL="DROP TABLE "+tableName;
+						String dropSQL="DROP "+objectType+" "+tableName;
 						try{
 							stmt=con.prepareStatement(dropSQL);
 							stmt.executeUpdate();

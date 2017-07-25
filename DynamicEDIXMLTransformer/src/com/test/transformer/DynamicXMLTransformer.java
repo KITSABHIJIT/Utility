@@ -160,9 +160,9 @@ public class DynamicXMLTransformer {
 
       String xpath = sourceXpath.split("\\[a\\]")[0];
       List<String> nodeList=doc.get(xpath);
+      String finalTargetXpath = null;
       if (nodeList != null) {
 
-        String finalTargetXpath = null;
         for (int i = 1; i <= nodeList.size(); i++) {
           finalTargetXpath = targetXpath.replace("[a]", "[" + i + "]");
             String sourceValue = nodeList.get(i-1);
@@ -170,6 +170,9 @@ public class DynamicXMLTransformer {
               subMap.put(finalTargetXpath, sourceValue);
             }
         }
+      }else{
+    	  finalTargetXpath = targetXpath.replace("[a]", "[" + 1 + "]");
+    	  subMap.put(finalTargetXpath, xpath);
       }
     }
 
@@ -190,10 +193,10 @@ public class DynamicXMLTransformer {
 
   private String getElementValue(String xPath, Map<String,List<String>> document) throws Exception {
 	List<String> nodeList=document.get(xPath);
-    if(nodeList.size()>0){
+    if(null !=nodeList && nodeList.size()>0){
     	return nodeList.get(0);
     }else{
-    	return "";
+    	return xPath;
     }
   }
 

@@ -1,6 +1,8 @@
 package com.test.transformer;
 
 import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,7 +20,7 @@ public class Main {
 
 		DynamicXMLTransformer xmlTransformer = new DynamicXMLTransformer();
 
-		Map<String, String> mappings = FileManager.readPropertiesFileAsMap("mappings.properties");
+		Map<String, String> mappings = FileManager.readPropertiesFileAsMap("EDI824.properties");
 
 		Map<String, String> completeMappings = xmlTransformer.generateCompleteXpaths(mappings, sourceDoc);
 
@@ -43,5 +45,19 @@ public class Main {
 		System.out.println(sw.toString());
 		return sw.toString();
 
+	}
+	
+	
+	public static void main(String args[]){
+		Map<String,List<String>> ediInvoice= new HashMap<String,List<String>>();
+		List<String> dataList=new ArrayList<String>();
+		ediInvoice.put("", dataList);
+		
+		try {
+				Main.getTargetXML(ediInvoice);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	}
 }
