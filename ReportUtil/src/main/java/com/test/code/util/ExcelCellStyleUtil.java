@@ -1,6 +1,7 @@
 package com.test.code.util;
 
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.CreationHelper;
 import org.apache.poi.ss.usermodel.Font;
@@ -31,6 +32,8 @@ public class ExcelCellStyleUtil {
 		headerCellStyle.setBorderTop(HSSFCellStyle.BORDER_THIN);
 		headerCellStyle.setBorderRight(HSSFCellStyle.BORDER_THIN);
 		headerCellStyle.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+		headerCellStyle.setFillForegroundColor(HSSFColor.GREY_25_PERCENT.index);
+		headerCellStyle.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
 		
 		bodyDateCellStyle = workbook.createCellStyle();
 		bodyDateCellStyle.setFont(fontBody);
