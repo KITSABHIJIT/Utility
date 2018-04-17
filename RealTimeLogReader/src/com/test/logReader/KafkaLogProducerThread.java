@@ -1,5 +1,10 @@
 package com.test.logReader;
 
+import org.apache.kafka.clients.producer.Callback;
+import org.apache.kafka.clients.producer.KafkaProducer;
+import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.clients.producer.RecordMetadata;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -7,12 +12,7 @@ import java.io.RandomAccessFile;
 import java.util.Properties;
 import java.util.concurrent.ExecutionException;
 
-import org.apache.kafka.clients.producer.Callback;
-import org.apache.kafka.clients.producer.KafkaProducer;
-import org.apache.kafka.clients.producer.ProducerRecord;
-import org.apache.kafka.clients.producer.RecordMetadata;
-
-public class KafkaLogProducer{
+public class KafkaLogProducerThread extends Thread {
 	private final KafkaProducer<Integer, String> producer;
 	private final String topic;
 	private final Boolean isAsync;
@@ -22,7 +22,7 @@ public class KafkaLogProducer{
 	public static final int KAFKA_SERVER_PORT = 9092;
 	public static final String CLIENT_ID = "KafkaLogProducer";
 
-	public KafkaLogProducer(String topic,String filePath, Boolean isAsync) {
+	public KafkaLogProducerThread(String topic,String filePath, Boolean isAsync) {
 		Properties properties = new Properties();
 		properties.put("bootstrap.servers", KAFKA_SERVER_URL + ":" + KAFKA_SERVER_PORT);
 		properties.put("client.id", CLIENT_ID);
@@ -110,7 +110,7 @@ public class KafkaLogProducer{
 		if (isAsync) { // Send asynchronously
 			producer.send(new ProducerRecord<>(topic,
 					messageNo,
-					messageStr), new DemoCallBack(startTime, messageNo, messageStr));
+					messageStr), new DemoCallBackThread(startTime, messageNo, messageStr));
 		} else { // Send synchronously
 			try {
 				producer.send(new ProducerRecord<>(topic,
@@ -125,13 +125,13 @@ public class KafkaLogProducer{
 	}
 }
 
-class DemoCallBack implements Callback {
+class DemoCallBackThread implements Callback {
 
 	private final long startTime;
 	private final int key;
 	private final String message;
 
-	public DemoCallBack(long startTime, int key, String message) {
+	public DemoCallBackThread(long startTime, int key, String message) {
 		this.startTime = startTime;
 		this.key = key;
 		this.message = message;
