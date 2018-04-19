@@ -4,11 +4,11 @@ import java.util.List;
 import java.util.Map;
 
 import com.test.code.extract.DataExtractor;
+import com.test.code.extract.DataTransformer;
 import com.test.code.load.DataLoader;
 import com.test.code.pojo.Expense;
 import com.test.code.pojo.Merchant;
 import com.test.code.pojo.PayMode;
-import com.test.code.transform.DataTransformer;
 import com.test.code.util.PropertiesUtil;
 
 public class StartLoadingData {

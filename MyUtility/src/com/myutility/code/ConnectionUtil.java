@@ -16,6 +16,7 @@ public class ConnectionUtil {
 	public static final String COSMOS="cosmos";
 	public static final String DAYBREAK="daybreak";
 	public static final String SUNBEAM="sunbeam";
+	public static final String MOONBEAM="moonbeam";
 	
 	public static final String SOURCE_ORACLE="sourceOracle";
 	public static final String DESTINATION_ORACLE="destOracle";
@@ -41,6 +42,9 @@ public class ConnectionUtil {
 			server = new AS400(connectionArray[0],connectionArray[1],connectionArray[2]);
 		}else if(SUNBEAM.equalsIgnoreCase(serverName)){
 			connectionArray=PropertiesUtil.getProperty(SUNBEAM).split("[|]");
+			server = new AS400(connectionArray[0],connectionArray[1],connectionArray[2]);
+		}else if(MOONBEAM.equalsIgnoreCase(serverName)){
+			connectionArray=PropertiesUtil.getProperty(MOONBEAM).split("[|]");
 			server = new AS400(connectionArray[0],connectionArray[1],connectionArray[2]);
 		}else{
 			server=null;

@@ -14,31 +14,31 @@ public class FileUtil {
 
 	@SuppressWarnings("rawtypes")
 	public static List getListOfFiles(String directoryName,boolean absolutepath) {
-	    File directory = new File(directoryName);
-	    ArrayList<String> files=new ArrayList<String>();
-	    // get all the files from a directory
-	    File[] fList = directory.listFiles();
-	    for (File file : fList) {
-	        if (file.isFile()) {
-	            files.add((absolutepath)?file.getAbsolutePath():file.getName());
-	        } else if (file.isDirectory()) {
-	        	getListOfFiles(file.getAbsolutePath(),absolutepath);
-	        }
-	    }
-	    Collections.sort(files, new Comparator<String>() {
-	        @Override
-	        public int compare(String s1, String s2) {
-	            return s1.compareToIgnoreCase(s2);
-	        }
-	    });
-	    return files;
+		File directory = new File(directoryName);
+		ArrayList<String> files=new ArrayList<String>();
+		// get all the files from a directory
+		File[] fList = directory.listFiles();
+		for (File file : fList) {
+			if (file.isFile()) {
+				files.add((absolutepath)?file.getAbsolutePath():file.getName());
+			} else if (file.isDirectory()) {
+				getListOfFiles(file.getAbsolutePath(),absolutepath);
+			}
+		}
+		Collections.sort(files, new Comparator<String>() {
+			@Override
+			public int compare(String s1, String s2) {
+				return s1.compareToIgnoreCase(s2);
+			}
+		});
+		return files;
 	}
-	
+
 	public static void writeToFile(String content,String fileName){
 		FileOutputStream fop = null;
 		File file;
 		try {
- 
+
 			file = new File(fileName);
 			fop = new FileOutputStream(file);
 			// if file doesnt exists, then create it
@@ -62,9 +62,9 @@ public class FileUtil {
 				e.printStackTrace();
 			}
 		}
-		
+
 	}
-	
+
 	public static List<String> readFromFile(String fileName){
 		List<String> list=new ArrayList<String>();
 		BufferedReader br = null;
@@ -105,4 +105,5 @@ public class FileUtil {
 		}
 		return list;
 	}
+
 }

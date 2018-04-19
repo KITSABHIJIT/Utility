@@ -1,5 +1,6 @@
 package com.myutility.code;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -116,6 +117,18 @@ public class ConnectionUtil {
 			e.printStackTrace();
 		}
 	}
+	public static void closeStatement(CallableStatement stmt) {
+		try {
+			if (null != stmt) {
+				stmt.close();
+				//System.out.println("Statement closed Sucesfully");
+			}
+		} catch (Exception e) {
+			System.out.println("Could not close Callable Statement object");
+			e.printStackTrace();
+		}
+	}
+	
 	public static void closeStatement(Statement stmt) {
 		try {
 			if (null != stmt) {

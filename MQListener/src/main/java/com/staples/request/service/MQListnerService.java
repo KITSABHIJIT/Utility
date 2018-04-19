@@ -27,11 +27,11 @@ import com.staples.request.util.StringUtil;
 @Service
 public class MQListnerService {
 	private final static Logger logger = LoggerFactory.getLogger(MQListnerService.class.getClass());
-	
+
 
 	@Value("${request.queue.config}")
 	private String queueConfig;
-	
+
 	@Value("${request.mq.host}")
 	private String mqHost; 
 	@Value("${request.mq.manager}")
@@ -44,8 +44,8 @@ public class MQListnerService {
 	private int mqPort;
 	private static MQQueueManager MQ_request_Queue_Mgr = null;
 	private static MQQueue MQ_request_queue = null;
-	
-	
+
+
 	@Value("${request.rabbitmq.host}")
 	private String rabbitMqHost;
 	@Value("${request.rabbitmq.queue}")
@@ -77,12 +77,12 @@ public class MQListnerService {
 
 	public void getMessage(final MQMessage message,
 			final MQGetMessageOptions gmo) throws MQException{
-				if(null!=MQ_request_queue){
-					MQ_request_queue.get(message, gmo);
-				}else{
-					throw new MQException(0,0,null,"MQ is not initialized");
-				}
-			}
+		if(null!=MQ_request_queue){
+			MQ_request_queue.get(message, gmo);
+		}else{
+			throw new MQException(0,0,null,"MQ is not initialized");
+		}
+	}
 
 	public void startListeningToMQ(){
 		System.out.println(queueConfig);
@@ -104,14 +104,14 @@ public class MQListnerService {
 
 				logger.debug("*******New Message received********");
 				logger.debug("Correlation Id: "+StringUtil.getHexString(srcMsg.correlationId)
-							+" Message Id: "+StringUtil.getHexString(srcMsg.messageId)
-							+" ApplicationIdData: "+srcMsg.applicationIdData
-							+" ApplicationOriginData: "+srcMsg.applicationOriginData
-							+" PutApplicationName: "+srcMsg.putApplicationName
-							+" ReplyToQueueManagerName: "+srcMsg.replyToQueueManagerName
-							+" ReplyToQueueName: "+srcMsg.replyToQueueName
-							+" Message Expiry: "+srcMsg.expiry);
-				
+						+" Message Id: "+StringUtil.getHexString(srcMsg.messageId)
+						+" ApplicationIdData: "+srcMsg.applicationIdData
+						+" ApplicationOriginData: "+srcMsg.applicationOriginData
+						+" PutApplicationName: "+srcMsg.putApplicationName
+						+" ReplyToQueueManagerName: "+srcMsg.replyToQueueManagerName
+						+" ReplyToQueueName: "+srcMsg.replyToQueueName
+						+" Message Expiry: "+srcMsg.expiry);
+
 
 				String message = srcMsg.readStringOfCharLength(srcMsg.getDataLength());
 				logger.info("Message received: "+message);
@@ -144,9 +144,9 @@ public class MQListnerService {
 		}
 
 	}
-	
-	
-	
+
+
+
 	public ConnectionFactory getConnectionFactory(){
 		ConnectionFactory connectionFactory=new ConnectionFactory();
 		connectionFactory.setHost(rabbitMqHost);
@@ -222,12 +222,39 @@ public class MQListnerService {
 			finished=true;
 		} 
 	}
-	
+
 	public void startListening(){
 		if("RABBITMQ".equalsIgnoreCase(queueConfig)){
 			startListeningToRabbitMq();
 		}else{
 			startListeningToMQ();
+		}
+	}
+
+	public void postMessageToRabbitMq(String message){
+		ConnectionFactory factory = new ConnectionFactory();
+		factory.setHost(rabbitMqHost);
+		Connection connection=null;
+		Channel channel=null;
+		try {
+			connection = factory.newConnection();
+			channel = connection.createChannel();
+			channel.queueDeclare(rabbitMqName, false, false, false, null);
+			channel.basicPublish("", rabbitMqName, null, message.getBytes());
+			System.out.println(" [x] Sent '" + message + "'");
+		} catch (IOException | TimeoutException e) {
+			e.printStackTrace();
+		}finally{
+			try {
+				if(null!=channel){
+					channel.close();
+				}
+				if(null!=connection){
+					connection.close();
+				}
+			} catch (IOException | TimeoutException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 }

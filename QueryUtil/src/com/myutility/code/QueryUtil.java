@@ -1,5 +1,8 @@
 package com.myutility.code;
 
+import java.io.StringReader;
+import java.sql.CallableStatement;
+import java.sql.Clob;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.PreparedStatement;
@@ -278,5 +281,134 @@ public class QueryUtil {
 
 		}
 	}
+
+	public static void insertClobData(String server){
+		System.out.println("Server: "+server);
+		Connection con=ConnectionUtil.getAS400Connection(server,null);
+		PreparedStatement stmt=null;
+		try{
+			for(String data:FileUtil.readFromFile(PropertiesUtil.inputDataPath)){
+				String sql = "insert  into DEVSUM/MYCLOBPF values (?,?,?)";
+				stmt = con.prepareStatement(sql);
+				stmt.setString(1, "1");
+				stmt.setString(2, "Abhijit Roy");
+				stmt.setCharacterStream(3, new StringReader(data), data.length());
+				stmt.execute();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			ConnectionUtil.closeConnection(con);
+
+		}
+
+
+	}
+	
+	public static void selectClobData(String server){
+		System.out.println("Server: "+server);
+		Connection con=ConnectionUtil.getAS400Connection(server,null);
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		try{
+				String sql = "select * from DEVSUM/MYCLOBPF";
+				stmt=con.prepareStatement(sql);
+				rs = stmt.executeQuery();
+				while (rs.next()) {
+					Clob clob = rs.getClob(3);
+					System.out.println(clob.getSubString(1, (int) clob.length()));
+				}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			ConnectionUtil.closeConnection(con);
+
+		}
+
+
+	}
+	
+	public static void callOracleStoredProcOUTParameter(String server,String library){
+
+		Connection dbConnection = null;
+		CallableStatement callableStatement = null;
+
+		String storeProc = "{call COUP16D_1(?,?,?,?,?)}";
+		//String storeProc = "select * from OE020slib.OECPAUDT";
+		
+
+		try {
+			dbConnection = ConnectionUtil.getAS400Connection(server,library);
+			callableStatement = dbConnection.prepareCall(storeProc);
+
+			callableStatement.setString(1, "add");
+			callableStatement.setString(2, "sdsd");
+			callableStatement.setString(3, "sdsdsdsd");
+			callableStatement.registerOutParameter(4, java.sql.Types.VARCHAR);
+			callableStatement.registerOutParameter(5, java.sql.Types.VARCHAR);
+
+			// execute getDBUSERByUserId store procedure
+			callableStatement.executeUpdate();
+
+			String errorCode = callableStatement.getString(4);
+			String errorDesc = callableStatement.getString(5);
+
+			System.out.println("errorCode : " + errorCode);
+			System.out.println("errorDesc : " + errorDesc);
+
+		} catch (SQLException e) {
+
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+
+		} finally {
+			ConnectionUtil.closeStatement(callableStatement);
+			ConnectionUtil.closeConnection(dbConnection);
+
+		}
+
+	}
+	
+	public static void callAS400StoredProcOUTParameter(String server,String library){
+
+		Connection dbConnection = null;
+		CallableStatement callableStatement = null;
+
+		String storeProc = "{call OE030DPGM.COUP16D_1(?,?,?,?,?)}";
+		//String storeProc = "select * from OE020slib.OECPAUDT";
+		
+
+		try {
+			dbConnection = ConnectionUtil.getAS400Connection(server,library);
+			callableStatement = dbConnection.prepareCall(storeProc);
+
+			callableStatement.setString(1, "add");
+			callableStatement.setString(2, "6215f125-f1fe-4c4d-8c15-185217cbb91d");
+			callableStatement.setString(3, "1509702315283");
+			callableStatement.registerOutParameter(4, java.sql.Types.VARCHAR);
+			callableStatement.registerOutParameter(5, java.sql.Types.VARCHAR);
+
+			// execute getDBUSERByUserId store procedure
+			callableStatement.executeUpdate();
+
+			String errorCode = callableStatement.getString(4);
+			String errorDesc = callableStatement.getString(5);
+
+			System.out.println("errorCode : " + errorCode);
+			System.out.println("errorDesc : " + errorDesc);
+
+		} catch (SQLException e) {
+
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+
+		} finally {
+			ConnectionUtil.closeStatement(callableStatement);
+			ConnectionUtil.closeConnection(dbConnection);
+
+		}
+
+	}
+
 
 }

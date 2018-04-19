@@ -18,8 +18,10 @@ public class AbstractDemo {
 
 	      System.out.println("Call mailCheck using Salary reference --");
 	      s.mailCheck();
+	      System.out.println(s.computePay());
 
 	      System.out.println("\n Call mailCheck using Employee reference--");
+	      System.out.println(e.computePay());
 	      e.mailCheck();
 	    }
 }

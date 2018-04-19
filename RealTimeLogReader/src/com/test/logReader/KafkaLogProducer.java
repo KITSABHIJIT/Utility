@@ -13,12 +13,12 @@ import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
 
 public class KafkaLogProducer{
-	private final KafkaProducer<Integer, String> producer;
+	private final KafkaProducer<String, String> producer;
 	private final String topic;
 	private final Boolean isAsync;
 	private final String filePath;
 
-	public static final String KAFKA_SERVER_URL = "localhost";
+	public static final String KAFKA_SERVER_URL = "lwacfndbv104.staples.com";
 	public static final int KAFKA_SERVER_PORT = 9092;
 	public static final String CLIENT_ID = "KafkaLogProducer";
 
@@ -26,8 +26,15 @@ public class KafkaLogProducer{
 		Properties properties = new Properties();
 		properties.put("bootstrap.servers", KAFKA_SERVER_URL + ":" + KAFKA_SERVER_PORT);
 		properties.put("client.id", CLIENT_ID);
-		properties.put("key.serializer", "org.apache.kafka.common.serialization.IntegerSerializer");
+		properties.put("acks", "all");
+		properties.put("retries", 0);
+		properties.put("batch.size", 16384);
+		properties.put("linger.ms", 1);
+		properties.put("buffer.memory", 33554432);
+		properties.put("key.serializer","org.apache.kafka.common.serialization.StringSerializer");
 		properties.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
+		
+		
 		producer = new KafkaProducer<>(properties);
 		this.topic = topic;
 		this.isAsync = isAsync;
@@ -109,12 +116,12 @@ public class KafkaLogProducer{
 		long startTime = System.currentTimeMillis();
 		if (isAsync) { // Send asynchronously
 			producer.send(new ProducerRecord<>(topic,
-					messageNo,
+					String.valueOf(messageNo),
 					messageStr), new DemoCallBack(startTime, messageNo, messageStr));
 		} else { // Send synchronously
 			try {
 				producer.send(new ProducerRecord<>(topic,
-						messageNo,
+						String.valueOf(messageNo),
 						messageStr)).get();
 				System.out.println("Sent message: (" + messageNo + ", " + messageStr + ")");
 			} catch (InterruptedException | ExecutionException e) {

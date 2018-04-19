@@ -20,9 +20,9 @@ public class GenerateReport {
 		long startTime=new  Date().getTime();
 		
 		
-		Date startDate=DateUtil.getSomeDate("20150701", "yyyyMMdd");
-		Date endDate=DateUtil.getSomeDate("20170630", "yyyyMMdd");
-		List<Date> dateList =DateUtil.getDatesFromDateRange(startDate, endDate, "Yearly");
+		Date startDate=DateUtil.getSomeDate("20170101", "yyyyMMdd");
+		Date endDate=DateUtil.getSomeDate("20171031", "yyyyMMdd");
+		List<Date> dateList =DateUtil.getDatesFromDateRange(startDate, endDate, "MONTHLY");
 		int counter=0;
 		logger.info("Process started...");
 		for(int i=1;i<dateList.size();i++){
@@ -30,7 +30,7 @@ public class GenerateReport {
 			// Extract Data
 				Map<String,ReportData> data=DataExtractor.getReportData(dateList.get(i-1), dateList.get(i));
 				StringBuilder exportFilename =new StringBuilder(PropertiesUtil.getProperty("excelPath"));
-				exportFilename.append(DateUtil.getDateToString(dateList.get(i), "yyyy"))
+				exportFilename.append(DateUtil.getDateToString(dateList.get(i), "yyyy-MMM"))
 				.append(PropertiesUtil.getProperty("excelFileExtn"));
 				// Generate Report
 				ReportExcel.writeExcel(data,exportFilename.toString());

@@ -19,6 +19,9 @@
       <node name="schema-3">
         <attribute name="location" value="platform:/resource/JaxbUtil/src/com/staples/jaxb/beans/EDI810.xsd"/>
       </node>
+      <node name="schema-4">
+        <attribute name="location" value="platform:/resource/JaxbUtil/src/com/staples/jaxb/beans/publishinvoice.xsd"/>
+      </node>
     </node>
   </facet>
 </root>

@@ -53,12 +53,12 @@ public class TransferDataUtil {
 	}
 	
 	public static void main(String[] args) {
-		String query="SELECT distinct * FROM invchz123";
-		String sourceLibrary="MMCONPGM";
-		String sourceServer="sunbeam";
-		String destLibrary="SC026SLIB";
+		String query="SELECT * FROM FCT01LIB.ERR1";
+		String sourceLibrary=null;
+		String sourceServer="moonbeam";
+		String destLibrary="FC010Dlib";
 		String destServer="daybreak";
-		String destTableName="invchz";
+		String destTableName="E810HST";
 		TransferDataUtil.transferData(query, sourceServer, sourceLibrary,destServer,destLibrary,destTableName);
 		
 	}

@@ -15,7 +15,7 @@ public class HelloKafkaLogger {
             logger.info("Info message from HelloKafkaLogger.main: "+(++j) );
             logger.warn("Warn message from HelloKafkaLogger.main: "+(++j) );
             logger.error("Error message from HelloKafkaLogger.main: "+(++j) );
-            Thread.sleep(200);
+            Thread.sleep(900);
            }
            logger.info("Exiting HelloKafkaLogger.main");
         LogManager.shutdown();

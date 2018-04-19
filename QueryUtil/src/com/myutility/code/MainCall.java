@@ -18,7 +18,11 @@ public class MainCall {
 		//QueryUtil.runCountQuery(eods,"eods",false);
 		//QueryUtil.runCountQuery(fsa,"fsa",false);
 		
-			QueryUtil.runDMLQuery(OUTPUT_DIR, "automatch",true,"INDEX");
+		//QueryUtil.runDMLQuery(OUTPUT_DIR, "automatch",true,"INDEX");
+		
+		//QueryUtil.insertClobData("cosmos");
+		//QueryUtil.selectClobData("cosmos");
+		QueryUtil.callAS400StoredProcOUTParameter("COSMOS","OE030DLIB");
 		
 	}
 	

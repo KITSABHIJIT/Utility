@@ -13,12 +13,12 @@ import java.util.Properties;
 import java.util.concurrent.ExecutionException;
 
 public class KafkaLogProducerThread extends Thread {
-	private final KafkaProducer<Integer, String> producer;
+	private final KafkaProducer<String, String> producer;
 	private final String topic;
 	private final Boolean isAsync;
 	private final String filePath;
 
-	public static final String KAFKA_SERVER_URL = "localhost";
+	public static final String KAFKA_SERVER_URL = "lwacfndbv104.staples.com";
 	public static final int KAFKA_SERVER_PORT = 9092;
 	public static final String CLIENT_ID = "KafkaLogProducer";
 
@@ -26,7 +26,7 @@ public class KafkaLogProducerThread extends Thread {
 		Properties properties = new Properties();
 		properties.put("bootstrap.servers", KAFKA_SERVER_URL + ":" + KAFKA_SERVER_PORT);
 		properties.put("client.id", CLIENT_ID);
-		properties.put("key.serializer", "org.apache.kafka.common.serialization.IntegerSerializer");
+		properties.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
 		properties.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
 		producer = new KafkaProducer<>(properties);
 		this.topic = topic;
@@ -109,12 +109,12 @@ public class KafkaLogProducerThread extends Thread {
 		long startTime = System.currentTimeMillis();
 		if (isAsync) { // Send asynchronously
 			producer.send(new ProducerRecord<>(topic,
-					messageNo,
+					String.valueOf(messageNo),
 					messageStr), new DemoCallBackThread(startTime, messageNo, messageStr));
 		} else { // Send synchronously
 			try {
 				producer.send(new ProducerRecord<>(topic,
-						messageNo,
+						String.valueOf(messageNo),
 						messageStr)).get();
 				System.out.println("Sent message: (" + messageNo + ", " + messageStr + ")");
 			} catch (InterruptedException | ExecutionException e) {

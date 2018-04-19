@@ -13,3 +13,11 @@ SQL_INSERT_MERCHANT= INSERT INTO EXPDB.MERCHANT (MERCHANT,CATEGORY,DESCRIPTION) 
 SQL_INSERT_PAYMODE= INSERT INTO EXPDB.PAYMODE (PAYMENT_ID,PAYMENT_TYPE,PAYMENT_METHOD,PAY_LIMIT,ACTIVE_DATE,BILLING_DATE) VALUES (?,?,?,?,?,?) ON DUPLICATE KEY UPDATE PAY_LIMIT = ? ,ACTIVE_DATE = ?,BILLING_DATE=?;
 
 SQL_REPORT_INSERT= INSERT INTO EXPDB.FSAREPORT (SCHEMANAME,DESTTABLE,REPORTNAME,PRESTGTABLE1,PRESTGTABLE2,PRESTGTABLE3,PRESTGTABLE4,PRESTGTABLE5,PRESTGTABLE6,PRESTGTABLE7,PRESTGTABLE8,PRESTGTABLE9,PRESTGTABLE10,PRESTGTABLE11) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?);
+
+
+BOACreditFile=C:\\Users\\royab001\\Google Drive\\Expense\\Expense Dumps\\Raw_Statements\\BankOfAmericaCredit.csv
+AmexFile=C:\\Users\\royab001\\Google Drive\\Expense\\Expense Dumps\\Raw_Statements\\Amex.csv
+BOAdebitFile=C:\\Users\\royab001\\Google Drive\\Expense\\Expense Dumps\\Raw_Statements\\BankOfAmericaDebit.csv
+DiscoverFile=C:\\Users\\royab001\\Google Drive\\Expense\\Expense Dumps\\Raw_Statements\\Discover.csv
+ChaseFile=C:\\Users\\royab001\\Google Drive\\Expense\\Expense Dumps\\Raw_Statements\\Chase.CSV
+JCPenneyFile=C:\\Users\\royab001\\Google Drive\\Expense\\Expense Dumps\\Raw_Statements\\JC Penney.csv
