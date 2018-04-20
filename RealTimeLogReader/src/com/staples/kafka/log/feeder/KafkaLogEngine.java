@@ -8,12 +8,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
-@EnableScheduling
-@ComponentScan(basePackages = "com.staples.kafka.log")
-@PropertySource(value={"file:config/application.properties"})
+@ComponentScan(basePackages = "com.staples.kafka.log.*")
+@PropertySource(value={"file:./config/application.properties"})
 public class KafkaLogEngine {
 	
 	private final static Logger logger = LoggerFactory.getLogger(KafkaLogEngine.class.getClass());

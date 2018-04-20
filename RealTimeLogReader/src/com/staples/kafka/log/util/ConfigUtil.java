@@ -15,6 +15,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -24,18 +26,19 @@ import org.w3c.dom.NodeList;
 import com.staples.kafka.log.pojo.LogFile;
 
 @Configuration
-@ComponentScan(basePackages = "com.staples.kafka.log")
+@ComponentScan(basePackages = "com.staples.kafka.log.*")
+@PropertySource(value={"file:./config/application.properties"})
 public class ConfigUtil {
 	
 	@Value("${thread.core.pool.size}")
-	private int corePoolSize; 
+	private String corePoolSize; 
 	@Value("${thread.max.pool.size}")
-	private int maxPoolSize;
+	private String maxPoolSize;
 	
 	@Value("${kafka.host.url}")
 	private String kafkaHost;
 	@Value("${kafka.port}")
-	private int kafkaPort;
+	private String kafkaPort;
 	
 	
 	@Value("${log.config.path}")
@@ -59,10 +62,18 @@ public class ConfigUtil {
 	private final Logger LOG = LoggerFactory.getLogger(ConfigUtil.class);
 	
 	@Bean
+	   public static PropertySourcesPlaceholderConfigurer
+	     propertySourcesPlaceholderConfigurer() {
+	      return new PropertySourcesPlaceholderConfigurer();
+	   }
+	
+	@Bean
 	public ThreadPoolTaskExecutor initializeTaskExecutorPool() {
 		executor = new ThreadPoolTaskExecutor();
-		executor.setCorePoolSize(corePoolSize);
-		executor.setMaxPoolSize(maxPoolSize);
+		LOG.debug("**********************corePoolSize: "+corePoolSize+" **********************");
+		LOG.debug("**********************maxPoolSize: "+maxPoolSize+" **********************");
+		executor.setCorePoolSize(Integer.parseInt(corePoolSize));
+		executor.setMaxPoolSize(Integer.parseInt(maxPoolSize));
 		executor.setThreadNamePrefix("KafkaLogFeeder");
 		executor.setWaitForTasksToCompleteOnShutdown(true);
 		LOG.debug("**********************ThreadPoolTaskExecutor Initialized**********************");
