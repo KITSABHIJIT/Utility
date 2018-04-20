@@ -1,37 +1,33 @@
-package com.test.logReader;
-
-import org.apache.kafka.clients.producer.Callback;
-import org.apache.kafka.clients.producer.KafkaProducer;
-import org.apache.kafka.clients.producer.ProducerRecord;
-import org.apache.kafka.clients.producer.RecordMetadata;
+package com.staples.kafka.log.feeder;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.util.Properties;
 import java.util.concurrent.ExecutionException;
 
-public class KafkaLogProducerThread extends Thread {
+import org.apache.kafka.clients.producer.Callback;
+import org.apache.kafka.clients.producer.KafkaProducer;
+import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.clients.producer.RecordMetadata;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
+import com.staples.kafka.log.pojo.LogFile;
+
+@Component
+@Scope("prototype")
+public class KafkaLogWorker implements Runnable {
+	private static final Logger logger = LoggerFactory.getLogger(KafkaLogWorker.class);
 	private final KafkaProducer<String, String> producer;
-	private final String topic;
-	private final Boolean isAsync;
-	private final String filePath;
+	private final LogFile logFile;
+	
 
-	public static final String KAFKA_SERVER_URL = "lwacfndbv104.staples.com";
-	public static final int KAFKA_SERVER_PORT = 9092;
-	public static final String CLIENT_ID = "KafkaLogProducer";
-
-	public KafkaLogProducerThread(String topic,String filePath, Boolean isAsync) {
-		Properties properties = new Properties();
-		properties.put("bootstrap.servers", KAFKA_SERVER_URL + ":" + KAFKA_SERVER_PORT);
-		properties.put("client.id", CLIENT_ID);
-		properties.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
-		properties.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
-		producer = new KafkaProducer<>(properties);
-		this.topic = topic;
-		this.isAsync = isAsync;
-		this.filePath = filePath;
+	public KafkaLogWorker(LogFile logFile, KafkaProducer<String, String> producer) {
+		this.producer=producer;
+		this.logFile = logFile;
 	}
 
 	public void run() {
@@ -39,18 +35,19 @@ public class KafkaLogProducerThread extends Thread {
 		File file=null,fileOld=null;
 		RandomAccessFile raf=null,rafOld = null;
 		try {
-			file=new File(filePath);
-			fileOld=new File(filePath+".1");
+			file=new File(logFile.getLogfilePath());
+			fileOld=new File(logFile.getRolledOutLogfilePath());
 			if (!file.exists() || file.isDirectory() || !file.canRead()) {
 				throw new IOException("Can't read this file.");
 			}
 		} catch (IOException e) {
+			logger.error(e.getMessage(), e);
 			e.printStackTrace();
 		}
 
 		long filePointer = file.length();
 
-		System.out.println("Log tailing started on " + file.getName());
+		logger.debug("Log tailing started on " + file.getName());
 
 		while (true) {
 			try {
@@ -59,8 +56,8 @@ public class KafkaLogProducerThread extends Thread {
 
 					// Log must have been rolled or deleted.
 					// File must have had something added to it!
-					System.out.println("Log file was reset. Restarting logging from start of file.");
-					System.out.println("Reading rolled out file data");
+					logger.debug("Log file was reset. Restarting logging from start of file.");
+					logger.debug("Reading rolled out file data");
 					try {
 						rafOld = new RandomAccessFile(fileOld, "r");
 						rafOld.seek(filePointer);
@@ -70,10 +67,11 @@ public class KafkaLogProducerThread extends Thread {
 							++messageNo;
 						}
 
-						System.out.println("Rolled out file data reading completed");
+						logger.debug("Rolled out file data reading completed");
 						filePointer = 0;
 					}catch (FileNotFoundException e) {
-						//e.printStackTrace();
+						//logger.error("File Not Found", e);
+						//handling the exception as The process cannot access the file because it is being used by another process [application log4j rolling out process]
 					}
 				}
 				else if (len > filePointer) {
@@ -88,7 +86,7 @@ public class KafkaLogProducerThread extends Thread {
 					filePointer = raf.getFilePointer();
 				}
 			} catch (IOException e) {
-				e.printStackTrace();
+				logger.error("IO Exception", e);
 			}finally {
 				try {
 					if(raf!=null) {
@@ -98,25 +96,25 @@ public class KafkaLogProducerThread extends Thread {
 						rafOld.close();
 					}
 				} catch (IOException e) {
+					logger.error("Not able to close the RandomAccessFile", e);
 					e.printStackTrace();
 				}
 			}
 		}
 	}
 
-
 	private void postLogToKafka(String messageStr, int messageNo) {
 		long startTime = System.currentTimeMillis();
-		if (isAsync) { // Send asynchronously
-			producer.send(new ProducerRecord<>(topic,
+		if (logFile.getIsAync()) { // Send asynchronously
+			producer.send(new ProducerRecord<>(logFile.getKafkaTopic(),
 					String.valueOf(messageNo),
 					messageStr), new DemoCallBackThread(startTime, messageNo, messageStr));
 		} else { // Send synchronously
 			try {
-				producer.send(new ProducerRecord<>(topic,
+				producer.send(new ProducerRecord<>(logFile.getKafkaTopic(),
 						String.valueOf(messageNo),
 						messageStr)).get();
-				System.out.println("Sent message: (" + messageNo + ", " + messageStr + ")");
+				logger.debug("Sent message: (" + messageNo + ", " + messageStr + ")");
 			} catch (InterruptedException | ExecutionException e) {
 				e.printStackTrace();
 				// handle the exception
@@ -126,7 +124,7 @@ public class KafkaLogProducerThread extends Thread {
 }
 
 class DemoCallBackThread implements Callback {
-
+	private static final Logger logger = LoggerFactory.getLogger(DemoCallBackThread.class);
 	private final long startTime;
 	private final int key;
 	private final String message;
@@ -146,7 +144,7 @@ class DemoCallBackThread implements Callback {
 	public void onCompletion(RecordMetadata metadata, Exception exception) {
 		long elapsedTime = System.currentTimeMillis() - startTime;
 		if (metadata != null) {
-			System.out.println(
+			logger.debug(
 					"message(" + key + ", " + message + ") sent to partition(" + metadata.partition() +
 					"), " +
 					"offset(" + metadata.offset() + ") in " + elapsedTime + " ms");

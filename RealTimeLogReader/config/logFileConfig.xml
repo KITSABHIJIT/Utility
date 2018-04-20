@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<logFiles>
+	<logFile>
+		<application_id>HelloKafkaLogger</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/DynamicLog/logs/debug.log</filePath>
+		<rolledOutFilePath>/DynamicLog/logs/debug.log.1</rolledOutFilePath>
+		<isAsync>false</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>HelloKafkaLogger</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/DynamicLog/logs/info.log</filePath>
+		<rolledOutFilePath>/DynamicLog/logs/info.log.1</rolledOutFilePath>
+		<isAsync>false</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>HelloKafkaLogger</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/DynamicLog/logs/error.log</filePath>
+		<rolledOutFilePath>/DynamicLog/logs/error.log.1</rolledOutFilePath>
+		<isAsync>false</isAsync>
+	</logFile>
+</logFiles>
