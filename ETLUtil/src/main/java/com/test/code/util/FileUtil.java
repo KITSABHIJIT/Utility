@@ -61,6 +61,42 @@ public class FileUtil {
 		}
 	}
 	
+	public static void writeToFileFromList(List<String> contentList,String fileName){
+		FileOutputStream fop = null;
+		File file;
+		int lineCount=0;
+		try {
+			file = new File(fileName);
+			fop = new FileOutputStream(file);
+			// if file doesnt exists, then create it
+			if (!file.exists()) {
+				file.createNewFile();
+			}
+			for(String content: contentList) {
+				// get the content in bytes
+				byte[] contentInBytes = content.getBytes();
+				if(lineCount>0) {
+					fop.write("\n".getBytes());
+				}
+				fop.write(contentInBytes);
+				lineCount++;
+			}
+			fop.flush();
+			fop.close();
+			System.out.println(fileName+ " Created Successfully.");
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (fop != null) {
+					fop.close();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
 	public static List<String> readFromFile(String fileName){
 		List<String> list=new ArrayList<String>();
 		BufferedReader br = null;
@@ -86,5 +122,17 @@ public class FileUtil {
 			}
 		}
 		return list;
+	}
+	
+	public static void deleteFile(String filePath) {
+		File file = new File(filePath);
+        if(file.delete())
+        {
+            System.out.println(filePath+" deleted successfully");
+        }
+        else
+        {
+            System.out.println("Failed to delete the file: "+filePath);
+        }
 	}
 }

@@ -133,4 +133,11 @@ public class StringUtil {
 		}
 	}
 	
+	public static String printArray(String [] array) {
+		String result="";
+		for(String data: array) {
+			result=result+" "+data;
+		}
+		return result;
+	}
 }
