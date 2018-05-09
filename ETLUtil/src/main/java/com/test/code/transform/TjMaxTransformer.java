@@ -37,7 +37,7 @@ public class TjMaxTransformer {
 					exp.setTransactionDate(DateUtil.getSQLData(DateUtil.getSomeDate(expenseDetails[0].trim(), "MM/dd/yyyy")));
 					exp.setMerchant(expenseDetails[4].trim().split(MERCHANT_DELIMITER)[0].toUpperCase());
 					exp.setExpensePlace(expenseDetails[4].trim().split(MERCHANT_DELIMITER)[1].toUpperCase());
-					exp.setAmount(StringUtil.getDouble(expenseDetails[3].trim()));
+					exp.setAmount(-1*StringUtil.getDouble(expenseDetails[3].trim()));
 					expenseList.add(exp);
 				}
 			}

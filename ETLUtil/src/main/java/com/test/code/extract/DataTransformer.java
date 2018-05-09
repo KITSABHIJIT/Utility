@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.test.code.pojo.Category;
 import com.test.code.pojo.Expense;
 import com.test.code.pojo.Merchant;
 import com.test.code.pojo.PayMode;
@@ -42,6 +43,55 @@ public class DataTransformer {
 		List<Merchant> merchantList=new ArrayList<Merchant>();
 
 		for (Map.Entry<String, List<String>> entry : rawData.entrySet()) {
+			System.out.println("Merchant Mapping File : " + entry.getKey() + " Record Count : " + entry.getValue().size());
+			for(String data:entry.getValue()){
+				String [] segmentList = data.split(delimeter);
+				if(segmentList.length>1){
+					Merchant merchant = new Merchant();
+					try {
+						merchant.setMerchant(segmentList[0].trim());
+						merchant.setCategory(Integer.parseInt(segmentList[1].trim()));
+						merchantList.add(merchant);
+					} catch (Exception e) {
+						System.err.println("Error file: "+entry.getKey()+"\n Error Data: "+data);
+						e.printStackTrace();
+					}
+				}
+			}
+		}
+		return merchantList;
+	}
+	
+	public static List<Category> transformDataUsingDelimeterCategory(Map<String,List<String>> rawData, String delimeter){
+		List<Category> categoryList=new ArrayList<Category>();
+
+		for (Map.Entry<String, List<String>> entry : rawData.entrySet()) {
+			System.out.println("Category Mapping File : " + entry.getKey() + " Record Count : " + entry.getValue().size());
+			for(String data:entry.getValue()){
+				String [] segmentList = data.split(delimeter);
+				if(segmentList.length>1){
+					Category category = new Category();
+					try {
+						category.setCategory_id(Integer.parseInt(segmentList[0].trim()));
+						category.setCategory_desc(segmentList[1].trim());
+						categoryList.add(category);
+					} catch (Exception e) {
+						System.err.println("Error file: "+entry.getKey()+"\n Error Data: "+data);
+						e.printStackTrace();
+					}
+				}
+			}
+		}
+		return categoryList;
+	}
+	
+	/*public static List<Merchant> transformDataMerchant(){
+		
+		
+		
+		List<Merchant> merchantList=new ArrayList<Merchant>();
+
+		for (Map.Entry<String, List<String>> entry : rawData.entrySet()) {
 			System.out.println("Merchant File : " + entry.getKey() + " Record Count : " + entry.getValue().size());
 			for(String data:entry.getValue()){
 				String [] segmentList = data.split(delimeter);
@@ -62,7 +112,7 @@ public class DataTransformer {
 			}
 		}
 		return merchantList;
-	}
+	}*/
 	
 	public static List<PayMode> transformDataUsingDelimeterPayMode(Map<String,List<String>> rawData, String delimeter){
 		List<PayMode> payModeList=new ArrayList<PayMode>();

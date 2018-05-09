@@ -3,7 +3,7 @@ package com.test.code.pojo;
 
 public class Merchant {
 	private String merchant;
-	private String category;
+	private int category;
 	private String description;
 	
 	public String getMerchant() {
@@ -12,10 +12,10 @@ public class Merchant {
 	public void setMerchant(String merchant) {
 		this.merchant = merchant;
 	}
-	public String getCategory() {
+	public int getCategory() {
 		return category;
 	}
-	public void setCategory(String category) {
+	public void setCategory(int category) {
 		this.category = category;
 	}
 	public String getDescription() {

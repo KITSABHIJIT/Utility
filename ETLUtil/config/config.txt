@@ -1,19 +1,26 @@
-sourceDirPath=C:\\Users\\royab001\\Google Drive\\Expense\\Expense Dumps\\Statements
+sourceDirPath=C:\\Users\\royab001\\Google Drive\\Expense\\Expense Dumps\\Formated_Statements
 sourceDirPathMerchant=C:\\Users\\royab001\\Google Drive\\Expense\\Expense Dumps\\Merchant
 sourceDirPathPayMode=C:\\Users\\royab001\\Google Drive\\Expense\\Expense Dumps\\PayMode
-#sourceDirPath=C:\\Users\\royab001\\Desktop\\New folder
+sourceDirPathCategory=C:\\Users\\royab001\\Google Drive\\Expense\\Expense Dumps\\Category
 delimeter=[|]
 
 MYSQL=//localhost:3306/expdb|root|abhijit
 
-SQL_INSERT= INSERT INTO EXPDB.EXPENSE (EXPENSE_DATE, MERCHANT, PLACE_OF_EXPENSE,PAYMENT_MODE,AMOUNT) VALUES (?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE PLACE_OF_EXPENSE = ?;
+#SQL_INSERT= INSERT INTO EXPDB.EXPENSE (EXPENSE_DATE, MERCHANT, PLACE_OF_EXPENSE,PAYMENT_MODE,AMOUNT) VALUES (?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE PLACE_OF_EXPENSE = ?;
+SQL_INSERT= INSERT INTO EXPDB.EXPENSE (EXPENSE_DATE, MERCHANT, PLACE_OF_EXPENSE,PAYMENT_MODE,AMOUNT) SELECT * FROM (SELECT ?, ?, ?, ?, ?) AS tmp WHERE NOT EXISTS (SELECT EXPENSE_DATE FROM EXPDB.EXPENSE WHERE EXPENSE_DATE =? AND MERCHANT =? AND PAYMENT_MODE =? AND AMOUNT =?) LIMIT 1;
 
-SQL_INSERT_MERCHANT= INSERT INTO EXPDB.MERCHANT (MERCHANT,CATEGORY,DESCRIPTION) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE  CATEGORY = ? ,DESCRIPTION = ?;
+#SQL_INSERT_MERCHANT= INSERT INTO EXPDB.MERCHANT (MERCHANT,CATEGORY,DESCRIPTION) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE  CATEGORY = ? ,DESCRIPTION = ?;
+SQL_INSERT_MERCHANT= INSERT INTO EXPDB.MERCHANT (MERCHANT,CATEGORY,DESCRIPTION) SELECT * FROM (SELECT ?, ?, ?) AS tmp WHERE NOT EXISTS (SELECT MERCHANT FROM EXPDB.MERCHANT WHERE MERCHANT =? AND CATEGORY =?) LIMIT 1;
 
-SQL_INSERT_PAYMODE= INSERT INTO EXPDB.PAYMODE (PAYMENT_ID,PAYMENT_TYPE,PAYMENT_METHOD,PAY_LIMIT,ACTIVE_DATE,BILLING_DATE) VALUES (?,?,?,?,?,?) ON DUPLICATE KEY UPDATE PAY_LIMIT = ? ,ACTIVE_DATE = ?,BILLING_DATE=?;
+#SQL_INSERT_PAYMODE= INSERT INTO EXPDB.PAYMODE (PAYMENT_ID,PAYMENT_TYPE,PAYMENT_METHOD,PAY_LIMIT,ACTIVE_DATE,BILLING_DATE) VALUES (?,?,?,?,?,?) ON DUPLICATE KEY UPDATE PAY_LIMIT = ? ,ACTIVE_DATE = ?,BILLING_DATE=?;
+SQL_INSERT_PAYMODE= INSERT INTO EXPDB.PAYMODE (PAYMENT_ID,PAYMENT_TYPE,PAYMENT_METHOD,PAY_LIMIT,ACTIVE_DATE,BILLING_DATE) SELECT * FROM (SELECT ?, ?, ?,?, ?, ?) AS tmp WHERE NOT EXISTS (SELECT PAYMENT_ID FROM EXPDB.PAYMODE WHERE PAYMENT_ID =? AND PAYMENT_TYPE =? AND PAYMENT_METHOD =? AND PAY_LIMIT =? AND ACTIVE_DATE =?) LIMIT 1;
 
-SQL_REPORT_INSERT= INSERT INTO EXPDB.FSAREPORT (SCHEMANAME,DESTTABLE,REPORTNAME,PRESTGTABLE1,PRESTGTABLE2,PRESTGTABLE3,PRESTGTABLE4,PRESTGTABLE5,PRESTGTABLE6,PRESTGTABLE7,PRESTGTABLE8,PRESTGTABLE9,PRESTGTABLE10,PRESTGTABLE11) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?);
+SQL_GET_MERCHANT= select distinct MERCHANT from (select e.MERCHANT from expense e left outer join merchant m on e.merchant=m.merchant where m.merchant is null) tmp order by MERCHANT
+SQL_INSERT_MERCHANT_MAPPING= INSERT INTO EXPDB.MERCHANT_MAPPING (merchant_initial,category) SELECT * FROM (SELECT ?, ?) AS tmp WHERE NOT EXISTS (SELECT merchant_initial FROM EXPDB.MERCHANT_MAPPING WHERE merchant_initial =? AND category =?) LIMIT 1;
+SQL_INSERT_NEW_MERCHANT= INSERT INTO EXPDB.MERCHANT (merchant) SELECT * FROM (SELECT ?) AS tmp WHERE NOT EXISTS (SELECT merchant FROM EXPDB.MERCHANT WHERE merchant =?) LIMIT 1;
+SQL_NEW_MERCHANT_UPDATE= UPDATE merchant JOIN merchant_mapping ON merchant.merchant LIKE CONCAT('%', merchant_mapping.merchant_initial, '%') SET merchant.category =merchant_mapping.category
 
+SQL_INSERT_CATEGORY= INSERT INTO EXPDB.expense_category (category_id,category) SELECT * FROM (SELECT ?,?) AS tmp WHERE NOT EXISTS (SELECT category_id FROM EXPDB.expense_category WHERE category_id =? AND category =?) LIMIT 1;
 
 BOACreditFile=C:\\Users\\royab001\\Google Drive\\Expense\\Expense Dumps\\Raw_Statements\\BankOfAmericaCredit.csv
 AmexFile=C:\\Users\\royab001\\Google Drive\\Expense\\Expense Dumps\\Raw_Statements\\Amex.csv
@@ -28,3 +35,4 @@ MacysFile=C:\\Users\\royab001\\Google Drive\\Expense\\Expense Dumps\\Raw_Stateme
 TjMaxFile=C:\\Users\\royab001\\Google Drive\\Expense\\Expense Dumps\\Raw_Statements\\Tjmax.csv
 ZalesFile=C:\\Users\\royab001\\Google Drive\\Expense\\Expense Dumps\\Raw_Statements\\Zales.csv
 ZalesFileTemp=C:\\Users\\royab001\\Google Drive\\Expense\\Expense Dumps\\Raw_Statements\\ZalesTemp.csv
+BestBuyFile=C:\\Users\\royab001\\Google Drive\\Expense\\Expense Dumps\\Raw_Statements\\bestBuy.csv

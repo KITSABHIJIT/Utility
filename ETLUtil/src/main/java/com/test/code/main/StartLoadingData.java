@@ -6,9 +6,22 @@ import java.util.Map;
 import com.test.code.extract.DataExtractor;
 import com.test.code.extract.DataTransformer;
 import com.test.code.load.DataLoader;
+import com.test.code.pojo.Category;
 import com.test.code.pojo.Expense;
 import com.test.code.pojo.Merchant;
 import com.test.code.pojo.PayMode;
+import com.test.code.transform.AmexTransformer;
+import com.test.code.transform.BJsTransformer;
+import com.test.code.transform.BOACreditTransformer;
+import com.test.code.transform.BOADebitTransformer;
+import com.test.code.transform.BestBuyTransformer;
+import com.test.code.transform.ChaseTransformer;
+import com.test.code.transform.DiscoverTransformer;
+import com.test.code.transform.JCPenneyTransformer;
+import com.test.code.transform.KholsTransformer;
+import com.test.code.transform.MacysTransformer;
+import com.test.code.transform.TjMaxTransformer;
+import com.test.code.transform.ZalesTransformer;
 import com.test.code.util.PropertiesUtil;
 
 public class StartLoadingData {
@@ -20,15 +33,37 @@ public class StartLoadingData {
 		// Transform Data
 		List<Expense> expList=DataTransformer.transformDataUsingDelimeter(rawData, PropertiesUtil.getProperty("delimeter"));
 		// Load Data
+		expList.addAll(AmexTransformer.processData());
+		expList.addAll(BestBuyTransformer.processData());
+		expList.addAll(BJsTransformer.processData());
+		expList.addAll(BOACreditTransformer.processData());
+		expList.addAll(BOADebitTransformer.processData());
+		expList.addAll(ChaseTransformer.processData());
+		expList.addAll(DiscoverTransformer.processData());
+		expList.addAll(JCPenneyTransformer.processData());
+		expList.addAll(KholsTransformer.processData());
+		expList.addAll(MacysTransformer.processData());
+		expList.addAll(TjMaxTransformer.processData());
+		expList.addAll(ZalesTransformer.processData());
 		DataLoader.loadExpenseData(expList);
-
+		
+		//Category Load
+		// Extract Data
+		Map<String,List<String>> rawDataCategory =DataExtractor.extractDataWithFileName(PropertiesUtil.getProperty("sourceDirPathCategory"));
+		// Transform Data
+		List<Category> categoryList=DataTransformer.transformDataUsingDelimeterCategory(rawDataCategory, PropertiesUtil.getProperty("delimeter"));
+		// Load Data
+		DataLoader.loadCategoryData(categoryList);
+		
 		//Merchant Load
 		// Extract Data
 		Map<String,List<String>> rawDataMerchant =DataExtractor.extractDataWithFileName(PropertiesUtil.getProperty("sourceDirPathMerchant"));
 		// Transform Data
 		List<Merchant> merchantList=DataTransformer.transformDataUsingDelimeterMerchant(rawDataMerchant, PropertiesUtil.getProperty("delimeter"));
 		// Load Data
-		DataLoader.loadMerchantData(merchantList);
+		DataLoader.loadMerchantMappingData(merchantList);
+		DataLoader.loadNewMerchant();
+		
 
 		//PAYMODE Load
 		// Extract Data

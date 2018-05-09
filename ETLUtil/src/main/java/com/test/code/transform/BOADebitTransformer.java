@@ -15,6 +15,7 @@ public class BOADebitTransformer {
 	private static final char QUOTE_CHAR = '"';
 	private static final String MODE_OF_PAYMENT ="BANK OF AMERICA DEBIT CARD";
 	private static final String EXCLUDED_PAYMENTS [] = {"TATA CONSULTANCY DES:DIRECT DEP ID"
+			,"AMERICAN EXPRESS DES:ACH PMT ID"
 			,"DISCOVER DES:E-PAYMENT ID:7562"
 			,"ONLINE BANKING TRANSFER TO SAV 3088"
 			,"ONLINE BANKING TRANSFER FROM SAV 3088"
@@ -27,7 +28,9 @@ public class BOADebitTransformer {
 			,"MACYS DES:ONLINE PMT ID"
 			,"TJX REWARDS MC DES"
 			,"JCPENNEY CC DES"
-			,"WELLS FARGO CARD DES"};
+			,"WELLS FARGO CARD DES"
+			,"CHASE CREDIT CRD DES:EPAY ID"
+			,"CHASE DES:EPAY ID"};
 	
 	public static List<Expense> processData(){
 
