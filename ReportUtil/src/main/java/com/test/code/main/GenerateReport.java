@@ -20,8 +20,8 @@ public class GenerateReport {
 		long startTime=new  Date().getTime();
 		
 		
-		Date startDate=DateUtil.getSomeDate("20170101", "yyyyMMdd");
-		Date endDate=DateUtil.getSomeDate("20171031", "yyyyMMdd");
+		Date startDate=DateUtil.getSomeDate("20180101", "yyyyMMdd");
+		Date endDate=DateUtil.getSomeDate("20180531", "yyyyMMdd");
 		List<Date> dateList =DateUtil.getDatesFromDateRange(startDate, endDate, "MONTHLY");
 		int counter=0;
 		logger.info("Process started...");
