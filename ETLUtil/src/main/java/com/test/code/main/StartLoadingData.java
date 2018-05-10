@@ -33,18 +33,18 @@ public class StartLoadingData {
 		// Transform Data
 		List<Expense> expList=DataTransformer.transformDataUsingDelimeter(rawData, PropertiesUtil.getProperty("delimeter"));
 		// Load Data
-		expList.addAll(AmexTransformer.processData());
-		expList.addAll(BestBuyTransformer.processData());
-		expList.addAll(BJsTransformer.processData());
-		expList.addAll(BOACreditTransformer.processData());
-		expList.addAll(BOADebitTransformer.processData());
-		expList.addAll(ChaseTransformer.processData());
-		expList.addAll(DiscoverTransformer.processData());
-		expList.addAll(JCPenneyTransformer.processData());
-		expList.addAll(KholsTransformer.processData());
-		expList.addAll(MacysTransformer.processData());
-		expList.addAll(TjMaxTransformer.processData());
-		expList.addAll(ZalesTransformer.processData());
+		AmexTransformer.processData(expList);
+		BestBuyTransformer.processData(expList);
+		BJsTransformer.processData(expList);
+		BOACreditTransformer.processData(expList);
+		BOADebitTransformer.processData(expList);
+		ChaseTransformer.processData(expList);
+		DiscoverTransformer.processData(expList);
+		JCPenneyTransformer.processData(expList);
+		KholsTransformer.processData(expList);
+		MacysTransformer.processData(expList);
+		TjMaxTransformer.processData(expList);
+		ZalesTransformer.processData(expList);
 		DataLoader.loadExpenseData(expList);
 		
 		//Category Load

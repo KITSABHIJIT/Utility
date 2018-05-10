@@ -1,7 +1,6 @@
 package com.test.code.transform;
 
 import java.io.FileReader;
-import java.util.ArrayList;
 import java.util.List;
 
 import com.opencsv.CSVReader;
@@ -32,11 +31,10 @@ public class BOADebitTransformer {
 			,"CHASE CREDIT CRD DES:EPAY ID"
 			,"CHASE DES:EPAY ID"};
 	
-	public static List<Expense> processData(){
+	public static List<Expense> processData(List<Expense> expenseList){
 
 		CSVReader csvReader = null;
 		String[] expenseDetails = null;
-		List<Expense> expenseList = new ArrayList<Expense>();
 		try
 		{
 			/**
@@ -54,7 +52,11 @@ public class BOADebitTransformer {
 					exp.setMerchant(expenseDetails[1].trim().toUpperCase());
 					//exp.setExpensePlace(expenseDetails[3].trim().toUpperCase());
 					exp.setAmount(-1*StringUtil.getDouble(expenseDetails[2].trim()));
-					expenseList.add(exp);
+					if(expenseList.contains(exp)) {
+						System.out.println("Expense Record already exists: "+exp.toString());
+					}else {
+						expenseList.add(exp);
+					}
 				}
 			}
 		} catch (Exception e) {
@@ -73,8 +75,5 @@ public class BOADebitTransformer {
 			}
 		}
 		return exclude;
-	}
-	public static void main (String ... args) {
-		BOADebitTransformer.processData();
 	}
 }

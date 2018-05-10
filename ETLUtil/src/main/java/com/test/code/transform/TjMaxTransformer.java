@@ -1,7 +1,6 @@
 package com.test.code.transform;
 
 import java.io.FileReader;
-import java.util.ArrayList;
 import java.util.List;
 
 import com.opencsv.CSVReader;
@@ -16,11 +15,10 @@ public class TjMaxTransformer {
 	private static final char QUOTE_CHAR = '"';
 	private static final String MODE_OF_PAYMENT ="TJ MAX CREDIT CARD";
 	private static final String PAYMENT_DONE ="ONLINE PAYMENT THANK YOU";
-	public static List<Expense> processData(){
+	public static List<Expense> processData(List<Expense> expenseList){
 
 		CSVReader csvReader = null;
 		String[] expenseDetails = null;
-		List<Expense> expenseList = new ArrayList<Expense>();
 		try
 		{
 			/**
@@ -38,7 +36,11 @@ public class TjMaxTransformer {
 					exp.setMerchant(expenseDetails[4].trim().split(MERCHANT_DELIMITER)[0].toUpperCase());
 					exp.setExpensePlace(expenseDetails[4].trim().split(MERCHANT_DELIMITER)[1].toUpperCase());
 					exp.setAmount(-1*StringUtil.getDouble(expenseDetails[3].trim()));
-					expenseList.add(exp);
+					if(expenseList.contains(exp)) {
+						System.out.println("Expense Record already exists: "+exp.toString());
+					}else {
+						expenseList.add(exp);
+					}
 				}
 			}
 		} catch (Exception e) {
@@ -47,11 +49,4 @@ public class TjMaxTransformer {
 		}
 		return expenseList;
 	}
-
-
-	public static void main (String ... args) {
-		TjMaxTransformer.processData();
-	}
-
-
 }

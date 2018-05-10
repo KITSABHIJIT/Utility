@@ -1,7 +1,6 @@
 package com.test.code.transform;
 
 import java.io.FileReader;
-import java.util.ArrayList;
 import java.util.List;
 
 import com.opencsv.CSVReader;
@@ -15,11 +14,10 @@ public class BOACreditTransformer {
 	private static final char QUOTE_CHAR = '"';
 	private static final String MODE_OF_PAYMENT ="BANK OF AMERICA CREDIT CARD";
 	private static final String PAYMENT_DONE ="PAYMENT - THANK YOU";
-	public static List<Expense> processData(){
+	public static List<Expense> processData(List<Expense> expenseList){
 
 		CSVReader csvReader = null;
 		String[] expenseDetails = null;
-		List<Expense> expenseList = new ArrayList<Expense>();
 		try
 		{
 			/**
@@ -37,7 +35,11 @@ public class BOACreditTransformer {
 					exp.setMerchant(expenseDetails[2].trim().toUpperCase());
 					exp.setExpensePlace(expenseDetails[3].trim().toUpperCase());
 					exp.setAmount(-1*StringUtil.getDouble(expenseDetails[4].trim()));
-					expenseList.add(exp);
+					if(expenseList.contains(exp)) {
+						System.out.println("Expense Record already exists: "+exp.toString());
+					}else {
+						expenseList.add(exp);
+					}
 				}
 			}
 		} catch (Exception e) {
@@ -45,10 +47,5 @@ public class BOACreditTransformer {
 			e.printStackTrace();
 		}
 		return expenseList;
-	}
-
-
-	public static void main (String ... args) {
-		BOACreditTransformer.processData();
 	}
 }

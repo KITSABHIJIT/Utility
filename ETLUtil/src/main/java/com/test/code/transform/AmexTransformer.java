@@ -1,7 +1,6 @@
 package com.test.code.transform;
 
 import java.io.FileReader;
-import java.util.ArrayList;
 import java.util.List;
 
 import com.opencsv.CSVReader;
@@ -18,11 +17,10 @@ public class AmexTransformer {
 	private static final String PAYMENT_RECEIVED ="PAYMENT RECEIVED";
 	private static final String PLACE_DELIMITER = "-";
 	private static final String DATE_DELIMITER = "  ";
-	public static List<Expense> processData(){
+	public static List<Expense> processData(List<Expense> expenseList){
 
 		CSVReader csvReader = null;
 		String[] expenseDetails = null;
-		List<Expense> expenseList = new ArrayList<Expense>();
 		try
 		{
 			/**
@@ -45,7 +43,11 @@ public class AmexTransformer {
 						System.out.println("Merchant doesnt have a Place: "+ MerchantPlace[0]);
 					}
 					exp.setAmount(StringUtil.getDouble(expenseDetails[7].trim()));
-					expenseList.add(exp);
+					if(expenseList.contains(exp)) {
+						System.out.println("Expense Record already exists: "+exp.toString());
+					}else {
+						expenseList.add(exp);
+					}
 				}
 			}
 		} catch (Exception e) {
@@ -55,8 +57,4 @@ public class AmexTransformer {
 		return expenseList;
 	}
 
-
-	public static void main (String ... args) {
-		AmexTransformer.processData();
-	}
 }

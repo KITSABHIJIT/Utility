@@ -16,11 +16,10 @@ public class BJsTransformer {
 	private static final char QUOTE_CHAR = '"';
 	private static final String MODE_OF_PAYMENT ="BJS CREDIT CARD";
 	private static final String PAYMENT_DONE ="PAYMENT-THANK YOU";
-	public static List<Expense> processData(){
+	public static List<Expense> processData(List<Expense> expenseList){
 
 		CSVReader csvReader = null;
 		String[] expenseDetails = null;
-		List<Expense> expenseList = new ArrayList<Expense>();
 		try
 		{
 			List<String> concatinatedData=new ArrayList<String>();
@@ -48,7 +47,11 @@ public class BJsTransformer {
 					exp.setMerchant(expenseDetails[1].trim().toUpperCase());
 					exp.setExpensePlace(expenseDetails[2].trim().toUpperCase());
 					exp.setAmount(StringUtil.getDouble(expenseDetails[4].trim().substring(1)));
-					expenseList.add(exp);
+					if(expenseList.contains(exp)) {
+						System.out.println("Expense Record already exists: "+exp.toString());
+					}else {
+						expenseList.add(exp);
+					}
 				}
 			}
 		} catch (Exception e) {
@@ -57,10 +60,5 @@ public class BJsTransformer {
 		}
 		FileUtil.deleteFile(PropertiesUtil.getProperty("BJsFileTemp"));
 		return expenseList;
-	}
-
-
-	public static void main (String ... args) {
-		BJsTransformer.processData();
 	}
 }
