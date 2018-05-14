@@ -114,6 +114,25 @@ public class ConnectionUtil {
 		return insertedRows;
 	}
 	
+	public static int updateCaRule(String jobName,String status) {
+		Connection con=ConnectionUtil.getAS400Connection(null);
+		PreparedStatement stmt=null;
+		int insertedRows=0;
+		try {
+			stmt=con.prepareStatement(PropertiesUtil.getProperty("updateCaRule"));
+			stmt.setString(1, status);
+			stmt.setString(2, jobName);
+			insertedRows = stmt.executeUpdate();
+		}catch (SQLException e) {
+			System.out.println("Error while executing Query..."+PropertiesUtil.getProperty("updateCaRule"));
+			e.printStackTrace();
+		}finally {
+			ConnectionUtil.closeStatement(stmt);
+			ConnectionUtil.closeConnection(con);
+		}
+		return insertedRows;
+	}
+	
 	public static CaRule getCaRuleData(String jobName) {
 		Connection con=ConnectionUtil.getAS400Connection(null);
 		PreparedStatement stmt=null;

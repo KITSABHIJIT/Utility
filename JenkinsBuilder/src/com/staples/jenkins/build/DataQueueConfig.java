@@ -3,15 +3,13 @@ package com.staples.jenkins.build;
 import com.ibm.as400.access.AS400;
 import com.ibm.as400.access.AS400ConnectionPool;
 import com.ibm.as400.access.ConnectionPoolException;
-import com.ibm.as400.access.DataQueue;
-import com.ibm.as400.access.DataQueueEntry;
-import com.ibm.as400.access.ObjectDoesNotExistException;
+import com.ibm.as400.access.KeyedDataQueue;
 
 
 public class DataQueueConfig {
 	
 	
-	private static DataQueue DATA_QUEUE;
+	private static KeyedDataQueue DATA_QUEUE;
 	private static final String FORWARD_SLASH = "/";
 	private static AS400ConnectionPool connectionPool;
 
@@ -20,7 +18,7 @@ public class DataQueueConfig {
 		final StringBuilder builder = new StringBuilder(PropertiesUtil.getProperty("data_queue_sys_lib"));
 		builder.append(FORWARD_SLASH).append(PropertiesUtil.getProperty("data_queue_library")).append(FORWARD_SLASH)
 		.append(PropertiesUtil.getProperty("data_queue_name"));
-		DATA_QUEUE = new DataQueue(this.getConnection(), builder.toString());
+		DATA_QUEUE = new KeyedDataQueue(this.getConnection(), builder.toString());
 		System.out.println("Data Queue initialized Successfully");
 	}
 
@@ -54,34 +52,14 @@ public class DataQueueConfig {
 		connectionPool.returnConnectionToPool(as400);
 	}
 
-	public String getData() throws Exception {
-		String result = null;
-		DataQueueEntry entry;
-		try {
-			System.out.println("Reading Data *****");
-			entry = DATA_QUEUE.read(-1);
-			//entry = DATA_QUEUE.read();
-			System.out.println("entry : "+entry);
-			if (entry != null) {
-				result = entry.getString();
-			}
-		} catch (final ObjectDoesNotExistException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (final Exception e) {
-			e.printStackTrace();
-			throw e;
-		}
-		System.out.println("result :: "+result);
-		return result;
-	}
 	
 	public String buildJobData(BuildLog buildLog,CaRule caRule) {
 		//Sample =QPADEV000TDEVSYY    210130DEVSYY    CA_TRIGGR220180510101832CA_ENGS66DCARULE    3CAP551      0CA_066D   CA_ENGS66DCA_FEP_MONS020        /   0     CA_FEP_MONPAYMENTS
 		StringBuilder message=new StringBuilder(PropertiesUtil.getProperty("message_prefix"));
-		message.append(StringUtil.padString(PropertiesUtil.getProperty("user"), 10, false, " "));
+		message.append(StringUtil.padString(PropertiesUtil.getProperty("message_user"), 10, false, " "));
 		message.append(StringUtil.getCurrentDate("yyMMdd"));
-		message.append(StringUtil.padString(PropertiesUtil.getProperty("user"), 10, false, " "));
+		message.append(PropertiesUtil.getProperty("message_key_value_delimetter"));
+		message.append(StringUtil.padString(PropertiesUtil.getProperty("message_user"), 10, false, " "));
 		message.append(PropertiesUtil.getProperty("message_trigger"));
 		message.append(StringUtil.getCurrentDate("yyyyMMddhhmmss"));
 		message.append(StringUtil.padString(buildLog.getAs400JobName(), 10, false, " "));
@@ -102,17 +80,21 @@ public class DataQueueConfig {
 	}
 	
 	
-	public void sendData(final String data) {
-		System.out.println("Writing to DQ : "+ data);
+	public void sendData(final String data) throws Exception {
 		AS400 as400 = null;
 		try {
 			as400 =  getConnection();
 			// write data to queue
-			DATA_QUEUE.write(data);
+			String key=data.split("["+PropertiesUtil.getProperty("message_key_value_delimetter")+"]")[0];
+			String value=data.split("["+PropertiesUtil.getProperty("message_key_value_delimetter")+"]")[1];
+			System.out.println("Writing to DQ : ");
+			System.out.println("Key : "+ key);
+			System.out.println("Value : "+ value);
+			DATA_QUEUE.write(key,value);
 			System.out.println("Write to Data Queue complete");
 			//getData() ;
 		} catch (final Exception e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
 			if (as400 != null) {
 				returnConnection(as400);
