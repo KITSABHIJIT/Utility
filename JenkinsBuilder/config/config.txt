@@ -2,3 +2,25 @@ server=DAYBREAK
 user=CDIUSR
 password=CDIUSR
 insertBuildLog= INSERT INTO PRMNTDLIB.BUILDLOG (BLDID,BLDTG,BLDURL,BLDCMT,BLDBRH,BLDJBN,BLDIFS) VALUES (?,?,?,?,?,?,?)
+getCaRule= SELECT * FROM PRMNTDLIB.CARULE WHERE RULJBN = ?
+
+carule_program=RULPGM
+carule_job_instance=RULINS
+carule_job_status=RULSTS
+carule_job_name=RULJBN
+carule_jobd=RULJBD
+carule_cltpgm=RULCTL
+carule_delay=RULDLY
+carule_priority=RULPTY
+
+data_queue_sys_lib =/QSYS.LIB
+data_queue_library =PRMNTDLIB.LIB
+data_queue_name =CA_CMD_Q.DTAQ
+
+message_prefix=QPADEV000T
+message_trigger=CA_TRIGGR2
+message_kill_command=3
+message_param1=CARULE
+message_param2=/
+message_param3=0
+message_suffix=PAYMENTS

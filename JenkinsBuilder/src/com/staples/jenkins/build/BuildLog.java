@@ -53,9 +53,9 @@ public class BuildLog {
 	}
 	@Override
 	public String toString() {
-		return "BuildLog [buildId=" + buildId + ", buildTag=" + buildTag + ", buildUrl=" + buildUrl + ", gitCommit="
-				+ gitCommit + ", gitBranch=" + gitBranch + ", as400JobName=" + as400JobName + ", as400IfsPath="
-				+ as400IfsPath + "]";
+		return "buildId=" + buildId + "\n buildTag=" + buildTag + "\n buildUrl=" + buildUrl + "\n gitCommit="
+				+ gitCommit + "\n gitBranch=" + gitBranch + "\n as400JobName=" + as400JobName + "\n as400IfsPath="
+				+ as400IfsPath;
 	}
 	
 	

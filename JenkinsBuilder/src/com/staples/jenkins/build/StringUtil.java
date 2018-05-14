@@ -1,6 +1,8 @@
 package com.staples.jenkins.build;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 public class StringUtil {
 
@@ -12,22 +14,25 @@ public class StringUtil {
 			return true;
 
 	}
-	public static String padZeros(String s, int padLength,boolean left) {
-		s= s.trim();
-		if(s.length()>=padLength){
-			return (s);
-		}
-		int 
-		strlen = s.length(),
-		n = padLength-strlen;
+	public static String padString(Object obj, int padLength,boolean left,String padString) {
 		String s1="";
-		for (int i=0; i<n; i++){
-			s1= s1 + "0";
+		if(!isBlankOrEmpty(obj)) {
+			String s=obj.toString();
+			s= s.trim();
+			if(s.length()>=padLength){
+				return (s);
+			}
+			int strlen = s.length(),
+			n = padLength-strlen;
+
+			for (int i=0; i<n; i++){
+				s1= s1 + padString;
+			}
+			if(left)
+				s1 = s1 + s;
+			else
+				s1 = s + s1;
 		}
-		if(left)
-			s1 = s1 + s;
-		else
-			s1 = s + s1;
 		return (s1);
 	}
 	
@@ -102,6 +107,12 @@ public class StringUtil {
 		}
 		return str;
 
+	}
+	
+	public static String getCurrentDate(String format) {
+			Calendar cal = Calendar.getInstance();
+			SimpleDateFormat sdf = new SimpleDateFormat(format);
+			return sdf.format(cal.getTime());
 	}
 
 	public static String customFormat(String value, int decimalValue, int decimalPlace ) {

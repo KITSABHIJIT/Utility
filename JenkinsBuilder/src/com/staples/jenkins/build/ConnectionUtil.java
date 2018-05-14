@@ -14,15 +14,14 @@ import com.ibm.as400.access.AS400JDBCDriver;
 public class ConnectionUtil {
 
 	public static Connection getAS400Connection(String library) {            
-		System.out.println("Connect to Database Called");
-		System.out.println("LIBRARY ACCESSED : " + library);
+		System.out.println("Connecting "+PropertiesUtil.getProperty("server")+"...");
+		if(!StringUtil.isBlankOrEmpty(library))
+			System.out.println("LIBRARY ACCESSED : " + library);
 
 		AS400 server;
 		Connection con=null;
 		server = new AS400(PropertiesUtil.getProperty("server"),PropertiesUtil.getProperty("user"),PropertiesUtil.getProperty("password"));
 		if(null!=server){
-			boolean AS400Local;
-			AS400Local = server.isLocal();
 			Properties prop = new Properties();
 			prop.put("naming", "system");
 			prop.put("errors", "full");
@@ -31,15 +30,15 @@ public class ConnectionUtil {
 			}else{
 				prop.put("libraries", library);
 			}
-			System.out.println("Connect to Database Called after properties AS400Local "+AS400Local);
 			try {
 				server.connectService(AS400.DATABASE);
-				System.out.println("DATABASE is connected to server ");
+				System.out.println("Connected to :"+PropertiesUtil.getProperty("server"));
 				AS400JDBCDriver d = new AS400JDBCDriver();
 				con = d.connect(server, prop, null);
 				con.setAutoCommit(true);
 			}catch (Exception e){
-				System.out.println("unable to connect to database."+e);
+				System.out.println("unable to connect "+PropertiesUtil.getProperty("server"));
+				e.printStackTrace();
 			}
 		}
 		return con;
@@ -106,13 +105,43 @@ public class ConnectionUtil {
 			stmt.setString(7, buildLog.getAs400IfsPath());
 			insertedRows = stmt.executeUpdate();
 		}catch (SQLException e) {
-			System.out.println("Error while executing Query...");
+			System.out.println("Error while executing Query..."+PropertiesUtil.getProperty("insertBuildLog"));
 			e.printStackTrace();
 		}finally {
 			ConnectionUtil.closeStatement(stmt);
 			ConnectionUtil.closeConnection(con);
 		}
 		return insertedRows;
+	}
+	
+	public static CaRule getCaRuleData(String jobName) {
+		Connection con=ConnectionUtil.getAS400Connection(null);
+		PreparedStatement stmt=null;
+		ResultSet resultSet=null;
+		CaRule caRule=new CaRule();
+		try {
+			stmt=con.prepareStatement(PropertiesUtil.getProperty("getCaRule"));
+			stmt.setString(1, jobName);
+			resultSet = stmt.executeQuery();
+			while(resultSet.next()) {
+				caRule.setProgramName(resultSet.getString(PropertiesUtil.getProperty("carule_program")));
+				caRule.setMaxInstance(resultSet.getDouble(PropertiesUtil.getProperty("carule_job_instance")));
+				caRule.setStatus(resultSet.getString(PropertiesUtil.getProperty("carule_job_status")));
+				caRule.setJobName(resultSet.getString(PropertiesUtil.getProperty("carule_job_name")));
+				caRule.setJobD(resultSet.getString(PropertiesUtil.getProperty("carule_jobd")));
+				caRule.setControlProgram(resultSet.getString(PropertiesUtil.getProperty("carule_cltpgm")));
+				caRule.setDelay(resultSet.getString(PropertiesUtil.getProperty("carule_delay")));
+				caRule.setPriority(resultSet.getLong(PropertiesUtil.getProperty("carule_priority")));
+			}
+		}catch (SQLException e) {
+			System.out.println("Error while executing Query..."+PropertiesUtil.getProperty("getCaRule"));
+			e.printStackTrace();
+		}finally {
+			ConnectionUtil.closeStatement(stmt);
+			ConnectionUtil.closeConnection(con);
+			ConnectionUtil.closeResultSet(resultSet);
+		}
+		return caRule;
 	}
 
 }
