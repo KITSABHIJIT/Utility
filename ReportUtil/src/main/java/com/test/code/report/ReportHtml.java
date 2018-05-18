@@ -12,6 +12,8 @@ public class ReportHtml {
 		content=content.replaceAll("<LINE_DATA>",(DataExtractor.getJsonData(PropertiesUtil.getProperty("JSON_EXPENSE_DATE")).toString()));
 		content=content.replaceAll("<DONUT_DATA>",(DataExtractor.getJsonData(PropertiesUtil.getProperty("JSON_CATEGORY")).toString()));
 		content=content.replaceAll("<BAR_DATA>",(DataExtractor.getJsonData(PropertiesUtil.getProperty("JSON_EXPENSE_MONTH")).toString()));
+		String periodData=DataExtractor.getJsonData(PropertiesUtil.getProperty("JSON_PERIOD_BAR_EXPENSE_MONTH")).toString();
+		content=content.replaceAll("<PERIOD_BAR_DATA>",periodData);
 		FileUtil.writeToFile(content, PropertiesUtil.getProperty("excelPath")+"/report.html");
 	}
 }
