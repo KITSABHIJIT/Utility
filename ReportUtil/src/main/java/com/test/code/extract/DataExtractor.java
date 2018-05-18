@@ -366,6 +366,23 @@ public class DataExtractor {
 		return data;
 	}
 
+	public static double getTotalExpense(String query) {
+		double data = 0;
+		try (Connection connection = ConnectionUtil.getConnection();
+				PreparedStatement statement = connection.prepareStatement(query);
+				) {
+			ResultSet rs = statement.executeQuery();
+			while (rs.next()) {
+				data=rs.getDouble(1);
+			}
+			logger.debug("Total Expense: "+data);
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		return data;
+	}
+
+
 	@SuppressWarnings("unchecked")
 	public static JSONArray getJsonData(String query,boolean excludeNegative){
 		int recordCount=0;
@@ -406,7 +423,7 @@ public class DataExtractor {
 							}else {
 								jsonOrderedMap.put(rsmd.getColumnName(i), value);
 							}
-							
+
 						}catch(NumberFormatException e) {
 							jsonOrderedMap.put(rsmd.getColumnName(i), rs.getString(i));
 						}

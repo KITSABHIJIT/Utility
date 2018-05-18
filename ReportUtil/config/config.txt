@@ -4,6 +4,8 @@ delimeter=[|]
 commaDelimeter=[,]
 figureDelimeter=[#]
 
+TOTAL_EXPENSE=SELECT SUM(AMOUNT) AS TOTAL_EXPENSE FROM EXPENSE
+
 JSON_EXPENSE_DATE=SELECT TRIM(EXPENSE_DATE) AS "date",sum(AMOUNT) as "value" FROM EXPENSE E group by EXPENSE_DATE order by EXPENSE_DATE
 
 JSON_CATEGORY=SELECT TRIM(M.CATEGORY) AS "category",CASE WHEN SUM(AMOUNT) IS NULL THEN 0.00 ELSE SUM(AMOUNT) END  AS "amount" FROM  (select m.merchant,e.category from merchant m left outer join expense_category e on m.category=e.category_id) M LEFT OUTER JOIN EXPENSE E ON E.MERCHANT=M.MERCHANT GROUP BY M.CATEGORY

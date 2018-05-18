@@ -13,6 +13,7 @@ public class ReportHtml {
 		content=content.replaceAll("<DONUT_DATA>",(DataExtractor.getJsonData(PropertiesUtil.getProperty("JSON_CATEGORY"),false).toString()));
 		content=content.replaceAll("<BAR_DATA>",(DataExtractor.getJsonData(PropertiesUtil.getProperty("JSON_EXPENSE_MONTH"),false).toString()));
 		content=content.replaceAll("<PERIOD_BAR_DATA>",(DataExtractor.getJsonData(PropertiesUtil.getProperty("JSON_PERIOD_BAR_EXPENSE_MONTH"),true).toString()));
+		content=content.replaceAll("<TOTAL_EXPENSE>",String.valueOf(DataExtractor.getTotalExpense(PropertiesUtil.getProperty("TOTAL_EXPENSE"))));
 		FileUtil.writeToFile(content, PropertiesUtil.getProperty("excelPath")+"/report.html");
 	}
 }
