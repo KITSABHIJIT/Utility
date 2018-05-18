@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.UUID;
 
 public class PushBuild {
-	public static DataQueueConfig config;
+	//public static DataQueueConfig config;
 	public static void main(String ...strings) {
 		int inserted =0;
 		if(strings.length<6) {
@@ -34,7 +34,6 @@ public class PushBuild {
 				System.out.println("******************************************************************");
 				Thread.sleep(Long.parseLong(PropertiesUtil.getProperty("updateDelay")));
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			if(ConnectionUtil.updateCaRule(buildLog.getAs400JobName(),"1")>0) {
@@ -42,7 +41,7 @@ public class PushBuild {
 				System.out.println("CARULE RULSTS updated back to 1 for "+buildLog.getAs400JobName());
 				System.out.println("********************************************************");
 			}
-			//inserted = ConnectionUtil.insertBuildData(buildLog);
+			inserted = ConnectionUtil.insertBuildData(buildLog);
 
 
 			/*CaRule caRule=ConnectionUtil.getCaRuleData(buildLog.getAs400JobName());
