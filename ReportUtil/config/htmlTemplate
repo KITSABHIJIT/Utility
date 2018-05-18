@@ -29,6 +29,11 @@
   margin-top: 50px;
 }
 
+#chartdiv5 {
+	width		: 100%;
+	height		: 500px;
+	font-size	: 11px;
+}
 </style>
 
 <!-- Resources -->
@@ -367,6 +372,194 @@ var periodBarChart = AmCharts.makeChart("chartdiv4", {
     	"enabled": true
      }
 });
+
+var chartStacked = AmCharts.makeChart("chartdiv5", {
+    "type": "serial",
+    "theme": "light",
+    "legend": {
+        "autoMargins": false,
+        "borderAlpha": 0.2,
+        "equalWidths": false,
+        "horizontalGap": 10,
+        "markerSize": 10,
+        "useGraphSettings": true,
+        "valueAlign": "left",
+        "valueWidth": 0
+    },
+    "dataProvider": <PERIOD_BAR_DATA>,
+    "titles": [ {
+    "text": "Stacked Expense by Cards",
+    "size": 16
+ 	 } ],
+    "valueAxes": [{
+        "stackType": "100%",
+        "axisAlpha": 0,
+        "gridAlpha": 0,
+        "labelsEnabled": false,
+        "position": "left"
+    }],
+    "graphs": [{
+        "balloonText": "[[title]], [[category]]<br><span style='font-size:14px;'><b>[[value]]</b> ([[percents]]%)</span>",
+        "fillAlphas": 0.9,
+        "fontSize": 11,
+        "labelText": "[[percents]]%",
+        "lineAlpha": 0.5,
+        "title": "BANK OF AMERICA DEBIT CARD",
+        "type": "column",
+        "valueField": "BANK OF AMERICA DEBIT CARD"
+    }, {
+        "balloonText": "[[title]], [[category]]<br><span style='font-size:14px;'><b>[[value]]</b> ([[percents]]%)</span>",
+        "fillAlphas": 0.9,
+        "fontSize": 11,
+        "labelText": "[[percents]]%",
+        "lineAlpha": 0.5,
+        "title": "BANK OF AMERICA CREDIT CARD",
+        "type": "column",
+        "valueField": "BANK OF AMERICA CREDIT CARD"
+    }, {
+        "balloonText": "[[title]], [[category]]<br><span style='font-size:14px;'><b>[[value]]</b> ([[percents]]%)</span>",
+        "fillAlphas": 0.9,
+        "fontSize": 11,
+        "labelText": "[[percents]]%",
+        "lineAlpha": 0.5,
+        "title": "DISCOVER CARD",
+        "type": "column",
+        "valueField": "DISCOVER CARD"
+    }, {
+        "balloonText": "[[title]], [[category]]<br><span style='font-size:14px;'><b>[[value]]</b> ([[percents]]%)</span>",
+        "fillAlphas": 0.9,
+        "fontSize": 11,
+        "labelText": "[[percents]]%",
+        "lineAlpha": 0.5,
+        "title": "AMAZON CHASE CARD",
+        "type": "column",
+        "valueField": "AMAZON CHASE CARD"
+    }, {
+        "balloonText": "[[title]], [[category]]<br><span style='font-size:14px;'><b>[[value]]</b> ([[percents]]%)</span>",
+        "fillAlphas": 0.9,
+        "fontSize": 11,
+        "labelText": "[[percents]]%",
+        "lineAlpha": 0.5,
+        "title": "AMAZON STORE CARD",
+        "type": "column",
+        "valueField": "AMAZON STORE CARD"
+    }, {
+        "balloonText": "[[title]], [[category]]<br><span style='font-size:14px;'><b>[[value]]</b> ([[percents]]%)</span>",
+        "fillAlphas": 0.9,
+        "fontSize": 11,
+        "labelText": "[[percents]]%",
+        "lineAlpha": 0.5,
+        "title": "MACYS CREDIT CARD",
+        "type": "column",
+        "valueField": "MACYS CREDIT CARD"
+    }, {
+        "balloonText": "[[title]], [[category]]<br><span style='font-size:14px;'><b>[[value]]</b> ([[percents]]%)</span>",
+        "fillAlphas": 0.9,
+        "fontSize": 11,
+        "labelText": "[[percents]]%",
+        "lineAlpha": 0.5,
+        "title": "ZALES CREDIT CARD",
+        "type": "column",
+        "valueField": "ZALES CREDIT CARD"
+    }, {
+        "balloonText": "[[title]], [[category]]<br><span style='font-size:14px;'><b>[[value]]</b> ([[percents]]%)</span>",
+        "fillAlphas": 0.9,
+        "fontSize": 11,
+        "labelText": "[[percents]]%",
+        "lineAlpha": 0.5,
+        "title": "BJS CREDIT CARD",
+        "type": "column",
+        "valueField": "BJS CREDIT CARD"
+    }, {
+        "balloonText": "[[title]], [[category]]<br><span style='font-size:14px;'><b>[[value]]</b> ([[percents]]%)</span>",
+        "fillAlphas": 0.9,
+        "fontSize": 11,
+        "labelText": "[[percents]]%",
+        "lineAlpha": 0.5,
+        "title": "KOHLS CREDIT CARD",
+        "type": "column",
+        "valueField": "KOHLS CREDIT CARD"
+    }, {
+        "balloonText": "[[title]], [[category]]<br><span style='font-size:14px;'><b>[[value]]</b> ([[percents]]%)</span>",
+        "fillAlphas": 0.9,
+        "fontSize": 11,
+        "labelText": "[[percents]]%",
+        "lineAlpha": 0.5,
+        "title": "JC PENNEY CARD",
+        "type": "column",
+        "valueField": "JC PENNEY CARD"
+    }, {
+        "balloonText": "[[title]], [[category]]<br><span style='font-size:14px;'><b>[[value]]</b> ([[percents]]%)</span>",
+        "fillAlphas": 0.9,
+        "fontSize": 11,
+        "labelText": "[[percents]]%",
+        "lineAlpha": 0.5,
+        "title": "SEARS CREDIT CARD",
+        "type": "column",
+        "valueField": "SEARS CREDIT CARD"
+    }, {
+        "balloonText": "[[title]], [[category]]<br><span style='font-size:14px;'><b>[[value]]</b> ([[percents]]%)</span>",
+        "fillAlphas": 0.9,
+        "fontSize": 11,
+        "labelText": "[[percents]]%",
+        "lineAlpha": 0.5,
+        "title": "TJ MAX CREDIT CARD",
+        "type": "column",
+        "valueField": "TJ MAX CREDIT CARD"
+    }, {
+        "balloonText": "[[title]], [[category]]<br><span style='font-size:14px;'><b>[[value]]</b> ([[percents]]%)</span>",
+        "fillAlphas": 0.9,
+        "fontSize": 11,
+        "labelText": "[[percents]]%",
+        "lineAlpha": 0.5,
+        "title": "BESTBUY CARD",
+        "type": "column",
+        "valueField": "BESTBUY CARD"
+    }, {
+        "balloonText": "[[title]], [[category]]<br><span style='font-size:14px;'><b>[[value]]</b> ([[percents]]%)</span>",
+        "fillAlphas": 0.9,
+        "fontSize": 11,
+        "labelText": "[[percents]]%",
+        "lineAlpha": 0.5,
+        "title": "WELLS FARGO CREDIT CARD",
+        "type": "column",
+        "valueField": "WELLS FARGO CREDIT CARD"
+    }, {
+        "balloonText": "[[title]], [[category]]<br><span style='font-size:14px;'><b>[[value]]</b> ([[percents]]%)</span>",
+        "fillAlphas": 0.9,
+        "fontSize": 11,
+        "labelText": "[[percents]]%",
+        "lineAlpha": 0.5,
+        "title": "AMEX CARD",
+        "type": "column",
+        "valueField": "AMEX CARD"
+    }, {
+        "balloonText": "[[title]], [[category]]<br><span style='font-size:14px;'><b>[[value]]</b> ([[percents]]%)</span>",
+        "fillAlphas": 0.9,
+        "fontSize": 11,
+        "labelText": "[[percents]]%",
+        "lineAlpha": 0.5,
+        "title": "DOLLAR",
+        "type": "column",
+        "valueField": "DOLLAR"
+    }],
+    "marginTop": 30,
+    "marginRight": 0,
+    "marginLeft": 0,
+    "marginBottom": 40,
+    "autoMargins": false,
+    "categoryField": "ExpenseMonth",
+    "categoryAxis": {
+        "gridPosition": "start",
+        "axisAlpha": 0,
+        "gridAlpha": 0
+    },
+    "export": {
+    	"enabled": true
+     }
+
+});
+
 jQuery('.chart-input').off().on('input change',function() {
 	var property	= jQuery(this).data('property');
 	var target		= chart;
@@ -382,6 +575,9 @@ jQuery('.chart-input').off().on('input change',function() {
 	target[property] = this.value;
 	chart.validateNow();
 });
+
+
+
 </script>
 
 <!-- HTML -->
@@ -390,3 +586,4 @@ jQuery('.chart-input').off().on('input change',function() {
 <div id="chartdiv2"></div>
 <div id="chartdiv3"></div>
 <div id="chartdiv4"></div>
+<div id="chartdiv5"></div>

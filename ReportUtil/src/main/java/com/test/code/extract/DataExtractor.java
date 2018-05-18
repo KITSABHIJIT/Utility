@@ -13,11 +13,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
-import org.apache.xmlbeans.impl.jam.JSourcePosition;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 
 import com.test.code.pojo.BarChartData;
 import com.test.code.pojo.LineChartData;
@@ -100,8 +98,8 @@ public class DataExtractor {
 		logger.debug("Total number of Bar records fetched: "+recordCount);
 		return data;
 	}
-	
-	
+
+
 	public static DefaultCategoryDataset getLineGraphData(String query,LineChartData lineChart){
 		DefaultCategoryDataset data = new DefaultCategoryDataset();
 		int recordCount=0;
@@ -121,7 +119,7 @@ public class DataExtractor {
 		logger.debug("Total number of Bar records fetched: "+recordCount);
 		return data;
 	}
-	
+
 	public static DefaultCategoryDataset getBarGraphPeriodData(
 			BarChartData barChart, Date startDate, Date endDate, String chart) {
 		List<Date> dateList=new ArrayList<Date>();
@@ -134,27 +132,27 @@ public class DataExtractor {
 			dateList =DateUtil.getDatesFromDateRange(DateUtil.getFirstDayOfTheYear(startDate), endDate, "YEARLY");
 			period="YEARLY";
 		}
-			int counter=0;
-			
-			for(int i=1;i<dateList.size();i++){
-				if(counter%2==0){	
-					String query=PropertiesUtil.getProperty(chart);
-					query=updateQueryWithDatesAndPeriod(query,dateList.get(i-1), dateList.get(i), period);
-					try (Connection connection = ConnectionUtil.getConnection();
-							PreparedStatement statement = connection.prepareStatement(query);
-							) {
-						ResultSet rs = statement.executeQuery();
-						while (rs.next()) {
-							if(rs.getDouble(2)>0){
-								data.setValue(rs.getDouble(2),barChart.getValueAxisLabel(),rs.getString(1));
-							}
+		int counter=0;
+
+		for(int i=1;i<dateList.size();i++){
+			if(counter%2==0){	
+				String query=PropertiesUtil.getProperty(chart);
+				query=updateQueryWithDatesAndPeriod(query,dateList.get(i-1), dateList.get(i), period);
+				try (Connection connection = ConnectionUtil.getConnection();
+						PreparedStatement statement = connection.prepareStatement(query);
+						) {
+					ResultSet rs = statement.executeQuery();
+					while (rs.next()) {
+						if(rs.getDouble(2)>0){
+							data.setValue(rs.getDouble(2),barChart.getValueAxisLabel(),rs.getString(1));
 						}
-					}catch(SQLException e){
-						e.printStackTrace();
 					}
+				}catch(SQLException e){
+					e.printStackTrace();
 				}
-				counter++;
 			}
+			counter++;
+		}
 		return data;
 	}
 
@@ -170,36 +168,36 @@ public class DataExtractor {
 			dateList =DateUtil.getDatesFromDateRange(DateUtil.getFirstDayOfTheYear(startDate), endDate, "YEARLY");
 			period="YEARLY";
 		}
-			int counter=0;
-			
-			for(int i=1;i<dateList.size();i++){
-				if(counter%2==0){	
-					String query=PropertiesUtil.getProperty(chart);
-					query=updateQueryWithDatesAndPeriod(query,dateList.get(i-1), dateList.get(i), period);
-					try (Connection connection = ConnectionUtil.getConnection();
-							PreparedStatement statement = connection.prepareStatement(query);
-							) {
-						ResultSet rs = statement.executeQuery();
-						while (rs.next()) {
-							if(rs.getDouble(1)>0){
-								data.setValue(rs.getDouble(1),rs.getString(2),rs.getString(3));
-							}
+		int counter=0;
+
+		for(int i=1;i<dateList.size();i++){
+			if(counter%2==0){	
+				String query=PropertiesUtil.getProperty(chart);
+				query=updateQueryWithDatesAndPeriod(query,dateList.get(i-1), dateList.get(i), period);
+				try (Connection connection = ConnectionUtil.getConnection();
+						PreparedStatement statement = connection.prepareStatement(query);
+						) {
+					ResultSet rs = statement.executeQuery();
+					while (rs.next()) {
+						if(rs.getDouble(1)>0){
+							data.setValue(rs.getDouble(1),rs.getString(2),rs.getString(3));
 						}
-					}catch(SQLException e){
-						e.printStackTrace();
 					}
+				}catch(SQLException e){
+					e.printStackTrace();
 				}
-				counter++;
 			}
+			counter++;
+		}
 		return data;
 	}
-	
+
 	public static String updateQueryWithDates(String query,Date startDate, Date endDate){
 		query=query.replaceAll(PropertiesUtil.getProperty("STARTDATE"), DateUtil.getDateToString(startDate,"yyyy-MM-dd"));
 		query=query.replaceAll(PropertiesUtil.getProperty("ENDDATE"), DateUtil.getDateToString(endDate,"yyyy-MM-dd"));
 		return query;
 	}
-	
+
 	public static String updateQueryWithDatesAndPeriod(String query,Date startDate, Date endDate,String period){
 		query=query.replaceAll(PropertiesUtil.getProperty("STARTDATE"), DateUtil.getDateToString(startDate,"yyyy-MM-dd"));
 		query=query.replaceAll(PropertiesUtil.getProperty("ENDDATE"), DateUtil.getDateToString(endDate,"yyyy-MM-dd"));
@@ -210,7 +208,7 @@ public class DataExtractor {
 		}
 		return query;
 	}
-	
+
 	public static Map<String,ReportData> getReportData(Date startDate, Date endDate){
 		Map<String,ReportData> data=new LinkedHashMap<String, ReportData>();
 		String reports=PropertiesUtil.getProperty("REPORTS");
@@ -368,12 +366,8 @@ public class DataExtractor {
 		return data;
 	}
 
-	public static void main(String ...strings){
-		System.out.println(getJsonData(PropertiesUtil.getProperty("JSON")));
-	}
-
 	@SuppressWarnings("unchecked")
-	public static JSONArray getJsonData(String query){
+	public static JSONArray getJsonData(String query,boolean excludeNegative){
 		int recordCount=0;
 		JSONArray data = new JSONArray();
 		try (Connection connection = ConnectionUtil.getConnection();
@@ -383,21 +377,42 @@ public class DataExtractor {
 			ResultSetMetaData rsmd = rs.getMetaData();
 			int columnCount = rsmd.getColumnCount();
 			while (rs.next()) {
-				JSONObject rowData = new JSONObject();
-				for (int i = 1; i <= columnCount; i++ ) {
-					if (rs.getObject(i) instanceof String) {
-						rowData.put(rsmd.getColumnName(i), rs.getString(i));
-					} else if (rs.getObject(i) instanceof Integer) {
-						rowData.put(rsmd.getColumnName(i), rs.getInt(i));
+				//JSONObject rowData = new JSONObject();
+				LinkedHashMap<Object, Object> jsonOrderedMap = new LinkedHashMap<Object, Object>();
+				for (int i = 1;i<=columnCount; i++ ) {
+					if (StringUtil.isBlankOrEmpty(rs.getObject(i))) {
+						jsonOrderedMap.put(rsmd.getColumnName(i), "0");
+					}else if (rs.getObject(i) instanceof Integer) {
+						jsonOrderedMap.put(rsmd.getColumnName(i), rs.getInt(i));
 					} else if (rs.getObject(i) instanceof Double) {
-						rowData.put(rsmd.getColumnName(i), rs.getDouble(i));
+						if(rs.getDouble(i)<0 && excludeNegative) {
+							jsonOrderedMap.put(rsmd.getColumnName(i), 0);
+						}else {
+							jsonOrderedMap.put(rsmd.getColumnName(i), rs.getDouble(i));
+						}
 					} else if (rs.getObject(i) instanceof Date) {
-						rowData.put(rsmd.getColumnName(i), rs.getString(i));
+						jsonOrderedMap.put(rsmd.getColumnName(i), rs.getString(i));
 					}else if (rs.getObject(i) instanceof BigDecimal) {
-						rowData.put(rsmd.getColumnName(i), rs.getBigDecimal(i));
+						if(rs.getBigDecimal(i).compareTo(BigDecimal.ZERO) < 0 && excludeNegative) {
+							jsonOrderedMap.put(rsmd.getColumnName(i), 0);
+						}else {
+							jsonOrderedMap.put(rsmd.getColumnName(i), rs.getBigDecimal(i));
+						}
+					}else if (rs.getObject(i) instanceof String) {
+						try {
+							double value=Double.parseDouble(rs.getString(i));
+							if(value < 0 && excludeNegative) {
+								jsonOrderedMap.put(rsmd.getColumnName(i), 0);
+							}else {
+								jsonOrderedMap.put(rsmd.getColumnName(i), value);
+							}
+							
+						}catch(NumberFormatException e) {
+							jsonOrderedMap.put(rsmd.getColumnName(i), rs.getString(i));
+						}
 					}
 				}
-				data.add(rowData);
+				data.add(jsonOrderedMap);
 				recordCount++;
 			}
 			logger.debug("Total number of Tabular records fetched: "+recordCount);
@@ -406,7 +421,7 @@ public class DataExtractor {
 		}
 		return data;
 	}
-	
-	
-	
+
+
+
 }
