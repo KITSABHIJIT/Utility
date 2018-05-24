@@ -15,23 +15,23 @@ import org.hibernate.annotations.Type;
 @Table(name="EXPENSE")
 public class Expense implements Serializable { 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Column(name="EXPENSE_DATE")
 	@Type(type="date")
 	@Id Date expenseDate;
-	
+
 	@Column(name="MERCHANT")
 	@Id String merchant;
-	
+
 	@Column(name="PLACE_OF_EXPENSE")
 	@Id String placeOfExpense;
-	
+
 	@Column(name="PAYMENT_MODE")
 	@Id String paymode;
-	
+
 	@Column(name="AMOUNT")
 	@Id double amount;
-	
+
 	public Date getExpenseDate() {
 		return expenseDate;
 	}
