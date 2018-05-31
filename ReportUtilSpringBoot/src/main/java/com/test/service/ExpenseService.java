@@ -10,11 +10,11 @@ import com.test.entity.PaymodeExpense;
 import com.test.entity.PaymodeMonthExpense;
 
 public interface ExpenseService {
-	List<Expense> getAllExpenses();
-	double getTotalExpenses();
-	List<CategoryExpense> getCategoryExpenses();
+	List<Expense> getAllExpenses(String startDate,String endDate);
+	double getTotalExpenses(String startDate,String endDate);
+	List<CategoryExpense> getCategoryExpenses(String startDate,String endDate);
 	List<DateExpense> getDateExpenses();
 	List<MonthExpense> getMonthExpenses();
-	List<PaymodeExpense> getPaymodeExpenses();
+	List<PaymodeExpense> getPaymodeExpenses(String startDate,String endDate);
 	List<PaymodeMonthExpense> getPaymodeMonthExpenses();
 }

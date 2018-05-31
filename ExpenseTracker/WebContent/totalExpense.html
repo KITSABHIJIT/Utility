@@ -1,0 +1,118 @@
+<!-- Styles -->
+<style>
+#chartdivTotal {
+  width: 100%;
+  height: 90%;
+}
+</style>
+
+<!-- Resources -->
+<script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+<script src="https://www.amcharts.com/lib/3/gauge.js"></script>
+<link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+<script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+<!-- Chart code -->
+<script>
+
+function randomValue(amount,totalExpense,chartTotal) {
+  chartTotal.arrows[0].setValue(amount);
+  chartTotal.axes[0].setTopText("$"+totalExpense);
+  chartTotal.axes[0].bands[1].setEndValue(amount);
+}
+
+$(function() {
+
+    var start = moment().startOf('month');
+    var end = moment();
+
+    function cb(start, end) {
+        $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+		$.ajax({
+        url: "http://localhost:8080/expense/totalExpense/"+start.format('YYYYMMDD')+"/"+end.format('YYYYMMDD'),
+        type: "GET",
+        dataType: "json",
+        success: function (data) {
+            var totalExpense = Math.round(data / 100);
+			var endLimit = ((Math.round(totalExpense / 100) + 1) * 100);
+			var chartTotal = AmCharts.makeChart("chartdivTotal", {
+			  "theme": "light",
+			  "type": "gauge",
+			  "axes": [{
+				"topTextFontSize": 20,
+				"topTextYOffset": 70,
+				"axisColor": "#31d6ea",
+				"axisThickness": 1,
+				"endValue": endLimit,
+				"gridInside": true,
+				"inside": true,
+				"radius": "50%",
+				"valueInterval": endLimit/10,
+				"tickColor": "#67b7dc",
+				"startAngle": -90,
+				"endAngle": 90,
+				"unit": "k$",
+				"bandOutlineAlpha": 0,
+				"bands": [{
+				  "color": "#0080ff",
+				  "endValue": endLimit,
+				  "innerRadius": "105%",
+				  "radius": "170%",
+				  "gradientRatio": [0.5, 0, -0.5],
+				  "startValue": 0
+				}, {
+				  "color": "#3cd3a3",
+				  "endValue": 0,
+				  "innerRadius": "105%",
+				  "radius": "170%",
+				  "gradientRatio": [0.5, 0, -0.5],
+				  "startValue": 0
+				}]
+			  }],
+			  "arrows": [{
+				"alpha": 1,
+				"innerRadius": "35%",
+				"nailRadius": 0,
+				"radius": "170%"
+			  }]
+			});
+			
+			setInterval(randomValue(totalExpense,data,chartTotal), 2000);
+        }
+    });
+    }
+
+    $('#reportrange').daterangepicker({
+        startDate: start,
+        endDate: end,
+        ranges: {
+           'Today': [moment(), moment()],
+           'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+           'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+           'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+           'This Month': [moment().startOf('month'), moment().endOf('month')],
+           'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
+		   'Last 3 Months': [moment().subtract(3, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        }
+    }, cb);
+
+    cb(start, end);
+
+});
+
+</script>
+
+<!-- HTML -->
+<link rel="shortcut icon" type="image/png" href="images/bar.ico"/>
+<div><a href="Home.html" target="_top">Back</a></div>
+<div id="reportrange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 20%;align: center" >
+    Date Range Selected: <i class="fa fa-calendar"></i>&nbsp;
+    <span></span> <i class="fa fa-caret-down"></i>
+</div>
+<div><center><h2>Total Expense</h2></center></div>
+<div id="chartdivTotal"></div>

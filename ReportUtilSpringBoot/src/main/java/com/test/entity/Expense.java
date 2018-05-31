@@ -12,7 +12,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Type;
 
 @Entity @IdClass(Expense.class)
-@Table(name="EXPENSE")
+@Table(name="ALL_EXPENSE")
 public class Expense implements Serializable { 
 	private static final long serialVersionUID = 1L;
 
@@ -25,6 +25,9 @@ public class Expense implements Serializable {
 
 	@Column(name="PLACE_OF_EXPENSE")
 	@Id String placeOfExpense;
+	
+	@Column(name="CATEGORY")
+	@Id String category;
 
 	@Column(name="PAYMENT_MODE")
 	@Id String paymode;
@@ -61,6 +64,12 @@ public class Expense implements Serializable {
 	}
 	public void setAmount(double amount) {
 		this.amount = amount;
+	}
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
 	}
 
 }

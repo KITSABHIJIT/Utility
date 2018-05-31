@@ -18,25 +18,26 @@ public class DateExpense implements Serializable {
 
 	@Column(name="DATE")
 	@Type(type="date")
-	@Id Date expenseDate;
+	@Id Date date;
 	
-	@Column(name = "AMOUNT")
-	private double amount;
+	@Column(name = "VALUE")
+	private double value;
 
-	public Date getExpenseDate() {
-		return expenseDate;
+	public Date getDate() {
+		return date;
 	}
 
-	public void setExpenseDate(Date expenseDate) {
-		this.expenseDate = expenseDate;
+	public void setDate(Date date) {
+		this.date = date;
 	}
 
-	public double getAmount() {
-		return amount;
+	public double getValue() {
+		return value;
 	}
 
-	public void setAmount(double amount) {
-		this.amount = amount;
+	public void setValue(double value) {
+		this.value = value;
 	}
+
 
 }

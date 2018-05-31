@@ -7,7 +7,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.test.entity.CategoryExpense;
 import com.test.entity.DateExpense;
@@ -23,22 +25,32 @@ public class ReportController {
 	@Autowired
 	private ExpenseService expenseService;
 	
-	@GetMapping("allExpenses")
-	public ResponseEntity<List<Expense>> getAllExpenses() {
-		List<Expense> list = expenseService.getAllExpenses();
+	@RequestMapping(value = "/allExpenses/{startDate}/{endDate}")
+	@ResponseBody
+	public ResponseEntity<List<Expense>> getAllExpenses(@PathVariable String startDate, @PathVariable String endDate) {
+		List<Expense> list = expenseService.getAllExpenses(startDate,endDate);
 		return new ResponseEntity<List<Expense>>(list, HttpStatus.OK);
 	}
 	
-	@GetMapping("totalExpense")
-	public ResponseEntity<Double> getTotalExpense() {
-		double obj = expenseService.getTotalExpenses();
+	@RequestMapping(value = "/totalExpense/{startDate}/{endDate}")
+	@ResponseBody
+	public ResponseEntity<Double> getTotalExpense(@PathVariable String startDate, @PathVariable String endDate) {
+		double obj = expenseService.getTotalExpenses(startDate,endDate);
 		return new ResponseEntity<Double>(obj, HttpStatus.OK);
 	}
 	
-	@GetMapping("categoryExpenses")
-	public ResponseEntity<List<CategoryExpense>> getCategoryExpense() {
-		List<CategoryExpense> list = expenseService.getCategoryExpenses();
+	@RequestMapping(value = "/categoryExpenses/{startDate}/{endDate}")
+	@ResponseBody
+	public ResponseEntity<List<CategoryExpense>> getCategoryExpense(@PathVariable String startDate, @PathVariable String endDate) {
+		List<CategoryExpense> list = expenseService.getCategoryExpenses(startDate,endDate);
 		return new ResponseEntity<List<CategoryExpense>>(list, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/paymodeExpenses/{startDate}/{endDate}")
+	@ResponseBody
+	public ResponseEntity<List<PaymodeExpense>> getPaymodeExpenses(@PathVariable String startDate, @PathVariable String endDate) {
+		List<PaymodeExpense> list = expenseService.getPaymodeExpenses(startDate,endDate);
+		return new ResponseEntity<List<PaymodeExpense>>(list, HttpStatus.OK);
 	}
 	
 	@GetMapping("dateExpenses")
@@ -51,12 +63,6 @@ public class ReportController {
 	public ResponseEntity<List<MonthExpense>> getMonthExpenses() {
 		List<MonthExpense> list = expenseService.getMonthExpenses();
 		return new ResponseEntity<List<MonthExpense>>(list, HttpStatus.OK);
-	}
-	
-	@GetMapping("paymodeExpenses")
-	public ResponseEntity<List<PaymodeExpense>> getPaymodeExpenses() {
-		List<PaymodeExpense> list = expenseService.getPaymodeExpenses();
-		return new ResponseEntity<List<PaymodeExpense>>(list, HttpStatus.OK);
 	}
 	
 	@GetMapping("paymodeMonthExpenses")

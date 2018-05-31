@@ -20,7 +20,7 @@ public class GenerateReport {
 		long startTime=new  Date().getTime();
 		
 		
-		/*Date startDate=DateUtil.getSomeDate("20150101", "yyyyMMdd");
+		Date startDate=DateUtil.getSomeDate("20150101", "yyyyMMdd");
 		Date endDate=DateUtil.getSomeDate("20180531", "yyyyMMdd");
 		List<Date> dateList =DateUtil.getDatesFromDateRange(startDate, endDate, "MONTHLY");
 		int counter=0;
@@ -36,7 +36,7 @@ public class GenerateReport {
 				ReportExcel.writeExcel(data,exportFilename.toString());
 			}
 			counter++;
-		}*/
+		}
 		
 		ReportHtml.generateReport();
 		

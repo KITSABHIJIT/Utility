@@ -622,7 +622,7 @@ setInterval(randomValue, 2000);
 
 function randomValue() {
   chartTotal.arrows[0].setValue(totalExpense);
-  chartTotal.axes[0].setTopText("$"+<TOTAL_EXPENSE>);
+  chartTotal.axes[0].setTopText("$"+totalExpense);
   chartTotal.axes[0].bands[1].setEndValue(totalExpense);
 }
 

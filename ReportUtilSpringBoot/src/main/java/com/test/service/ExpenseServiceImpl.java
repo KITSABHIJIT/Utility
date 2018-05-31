@@ -18,18 +18,18 @@ public class ExpenseServiceImpl implements ExpenseService {
 	private ExpenseDaoImpl expenseDaoImpl;
 
 	@Override
-	public List<Expense> getAllExpenses() {
-		return expenseDaoImpl.getAllExpenses();
+	public List<Expense> getAllExpenses(String startDate,String endDate) {
+		return expenseDaoImpl.getAllExpenses(startDate,endDate);
 	}
 
 	@Override
-	public double getTotalExpenses() {
-		return expenseDaoImpl.getTotalExpenses();
+	public double getTotalExpenses(String startDate,String endDate) {
+		return expenseDaoImpl.getTotalExpenses(startDate,endDate);
 	}
 
 	@Override
-	public List<CategoryExpense> getCategoryExpenses() {
-		return expenseDaoImpl.getCategoryExpenses();
+	public List<CategoryExpense> getCategoryExpenses(String startDate,String endDate) {
+		return expenseDaoImpl.getCategoryExpenses(startDate,endDate);
 	}
 
 	@Override
@@ -43,8 +43,8 @@ public class ExpenseServiceImpl implements ExpenseService {
 	}
 
 	@Override
-	public List<PaymodeExpense> getPaymodeExpenses() {
-		return expenseDaoImpl.getPaymodeExpenses();
+	public List<PaymodeExpense> getPaymodeExpenses(String startDate,String endDate) {
+		return expenseDaoImpl.getPaymodeExpenses(startDate,endDate);
 	}
 
 	@Override
