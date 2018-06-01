@@ -16,6 +16,8 @@
 <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
 <script src="https://www.amcharts.com/lib/3/serial.js"></script>
 
+<script type="text/javascript" src="script/config.js"></script>
+
 <!-- Chart code -->
 <script>
 
@@ -24,7 +26,7 @@ var chartBar = AmCharts.makeChart("chartdiv3", {
     "type": "serial",
     "startDuration": 2,
     "dataLoader": {
-    "url": "http://localhost:8080/expense/monthExpenses",
+    "url": monthExpenseUrl,
     "format": "json"
   },
     "valueAxes": [{

@@ -1,0 +1,11 @@
+var globalUrl="10.1.217.202";
+var port=":8080";
+var baseUrl="/expense";
+var protocol="http://";
+var categoryExpenseUrl=protocol+globalUrl+port+baseUrl+"/categoryExpenses/";
+var dailyExpenseUrl=protocol+globalUrl+port+baseUrl+"/dateExpenses/";
+var expenseDetailsUrl=protocol+globalUrl+port+baseUrl+"/allExpenses/";
+var monthExpenseUrl=protocol+globalUrl+port+baseUrl+"/monthExpenses/";
+var monthlyPaymodeExpenseUrl=protocol+globalUrl+port+baseUrl+"/paymodeMonthExpenses/";
+var paymodeExpenseUrl=protocol+globalUrl+port+baseUrl+"/paymodeExpenses/";
+var totalExpenseUrl=protocol+globalUrl+port+baseUrl+"/totalExpense/";

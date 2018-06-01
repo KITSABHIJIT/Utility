@@ -15,7 +15,7 @@
 <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
 <script src="https://www.amcharts.com/lib/3/serial.js"></script>
 
-
+<script type="text/javascript" src="script/config.js"></script>
 <!-- Chart code -->
 <script>
 var chartStock = AmCharts.makeChart("chartdiv1", {
@@ -95,7 +95,7 @@ var chartStock = AmCharts.makeChart("chartdiv1", {
         "enabled": true
     },
     "dataLoader": {
-    "url": "http://localhost:8080/expense/dateExpenses",
+    "url": dailyExpenseUrl,
     "format": "json"
   },
 });
