@@ -14,6 +14,7 @@ public class BOACreditTransformer {
 	private static final char QUOTE_CHAR = '"';
 	private static final String MODE_OF_PAYMENT ="BANK OF AMERICA CREDIT CARD";
 	private static final String PAYMENT_DONE ="PAYMENT - THANK YOU";
+	private static final String PAYMENT_DONE_BILLER ="PMT FROM BILL PAYER SERVICE";
 	public static List<Expense> processData(List<Expense> expenseList){
 
 		CSVReader csvReader = null;
@@ -28,7 +29,7 @@ public class BOACreditTransformer {
 			csvReader = new CSVReader(new FileReader(PropertiesUtil.getProperty("BOACreditFile")),COMMA_DELIMITER,QUOTE_CHAR,1);
 			while((expenseDetails = csvReader.readNext())!=null)
 			{
-				if(!PAYMENT_DONE.equals(expenseDetails[2].trim())) {
+				if(!PAYMENT_DONE.equals(expenseDetails[2].trim()) && !PAYMENT_DONE_BILLER.equals(expenseDetails[2].trim())) {
 					Expense exp = new Expense();
 					exp.setModeOfPayment(MODE_OF_PAYMENT);
 					exp.setTransactionDate(DateUtil.getSQLData(DateUtil.getSomeDate(expenseDetails[0].trim(), "MM/dd/yyyy")));
