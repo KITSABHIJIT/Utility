@@ -53,6 +53,79 @@ public class ProcessUtil {
 		}
 		return list;
 	}
+	
+	public static String readFromFileAsString(String fileName){
+		StringBuffer buffer=new StringBuffer();
+		BufferedReader br = null;
+		FileReader fr = null;
+
+		try {
+
+			fr = new FileReader(fileName);
+			br = new BufferedReader(fr);
+
+			String sCurrentLine;
+
+			br = new BufferedReader(new FileReader(fileName));
+
+			while ((sCurrentLine = br.readLine()) != null) {
+				buffer.append(sCurrentLine);
+				buffer.append("\n");
+			}
+		} catch (IOException e) {
+
+			e.printStackTrace();
+
+		} finally {
+
+			try {
+
+				if (br != null)
+					br.close();
+
+				if (fr != null)
+					fr.close();
+
+			} catch (IOException ex) {
+
+				ex.printStackTrace();
+
+			}
+
+		}
+		return buffer.toString();
+	}
+	
+	public static void writeToFile(String content,String fileName){
+		FileOutputStream fop = null;
+		File file;
+		try {
+
+			file = new File(fileName);
+			fop = new FileOutputStream(file);
+			// if file doesnt exists, then create it
+			if (!file.exists()) {
+				file.createNewFile();
+			}
+			// get the content in bytes
+			byte[] contentInBytes = content.getBytes();
+			fop.write(contentInBytes);
+			fop.flush();
+			fop.close();
+			System.out.println(fileName+ " Created Successfully.");
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (fop != null) {
+					fop.close();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+	}
 
 	public static void downloadFile(String fileName) {
 		String [] jarFileDetailsArr=fileName.split("[|]");
@@ -84,7 +157,7 @@ public class ProcessUtil {
 		}
 	}
 
-	public static void runMavenCommand(String jarFileDetails,String mavenCommand) {
+	public static void runMavenCommand(String jarFileDetails,String mavenCommand,String mavenDependency) {
 		try {
 			String [] jarFileDetailsArr=jarFileDetails.split("[|]");
 			mavenCommand=mavenCommand.replaceAll("<JAR_FILE_NAME>", jarFileDetailsArr[0]);
@@ -103,6 +176,11 @@ public class ProcessUtil {
 				if (line == null) { break; }
 				System.out.println(line);
 			}
+			System.out.println("Jar File Name: "+jarFileDetailsArr[0]);
+			mavenDependency=mavenDependency.replaceAll("<GROUP_ID>", jarFileDetailsArr[1]);
+			mavenDependency=mavenDependency.replaceAll("<ARTIFACT_ID>", jarFileDetailsArr[2]);
+			mavenDependency=mavenDependency.replaceAll("<VERSION>", jarFileDetailsArr[3]);
+			System.out.println("Dependency: "+mavenDependency);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -119,5 +197,20 @@ public class ProcessUtil {
 				System.out.println("Failed to remove "+jarFile);
 			}
 		}
+	}
+	
+	public static String generateHtmlData(String jarFileDetails,String mavenDependencyCode) {
+		String [] jarFileDetailsArr=jarFileDetails.split("[|]");
+		mavenDependencyCode=mavenDependencyCode.replaceAll("<JAR_FILE_NAME>", jarFileDetailsArr[0]);
+		mavenDependencyCode=mavenDependencyCode.replaceAll("<GROUP_ID>", jarFileDetailsArr[1]);
+		mavenDependencyCode=mavenDependencyCode.replaceAll("<ARTIFACT_ID>", jarFileDetailsArr[2]);
+		mavenDependencyCode=mavenDependencyCode.replaceAll("<VERSION>", jarFileDetailsArr[3]);
+		return mavenDependencyCode;
+	}
+	public static void generateHtmlFile(String fileName,String data) {
+		ProcessUtil.deleteFile(fileName);
+		String html =readFromFileAsString("html/template");
+		html=html.replaceAll("<TABLE_BODY>", data);
+		writeToFile(html, fileName);
 	}
 }
