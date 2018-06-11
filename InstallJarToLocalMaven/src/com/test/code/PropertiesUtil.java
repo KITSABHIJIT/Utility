@@ -1,6 +1,5 @@
 package com.test.code;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -8,7 +7,7 @@ import java.util.Properties;
 
 public class PropertiesUtil {
 	private static Properties properties = null;
-	private static final String filePath = "config/application.properties";
+	private static final String filePath = "application.properties";
 	
 	private static synchronized void loadProperties() {
 
@@ -16,9 +15,10 @@ public class PropertiesUtil {
 			InputStream is = null;
 			try {
 				properties = new Properties();
-				InputStream in= new FileInputStream(filePath);
+				ClassLoader classLoader = ProcessUtil.class.getClassLoader();
+				is = classLoader.getResourceAsStream(filePath);
 				properties = new Properties();
-				properties.load(in);
+				properties.load(is);
 			} catch (FileNotFoundException fnfEx) {
 				System.out.println("Properties file " + filePath
 						+ " could not be found");

@@ -3,8 +3,8 @@ package com.test.code;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.nio.channels.Channels;
@@ -16,16 +16,14 @@ public class ProcessUtil {
 	public static List<String> readFromFile(String fileName){
 		List<String> list=new ArrayList<String>();
 		BufferedReader br = null;
-		FileReader fr = null;
+		InputStream inputStream = null;
 
 		try {
 
-			fr = new FileReader(fileName);
-			br = new BufferedReader(fr);
-
 			String sCurrentLine;
-
-			br = new BufferedReader(new FileReader(fileName));
+			ClassLoader classLoader = ProcessUtil.class.getClassLoader();
+			inputStream = classLoader.getResourceAsStream(fileName);
+			br = new BufferedReader(new InputStreamReader(inputStream));
 
 			while ((sCurrentLine = br.readLine()) != null) {
 				list.add(sCurrentLine);
@@ -41,8 +39,8 @@ public class ProcessUtil {
 				if (br != null)
 					br.close();
 
-				if (fr != null)
-					fr.close();
+				if (inputStream != null)
+					inputStream.close();
 
 			} catch (IOException ex) {
 
@@ -57,16 +55,12 @@ public class ProcessUtil {
 	public static String readFromFileAsString(String fileName){
 		StringBuffer buffer=new StringBuffer();
 		BufferedReader br = null;
-		FileReader fr = null;
-
+		InputStream inputStream = null;
 		try {
-
-			fr = new FileReader(fileName);
-			br = new BufferedReader(fr);
-
 			String sCurrentLine;
-
-			br = new BufferedReader(new FileReader(fileName));
+			ClassLoader classLoader = ProcessUtil.class.getClassLoader();
+			inputStream = classLoader.getResourceAsStream(fileName);
+			br = new BufferedReader(new InputStreamReader(inputStream));
 
 			while ((sCurrentLine = br.readLine()) != null) {
 				buffer.append(sCurrentLine);
@@ -83,8 +77,8 @@ public class ProcessUtil {
 				if (br != null)
 					br.close();
 
-				if (fr != null)
-					fr.close();
+				if (inputStream != null)
+					inputStream.close();
 
 			} catch (IOException ex) {
 
@@ -186,6 +180,30 @@ public class ProcessUtil {
 		}
 	}
 	
+	
+	public static String getFileSize(String jarFile) {
+		File file = new File(jarFile);
+		String size=null;
+		if(file.exists()){
+			double bytes = file.length();
+			double kilobytes = (bytes / 1024);
+			double megabytes = (kilobytes / 1024);
+			double gigabytes = (megabytes / 1024);
+			
+			if(gigabytes>1)
+				size=  (Math.round(gigabytes * 100.0) / 100.0)+" GB";
+			else if(megabytes >1)
+				size= (Math.round(megabytes * 100.0) / 100.0)+" MB";
+			else if(kilobytes >1)
+				size= (Math.round(kilobytes * 100.0) / 100.0)+" KB";
+			else
+				size= (Math.round(bytes * 100.0) / 100.0)+" B";
+		}else{
+			size= "File does not exists!";
+		}
+		return size;
+	}
+	
 	public static void deleteFile(String fileName) {
 		String [] jarFileDetailsArr=fileName.split("[|]");
 		String jarFile=jarFileDetailsArr[0];
@@ -205,11 +223,12 @@ public class ProcessUtil {
 		mavenDependencyCode=mavenDependencyCode.replaceAll("<GROUP_ID>", jarFileDetailsArr[1]);
 		mavenDependencyCode=mavenDependencyCode.replaceAll("<ARTIFACT_ID>", jarFileDetailsArr[2]);
 		mavenDependencyCode=mavenDependencyCode.replaceAll("<VERSION>", jarFileDetailsArr[3]);
+		mavenDependencyCode=mavenDependencyCode.replaceAll("<JAR_FILE_SIZE>", getFileSize(jarFileDetailsArr[0]));
 		return mavenDependencyCode;
 	}
 	public static void generateHtmlFile(String fileName,String data) {
 		ProcessUtil.deleteFile(fileName);
-		String html =readFromFileAsString("html/template");
+		String html =readFromFileAsString("template");
 		html=html.replaceAll("<TABLE_BODY>", data);
 		writeToFile(html, fileName);
 	}
