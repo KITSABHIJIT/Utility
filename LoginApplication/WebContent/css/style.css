@@ -1,0 +1,69 @@
+@CHARSET "ISO-8859-1";
+
+body {
+	
+	background-color: #ffde85;
+}
+
+.loginBox { 
+	
+	width:300px;
+	margin:auto;
+	border:1px #CCC solid;
+	padding:0px 30px;
+	background-color: #43928a;
+	color:#FFF;
+}
+
+.field { 
+	
+	background: #1b1b1b;
+	border:1px #03306b solid;
+	padding:10px;
+	margin:5px 25px;
+	width:215px;
+	color:#FFF;
+ }
+
+.loginBox h1, p, .chbox, .btn {
+	
+	margin-left:25px;
+	color:#fff;
+}
+
+.loginBtn {
+	
+	background-color: #a50601;
+	border:1px #03306b solid;
+	padding:10px 30px;
+	font-weight:bold;
+	margin:25px 25px;
+	color:white;
+	cursor: pointer;
+}
+
+
+/* The alert message box */
+.alert {
+    padding: 20px;
+    background-color: #f44336; /* Red */
+    color: white;
+    margin-bottom: 15px;
+}
+
+/* The close button */
+.closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* When moving the mouse over the close button */
+.closebtn:hover {
+    color: black;
+}
