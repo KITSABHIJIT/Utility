@@ -2,15 +2,11 @@
 <!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
 <log4j:configuration>
 
-	<appender name="debugOnly"
-		class="org.apache.log4j.RollingFileAppender">
-		<param name="File" value="/DynamicLog/logs/debug.log" />
-		<param name="append" value="false" />
-		<param name="maxFileSize" value="10KB" />
-		<param name="maxBackupIndex" value="5" />
+	<appender name="debugOnly" class="org.apache.log4j.RollingFileAppender">
+		<param name="File"
+			value="/app/payserv/KafkaLogFeeder/logs/Debug.log" />
 		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern"
-				value="%d [%t] %-5p (%F:%L) - %m%n" />
+			<param name="ConversionPattern" value="%d [%t] %-5p (%F:%L) - %m%n" />
 		</layout>
 		<!--Filter to log error messages only -->
 		<filter class="org.apache.log4j.varia.LevelMatchFilter">
@@ -20,15 +16,12 @@
 		<filter class="org.apache.log4j.varia.DenyAllFilter" />
 	</appender>
 
-	<appender name="infoOnly"
-		class="org.apache.log4j.RollingFileAppender">
-		<param name="File" value="/DynamicLog/logs/info.log" />
-		<param name="append" value="false" />
-		<param name="maxFileSize" value="10KB" />
-		<param name="maxBackupIndex" value="5" />
+	<appender name="infoOnly" class="org.apache.log4j.RollingFileAppender">
+		<param name="File"
+			value="/app/payserv/KafkaLogFeeder/logs/Info.log" />
+		<param name="Append" value="true" />
 		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern"
-				value="%d [%t] %-5p (%F:%L) - %m%n" />
+			<param name="ConversionPattern" value="%d [%t] %-5p (%F:%L) - %m%n" />
 		</layout>
 		<!--Filter to log debug messages only -->
 		<filter class="org.apache.log4j.varia.LevelMatchFilter">
@@ -38,15 +31,11 @@
 		<filter class="org.apache.log4j.varia.DenyAllFilter" />
 	</appender>
 
-	<appender name="errorOnly"
-		class="org.apache.log4j.RollingFileAppender">
-		<param name="File" value="/DynamicLog/logs/error.log" />
-		<param name="append" value="false" />
-		<param name="maxFileSize" value="10KB" />
-		<param name="maxBackupIndex" value="5" />
+	<appender name="errorOnly" class="org.apache.log4j.RollingFileAppender">
+		<param name="File"
+			value="/app/payserv/KafkaLogFeeder/logs/Error.log" />
 		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern"
-				value="%d [%t] %-5p (%F:%L) - %m%n" />
+			<param name="ConversionPattern" value="%d [%t] %-5p (%F:%L) - %m%n" />
 		</layout>
 		<!--Filter to log error messages only -->
 		<filter class="org.apache.log4j.varia.LevelMatchFilter">
@@ -57,11 +46,9 @@
 	</appender>
 
 
-	<appender name="stdout"
-		class="org.apache.log4j.ConsoleAppender">
+	<appender name="stdout" class="org.apache.log4j.ConsoleAppender">
 		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern"
-				value="%d{ABSOLUTE} %5p %t %c{1}:%L - %m%n" />
+			<param name="ConversionPattern" value="%d{ABSOLUTE} %5p %t %c{1}:%L - %m%n" />
 		</layout>
 	</appender>
 
@@ -70,6 +57,7 @@
 		<appender-ref ref="infoOnly" />
 		<appender-ref ref="errorOnly" />
 		<appender-ref ref="stdout" />
+
 	</logger>
 
 </log4j:configuration>

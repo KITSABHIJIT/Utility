@@ -1,6 +1,5 @@
 package com.test.kafka;
 
-import org.apache.log4j.LogManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,13 +10,12 @@ public class HelloKafkaLogger {
     	logger.info("Inside HelloKafkaLogger.main");
     	int j=0;
            for(int i=0;i<1000000;i++) {
-        	logger.debug("Debug message from HelloKafkaLogger.main: "+j );
+        	//logger.debug("Debug message from HelloKafkaLogger.main: "+j );
             logger.info("Info message from HelloKafkaLogger.main: "+(++j) );
-            logger.warn("Warn message from HelloKafkaLogger.main: "+(++j) );
-            logger.error("Error message from HelloKafkaLogger.main: "+(++j) );
-            Thread.sleep(300);
+            //logger.warn("Warn message from HelloKafkaLogger.main: "+(++j) );
+            //logger.error("Error message from HelloKafkaLogger.main: "+(++j) );
+            Thread.sleep(50);
            }
            logger.info("Exiting HelloKafkaLogger.main");
-        LogManager.shutdown();
     }
 }

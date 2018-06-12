@@ -14,20 +14,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.staples.kafka.log.pojo.LogFile;
-import com.staples.kafka.log.util.PropertiesUtil;
 
-public class KafkaLogWorker implements Runnable {
+public class KafkaLogWorker {
 	private final static Logger logger =LoggerFactory.getLogger(KafkaLogWorker.class);
-	private final KafkaProducer<String, String> producer;
-	private final LogFile logFile;
 
-
-	public KafkaLogWorker(LogFile logFile, KafkaProducer<String, String> producer) {
-		this.producer=producer;
-		this.logFile = logFile;
-	}
-
-	public void run() {
+	public static void process(LogFile logFile,KafkaProducer<String, String> producer) {
 		int messageNo = 1;
 		File file=null,fileOld=null;
 		RandomAccessFile raf=null,rafOld = null;
@@ -35,7 +26,7 @@ public class KafkaLogWorker implements Runnable {
 			file=new File(logFile.getLogfilePath());
 			fileOld=new File(logFile.getRolledOutLogfilePath());
 			if (!file.exists() || file.isDirectory() || !file.canRead()) {
-				throw new IOException("Can't read this file."+file.getAbsolutePath()+"::"+file.getName());
+				throw new IOException("Can't read this file."+file.getName());
 			}
 		} catch (IOException e) {
 			logger.error(e.getMessage(), e);
@@ -45,6 +36,7 @@ public class KafkaLogWorker implements Runnable {
 		long filePointer = file.length();
 
 		logger.debug("Log tailing started on " + file.getName());
+
 		while (true) {
 			try {
 				long len = file.length();
@@ -59,7 +51,7 @@ public class KafkaLogWorker implements Runnable {
 						rafOld.seek(filePointer);
 						String line = null;
 						while ((line = rafOld.readLine()) != null) {
-							postLogToKafka(line,messageNo);
+							postLogToKafka(line,messageNo,logFile,producer);
 							++messageNo;
 						}
 
@@ -76,7 +68,7 @@ public class KafkaLogWorker implements Runnable {
 					raf.seek(filePointer);
 					String line = null;
 					while ((line = raf.readLine()) != null) {
-						postLogToKafka(line,messageNo);
+						postLogToKafka(line,messageNo,logFile,producer);
 						++messageNo;
 					}
 					filePointer = raf.getFilePointer();
@@ -96,18 +88,11 @@ public class KafkaLogWorker implements Runnable {
 					e.printStackTrace();
 				}
 			}
-
-			try {
-				Thread.sleep(Long.parseLong(PropertiesUtil.getProperty("log.reader.delay")));
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
 		}
 	}
 
-	private void postLogToKafka(String messageStr, int messageNo) {
+	private static void postLogToKafka(String messageStr, int messageNo,LogFile logFile,KafkaProducer<String, String> producer) {
 		long startTime = System.currentTimeMillis();
-		messageStr=logFile.getApplicationID()+" :: "+messageStr;
 		if (logFile.getIsAync()) { // Send asynchronously
 			producer.send(new ProducerRecord<>(logFile.getKafkaTopic(),
 					String.valueOf(messageNo),

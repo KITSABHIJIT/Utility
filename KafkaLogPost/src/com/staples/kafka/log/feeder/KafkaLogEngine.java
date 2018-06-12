@@ -1,8 +1,6 @@
 package com.staples.kafka.log.feeder;
 
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.slf4j.Logger;
@@ -21,22 +19,11 @@ public class KafkaLogEngine {
 		ConfigUtil configUtil =ConfigUtil.getInstance();
 		KafkaProducer<String, String> producer =configUtil.getKafkaProducer();
 		List<LogFile> logFileList = configUtil.getLogFileList();
-		ExecutorService executorService = Executors.newFixedThreadPool(logFileList.size());
 		try {
-			for(LogFile file:logFileList) {
-				executorService.execute(new KafkaLogWorker(file,producer));
-				//FileHandler fileHandler =new FileHandler(file.getLogfilePath(),1,false,false,file.getKafkaTopic(),false,producer);
-				//fileHandler.start();
-			}
+			KafkaLogWorker.process(logFileList.get(0),producer);
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 			e.printStackTrace();
-		}
-		if (executorService != null) {
-			// shutdown
-			if (!executorService.isShutdown()) {
-				executorService.shutdown();
-			}
 		}
 	}
 }

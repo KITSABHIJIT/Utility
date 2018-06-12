@@ -7,7 +7,7 @@
 		<rolledOutFilePath>/DynamicLog/logs/debug.log.1</rolledOutFilePath>
 		<isAsync>false</isAsync>
 	</logFile>
-	<!-- <logFile>
+	<logFile>
 		<application_id>HelloKafkaLogger</application_id>
 		<kafkaTopic>log_insert</kafkaTopic>
 		<filePath>/DynamicLog/logs/info.log</filePath>
@@ -20,5 +20,5 @@
 		<filePath>/DynamicLog/logs/error.log</filePath>
 		<rolledOutFilePath>/DynamicLog/logs/error.log.1</rolledOutFilePath>
 		<isAsync>false</isAsync>
-	</logFile> -->
+	</logFile>
 </logFiles>
