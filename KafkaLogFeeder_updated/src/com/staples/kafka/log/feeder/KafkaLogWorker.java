@@ -109,20 +109,36 @@ public class KafkaLogWorker implements Runnable {
 		long startTime = System.currentTimeMillis();
 		messageStr=logFile.getApplicationID()+" :: "+messageStr;
 		if (logFile.getIsAync()) { // Send asynchronously
-			producer.send(new ProducerRecord<>(logFile.getKafkaTopic(),
-					String.valueOf(messageNo),
-					messageStr), new DemoCallBackThread(startTime, messageNo, messageStr));
-		} else { // Send synchronously
-			try {
+			if(validForPost(messageStr)) {
 				producer.send(new ProducerRecord<>(logFile.getKafkaTopic(),
 						String.valueOf(messageNo),
-						messageStr)).get();
-				logger.debug("Sent message: (" + messageNo + ", " + messageStr + ")");
-			} catch (InterruptedException | ExecutionException e) {
-				e.printStackTrace();
-				// handle the exception
+						messageStr), new DemoCallBackThread(startTime, messageNo, messageStr));
+			}
+		} else { 
+			// Send synchronously
+			if(validForPost(messageStr)) {
+				try {
+					producer.send(new ProducerRecord<>(logFile.getKafkaTopic(),
+							String.valueOf(messageNo),
+							messageStr)).get();
+					logger.debug("Sent message: (" + messageNo + ", " + messageStr + ")");
+				} catch (InterruptedException | ExecutionException e) {
+					e.printStackTrace();
+					// handle the exception
+				}
 			}
 		}
+	}
+
+	private boolean validForPost(String message) {
+		boolean result=true;
+		for(String excludes:logFile.getExcludedLog()) {
+			if(message.contains(excludes)) {
+				result=false;
+				break;
+			}
+		}
+		return result;
 	}
 }
 

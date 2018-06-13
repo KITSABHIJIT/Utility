@@ -62,6 +62,16 @@ public class ConfigUtil {
 					logFile.setRolledOutLogfilePath(eElement.getElementsByTagName(PropertiesUtil.getProperty("log.config.node.rolledOutfileName")).item(0).getTextContent());
 					logFile.setKafkaTopic(eElement.getElementsByTagName(PropertiesUtil.getProperty("log.config.node.kafkaTopic")).item(0).getTextContent());
 					logFile.setIsAync(Boolean.parseBoolean(eElement.getElementsByTagName(PropertiesUtil.getProperty("log.config.node.isAsync")).item(0).getTextContent()));
+					Node exludedLogNode = eElement.getElementsByTagName(PropertiesUtil.getProperty("log.config.node.excludedLogs")).item(0);
+					NodeList excludedLogList =exludedLogNode.getChildNodes();
+					List<String> excludedLogs=new ArrayList<String>();
+					for (int i = 0; i < excludedLogList.getLength(); i++) {
+						Node exludedLogNd = excludedLogList.item(i);
+						if (exludedLogNd.getNodeType() == Node.ELEMENT_NODE) {
+							excludedLogs.add(exludedLogNd.getTextContent());
+						}
+					}
+					logFile.setExcludedLog(excludedLogs);
 					LOG.debug(logFile.toString());
 					nodeData.add(logFile);
 				}

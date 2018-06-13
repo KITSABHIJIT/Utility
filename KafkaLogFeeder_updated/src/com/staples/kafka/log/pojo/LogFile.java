@@ -1,11 +1,14 @@
 package com.staples.kafka.log.pojo;
 
+import java.util.List;
+
 public class LogFile {
 	private String applicationID;
 	private String logfilePath;
 	private String rolledOutLogfilePath;
 	private String kafkaTopic;
 	private Boolean isAync;
+	private List<String> excludedLog;
 	
 	public String getApplicationID() {
 		return applicationID;
@@ -38,10 +41,17 @@ public class LogFile {
 	public void setIsAync(Boolean isAync) {
 		this.isAync = isAync;
 	}
+	public List<String> getExcludedLog() {
+		return excludedLog;
+	}
+	public void setExcludedLog(List<String> excludedLog) {
+		this.excludedLog = excludedLog;
+	}
 	@Override
 	public String toString() {
 		return "LogFile [applicationID=" + applicationID + ", logfilePath=" + logfilePath + ", rolledOutLogfilePath="
-				+ rolledOutLogfilePath + ", kafkaTopic=" + kafkaTopic + ", isAync=" + isAync + "]";
+				+ rolledOutLogfilePath + ", kafkaTopic=" + kafkaTopic + ", isAync=" + isAync + ", excludedLog="
+				+ excludedLog + "]";
 	}
 	
 }

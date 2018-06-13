@@ -6,6 +6,10 @@
 		<filePath>/DynamicLog/logs/debug.log</filePath>
 		<rolledOutFilePath>/DynamicLog/logs/debug.log.1</rolledOutFilePath>
 		<isAsync>false</isAsync>
+		<excludeLogs>
+			<log>fbddbfd</log>
+			<log>rtgrtgfgbdfg</log>
+		</excludeLogs>
 	</logFile>
 	<logFile>
 		<application_id>HelloKafkaLogger</application_id>
@@ -13,6 +17,10 @@
 		<filePath>/DynamicLog/logs/info.log</filePath>
 		<rolledOutFilePath>/DynamicLog/logs/info.log.1</rolledOutFilePath>
 		<isAsync>false</isAsync>
+		<excludeLogs>
+			<log>tgrg</log>
+			<log>wdscdsdvdsbg</log>
+		</excludeLogs>
 	</logFile>
 	<logFile>
 		<application_id>HelloKafkaLogger</application_id>
@@ -20,5 +28,9 @@
 		<filePath>/DynamicLog/logs/error.log</filePath>
 		<rolledOutFilePath>/DynamicLog/logs/error.log.1</rolledOutFilePath>
 		<isAsync>false</isAsync>
+		<excludeLogs>
+			<log>tyytjtyh54y4th</log>
+			<log>hj54rtfefcewrt</log>
+		</excludeLogs>
 	</logFile>
 </logFiles>
