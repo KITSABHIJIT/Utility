@@ -8,7 +8,6 @@ import com.ibm.as400.access.DataQueueEntry;
 import com.ibm.as400.access.ObjectDoesNotExistException;
 
 
-
 public class DataQueueConfig {
 	
 	
@@ -75,7 +74,6 @@ public class DataQueueConfig {
 		System.out.println("result :: "+result);
 		return result;
 	}
-	
 	
 	public void sendData(final String data) {
 		

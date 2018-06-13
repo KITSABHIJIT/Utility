@@ -1020,7 +1020,7 @@ import javax.xml.bind.annotation.XmlType;
     "header",
     "details"
 })
-@XmlRootElement(name = "Invoice")
+//@XmlRootElement(name = "Invoice")
 public class Invoice {
 
     @XmlElement(name = "Header", required = true)

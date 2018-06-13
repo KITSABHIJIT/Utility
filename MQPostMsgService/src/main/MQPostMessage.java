@@ -14,14 +14,14 @@ public class MQPostMessage {
 			WriteXMLFile writeXMLFile = new WriteXMLFile();
 			MQConfigure mQConfigure = new MQConfigure();
 			
-			mQConfigure.sendResponseMessage(writeXMLFile.writeXmlFile());	
+	//		mQConfigure.sendResponseMessage(writeXMLFile.writeXmlFile());	
 			
-			/*for(int i = 0 ; i<1 ; i++)
+			for(int i = 3000 ; i<4000 ; i++)
 			{
-				mQConfigure.sendResponseMessage(writeXMLFile.writeXmlFile());	
-				//Thread.sleep(100);
+				mQConfigure.sendResponseMessage(writeXMLFile.writeXmlFile(i));	
+			Thread.sleep(100);
 			}
-			*/
+			
 			System.out.println("Message posting into Queue completed");
 		}
 		catch(Exception e)

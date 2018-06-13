@@ -48,8 +48,8 @@ public class MQConfigure {
 			//LOG.debug("Queue Name: "+reqQueueConfig.getRequestQualQueueName());
 
 		} catch (final Exception e) {
-			LOG.error("Error initializing request queue.", e);
 			e.printStackTrace();
+			LOG.error("Error initializing request queue.", e);
 		}
 		// MQPoolSvc.initialize();
 		LOG.info("Initialized MQ request connection successfully");
@@ -68,15 +68,15 @@ public class MQConfigure {
 */
 				
 				final MQMessage mqMessage = new MQMessage();
-				//mqMessage.expiry= 2880001;//tenth of seconds
-				mqMessage.expiry= 288001;//tenth of seconds
+				mqMessage.expiry= 2880001;//tenth of seconds
+			//	mqMessage.expiry= 288001;//tenth of seconds
 				mqMessage.format = MQC.MQFMT_STRING;
 
 				
-				mqMessage.replyToQueueManagerName="DAYBREAK3";
+				mqMessage.replyToQueueManagerName="ESBDVWMB01";
 				
 				//mqMessage.replyToQueueName="PERF_NAD.PAYMENT.RESP.055D.LQ";
-				mqMessage.replyToQueueName="PERF_NAD.PAYMENT.RESP.020D.LQ";
+				mqMessage.replyToQueueName="COM4SVC.ESB.STLMT_GPAS_GBO_RP.DV1";
 				
 				/*mqMessage.replyToQueueManagerName="RAINBOW3";
 				mqMessage.replyToQueueName="PAYMENT.SERVICES.JENGINE.RES.01.LQ";*/
@@ -117,7 +117,7 @@ public class MQConfigure {
 			}
 			catch(Exception e)
 			{
-				e.printStackTrace();
+				
 			}
 		}
 	

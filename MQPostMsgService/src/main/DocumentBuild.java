@@ -33,7 +33,7 @@ public class DocumentBuild {
 	         DocumentBuilder builder = factory.newDocumentBuilder();
 
 	         // create a new document from input source
-	         FileInputStream fis = new FileInputStream("C://Workspace/GPAS_AUTH_ENGINE/MQPostMessageProject/xml/RTLRequestSample.xml");
+	         FileInputStream fis = new FileInputStream("C:\\Vasan\\MQPostMsgService\\xml\\SettlementRequestProxy.xml");
 	         InputSource is = new InputSource(fis);
 	         Document doc = builder.parse(is);
 	         
@@ -45,7 +45,7 @@ public class DocumentBuild {
 	         // print the text content of each child
 	         for (int i = 0; i < nodes.getLength(); i++) {
 	            System.out.println(nodes.item(i).getNodeName() +"::" + nodes.item(i).getTextContent());
-	            if(nodes.item(i).getNodeName().equalsIgnoreCase("Content"))
+	     /*       if(nodes.item(i).getNodeName().equalsIgnoreCase("Content"))
 	            {
 	            	
 	            	String cdata = nodes.item(i).getTextContent();
@@ -62,7 +62,7 @@ public class DocumentBuild {
 	            	nodes.item(i).setTextContent(cdata);
 	            	break;
 	            			
-	            }
+	            }*/
 	            
 	         }
 	         

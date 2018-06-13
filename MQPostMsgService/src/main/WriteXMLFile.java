@@ -30,7 +30,7 @@ public class WriteXMLFile {
 	
 	public int stan = 1;
 	
-	public String writeXmlFile()
+	public String writeXmlFile(int i)
 	{
 		try
 		{
@@ -62,7 +62,7 @@ public class WriteXMLFile {
 			
 			//return toString(doc);
 			
-			return encryptMessage();
+			return encryptMessage(i);
 			
 			
 			
@@ -102,19 +102,19 @@ public class WriteXMLFile {
 
 	}
 	
-	public String encryptMessage()
+	public String encryptMessage(int i)
 	{
 		
 		String encryptedMessage = "";
 		try
 		{
 		StringBuilder sb = new StringBuilder();
-		String filePath = "xml/RappidConnect.xml";
-			   filePath = "xml/RTLRequestSampleEMV.xml";
+		String filePath = "C:\\Vasan\\MQPostMsgService\\xml\\SettlementRequestProxy.xml";
+			  // filePath = "C:\\Vasan\\MQPostMsgService\\xml\\SettlementRequestProxy.xml";
 			   //filePath = "C://Workspace/PROXY_BANK_RSP/MQPostMsgService/xml/RTLRequestSampleEMVAmex.xml";
 			   //filePath = "C://Workspace/PROXY_BANK_RSP/MQPostMsgService/xml/RTLRequestSampleEMVGiftCard.xml";
 			   //filePath = "C://Workspace/PROXY_BANK_RSP/MQPostMsgService/xml/RTLRequestSampleEMVStaplesOpen.xml";
-			   String outputXML = messageGenerator(filePath);//Used to generate dynamic message for Proxy performance analysis
+			   String outputXML = messageGenerator(filePath,i);//Used to generate dynamic message for Proxy performance analysis
 			   
 		
 	/*	try (BufferedReader br = new BufferedReader(new FileReader(filePath))){
@@ -155,7 +155,7 @@ public class WriteXMLFile {
 	}
 	
 	
-	public String messageGenerator(String filePath)
+	public String messageGenerator(String filePath,int j)
 	{
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		String outputXml = null;
@@ -169,6 +169,7 @@ public class WriteXMLFile {
 	         Document doc = builder.parse(is);
 	         
 
+	         
 	         // get the first element
 	         Element element = doc.getDocumentElement();
 	         // get all child nodes
@@ -182,14 +183,17 @@ public class WriteXMLFile {
 	            	String cdata = nodes.item(i).getTextContent();
 	            	//System.out.println("cdata :: "+cdata);
 	            	
-	            	String strguid =  getAlphaNumeric(27);
-	            	strguid = "RTLRR"+strguid;
+	            //	String strguid =  getAlphaNumeric(27);
 	            	
-	            	cdata = cdata.replace(cdata.substring(cdata.indexOf("<Parent-GUID>"), cdata.indexOf("</Parent-GUID>")), "<Parent-GUID>"+strguid);
-	            	cdata = cdata.replace(cdata.substring(cdata.indexOf("<Child-GUID>"), cdata.indexOf("</Child-GUID>")), "<Child-GUID>"+strguid);
-	            	cdata = cdata.replace(cdata.substring(cdata.indexOf("<Client-Reference-Key>"), cdata.indexOf("</Client-Reference-Key>")), "<Client-Reference-Key>"+strguid);
+	            	String strguid=null;
+	            	
+	            	strguid = "0068410001"+j;
+	            	
+	       cdata = cdata.replace(cdata.substring(cdata.indexOf("<Trans-ID>"), cdata.indexOf("</Trans-ID>")), "<Trans-ID>"+strguid);
+	       /*    	cdata = cdata.replace(cdata.substring(cdata.indexOf("<Child-GUID>"), cdata.indexOf("</Child-GUID>")), "<Child-GUID>"+strguid);
+	            	cdata = cdata.replace(cdata.substring(cdata.indexOf("<Client-Reference-Key>"), cdata.indexOf("</Client-Reference-Key>")), "<Client-Reference-Key>"+strguid);*/
 	            	cdata = "<![CDATA["+cdata+"]]>";
-	            	nodes.item(i).setTextContent(cdata);
+	          	nodes.item(i).setTextContent(cdata);
 	            	break;
 	            			
 	            }
@@ -212,10 +216,10 @@ public class WriteXMLFile {
 	        StringWriter sw = new StringWriter();
 	        TransformerFactory tf = TransformerFactory.newInstance();
 	        Transformer transformer = tf.newTransformer();
-	     /* transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
-	        transformer.setOutputProperty(OutputKeys.METHOD, "xml");
-	        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-	        transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");*/
+	          transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "Yes");
+	    /*  transformer.setOutputProperty(OutputKeys.METHOD, "xml");
+	        transformer.setOutputProperty(OutputKeys.INDENT, "yes");*/
+	        transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
 	        transformer.transform(new DOMSource(doc), new StreamResult(sw));
 	        String output = sw.getBuffer().toString();
 			output = output.replaceAll("&lt;", "<");

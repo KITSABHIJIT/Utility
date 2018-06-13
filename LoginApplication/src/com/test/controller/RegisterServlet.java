@@ -66,7 +66,7 @@ public class RegisterServlet extends HttpServlet {
 				
 			} else {
 				
-				RequestDispatcher dispatcher = request.getRequestDispatcher("register.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 				
 				// setting error message
 				request.setAttribute("errorMessage", "User Registration failed. try again ");
@@ -77,7 +77,7 @@ public class RegisterServlet extends HttpServlet {
 			
 		} else {
 			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("register.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 			
 			// setting error message
 			request.setAttribute("errorMessage", "please make sure all the fields are not empty :( ");

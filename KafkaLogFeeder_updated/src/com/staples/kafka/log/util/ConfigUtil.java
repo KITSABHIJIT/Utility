@@ -19,16 +19,16 @@ import org.w3c.dom.NodeList;
 import com.staples.kafka.log.pojo.LogFile;
 
 public class ConfigUtil {
-	
+
 	private KafkaProducer<String, String> producer;
 	private final Logger LOG = LoggerFactory.getLogger(ConfigUtil.class);
 	private List<LogFile> nodeData;
-	
+
 	public ConfigUtil() {
 		initializeKafkaLogProducer();
 		initializeLogNodeList();
 	}
-	
+
 	public static ConfigUtil getInstance() {
 		return new ConfigUtil();
 	}
@@ -41,8 +41,8 @@ public class ConfigUtil {
 		LOG.debug("**********************KafkaProducer Initialized**********************");
 		return producer;
 	}
-	
-	
+
+
 	public List<LogFile> initializeLogNodeList(){
 		nodeData=new ArrayList<LogFile>();
 		try {
@@ -62,13 +62,19 @@ public class ConfigUtil {
 					logFile.setRolledOutLogfilePath(eElement.getElementsByTagName(PropertiesUtil.getProperty("log.config.node.rolledOutfileName")).item(0).getTextContent());
 					logFile.setKafkaTopic(eElement.getElementsByTagName(PropertiesUtil.getProperty("log.config.node.kafkaTopic")).item(0).getTextContent());
 					logFile.setIsAync(Boolean.parseBoolean(eElement.getElementsByTagName(PropertiesUtil.getProperty("log.config.node.isAsync")).item(0).getTextContent()));
-					Node exludedLogNode = eElement.getElementsByTagName(PropertiesUtil.getProperty("log.config.node.excludedLogs")).item(0);
-					NodeList excludedLogList =exludedLogNode.getChildNodes();
 					List<String> excludedLogs=new ArrayList<String>();
-					for (int i = 0; i < excludedLogList.getLength(); i++) {
-						Node exludedLogNd = excludedLogList.item(i);
-						if (exludedLogNd.getNodeType() == Node.ELEMENT_NODE) {
-							excludedLogs.add(exludedLogNd.getTextContent());
+					if(null!=eElement.getElementsByTagName(PropertiesUtil.getProperty("log.config.node.excludedLogs"))) {
+						Node exludedLogNode = eElement.getElementsByTagName(PropertiesUtil.getProperty("log.config.node.excludedLogs")).item(0);
+						if(null!=exludedLogNode) {
+							NodeList excludedLogList =exludedLogNode.getChildNodes();
+							for (int i = 0; i < excludedLogList.getLength(); i++) {
+								Node exludedLogNd = excludedLogList.item(i);
+								if (exludedLogNd.getNodeType() == Node.ELEMENT_NODE) {
+									if(!StringUtil.isBlankOrEmpty(exludedLogNd.getTextContent())) {
+										excludedLogs.add(exludedLogNd.getTextContent());
+									}
+								}
+							}
 						}
 					}
 					logFile.setExcludedLog(excludedLogs);
@@ -82,13 +88,13 @@ public class ConfigUtil {
 		}
 		return nodeData;
 	}
-	
-	
+
+
 	public KafkaProducer<String, String> getKafkaProducer(){
 		LOG.debug("**********************KafkaProducer Requested**********************");
 		return producer;
 	}
-	
+
 	public List<LogFile> getLogFileList(){
 		LOG.debug("**********************LogNodeList Requested**********************");
 		return nodeData;

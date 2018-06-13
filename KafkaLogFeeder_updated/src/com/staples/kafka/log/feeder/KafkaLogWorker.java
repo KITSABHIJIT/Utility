@@ -134,6 +134,7 @@ public class KafkaLogWorker implements Runnable {
 		boolean result=true;
 		for(String excludes:logFile.getExcludedLog()) {
 			if(message.contains(excludes)) {
+				logger.debug("Log excluded: "+message);
 				result=false;
 				break;
 			}

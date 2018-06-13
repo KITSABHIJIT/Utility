@@ -1,5 +1,7 @@
 package main.Test;
 
+import java.lang.instrument.Instrumentation;
+import java.util.HashMap;
 import java.util.Map;
 
 public  class TestMainClass {

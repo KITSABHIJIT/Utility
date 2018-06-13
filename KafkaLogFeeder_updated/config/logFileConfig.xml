@@ -6,10 +6,6 @@
 		<filePath>/DynamicLog/logs/debug.log</filePath>
 		<rolledOutFilePath>/DynamicLog/logs/debug.log.1</rolledOutFilePath>
 		<isAsync>false</isAsync>
-		<excludeLogs>
-			<log>fbddbfd</log>
-			<log>rtgrtgfgbdfg</log>
-		</excludeLogs>
 	</logFile>
 	<logFile>
 		<application_id>HelloKafkaLogger</application_id>
