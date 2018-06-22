@@ -1,14 +1,11 @@
 package com.test.code;
 
-import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
 import java.net.URL;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
@@ -154,34 +151,19 @@ public class ProcessUtil {
 		}
 	}
 
-	public static void runWindowsCommand(String jarFileDetails,String mavenCommand,String mavenDependency) {
-		try {
-			String [] jarFileDetailsArr=jarFileDetails.split("[|]");
-			mavenCommand=mavenCommand.replaceAll("<JAR_FILE_NAME>", jarFileDetailsArr[0]);
-			mavenCommand=mavenCommand.replaceAll("<GROUP_ID>", jarFileDetailsArr[1]);
-			mavenCommand=mavenCommand.replaceAll("<ARTIFACT_ID>", jarFileDetailsArr[2]);
-			mavenCommand=mavenCommand.replaceAll("<VERSION>", jarFileDetailsArr[3]);
-			ProcessBuilder builder = new ProcessBuilder(
-		            "cmd.exe", "/c", "cd "+System.getProperty("user.dir")+" && "+mavenCommand);
-
-			builder.redirectErrorStream(true);
-			Process p = builder.start();
-			BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream()));
-			String line;
-			while (true) {
-				line = r.readLine();
-				if (line == null) { break; }
-				System.out.println(line);
-			}
-			System.out.println("Jar File Name: "+jarFileDetailsArr[0]);
-			mavenDependency=mavenDependency.replaceAll("<GROUP_ID>", jarFileDetailsArr[1]);
-			mavenDependency=mavenDependency.replaceAll("<ARTIFACT_ID>", jarFileDetailsArr[2]);
-			mavenDependency=mavenDependency.replaceAll("<VERSION>", jarFileDetailsArr[3]);
-			System.out.println("Maven Command: "+mavenCommand);
-			System.out.println("Dependency: "+mavenDependency);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	public static String createUnixCommand(String jarFileDetails,String mavenCommand) {
+		String [] jarFileDetailsArr=jarFileDetails.split("[|]");
+		mavenCommand=mavenCommand.replaceAll("<JAR_FILE_NAME>", jarFileDetailsArr[0]);
+		mavenCommand=mavenCommand.replaceAll("<GROUP_ID>", jarFileDetailsArr[1]);
+		mavenCommand=mavenCommand.replaceAll("<ARTIFACT_ID>", jarFileDetailsArr[2]);
+		mavenCommand=mavenCommand.replaceAll("<VERSION>", jarFileDetailsArr[3]);
+		return mavenCommand;
+	}
+	
+	public static String createDeleteCommand(String jarFileDetails,String deleteCommand) {
+		String [] jarFileDetailsArr=jarFileDetails.split("[|]");
+		deleteCommand=deleteCommand.replaceAll("<JAR_FILE_NAME>", jarFileDetailsArr[0]);
+		return deleteCommand;
 	}
 
 	public static String getFileSize(String jarFile) {

@@ -13,7 +13,7 @@ public class InstallJartoMaven {
 		StringBuffer htmlData =new StringBuffer();
 		for(String maping : mappings) {
 			ProcessUtil.downloadFile(maping);
-			ProcessUtil.runMavenCommand(maping, mavenCommand,mavenDependency);
+			ProcessUtil.runWindowsCommand(maping, mavenCommand,mavenDependency);
 			htmlData.append(ProcessUtil.generateHtmlData(maping,mavenDependencyCode));
 			ProcessUtil.deleteFile(maping);
 		}
