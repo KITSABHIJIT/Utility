@@ -4,14 +4,18 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class PushBuild {
 	//public static DataQueueConfig config;
+	private final static Logger logger = LoggerFactory.getLogger(PushBuild.class);
 	public static void main(String ...strings) {
 		int inserted =0;
 		if(strings.length<6) {
-			System.out.println("********************************************************");
-			System.out.println("*             Invalid parameter provided               *");
-			System.out.println("********************************************************");
+			logger.debug("********************************************************");
+			logger.debug("*             Invalid parameter provided               *");
+			logger.debug("********************************************************");
 			System.exit(1);
 		}else {
 			BuildLog buildLog=new BuildLog();
@@ -23,23 +27,25 @@ public class PushBuild {
 			buildLog.setGitBranch(strings[3]);
 			buildLog.setAs400JobName(strings[4]);
 			buildLog.setAs400IfsPath(strings[5]);
+			buildLog.setBuildDate(Long.parseLong(StringUtil.getCurrentDate("yyyyMMdd")));
+			buildLog.setBuildTime(Long.parseLong(StringUtil.getCurrentDate("HHmmss")));
 			if(ConnectionUtil.updateCaRule(buildLog.getAs400JobName(),"0")>0) {
-				System.out.println("******************************************************************");
-				System.out.println("CARULE RULSTS updated to 0 for "+buildLog.getAs400JobName()+" to post the kill message to CA_CMD_Q");
-				System.out.println("******************************************************************");
+				logger.debug("******************************************************************");
+				logger.debug("CARULE RULSTS updated to 0 for "+buildLog.getAs400JobName()+" to post the kill message to CA_CMD_Q");
+				logger.debug("******************************************************************");
 			}
 			try {
-				System.out.println("******************************************************************");
-				System.out.println("                  Waiting "+(Long.parseLong(PropertiesUtil.getProperty("updateDelay"))/1000)+" seconds ...                           ");
-				System.out.println("******************************************************************");
+				logger.debug("******************************************************************");
+				logger.debug("                  Waiting "+(Long.parseLong(PropertiesUtil.getProperty("updateDelay"))/1000)+" seconds ...                           ");
+				logger.debug("******************************************************************");
 				Thread.sleep(Long.parseLong(PropertiesUtil.getProperty("updateDelay")));
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 			if(ConnectionUtil.updateCaRule(buildLog.getAs400JobName(),"1")>0) {
-				System.out.println("********************************************************");
-				System.out.println("CARULE RULSTS updated back to 1 for "+buildLog.getAs400JobName());
-				System.out.println("********************************************************");
+				logger.debug("********************************************************");
+				logger.debug("CARULE RULSTS updated back to 1 for "+buildLog.getAs400JobName());
+				logger.debug("********************************************************");
 			}
 			inserted = ConnectionUtil.insertBuildData(buildLog);
 
@@ -49,30 +55,30 @@ public class PushBuild {
 				try {
 					config=new DataQueueConfig();
 					String dataQueueMessage=config.buildJobData(buildLog, caRule);
-					System.out.println("Data Queue Message: "+dataQueueMessage);
+					logger.debug("Data Queue Message: "+dataQueueMessage);
 					config.sendData(dataQueueMessage);
 				} catch (Exception e) {
-					System.out.println("********************************************************");
-					System.out.println(" Exception occured while posting message to Data Queue  ");
-					System.out.println(e.getMessage());
-					System.out.println("********************************************************");
+					logger.debug("********************************************************");
+					logger.debug(" Exception occured while posting message to Data Queue  ");
+					logger.debug(e.getMessage());
+					logger.debug("********************************************************");
 					System.exit(1);
 				}
 
 			}else {
-				System.out.println("********************************************************");
-				System.out.println("*             CARULE Config Unavailable                *");
-				System.out.println("*             AS400 Job will not restart               *");
-				System.out.println("********************************************************");
+				logger.debug("********************************************************");
+				logger.debug("*             CARULE Config Unavailable                *");
+				logger.debug("*             AS400 Job will not restart               *");
+				logger.debug("********************************************************");
 				System.exit(1);
 			}*/
 			if(inserted>0) {
-				System.out.println("*********************************************************************************");
-				System.out.println("                                Build Triggered                                  ");
-				System.out.println("Build Application: "+buildLog.getBuildTag());
-				System.out.println("Build Date Time: "+new SimpleDateFormat("MM/dd/yyyy HH:mm:ss z").format(new Date()));	
-				System.out.println(buildLog.toString());	
-				System.out.println("*********************************************************************************");
+				logger.debug("*********************************************************************************");
+				logger.debug("                                Build Triggered                                  ");
+				logger.debug("Build Application: "+buildLog.getBuildTag());
+				logger.debug("Build Date Time: "+new SimpleDateFormat("MM/dd/yyyy HH:mm:ss z").format(new Date()));	
+				logger.debug(buildLog.toString());	
+				logger.debug("*********************************************************************************");
 			}
 			System.exit(0);
 		}

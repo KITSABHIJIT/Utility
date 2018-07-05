@@ -6,7 +6,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class PropertiesUtil {
+	private final static Logger logger = LoggerFactory.getLogger(PropertiesUtil.class);
 	private static Properties properties = null;
 	private static final String filePath = "./config/config.txt";
 	public static final String inputDataPath = "./config/inputData.txt";
@@ -20,18 +24,18 @@ public class PropertiesUtil {
 				InputStream in= new FileInputStream(filePath);
 				properties.load(in);
 			} catch (FileNotFoundException fnfEx) {
-				System.out.println("Properties file " + filePath
+				logger.error("Properties file " + filePath
 						+ " could not be found");
 				fnfEx.printStackTrace();
 			} catch (IOException ioEx) {
-				System.out.println("I/O error while opening Properties file " +filePath);
+				logger.error("I/O error while opening Properties file " +filePath);
 				ioEx.printStackTrace();
 			} finally {
 				if (is != null) {
 					try {
 						is.close();
 					} catch (IOException ioEx) {
-						System.out.println("Failed to close InputStream object");
+						logger.error("Failed to close InputStream object");
 						ioEx.printStackTrace();
 					}
 				}

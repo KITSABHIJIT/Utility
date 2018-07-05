@@ -8,15 +8,18 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.ibm.as400.access.AS400;
 import com.ibm.as400.access.AS400JDBCDriver;
 
 public class ConnectionUtil {
-
+	private final static Logger logger = LoggerFactory.getLogger(ConnectionUtil.class);
 	public static Connection getAS400Connection(String library) {            
-		System.out.println("Connecting "+PropertiesUtil.getProperty("server")+"...");
+		logger.debug("Connecting "+PropertiesUtil.getProperty("server")+"...");
 		if(!StringUtil.isBlankOrEmpty(library))
-			System.out.println("LIBRARY ACCESSED : " + library);
+			logger.debug("LIBRARY ACCESSED : " + library);
 
 		AS400 server;
 		Connection con=null;
@@ -32,12 +35,12 @@ public class ConnectionUtil {
 			}
 			try {
 				server.connectService(AS400.DATABASE);
-				System.out.println("Connected to :"+PropertiesUtil.getProperty("server"));
+				logger.debug("Connected to :"+PropertiesUtil.getProperty("server"));
 				AS400JDBCDriver d = new AS400JDBCDriver();
 				con = d.connect(server, prop, null);
 				con.setAutoCommit(true);
 			}catch (Exception e){
-				System.out.println("unable to connect "+PropertiesUtil.getProperty("server"));
+				logger.error("unable to connect "+PropertiesUtil.getProperty("server"));
 				e.printStackTrace();
 			}
 		}
@@ -48,10 +51,10 @@ public class ConnectionUtil {
 		try {
 			if (null != rs) {
 				rs.close();
-				System.out.println("ResultSet closed Sucesfully");
+				logger.debug("ResultSet closed Sucesfully");
 			}
 		} catch (Exception e) {
-			System.out.println("Could not close ResultSet object");
+			logger.error("Could not close ResultSet object");
 			e.printStackTrace();
 		}
 	}
@@ -59,10 +62,10 @@ public class ConnectionUtil {
 		try {
 			if (null != stmt) {
 				stmt.close();
-				//System.out.println("Statement closed Sucesfully");
+				logger.debug("Statement closed Sucesfully");
 			}
 		} catch (Exception e) {
-			System.out.println("Could not close Callable Statement object");
+			logger.error("Could not close Callable Statement object");
 			e.printStackTrace();
 		}
 	}
@@ -71,10 +74,10 @@ public class ConnectionUtil {
 		try {
 			if (null != stmt) {
 				stmt.close();
-				//System.out.println("Statement closed Sucesfully");
+				logger.debug("Statement closed Sucesfully");
 			}
 		} catch (Exception e) {
-			System.out.println("Could not close Statement object");
+			logger.error("Could not close Statement object");
 			e.printStackTrace();
 		}
 	}
@@ -82,10 +85,10 @@ public class ConnectionUtil {
 		try {
 			if (null != con) {
 				con.close();
-				System.out.println("Connection closed Sucesfully");
+				logger.debug("Connection closed Sucesfully");
 			}
 		} catch (Exception e) {
-			System.out.println("Could not close Connection object");
+			logger.error("Could not close Connection object");
 			e.printStackTrace();
 		}
 	}
@@ -103,9 +106,11 @@ public class ConnectionUtil {
 			stmt.setString(5, buildLog.getGitBranch());
 			stmt.setString(6, buildLog.getAs400JobName());
 			stmt.setString(7, buildLog.getAs400IfsPath());
+			stmt.setLong(8, buildLog.getBuildDate());
+			stmt.setLong(9, buildLog.getBuildTime());
 			insertedRows = stmt.executeUpdate();
 		}catch (SQLException e) {
-			System.out.println("Error while executing Query..."+PropertiesUtil.getProperty("insertBuildLog"));
+			logger.error("Error while executing Query..."+PropertiesUtil.getProperty("insertBuildLog"));
 			e.printStackTrace();
 		}finally {
 			ConnectionUtil.closeStatement(stmt);
@@ -124,7 +129,7 @@ public class ConnectionUtil {
 			stmt.setString(2, jobName);
 			insertedRows = stmt.executeUpdate();
 		}catch (SQLException e) {
-			System.out.println("Error while executing Query..."+PropertiesUtil.getProperty("updateCaRule"));
+			logger.error("Error while executing Query..."+PropertiesUtil.getProperty("updateCaRule"));
 			e.printStackTrace();
 		}finally {
 			ConnectionUtil.closeStatement(stmt);
@@ -153,7 +158,7 @@ public class ConnectionUtil {
 				caRule.setPriority(resultSet.getLong(PropertiesUtil.getProperty("carule_priority")));
 			}
 		}catch (SQLException e) {
-			System.out.println("Error while executing Query..."+PropertiesUtil.getProperty("getCaRule"));
+			logger.error("Error while executing Query..."+PropertiesUtil.getProperty("getCaRule"));
 			e.printStackTrace();
 		}finally {
 			ConnectionUtil.closeStatement(stmt);

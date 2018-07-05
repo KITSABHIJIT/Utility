@@ -8,6 +8,8 @@ public class BuildLog {
 	private String gitBranch;
 	private String as400JobName;
 	private String as400IfsPath;
+	private long buildDate;
+	private long buildTime;
 	
 	public String getBuildId() {
 		return buildId;
@@ -51,11 +53,23 @@ public class BuildLog {
 	public void setAs400IfsPath(String as400IfsPath) {
 		this.as400IfsPath = as400IfsPath;
 	}
+	public long getBuildDate() {
+		return buildDate;
+	}
+	public void setBuildDate(long buildDate) {
+		this.buildDate = buildDate;
+	}
+	public long getBuildTime() {
+		return buildTime;
+	}
+	public void setBuildTime(long buildTime) {
+		this.buildTime = buildTime;
+	}
 	@Override
 	public String toString() {
-		return "buildId=" + buildId + "\n buildTag=" + buildTag + "\n buildUrl=" + buildUrl + "\n gitCommit="
-				+ gitCommit + "\n gitBranch=" + gitBranch + "\n as400JobName=" + as400JobName + "\n as400IfsPath="
-				+ as400IfsPath;
+		return "BuildLog [buildId=" + buildId + ", buildTag=" + buildTag + ", buildUrl=" + buildUrl + ", gitCommit="
+				+ gitCommit + ", gitBranch=" + gitBranch + ", as400JobName=" + as400JobName + ", as400IfsPath="
+				+ as400IfsPath + ", buildDate=" + buildDate + ", buildTime=" + buildTime + "]";
 	}
 	
 	

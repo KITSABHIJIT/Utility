@@ -1,5 +1,8 @@
 package com.staples.jenkins.build;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.ibm.as400.access.AS400;
 import com.ibm.as400.access.AS400ConnectionPool;
 import com.ibm.as400.access.ConnectionPoolException;
@@ -8,7 +11,7 @@ import com.ibm.as400.access.KeyedDataQueue;
 
 public class DataQueueConfig {
 	
-	
+	private final static Logger logger = LoggerFactory.getLogger(DataQueueConfig.class);
 	private static KeyedDataQueue DATA_QUEUE;
 	private static final String FORWARD_SLASH = "/";
 	private static AS400ConnectionPool connectionPool;
@@ -19,7 +22,7 @@ public class DataQueueConfig {
 		builder.append(FORWARD_SLASH).append(PropertiesUtil.getProperty("data_queue_library")).append(FORWARD_SLASH)
 		.append(PropertiesUtil.getProperty("data_queue_name"));
 		DATA_QUEUE = new KeyedDataQueue(this.getConnection(), builder.toString());
-		System.out.println("Data Queue initialized Successfully");
+		logger.debug("Data Queue initialized Successfully");
 	}
 
 	private static AS400ConnectionPool getAS400ConnectionPool() {
@@ -87,11 +90,11 @@ public class DataQueueConfig {
 			// write data to queue
 			String key=data.split("["+PropertiesUtil.getProperty("message_key_value_delimetter")+"]")[0];
 			String value=data.split("["+PropertiesUtil.getProperty("message_key_value_delimetter")+"]")[1];
-			System.out.println("Writing to DQ : ");
-			System.out.println("Key : "+ key);
-			System.out.println("Value : "+ value);
+			logger.debug("Writing to DQ : ");
+			logger.debug("Key : "+ key);
+			logger.debug("Value : "+ value);
 			DATA_QUEUE.write(key,value);
-			System.out.println("Write to Data Queue complete");
+			logger.debug("Write to Data Queue complete");
 			//getData() ;
 		} catch (final Exception e) {
 			throw e;
