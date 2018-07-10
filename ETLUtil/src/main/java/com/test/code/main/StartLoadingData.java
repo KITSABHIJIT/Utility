@@ -16,6 +16,7 @@ import com.test.code.transform.BOACreditTransformer;
 import com.test.code.transform.BOADebitTransformer;
 import com.test.code.transform.BestBuyTransformer;
 import com.test.code.transform.ChaseTransformer;
+import com.test.code.transform.DCUDebitTransformer;
 import com.test.code.transform.DiscoverTransformer;
 import com.test.code.transform.JCPenneyTransformer;
 import com.test.code.transform.KholsTransformer;
@@ -38,6 +39,7 @@ public class StartLoadingData {
 		BJsTransformer.processData(expList);
 		BOACreditTransformer.processData(expList);
 		BOADebitTransformer.processData(expList);
+		DCUDebitTransformer.processData(expList);
 		ChaseTransformer.processData(expList);
 		DiscoverTransformer.processData(expList);
 		JCPenneyTransformer.processData(expList);

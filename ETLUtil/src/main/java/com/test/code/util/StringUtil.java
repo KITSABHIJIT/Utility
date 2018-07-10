@@ -2,14 +2,6 @@ package com.test.code.util;
 
 public class StringUtil {
 
-	public static boolean isBlankOrEmpty (String word) {
-
-		if(null!=word && word.trim()!="")
-			return false;
-		else 
-			return true;
-
-	}
 	public static String padZeros(String s, int padLength,boolean left) {
 		s= s.trim();
 		if(s.length()>=padLength){

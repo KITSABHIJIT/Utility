@@ -36,3 +36,4 @@ TjMaxFile=C:\\Users\\royab001\\Google Drive\\Expense\\Expense Dumps\\Raw_Stateme
 ZalesFile=C:\\Users\\royab001\\Google Drive\\Expense\\Expense Dumps\\Raw_Statements\\Zales.csv
 ZalesFileTemp=C:\\Users\\royab001\\Google Drive\\Expense\\Expense Dumps\\Raw_Statements\\ZalesTemp.csv
 BestBuyFile=C:\\Users\\royab001\\Google Drive\\Expense\\Expense Dumps\\Raw_Statements\\bestBuy.csv
+DCUdebitFile=C:\\Users\\royab001\\Google Drive\\Expense\\Expense Dumps\\Raw_Statements\\DCU.csv
