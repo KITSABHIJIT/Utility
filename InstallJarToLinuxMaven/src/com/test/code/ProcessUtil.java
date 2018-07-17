@@ -121,6 +121,14 @@ public class ProcessUtil {
 
 	}
 
+	public static void downloadResource(String fileName) {
+		String [] jarFileDetailsArr=fileName.split("[|]");
+		downloadFile(jarFileDetailsArr[0]);
+		if(jarFileDetailsArr.length>4) {
+			downloadFile(jarFileDetailsArr[4]);
+		}
+	}
+	
 	public static void downloadFile(String fileName) {
 		String [] jarFileDetailsArr=fileName.split("[|]");
 		String jarFile=jarFileDetailsArr[0];
@@ -157,6 +165,11 @@ public class ProcessUtil {
 		mavenCommand=mavenCommand.replaceAll("<GROUP_ID>", jarFileDetailsArr[1]);
 		mavenCommand=mavenCommand.replaceAll("<ARTIFACT_ID>", jarFileDetailsArr[2]);
 		mavenCommand=mavenCommand.replaceAll("<VERSION>", jarFileDetailsArr[3]);
+		if(jarFileDetailsArr.length>4) {
+			String pomInstall=PropertiesUtil.getProperty("pom_install");
+			pomInstall=pomInstall.replaceAll("<POM_FILE>", jarFileDetailsArr[4]);
+			mavenCommand=mavenCommand+" "+pomInstall;
+		}
 		return mavenCommand;
 	}
 	
@@ -190,15 +203,21 @@ public class ProcessUtil {
 	}
 
 	public static void deleteFile(String fileName) {
-		String [] jarFileDetailsArr=fileName.split("[|]");
-		String jarFile=jarFileDetailsArr[0];
-		File file = new File(jarFile);
+		File file = new File(fileName);
 		if(file.exists()) {
 			if(file.delete()){
-				System.out.println(jarFile+" removed successfully");
+				System.out.println(fileName+" removed successfully");
 			}else{
-				System.out.println("Failed to remove "+jarFile);
+				System.out.println("Failed to remove "+fileName);
 			}
+		}
+	}
+	
+	public static void deleteResource(String fileName) {
+		String [] jarFileDetailsArr=fileName.split("[|]");
+		deleteFile(jarFileDetailsArr[0]);
+		if(jarFileDetailsArr.length>4) {
+			deleteFile(jarFileDetailsArr[4]);
 		}
 	}
 
@@ -212,7 +231,7 @@ public class ProcessUtil {
 		return mavenDependencyCode;
 	}
 	public static void generateHtmlFile(String fileName,String data) {
-		ProcessUtil.deleteFile(fileName);
+		ProcessUtil.deleteResource(fileName);
 		String html =readFromFileAsString("template");
 		html=html.replaceAll("<TABLE_BODY>", data);
 		writeToFile(html, fileName);

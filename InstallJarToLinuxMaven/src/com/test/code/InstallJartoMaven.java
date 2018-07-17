@@ -11,7 +11,7 @@ public class InstallJartoMaven {
 		String deleteCommand=PropertiesUtil.getProperty("delete");
 		StringBuffer scriptData =new StringBuffer(PropertiesUtil.getProperty("export_path"));
 		for(String maping : mappings) {
-			ProcessUtil.downloadFile(maping);
+			ProcessUtil.downloadResource(maping);
 			scriptData.append("\n").append(ProcessUtil.createUnixCommand(maping, mavenCommand));
 			scriptData.append("\n").append(ProcessUtil.createDeleteCommand(maping, deleteCommand));
 		}
