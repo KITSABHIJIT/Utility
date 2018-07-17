@@ -12,10 +12,10 @@ public class InstallJartoMaven {
 		String mavenDependencyCode=PropertiesUtil.getProperty("maven_dependency_code");
 		StringBuffer htmlData =new StringBuffer();
 		for(String maping : mappings) {
-			ProcessUtil.downloadFile(maping);
+			ProcessUtil.downloadResource(maping);
 			ProcessUtil.runWindowsCommand(maping, mavenCommand,mavenDependency);
 			htmlData.append(ProcessUtil.generateHtmlData(maping,mavenDependencyCode));
-			ProcessUtil.deleteFile(maping);
+			ProcessUtil.deleteResource(maping);
 		}
 		ProcessUtil.generateHtmlFile(HTML_FILE,htmlData.toString());
 		
