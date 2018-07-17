@@ -128,7 +128,7 @@ public class ProcessUtil {
 			downloadFile(jarFileDetailsArr[4]);
 		}
 	}
-	
+
 	public static void downloadFile(String fileName) {
 		String [] jarFileDetailsArr=fileName.split("[|]");
 		String jarFile=jarFileDetailsArr[0];
@@ -172,11 +172,20 @@ public class ProcessUtil {
 		}
 		return mavenCommand;
 	}
-	
+
 	public static String createDeleteCommand(String jarFileDetails,String deleteCommand) {
 		String [] jarFileDetailsArr=jarFileDetails.split("[|]");
 		deleteCommand=deleteCommand.replaceAll("<JAR_FILE_NAME>", jarFileDetailsArr[0]);
 		return deleteCommand;
+	}
+
+	public static String createDeletePOMCommand(String jarFileDetails,String deleteCommand) {
+		String [] jarFileDetailsArr=jarFileDetails.split("[|]");
+		if(jarFileDetailsArr.length>4) {
+			deleteCommand=deleteCommand.replaceAll("<JAR_FILE_NAME>", jarFileDetailsArr[4]);
+			return deleteCommand;
+		}else 
+			return "";
 	}
 
 	public static String getFileSize(String jarFile) {
@@ -212,7 +221,7 @@ public class ProcessUtil {
 			}
 		}
 	}
-	
+
 	public static void deleteResource(String fileName) {
 		String [] jarFileDetailsArr=fileName.split("[|]");
 		deleteFile(jarFileDetailsArr[0]);

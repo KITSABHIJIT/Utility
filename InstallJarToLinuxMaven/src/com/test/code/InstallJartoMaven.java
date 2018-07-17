@@ -14,6 +14,7 @@ public class InstallJartoMaven {
 			ProcessUtil.downloadResource(maping);
 			scriptData.append("\n").append(ProcessUtil.createUnixCommand(maping, mavenCommand));
 			scriptData.append("\n").append(ProcessUtil.createDeleteCommand(maping, deleteCommand));
+			scriptData.append("\n").append(ProcessUtil.createDeletePOMCommand(maping, deleteCommand));
 		}
 		ProcessUtil.writeToFile(scriptData.toString(),SCRIPT_FILE);
 		
