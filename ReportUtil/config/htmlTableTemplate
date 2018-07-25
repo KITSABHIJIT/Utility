@@ -1,0 +1,30 @@
+<!-- Resources -->
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" type="text/css" media="all" />
+
+<!-- Chart code -->
+<script>
+
+$(document).ready(function() {
+    $('#example').DataTable( {
+    	"order": [[ 0, "desc" ]],
+    	"lengthMenu": [[25, 50,100, -1], [25, 50,100, "All"]],
+        data: <TABULAR_DATA>,
+        columns: [
+        { title: "Expense Date" },
+		{ title: "Merchant" },
+		{ title: "Place" },
+		{ title: "Category" },
+		{ title: "Pay Mode" },
+		{ title: "Amount" }
+        ]
+    } );
+} );
+
+
+
+</script>
+
+<!-- HTML -->
+<table id="example" class="display" width="100%"></table>

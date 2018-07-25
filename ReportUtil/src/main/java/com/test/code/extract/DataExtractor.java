@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -439,6 +440,123 @@ public class DataExtractor {
 		return data;
 	}
 
+	public static JSONArray getDrillDownJsonData(String query,boolean excludeNegative,String drillDownQuery){
+		int recordCount=0;
+		String keyValue="";
+		JSONArray data = new JSONArray();
+		try (Connection connection = ConnectionUtil.getConnection();
+				PreparedStatement statement = connection.prepareStatement(query);
+				) {
+			ResultSet rs = statement.executeQuery();
+			ResultSetMetaData rsmd = rs.getMetaData();
+			int columnCount = rsmd.getColumnCount();
+			while (rs.next()) {
+				//JSONObject rowData = new JSONObject();
+				LinkedHashMap<Object, Object> jsonOrderedMap = new LinkedHashMap<Object, Object>();
+				for (int i = 1;i<=columnCount; i++ ) {
+					if (StringUtil.isBlankOrEmpty(rs.getObject(i))) {
+						jsonOrderedMap.put(rsmd.getColumnName(i), "0");
+					}else if (rs.getObject(i) instanceof Integer) {
+						jsonOrderedMap.put(rsmd.getColumnName(i), rs.getInt(i));
+					} else if (rs.getObject(i) instanceof Double) {
+						if(rs.getDouble(i)<0 && excludeNegative) {
+							jsonOrderedMap.put(rsmd.getColumnName(i), 0);
+						}else {
+							jsonOrderedMap.put(rsmd.getColumnName(i), rs.getDouble(i));
+						}
+					} else if (rs.getObject(i) instanceof Date) {
+						jsonOrderedMap.put(rsmd.getColumnName(i), rs.getString(i));
+					}else if (rs.getObject(i) instanceof BigDecimal) {
+						if(rs.getBigDecimal(i).compareTo(BigDecimal.ZERO) < 0 && excludeNegative) {
+							jsonOrderedMap.put(rsmd.getColumnName(i), 0);
+						}else {
+							jsonOrderedMap.put(rsmd.getColumnName(i), rs.getBigDecimal(i));
+						}
+					}else if (rs.getObject(i) instanceof String) {
+						try {
+							double value=Double.parseDouble(rs.getString(i));
+							if(value < 0 && excludeNegative) {
+								jsonOrderedMap.put(rsmd.getColumnName(i), 0);
+							}else {
+								jsonOrderedMap.put(rsmd.getColumnName(i), value);
+							}
 
+						}catch(NumberFormatException e) {
+							jsonOrderedMap.put(rsmd.getColumnName(i), rs.getString(i));
+						}
+					}
+					if(i==1) {
+						keyValue=rs.getString(i);
+					}
+				}
+				String drillDownQueryNew=drillDownQuery.replaceAll("<DRILL_DOWN_VALUE>", keyValue);
+				JSONArray array=getJsonData(drillDownQueryNew,excludeNegative);
+				if(array.size()>0) {
+					jsonOrderedMap.put("data", array);
+				}
+
+				data.add(jsonOrderedMap);
+				recordCount++;
+			}
+			logger.debug("Total number of Tabular records fetched: "+recordCount);
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		return data;
+	}
+
+	public static JSONArray getJsonArrayData(String query,boolean excludeNegative){
+		int recordCount=0;
+		JSONArray data = new JSONArray();
+		try (Connection connection = ConnectionUtil.getConnection();
+				PreparedStatement statement = connection.prepareStatement(query);
+				) {
+			ResultSet rs = statement.executeQuery();
+			ResultSetMetaData rsmd = rs.getMetaData();
+			int columnCount = rsmd.getColumnCount();
+			while (rs.next()) {
+				LinkedList<Object> dataSet = new LinkedList<Object>();
+				for (int i = 1;i<=columnCount; i++ ) {
+					if (StringUtil.isBlankOrEmpty(rs.getObject(i))) {
+						dataSet.add("");
+					}else if (rs.getObject(i) instanceof Integer) {
+						dataSet.add(rs.getInt(i));
+					} else if (rs.getObject(i) instanceof Double) {
+						if(rs.getDouble(i)<0 && excludeNegative) {
+							dataSet.add( 0);
+						}else {
+							dataSet.add( rs.getDouble(i));
+						}
+					} else if (rs.getObject(i) instanceof Date) {
+						dataSet.add( rs.getString(i));
+					}else if (rs.getObject(i) instanceof BigDecimal) {
+						if(rs.getBigDecimal(i).compareTo(BigDecimal.ZERO) < 0 && excludeNegative) {
+							dataSet.add( 0);
+						}else {
+							dataSet.add( rs.getBigDecimal(i));
+						}
+					}else if (rs.getObject(i) instanceof String) {
+						try {
+							double value=Double.parseDouble(rs.getString(i));
+							if(value < 0 && excludeNegative) {
+								dataSet.add( 0);
+							}else {
+								dataSet.add( value);
+							}
+
+						}catch(NumberFormatException e) {
+							dataSet.add( rs.getString(i));
+						}
+					}
+				}
+				data.add(dataSet);
+				recordCount++;
+			}
+			logger.debug("Total number of Tabular records fetched: "+recordCount);
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		return data;
+	}
 
 }

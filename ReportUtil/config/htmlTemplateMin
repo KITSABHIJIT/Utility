@@ -1,0 +1,403 @@
+<!-- Styles -->
+<style>
+
+#chartdivTotal {
+  width: 100%;
+  height: 500px;
+}
+
+#chartdiv {
+  width: 100%;
+  height: 100%;
+}						
+
+#chartdiv1 {
+	width	: 100%;
+	height	: 100%;
+	margin-top: 50px;
+}				
+
+#chartdiv2 {
+  width: 100%;
+  height: 100%;
+  margin-top: 50px;
+}		
+
+</style>
+
+<!-- Resources -->
+<script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+<script src="https://www.amcharts.com/lib/3/pie.js"></script>
+<script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+<script src="https://www.amcharts.com/lib/3/gauge.js"></script>
+<link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+<script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+<script src="https://www.amcharts.com/lib/3/serial.js"></script>
+
+<!-- Chart code -->
+<script>
+
+var chartData = <PIE_DATA>;
+
+var chart = AmCharts.makeChart( "chartdiv", {
+  "type": "pie",
+  "theme": "light",
+  "titles": [ {
+    "text": "Expense by Category",
+    "size": 16
+  } ],
+  "pullOutOnlyOne": true,
+    "legend":{
+   	"position":"right",
+    "marginRight":100,
+    "autoMargins":false
+  },
+  "dataProvider": chartData,
+  "valueField": "value",
+  "titleField": "title",
+  "outlineAlpha": 0.4,
+  "depth3D": 15,
+  "balloonText": "[[title]]<br><span style='font-size:14px'><b>[[value]]</b> ([[percents]]%)</span>",
+  "angle": 30,
+  "export": {
+    "enabled": true
+  }
+} );
+
+
+/* initialize step array */
+chart.drillLevels = [{
+  "title": "Expense by Category",
+  "data": chartData
+}];
+
+/* add slice click handler */
+chart.addListener("clickSlice", function (event) {
+  
+  /* get chart object */
+  var chart = event.chart;
+  
+  /* check if drill-down data is avaliable */
+  if (event.dataItem.dataContext.data !== undefined) {
+    
+    /* save for back button */
+    chart.drillLevels.push(event.dataItem.dataContext);
+    
+    /* replace data */
+    chart.dataProvider = event.dataItem.dataContext.data;
+    
+    /* replace title */
+    chart.titles[0].text = event.dataItem.dataContext.title;
+    
+    /* add back link
+     let's add a label to go back to yearly data */
+    event.chart.addLabel(
+      0, 25, 
+      "< Go back",
+      undefined, 
+      undefined, 
+      undefined, 
+      undefined, 
+      undefined, 
+      undefined, 
+      'javascript:drillUp();');
+    
+    /* take in data and animate */
+    chart.validateData();
+    chart.animateAgain();
+  }
+});
+
+function drillUp() {
+  
+  /* get level */
+  chart.drillLevels.pop();
+  var level = chart.drillLevels[chart.drillLevels.length - 1];
+  
+  /* replace data */
+  chart.dataProvider = level.data;
+
+  /* replace title */
+  chart.titles[0].text = level.title;
+  
+  /* remove labels */
+  if (chart.drillLevels.length === 1)
+    chart.clearLabels();
+  
+  /* take in data and animate */
+  chart.validateData();
+  chart.animateAgain();
+}
+
+
+
+
+
+var donutChartData = <DONUT_DATA>;
+
+var donutChart = AmCharts.makeChart( "chartdiv1", {
+  "type": "pie",
+  "theme": "light",
+  "titles": [ {
+    "text": "Expense by Pay Mode",
+    "size": 16
+  } ],
+  "dataProvider": donutChartData,
+  "valueField": "value",
+  "titleField": "title",
+  "startEffect": "elastic",
+  "startDuration": 2,
+  "labelRadius": 15,
+  "innerRadius": "50%",
+  "legend":{
+   	"position":"right",
+    "marginRight":100,
+    "autoMargins":false
+  },
+  "depth3D": 10,
+  "balloonText": "[[title]]<br><span style='font-size:14px'><b>[[value]]</b> ([[percents]]%)</span>",
+  "angle": 15,
+  "export": {
+    "enabled": true
+  }
+} );
+
+/* initialize step array */
+donutChart.drillLevels = [{
+  "title": "Expense by Pay Mode",
+  "data": donutChartData
+}];
+
+/* add slice click handler */
+donutChart.addListener("clickSlice", function (event) {
+  
+  /* get chart object */
+  var chartDonut = event.chart;
+  
+  /* check if drill-down data is avaliable */
+  if (event.dataItem.dataContext.data !== undefined) {
+    
+    /* save for back button */
+    chartDonut.drillLevels.push(event.dataItem.dataContext);
+    
+    /* replace data */
+    chartDonut.dataProvider = event.dataItem.dataContext.data;
+    
+    /* replace title */
+    chartDonut.titles[0].text = event.dataItem.dataContext.title;
+    
+    /* add back link
+     let's add a label to go back to yearly data */
+    event.chart.addLabel(
+      0, 25, 
+      "< Go back",
+      undefined, 
+      undefined, 
+      undefined, 
+      undefined, 
+      undefined, 
+      undefined, 
+      'javascript:drillUpDonutChart();');
+    
+    /* take in data and animate */
+    chartDonut.validateData();
+    chartDonut.animateAgain();
+  }
+});
+
+function drillUpDonutChart() {
+  
+  /* get level */
+  donutChart.drillLevels.pop();
+  var level = donutChart.drillLevels[donutChart.drillLevels.length - 1];
+  
+  /* replace data */
+  donutChart.dataProvider = level.data;
+
+  /* replace title */
+  donutChart.titles[0].text = level.title;
+  
+  /* remove labels */
+  if (donutChart.drillLevels.length === 1)
+    donutChart.clearLabels();
+  
+  /* take in data and animate */
+  donutChart.validateData();
+  donutChart.animateAgain();
+}
+
+
+var chartStock = AmCharts.makeChart("chartdiv2", {
+    "type": "serial",
+    "theme": "light",
+    "titles": [ {
+    "text": "Expense by Date",
+    "size": 16
+  } ],
+    "marginRight": 40,
+    "marginLeft": 40,
+    "autoMarginOffset": 20,
+    "mouseWheelZoomEnabled":true,
+    "dataDateFormat": "YYYY-MM-DD",
+    "valueAxes": [{
+        "id": "v1",
+        "axisAlpha": 0,
+        "position": "left",
+        "ignoreAxisWidth":true
+    }],
+    "balloon": {
+        "borderThickness": 1,
+        "shadowAlpha": 0
+    },
+    "graphs": [{
+        "id": "g1",
+        "balloon":{
+          "drop":true,
+          "adjustBorderColor":false,
+          "color":"#ffffff"
+        },
+        "bullet": "round",
+        "bulletBorderAlpha": 1,
+        "bulletColor": "#FFFFFF",
+        "bulletSize": 5,
+        "hideBulletsCount": 50,
+        "lineThickness": 2,
+        "title": "red line",
+        "useLineColorForBulletBorder": true,
+        "valueField": "value",
+        "balloonText": "<span style='font-size:18px;'>[[value]]</span>"
+    }],
+    "chartScrollbar": {
+        "graph": "g1",
+        "oppositeAxis":false,
+        "offset":30,
+        "scrollbarHeight": 80,
+        "backgroundAlpha": 0,
+        "selectedBackgroundAlpha": 0.1,
+        "selectedBackgroundColor": "#888888",
+        "graphFillAlpha": 0,
+        "graphLineAlpha": 0.5,
+        "selectedGraphFillAlpha": 0,
+        "selectedGraphLineAlpha": 1,
+        "autoGridCount":true,
+        "color":"#AAAAAA"
+    },
+    "chartCursor": {
+        "pan": true,
+        "valueLineEnabled": true,
+        "valueLineBalloonEnabled": true,
+        "cursorAlpha":1,
+        "cursorColor":"#258cbb",
+        "limitToGraph":"g1",
+        "valueLineAlpha":0.2,
+        "valueZoomable":true
+    },
+    "valueScrollbar":{
+      "oppositeAxis":false,
+      "offset":50,
+      "scrollbarHeight":10
+    },
+    "categoryField": "date",
+    "categoryAxis": {
+        "parseDates": true,
+        "dashLength": 1,
+        "minorGridEnabled": true
+    },
+    "export": {
+        "enabled": true
+    },
+    "dataProvider": <LINE_DATA>
+});
+
+chartStock.addListener("rendered", zoomChart);
+
+zoomChart();
+
+function zoomChart() {
+    chartStock.zoomToIndexes(chartStock.dataProvider.length - 40, chartStock.dataProvider.length - 1);
+}
+
+var totalExpenseRaw=<TOTAL_EXPENSE>;
+var totalExpense = Math.round(totalExpenseRaw / 1000);
+var endLimit = ((Math.round(totalExpense / 100) + 1) * 10);
+var chartTotal = AmCharts.makeChart("chartdivTotal", {
+  "theme": "light",
+  "type": "gauge",
+  "titles": [ {
+    "text": "Total Expense",
+    "size": 16
+ 	 } ],
+  "axes": [{
+    "topTextFontSize": 20,
+    "topTextYOffset": 70,
+    "axisColor": "#31d6ea",
+    "axisThickness": 1,
+    "endValue": endLimit,
+    "gridInside": true,
+    "inside": true,
+    "radius": "50%",
+    "valueInterval": endLimit/10,
+    "tickColor": "#67b7dc",
+    "startAngle": -90,
+    "endAngle": 90,
+    "unit": "k$",
+    "bandOutlineAlpha": 0,
+    "bands": [{
+      "color": "#0080ff",
+      "endValue": endLimit,
+      "innerRadius": "105%",
+      "radius": "170%",
+      "gradientRatio": [0.5, 0, -0.5],
+      "startValue": 0
+    }, {
+      "color": "#3cd3a3",
+      "endValue": 0,
+      "innerRadius": "105%",
+      "radius": "170%",
+      "gradientRatio": [0.5, 0, -0.5],
+      "startValue": 0
+    }]
+  }],
+  "arrows": [{
+    "alpha": 1,
+    "innerRadius": "35%",
+    "nailRadius": 0,
+    "radius": "170%"
+  }]
+});
+
+setInterval(randomValue, 2000);
+
+
+function randomValue() {
+  chartTotal.arrows[0].setValue(totalExpense);
+  chartTotal.axes[0].setTopText("$"+totalExpenseRaw);
+  chartTotal.axes[0].bands[1].setEndValue(totalExpense);
+}
+
+jQuery('.chart-input').off().on('input change',function() {
+	var property	= jQuery(this).data('property');
+	var target		= chart;
+	chart.startDuration = 0;
+
+	if ( property == 'topRadius') {
+		target = chart.graphs[0];
+      	if ( this.value == 0 ) {
+          this.value = undefined;
+      	}
+	}
+
+	target[property] = this.value;
+	
+	chart.validateNow();
+});
+
+
+
+</script>
+
+<!-- HTML -->
+<div id="chartdivTotal"></div>
+<div id="chartdiv"></div>
+<div id="chartdiv1"></div>
+<div id="chartdiv2"></div>

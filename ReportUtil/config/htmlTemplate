@@ -59,7 +59,7 @@ var chart = AmCharts.makeChart( "chartdiv", {
   "type": "pie",
   "theme": "light",
   "titles": [ {
-    "text": "Expense by Pay Mode",
+    "text": "Expense by Category",
     "size": 16
   } ],
     "legend":{
@@ -68,8 +68,8 @@ var chart = AmCharts.makeChart( "chartdiv", {
     "autoMargins":false
   },
   "dataProvider": <PIE_DATA>,
-  "valueField": "Amount",
-  "titleField": "Pay Mode",
+  "valueField": "value",
+  "titleField": "title",
   "outlineAlpha": 0.4,
   "depth3D": 15,
   "balloonText": "[[title]]<br><span style='font-size:14px'><b>[[value]]</b> ([[percents]]%)</span>",
@@ -79,7 +79,7 @@ var chart = AmCharts.makeChart( "chartdiv", {
   }
 } );
 
-var chartStock = AmCharts.makeChart("chartdiv1", {
+var chartStock = AmCharts.makeChart("chartdiv2", {
     "type": "serial",
     "theme": "light",
     "titles": [ {
@@ -170,16 +170,16 @@ function zoomChart() {
 }
 
 
-var chartDonut = AmCharts.makeChart( "chartdiv2", {
+var chartDonut = AmCharts.makeChart( "chartdiv1", {
   "type": "pie",
   "theme": "light",
   "titles": [ {
-    "text": "Expense by Category",
+    "text": "Expense by Pay Mode",
     "size": 16
   } ],
   "dataProvider": <DONUT_DATA>,
-  "valueField": "amount",
-  "titleField": "category",
+  "valueField": "value",
+  "titleField": "title",
   "startEffect": "elastic",
   "startDuration": 2,
   "labelRadius": 15,

@@ -12,6 +12,7 @@ import com.test.code.pojo.ReportData;
 import com.test.code.report.ReportExcel;
 import com.test.code.report.ReportHtml;
 import com.test.code.util.DateUtil;
+import com.test.code.util.FileUtil;
 import com.test.code.util.PropertiesUtil;
 
 public class GenerateReport {
@@ -20,8 +21,8 @@ public class GenerateReport {
 		long startTime=new  Date().getTime();
 		
 		
-		Date startDate=DateUtil.getSomeDate("20180101", "yyyyMMdd");
-		Date endDate=DateUtil.getSomeDate("20180531", "yyyyMMdd");
+		/*Date startDate=DateUtil.getSomeDate("20150601", "yyyyMMdd");
+		Date endDate=DateUtil.getSomeDate("20180731", "yyyyMMdd");
 		List<Date> dateList =DateUtil.getDatesFromDateRange(startDate, endDate, "MONTHLY");
 		int counter=0;
 		logger.info("Process started...");
@@ -30,16 +31,20 @@ public class GenerateReport {
 			// Extract Data
 				Map<String,ReportData> data=DataExtractor.getReportData(dateList.get(i-1), dateList.get(i));
 				StringBuilder exportFilename =new StringBuilder(PropertiesUtil.getProperty("excelPath"));
-				exportFilename.append(DateUtil.getDateToString(dateList.get(i), "yyyy-MMM"))
-				.append(PropertiesUtil.getProperty("excelFileExtn"));
+				exportFilename.append(System.getProperty("file.separator"))
+				.append(DateUtil.getDateToString(dateList.get(i), "yyyy"))
+				.append(System.getProperty("file.separator"))
+				.append(DateUtil.getDateToString(dateList.get(i), "MMM"));
+				FileUtil.createDirectory(exportFilename.toString());
 				// Generate Report
-				ReportExcel.writeExcel(data,exportFilename.toString());
+				ReportExcel.writeExcel(data,exportFilename.toString()+System.getProperty("file.separator")+DateUtil.getDateToString(dateList.get(i), "MMM")+PropertiesUtil.getProperty("excelFileExtn"));
+				ReportHtml.generateReportMin(dateList.get(i-1), dateList.get(i),exportFilename.toString()+System.getProperty("file.separator")+DateUtil.getDateToString(dateList.get(i), "MMM"));
 			}
 			counter++;
 		}
 		
-		ReportHtml.generateReport();
-		
+		ReportHtml.generateReport();*/
+		ReportHtml.generateTabularReport();
 		long endTime=new  Date().getTime();
 		logger.info("Process ended...");
 		logger.info("Total time taken: "+DateUtil.getHrMinSec(endTime-startTime));
