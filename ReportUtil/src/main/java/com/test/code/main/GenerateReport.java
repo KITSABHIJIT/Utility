@@ -21,7 +21,7 @@ public class GenerateReport {
 		long startTime=new  Date().getTime();
 		
 		
-		/*Date startDate=DateUtil.getSomeDate("20150601", "yyyyMMdd");
+		Date startDate=DateUtil.getSomeDate("20150601", "yyyyMMdd");
 		Date endDate=DateUtil.getSomeDate("20180731", "yyyyMMdd");
 		List<Date> dateList =DateUtil.getDatesFromDateRange(startDate, endDate, "MONTHLY");
 		int counter=0;
@@ -43,7 +43,7 @@ public class GenerateReport {
 			counter++;
 		}
 		
-		ReportHtml.generateReport();*/
+		ReportHtml.generateReport();
 		ReportHtml.generateTabularReport();
 		long endTime=new  Date().getTime();
 		logger.info("Process ended...");
