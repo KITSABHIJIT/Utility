@@ -2,6 +2,8 @@
 <logFiles>
 	<logFile>
 		<application_id>HelloKafkaLogger</application_id>
+		<jobName>HelloKafkaLogger</jobName>
+		<logLevel>HelloKafkaLogger</logLevel>
 		<kafkaTopic>log_insert</kafkaTopic>
 		<filePath>/DynamicLog/logs/debug.log</filePath>
 		<rolledOutFilePath>/DynamicLog/logs/debug.log.1</rolledOutFilePath>
@@ -9,6 +11,8 @@
 	</logFile>
 	<logFile>
 		<application_id>HelloKafkaLogger</application_id>
+		<jobName>HelloKafkaLogger</jobName>
+		<logLevel>HelloKafkaLogger</logLevel>
 		<kafkaTopic>log_insert</kafkaTopic>
 		<filePath>/DynamicLog/logs/info.log</filePath>
 		<rolledOutFilePath>/DynamicLog/logs/info.log.1</rolledOutFilePath>
@@ -16,6 +20,8 @@
 	</logFile>
 	<logFile>
 		<application_id>HelloKafkaLogger</application_id>
+		<jobName>HelloKafkaLogger</jobName>
+		<logLevel>HelloKafkaLogger</logLevel>
 		<kafkaTopic>log_insert</kafkaTopic>
 		<filePath>/DynamicLog/logs/error.log</filePath>
 		<rolledOutFilePath>/DynamicLog/logs/error.log.1</rolledOutFilePath>

@@ -58,6 +58,8 @@ public class ConfigUtil {
 					Element eElement = (Element) nNode;
 					LogFile logFile=new LogFile();
 					logFile.setApplicationID(eElement.getElementsByTagName(PropertiesUtil.getProperty("log.config.node.applicationId")).item(0).getTextContent());
+					logFile.setJobName(eElement.getElementsByTagName(PropertiesUtil.getProperty("log.config.node.jobName")).item(0).getTextContent());
+					logFile.setLogLevel(eElement.getElementsByTagName(PropertiesUtil.getProperty("log.config.node.logLevel")).item(0).getTextContent());
 					logFile.setLogfilePath(eElement.getElementsByTagName(PropertiesUtil.getProperty("log.config.node.fileName")).item(0).getTextContent());
 					logFile.setRolledOutLogfilePath(eElement.getElementsByTagName(PropertiesUtil.getProperty("log.config.node.rolledOutfileName")).item(0).getTextContent());
 					logFile.setKafkaTopic(eElement.getElementsByTagName(PropertiesUtil.getProperty("log.config.node.kafkaTopic")).item(0).getTextContent());

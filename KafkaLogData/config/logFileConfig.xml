@@ -1,0 +1,1731 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<logFiles>
+	<!-- CA_F00065S -->
+	
+	<logFile>
+		<application_id>CA_F00065S_request</application_id>
+		<jobName>CA_F00065S</jobName>
+		<logLevel>request</logLevel>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/fps/logs/fps-065SS-request.log</filePath>
+		<rolledOutFilePath>/app/fps/logs/fps-065SS-request.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	
+	<!-- CA_F01165S -->
+	
+	<logFile>
+		<application_id>CA_F01165S_response</application_id>
+		<jobName>CA_F01165S</jobName>
+		<logLevel>response</logLevel>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/fps/logs/fps-065S-response.log</filePath>
+		<rolledOutFilePath>/app/fps/logs/fps-065S-response.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	
+	<!-- CA_F01185D -->
+	
+	<logFile>
+		<application_id>CA_F01185D_response</application_id><jobName>CA_F01185D</jobName><logLevel>response</logLevel>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/fps/logs/fps-085D-response.log</filePath>
+		<rolledOutFilePath>/app/fps/logs/fps-085D-response.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	
+	<!-- CA_F00090S -->
+	
+	<logFile>
+		<application_id>CA_F00090S_request</application_id><jobName>CA_F00090S</jobName><logLevel>request</logLevel>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/fps/logs/fps-090S-request.log</filePath>
+		<rolledOutFilePath>/app/fps/logs/fps-090S-request.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	
+	<!-- CA_F01190S -->
+	
+	<logFile>
+		<application_id>CA_F01190S_response</application_id><jobName>CA_F00065S</jobName><logLevel>request</logLevel>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/fps/logs/fps-090S-response.log</filePath>
+		<rolledOutFilePath>/app/fps/logs/fps-090S-response.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	
+	<!-- CA_F00098S -->
+	
+	<logFile>
+		<application_id>CA_F00098S_request</application_id><jobName>CA_F00065S</jobName><logLevel>request</logLevel>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/fps/logs/fps-098S-request.log</filePath>
+		<rolledOutFilePath>/app/fps/logs/fps-098S-request.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	
+	<!-- CA_F01198S -->
+	
+	<logFile>
+		<application_id>CA_F01198S_response</application_id><jobName>CA_F00065S</jobName><logLevel>request</logLevel>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/fps/logs/fps-098S-response.log</filePath>
+		<rolledOutFilePath>/app/fps/logs/fps-098S-response.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+
+	<!-- CA_ARCHVE1  -->
+	
+	<logFile>
+		<application_id>CA_ARCHVE1_debug</application_id><jobName>CA_F00065S</jobName><logLevel>request</logLevel>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/archive/env019D/logs/Debug.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/archive/env019D/logs/Debug.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_ARCHVE1_info</application_id><jobName>CA_F00065S</jobName><logLevel>request</logLevel>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/archive/env019D/logs/Info.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/archive/env019D/logs/Info.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_ARCHVE1_error</application_id><jobName>CA_F00065S</jobName><logLevel>request</logLevel>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/archive/env019D/logs/Error.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/archive/env019D/logs/Error.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	
+	<!-- CA_ARCHVE2  -->
+	
+	<logFile>
+		<application_id>CA_ARCHVE2_debug</application_id><jobName>CA_F00065S</jobName><logLevel>request</logLevel>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/archive/env066D/logs/Debug.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/archive/env066D/logs/Debug.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_ARCHVE2_info</application_id><jobName>CA_F00065S</jobName><logLevel>request</logLevel>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/archive/env066D/logs/Info.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/archive/env066D/logs/Info.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_ARCHVE2_error</application_id><jobName>CA_F00065S</jobName><logLevel>request</logLevel>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/archive/env066D/logs/Error.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/archive/env066D/logs/Error.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	
+	<!-- CA_ARCHVE3  -->
+	
+	<logFile>
+		<application_id>CA_ARCHVE3_debug</application_id><jobName>CA_F00065S</jobName><logLevel>request</logLevel>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/archive/env030D/logs/Debug.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/archive/env030D/logs/Debug.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_ARCHVE3_info</application_id><jobName>CA_F00065S</jobName><logLevel>request</logLevel>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/archive/env030D/logs/Info.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/archive/env030D/logs/Info.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_ARCHVE3_error</application_id><jobName>CA_F00065S</jobName><logLevel>request</logLevel>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/archive/env030D/logs/Error.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/archive/env030D/logs/Error.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	
+	<!-- CA_BNKCA_1  -->
+	
+	<logFile>
+		<application_id>CA_BNKCA_1</application_id><jobName>CA_F00065S</jobName><logLevel>request</logLevel>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/BankCommunication/caledon/comm1/log/BankComm.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/BankCommunication/caledon/comm1/log/BankComm.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	
+	<!-- CA_COMCYB   -->
+	
+	<logFile>
+		<application_id>CA_COMCYB_debug</application_id><jobName>CA_F00065S</jobName><logLevel>request</logLevel>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/BankCommunication/CS/log/CSBank-debug.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/BankCommunication/CS/log/CSBank-debug.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_COMCYB_info</application_id><jobName>CA_F00065S</jobName><logLevel>request</logLevel>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/BankCommunication/CS/log/CSBank-info.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/BankCommunication/CS/log/CSBank-info.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_COMCYB_error</application_id><jobName>CA_F00065S</jobName><logLevel>request</logLevel>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/BankCommunication/CS/log/CSBank-error.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/BankCommunication/CS/log/CSBank-error.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+
+	<!-- CA_BLTCOM    -->
+	
+	<logFile>
+		<application_id>CA_BLTCOM_debug</application_id><jobName>CA_F00065S</jobName><logLevel>request</logLevel>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/BlueTarp/log/BlueTarpDebug.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/BlueTarp/log/archived/BlueTarpDebug.1.log</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_BLTCOM_info</application_id><jobName>CA_F00065S</jobName><logLevel>request</logLevel>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/BlueTarp/log/BlueTarpInfo.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/BlueTarp/log/archived/BlueTarpInfo.1.log</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_BLTCOM_error</application_id><jobName>CA_F00065S</jobName><logLevel>request</logLevel>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/BlueTarp/log/BlueTarpError.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/BlueTarp/log/archived/BlueTarpError.1.log</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	
+	<!-- CA_DESTRV2  -->
+	
+	<logFile>
+		<application_id>CA_DESTRV2</application_id><jobName>CA_F00065S</jobName><logLevel>request</logLevel>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/desjardinV2/log/TRClientJavaApp.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/desjardinV2/log/TRClientJavaApp.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	
+	<!-- CA_C2S_RQ1    -->
+	
+	<logFile>
+		<application_id>CA_C2S_RQ1_debug</application_id><jobName>CA_F00065S</jobName><logLevel>request</logLevel>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/COMS2SOMS/log/RequestDebug.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/COMS2SOMS/log/RequestDebug.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_C2S_RQ1_info</application_id><jobName>CA_F00065S</jobName><logLevel>request</logLevel>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/COMS2SOMS/log/RequestInfo.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/COMS2SOMS/log/RequestInfo.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_C2S_RQ1_error</application_id><jobName>CA_F00065S</jobName><logLevel>request</logLevel>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/COMS2SOMS/log/RequestError.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/COMS2SOMS/log/RequestError.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_C2S_RQ1 perf</application_id><jobName>CA_F00065S</jobName><logLevel>request</logLevel>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/COMS2SOMS/log/RequestPerf.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/COMS2SOMS/log/RequestPerf.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	
+	<!-- CA_C2S_RS1    -->
+	
+	<logFile>
+		<application_id>CA_C2S_RS1_debug</application_id><jobName>CA_F00065S</jobName><logLevel>request</logLevel>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/COMS2SOMS/log/ResponseDebug.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/COMS2SOMS/log/ResponseDebug.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_C2S_RS1_info</application_id><jobName>CA_F00065S</jobName><logLevel>request</logLevel>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/COMS2SOMS/log/ResponseInfo.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/COMS2SOMS/log/ResponseInfo.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_C2S_RS1_error</application_id><jobName>CA_F00065S</jobName><logLevel>request</logLevel>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/COMS2SOMS/log/ResponseError.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/COMS2SOMS/log/ResponseError.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_C2S_RS1 perf</application_id><jobName>CA_F00065S</jobName><logLevel>request</logLevel>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/COMS2SOMS/log/ResponsePerf.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/COMS2SOMS/log/ResponsePerf.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	
+	<!-- CA_RTLREV1    -->
+	
+	<logFile>
+		<application_id>CA_RTLREV1_debug</application_id><jobName>CA_F00065S</jobName><logLevel>request</logLevel>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/EMV030D/log/LowConsumerRequest1_debug.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/EMV030D/log/LowConsumerRequest1_debug.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_RTLREV1_info</application_id><jobName>CA_F00065S</jobName><logLevel>request</logLevel>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/EMV030D/log/LowConsumerRequest1_info.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/EMV030D/log/LowConsumerRequest1_info.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_RTLREV1_error</application_id><jobName>CA_F00065S</jobName><logLevel>request</logLevel>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/EMV030D/log/LowConsumerRequest1_error.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/EMV030D/log/LowConsumerRequest1_error.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+
+	<!-- CA_RTLREV2    -->
+	
+	<logFile>
+		<application_id>CA_RTLREV2_debug</application_id><jobName>CA_F00065S</jobName><logLevel>request</logLevel>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/EMV030D/log/LowConsumerRequest2_debug.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/EMV030D/log/LowConsumerRequest2_debug.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_RTLREV2_info</application_id><jobName>CA_F00065S</jobName><logLevel>request</logLevel>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/EMV030D/log/LowConsumerRequest2_info.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/EMV030D/log/LowConsumerRequest2_info.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_RTLREV2_error</application_id><jobName>CA_F00065S</jobName><logLevel>request</logLevel>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/EMV030D/log/LowConsumerRequest2_error.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/EMV030D/log/LowConsumerRequest2_error.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+
+	<!-- CA_RTLPXY4 -->
+	
+	<logFile>
+		<application_id>CA_RTLPXY4_request_debug</application_id><jobName>CA_F00065S</jobName><logLevel>request</logLevel>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/EMV030D/log/ConsumerRequest1_debug.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/EMVDev/log/ConsumerRequest1_debug.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_RTLPXY4_request_info</application_id><jobName>CA_F00065S</jobName><logLevel>request</logLevel>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/EMV030D/log/ConsumerRequest1_info.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/EMVDev/log/ConsumerRequest1_info.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_RTLPXY4_request_error</application_id><jobName>CA_F00065S</jobName><logLevel>request</logLevel>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/EMV030D/log/ConsumerRequest1_error.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/EMVDev/log/ConsumerRequest1_error.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	
+	<!-- CA_RTLPXY5 -->
+	
+	<logFile>
+		<application_id>CA_RTLPXY5_request_debug</application_id><jobName>CA_F00065S</jobName><logLevel>request</logLevel>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/EMV030D/log/ConsumerRequest2_debug.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/EMVDev/log/ConsumerRequest2_debug.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_RTLPXY5_request_info</application_id><jobName>CA_F00065S</jobName><logLevel>request</logLevel>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/EMV030D/log/ConsumerRequest2_info.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/EMVDev/log/ConsumerRequest2_info.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_RTLPXY5_request_error</application_id><jobName>CA_F00065S</jobName><logLevel>request</logLevel>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/EMV030D/log/ConsumerRequest2_error.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/EMVDev/log/ConsumerRequest2_error.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	
+	<!-- CA_RTLRSP4 -->
+	
+	<logFile>
+		<application_id>CA_RTLRSP4_response_debug</application_id><jobName>CA_F00065S</jobName><logLevel>request</logLevel>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/EMV030D/log/RapidConnectResponse1_debug.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/EMVDev/log/RapidConnectResponse1_debug.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_RTLRSP4_response_info</application_id><jobName>CA_F00065S</jobName><logLevel>request</logLevel>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/EMV030D/log/RapidConnectResponse1_info.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/EMVDev/log/RapidConnectResponse1_info.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_RTLRSP4_response_error</application_id><jobName>CA_F00065S</jobName><logLevel>request</logLevel>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/EMV030D/log/RapidConnectResponse1_error.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/EMVDev/log/RapidConnectResponse1_error.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	
+	<!-- CA_RTLRSP5 -->
+	
+	<logFile>
+		<application_id>CA_RTLRSP5_response_debug</application_id><jobName>CA_F00065S</jobName><logLevel>request</logLevel>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/EMV030D/log/RapidConnectResponse2_debug.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/EMVDev/log/RapidConnectResponse2_debug.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_RTLRSP5_response_info</application_id><jobName>CA_F00065S</jobName><logLevel>request</logLevel>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/EMV030D/log/RapidConnectResponse2_info.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/EMVDev/log/RapidConnectResponse2_info.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_RTLRSP5_response_error</application_id><jobName>CA_F00065S</jobName><logLevel>request</logLevel>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/EMV030D/log/RapidConnectResponse2_error.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/EMVDev/log/RapidConnectResponse2_error.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_RTLPXY3 request debug</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/EMVDev/log/ConsumerRequest_debug.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/EMVDev/log/ConsumerRequest_debug.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_RTLPXY3 request info</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/EMVDev/log/ConsumerRequest_info.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/EMVDev/log/ConsumerRequest_info.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+		<excludeLogs>
+			<log>Acquiring a available permit</log>
+		</excludeLogs>
+	</logFile>
+	<logFile>
+		<application_id>CA_RTLPXY3 request error</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/EMVDev/log/ConsumerRequest_error.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/EMVDev/log/ConsumerRequest_error.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+		<excludeLogs>
+			<log>MQJE001: Completion Code '2', Reason '2033'</log>
+		</excludeLogs>
+	</logFile>
+	
+	<!-- CA_RTLRSP3 -->
+	
+	<logFile>
+		<application_id>CA_RTLRSP3 response debug</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/EMVDev/log/RapidConnectResponse_debug.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/EMVDev/log/RapidConnectResponse_debug.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_RTLRSP3 response info</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/EMVDev/log/RapidConnectResponse_info.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/EMVDev/log/RapidConnectResponse_info.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+		<excludeLogs>
+			<log>Acquiring a available permit</log>
+		</excludeLogs>
+	</logFile>
+	<logFile>
+		<application_id>CA_RTLRSP3 response error</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/EMVDev/log/RapidConnectResponse_error.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/EMVDev/log/RapidConnectResponse_error.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+		<excludeLogs>
+			<log>MQJE001: Completion Code '2', Reason '2033'</log>
+		</excludeLogs>
+	</logFile>
+
+	<!-- CA_RTLPXY2 -->
+	
+	<logFile>
+		<application_id>CA_RTLPXY2 request debug</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/EMVRetail/log/ConsumerRequest_debug.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/EMVRetail/log/ConsumerRequest_debug.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_RTLPXY2 request info</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/EMVRetail/log/ConsumerRequest_info.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/EMVRetail/log/ConsumerRequest_info.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+		<excludeLogs>
+			<log>Acquiring a available permit</log>
+		</excludeLogs>
+	</logFile>
+	<logFile>
+		<application_id>CA_RTLPXY2 request error</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/EMVRetail/log/ConsumerRequest_error.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/EMVRetail/log/ConsumerRequest_error.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+		<excludeLogs>
+			<log>MQJE001: Completion Code '2', Reason '2033'</log>
+		</excludeLogs>
+	</logFile>
+	
+	<!-- CA_RTLRSP2 -->	
+	
+	<logFile>
+		<application_id>CA_RTLRSP2 response debug</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/EMVRetail/log/RapidConnectResponse_debug.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/EMVRetail/log/RapidConnectResponse_debug.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_RTLRSP2 response info</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/EMVRetail/log/RapidConnectResponse_info.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/EMVRetail/log/RapidConnectResponse_info.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+		<excludeLogs>
+			<log>Acquiring a available permit</log>
+		</excludeLogs>
+	</logFile>
+	<logFile>
+		<application_id>CA_RTLRSP2 response error</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/EMVRetail/log/RapidConnectResponse_error.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/EMVRetail/log/RapidConnectResponse_error.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+		<excludeLogs>
+			<log>MQJE001: Completion Code '2', Reason '2033'</log>
+		</excludeLogs>
+	</logFile>
+
+	<!-- CA_BLTPXY3 -->	
+	
+	<logFile>
+		<application_id>CA_BLTPXY3 request debug</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/ENGBLT66S/log/RequestDebug.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/ENGBLT66S/log/RequestDebug.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_BLTPXY3 request info</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/ENGBLT66S/log/RequestInfo.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/ENGBLT66S/log/RequestInfo.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+		<excludeLogs>
+			<log>Acquiring a available permit</log>
+		</excludeLogs>
+	</logFile>
+	<logFile>
+		<application_id>CA_BLTPXY3 request perf</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/ENGBLT66S/log/RequestPerf.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/ENGBLT66S/log/RequestPerf.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+		<excludeLogs>
+			<log>Acquiring a available permit</log>
+		</excludeLogs>
+	</logFile>
+	<logFile>
+		<application_id>CA_BLTPXY3 request error</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/ENGBLT66S/log/RequestError.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/ENGBLT66S/log/RequestError.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+		<excludeLogs>
+			<log>MQJE001: Completion Code '2', Reason '2033'</log>
+		</excludeLogs>
+	</logFile>
+	
+	<!-- CA_BLTRSP3 -->	
+	
+	<logFile>
+		<application_id>CA_BLTRSP3 response debug</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/ENGBLT66S/log/ResponseDebug.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/ENGBLT66S/log/ResponseDebug.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_BLTRSP3 response info</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/ENGBLT66S/log/ResponseInfo.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/ENGBLT66S/log/ResponseInfo.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+		<excludeLogs>
+			<log>Acquiring a available permit</log>
+		</excludeLogs>
+	</logFile>
+	<logFile>
+		<application_id>CA_BLTRSP3 response perf</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/ENGBLT66S/log/ResponsePerf.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/ENGBLT66S/log/ResponsePerf.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+		<excludeLogs>
+			<log>Acquiring a available permit</log>
+		</excludeLogs>
+	</logFile>
+	<logFile>
+		<application_id>CA_BLTRSP3 response error</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/ENGBLT66S/log/ResponseError.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/ENGBLT66S/log/ResponseError.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+		<excludeLogs>
+			<log>MQJE001: Completion Code '2', Reason '2033'</log>
+		</excludeLogs>
+	</logFile>
+
+	<!-- CA_BLTPXY2 -->	
+	
+	<logFile>
+		<application_id>CA_BLTPXY2 request debug</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/ENGBLT_RTL/log/RequestDebug.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/ENGBLT_RTL/log/RequestDebug.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_BLTPXY2 request info</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/ENGBLT_RTL/log/RequestInfo.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/ENGBLT_RTL/log/RequestInfo.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+		<excludeLogs>
+			<log>Acquiring a available permit</log>
+		</excludeLogs>
+	</logFile>
+	<logFile>
+		<application_id>CA_BLTPXY2 request perf</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/ENGBLT_RTL/log/RequestPerf.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/ENGBLT_RTL/log/RequestPerf.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+		<excludeLogs>
+			<log>Acquiring a available permit</log>
+		</excludeLogs>
+	</logFile>
+	<logFile>
+		<application_id>CA_BLTPXY2 request error</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/ENGBLT_RTL/log/RequestError.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/ENGBLT_RTL/log/RequestError.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+		<excludeLogs>
+			<log>MQJE001: Completion Code '2', Reason '2033'</log>
+		</excludeLogs>
+	</logFile>
+	
+	<!-- CA_BLTRSP2 -->	
+	
+	<logFile>
+		<application_id>CA_BLTRSP2 response debug</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/ENGBLT_RTL/log/ResponseDebug.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/ENGBLT_RTL/log/ResponseDebug.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_BLTRSP2 response info</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/ENGBLT_RTL/log/ResponseInfo.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/ENGBLT_RTL/log/ResponseInfo.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+		<excludeLogs>
+			<log>Acquiring a available permit</log>
+		</excludeLogs>
+	</logFile>
+	<logFile>
+		<application_id>CA_BLTRSP2 response perf</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/ENGBLT_RTL/log/ResponsePerf.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/ENGBLT_RTL/log/ResponsePerf.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+		<excludeLogs>
+			<log>Acquiring a available permit</log>
+		</excludeLogs>
+	</logFile>
+	<logFile>
+		<application_id>CA_BLTRSP2 response error</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/ENGBLT_RTL/log/ResponseError.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/ENGBLT_RTL/log/ResponseError.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+		<excludeLogs>
+			<log>MQJE001: Completion Code '2', Reason '2033'</log>
+		</excludeLogs>
+	</logFile>
+
+	<!-- CA_BLTPXYD -->	
+	
+	<logFile>
+		<application_id>CA_BLTPXYD request debug</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/ENGBLTDEV/log/RequestDebug.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/ENGBLTDEV/log/RequestDebug.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_BLTPXYD request info</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/ENGBLTDEV/log/RequestInfo.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/ENGBLTDEV/log/RequestInfo.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+		<excludeLogs>
+			<log>Acquiring a available permit</log>
+		</excludeLogs>
+	</logFile>
+	<logFile>
+		<application_id>CA_BLTPXYD request perf</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/ENGBLTDEV/log/RequestPerf.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/ENGBLTDEV/log/RequestPerf.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+		<excludeLogs>
+			<log>Acquiring a available permit</log>
+		</excludeLogs>
+	</logFile>
+	<logFile>
+		<application_id>CA_BLTPXYD request error</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/ENGBLTDEV/log/RequestError.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/ENGBLTDEV/log/RequestError.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+		<excludeLogs>
+			<log>MQJE001: Completion Code '2', Reason '2033'</log>
+		</excludeLogs>
+	</logFile>
+	
+	<!-- CA_BLTRSPD -->	
+	
+	<logFile>
+		<application_id>CA_BLTRSPD response debug</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/ENGBLTDEV/log/ResponseDebug.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/ENGBLTDEV/log/ResponseDebug.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_BLTRSPD response info</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/ENGBLTDEV/log/ResponseInfo.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/ENGBLTDEV/log/ResponseInfo.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+		<excludeLogs>
+			<log>Acquiring a available permit</log>
+		</excludeLogs>
+	</logFile>
+	<logFile>
+		<application_id>CA_BLTRSPD response perf</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/ENGBLTDEV/log/ResponsePerf.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/ENGBLTDEV/log/ResponsePerf.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+		<excludeLogs>
+			<log>Acquiring a available permit</log>
+		</excludeLogs>
+	</logFile>
+	<logFile>
+		<application_id>CA_BLTRSPD response error</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/ENGBLTDEV/log/ResponseError.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/ENGBLTDEV/log/ResponseError.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+		<excludeLogs>
+			<log>MQJE001: Completion Code '2', Reason '2033'</log>
+		</excludeLogs>
+	</logFile>
+	
+	<!-- CA_CANPXY1 -->	
+	
+	<logFile>
+		<application_id>CA_CANPXY1 request debug</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/ENGCAN/log/RequestDebug.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/ENGCAN/log/RequestDebug.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_CANPXY1 request info</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/ENGCAN/log/RequestInfo.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/ENGCAN/log/RequestInfo.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+		<excludeLogs>
+			<log>Acquiring a available permit</log>
+		</excludeLogs>
+	</logFile>
+	<logFile>
+		<application_id>CA_CANPXY1 request perf</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/ENGCAN/log/RequestPerf.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/ENGCAN/log/RequestPerf.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+		<excludeLogs>
+			<log>Acquiring a available permit</log>
+		</excludeLogs>
+	</logFile>
+	<logFile>
+		<application_id>CA_CANPXY1 request error</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/ENGCAN/log/RequestError.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/ENGCAN/log/RequestError.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+		<excludeLogs>
+			<log>MQJE001: Completion Code '2', Reason '2033'</log>
+		</excludeLogs>
+	</logFile>
+	
+	<!-- CA_CANRSP1 -->	
+	
+	<logFile>
+		<application_id>CA_CANRSP1 response debug</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/ENGCAN/log/ResponseDebug.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/ENGCAN/log/ResponseDebug.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_CANRSP1 response info</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/ENGCAN/log/ResponseInfo.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/ENGCAN/log/ResponseInfo.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+		<excludeLogs>
+			<log>Acquiring a available permit</log>
+		</excludeLogs>
+	</logFile>
+	<logFile>
+		<application_id>CA_CANRSP1 response perf</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/ENGCAN/log/ResponsePerf.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/ENGCAN/log/ResponsePerf.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+		<excludeLogs>
+			<log>Acquiring a available permit</log>
+		</excludeLogs>
+	</logFile>
+	<logFile>
+		<application_id>CA_CANRSP1 response error</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/ENGCAN/log/ResponseError.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/ENGCAN/log/ResponseError.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+		<excludeLogs>
+			<log>MQJE001: Completion Code '2', Reason '2033'</log>
+		</excludeLogs>
+	</logFile>
+
+
+	<!-- CA_PRFPXY1 -->	
+	
+	<logFile>
+		<application_id>CA_PRFPXY1 request debug</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/ENGSBD/newlogs/RequestDebug.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/ENGSBD/newlogs/RequestDebug.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_PRFPXY1 request info</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/ENGSBD/newlogs/RequestInfo.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/ENGSBD/newlogs/RequestInfo.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+		<excludeLogs>
+			<log>Acquiring a available permit</log>
+		</excludeLogs>
+	</logFile>
+	<logFile>
+		<application_id>CA_PRFPXY1 request perf</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/ENGSBD/newlogs/RequestPerf.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/ENGSBD/newlogs/RequestPerf.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+		<excludeLogs>
+			<log>Acquiring a available permit</log>
+		</excludeLogs>
+	</logFile>
+	<logFile>
+		<application_id>CA_PRFPXY1 request error</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/ENGSBD/newlogs/RequestError.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/ENGSBD/newlogs/RequestError.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+		<excludeLogs>
+			<log>MQJE001: Completion Code '2', Reason '2033'</log>
+		</excludeLogs>
+	</logFile>
+
+	<!-- CA_SBDRSP1 -->	
+	
+	<logFile>
+		<application_id>CA_SBDRSP1 response debug</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/ENGSBD/log/ResponseDebug.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/ENGSBD/log/ResponseDebug.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_SBDRSP1 response info</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/ENGSBD/log/ResponseInfo.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/ENGSBD/log/ResponseInfo.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+		<excludeLogs>
+			<log>Acquiring a available permit</log>
+		</excludeLogs>
+	</logFile>
+	<logFile>
+		<application_id>CA_SBDRSP1 response perf</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/ENGSBD/log/ResponsePerf.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/ENGSBD/log/ResponsePerf.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+		<excludeLogs>
+			<log>Acquiring a available permit</log>
+		</excludeLogs>
+	</logFile>
+	<logFile>
+		<application_id>CA_SBDRSP1 response error</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/ENGSBD/log/ResponseError.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/ENGSBD/log/ResponseError.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+		<excludeLogs>
+			<log>MQJE001: Completion Code '2', Reason '2033'</log>
+		</excludeLogs>
+	</logFile>
+	<logFile>
+		<application_id>CA_RTLPXY1 request debug</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/ENV19RKM/log/ConsumerRequest_debug.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/ENV19RKM/log/ConsumerRequest_debug.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_RTLPXY1 request info</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/ENV19RKM/log/ConsumerRequest_info.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/ENV19RKM/log/ConsumerRequest_info.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+		<excludeLogs>
+			<log>Acquiring a available permit</log>
+		</excludeLogs>
+	</logFile>
+	<logFile>
+		<application_id>CA_RTLPXY1 request error</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/ENV19RKM/log/ConsumerRequest_error.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/ENV19RKM/log/ConsumerRequest_error.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+		<excludeLogs>
+			<log>MQJE001: Completion Code '2', Reason '2033'</log>
+		</excludeLogs>
+	</logFile>
+	
+	<!-- CA_RTLRSP1 -->
+	
+	<logFile>
+		<application_id>CA_RTLRSP1 response debug</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/ENV19RKM/log/RC_Response_debug.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/ENV19RKM/log/RC_Response_debug.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_RTLRSP1 response info</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/ENV19RKM/log/RC_Response_info.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/ENV19RKM/log/RC_Response_info.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+		<excludeLogs>
+			<log>Acquiring a available permit</log>
+		</excludeLogs>
+	</logFile>
+	<logFile>
+		<application_id>CA_RTLRSP1 response error</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/ENV19RKM/log/RC_Response_error.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/ENV19RKM/log/RC_Response_error.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+		<excludeLogs>
+			<log>MQJE001: Completion Code '2', Reason '2033'</log>
+		</excludeLogs>
+	</logFile>
+	
+	<!-- CA_AUTPERF  -->
+	
+	<logFile>
+		<application_id>CA_AUTPERF request debug</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/ENVPERF/log/ConsumerRequest_debug.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/ENVPERF/log/ConsumerRequest_debug.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_AUTPERF request info</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/ENVPERF/log/ConsumerRequest_info.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/ENVPERF/log/ConsumerRequest_info.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_AUTPERF request error</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/ENVPERF/log/ConsumerRequest_error.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/ENVPERF/log/ConsumerRequest_error.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	
+	<!-- CA_RESPERF -->
+	
+	<logFile>
+		<application_id>CA_RESPERF response debug</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/ENVPERF/log/RapidConnectResponse_debug.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/ENVPERF/log/RapidConnectResponse_debug.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_RESPERF response info</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/ENVPERF/log/RapidConnectResponse_info.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/ENVPERF/log/RapidConnectResponse_info.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+		<excludeLogs>
+			<log>Acquiring a available permit</log>
+		</excludeLogs>
+	</logFile>
+	<logFile>
+		<application_id>CA_RESPERF response error</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/ENVPERF/log/RapidConnectResponse_error.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/ENVPERF/log/RapidConnectResponse_error.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+		<excludeLogs>
+			<log>MQJE001: Completion Code '2', Reason '2033'</log>
+		</excludeLogs>
+	</logFile>
+	
+	<!-- CA_REVPXY1  -->
+	
+	<logFile>
+		<application_id>CA_REVPXY1 request debug</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/REVPXY/logs/RequestDebug.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/REVPXY/logs/RequestDebug.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_REVPXY1 request info</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/REVPXY/logs/RequestInfo.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/REVPXY/logs/RequestInfo.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_REVPXY1 request perf</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/REVPXY/logs/RequestPerf.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/REVPXY/logs/RequestPerf.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_REVPXY1 request error</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/REVPXY/logs/RequestError.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/REVPXY/logs/RequestError.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	
+	<!-- CA_REQPXY1  -->
+	
+	<logFile>
+		<application_id>CA_REQPXY1 request debug</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/proxies/env020D/log/RequestDebug.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/proxies/env020D/log/RequestDebug.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_REQPXY1 request info</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/proxies/env020D/log/RequestInfo.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/proxies/env020D/log/RequestInfo.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_REQPXY1 request perf</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/proxies/env020D/log/RequestPerf.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/proxies/env020D/log/RequestPerf.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_REQPXY1 request error</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/proxies/env020D/log/RequestError.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/proxies/env020D/log/RequestError.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	
+	<!-- CA_RESPXY1  -->
+	
+	<logFile>
+		<application_id>CA_RESPXY1 response debug</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/proxies/env020D/log/ResponseDebug.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/proxies/env020D/log/RequestDebug.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_RESPXY1 response info</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/proxies/env020D/log/ResponseInfo.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/proxies/env020D/log/RequestInfo.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_RESPXY1 response perf</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/proxies/env020D/log/ResponsePerf.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/proxies/env020D/log/RequestPerf.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_RESPXY1 response error</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/proxies/env020D/log/ResponseError.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/proxies/env020D/log/RequestError.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	
+	<!-- CA_REQ030D  -->
+	
+	<logFile>
+		<application_id>CA_REQ030D request debug</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/proxies/env030D/logs/Req_proxy_debug.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/proxies/env030D/logs/Req_proxy_debug.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_REQ030D request info</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/proxies/env030D/logs/Req_proxy_info.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/proxies/env030D/logs/Req_proxy_info.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_REQ030D request error</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/proxies/env030D/logs/Req_proxy_error.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/proxies/env030D/logs/Req_proxy_error.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	
+	<!-- CA_PWPRQP1  -->
+	
+	<logFile>
+		<application_id>CA_PWPRQP1 debug</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/pwp/process/processor1/log/pwpDebug.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/pwp/process/processor1/log/pwpDebug.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_PWPRQP1 info</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/pwp/process/processor1/log/pwpInfo.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/pwp/process/processor1/log/pwpInfo.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_PWPRQP1 perf</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/pwp/process/processor1/log/pwpPerf.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/pwp/process/processor1/log/pwpPerf.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_PWPRQP1 error</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/pwp/process/processor1/log/pwpError.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/pwp/process/processor1/log/pwpError.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	
+	<!-- CA_MNS_SVR  -->
+	
+	<logFile>
+		<application_id>CA_MNS_SVR moneris</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/Moneris/logs/Moneris_Authorizationlog.log</filePath>
+		<rolledOutFilePath>/app/payserv/Moneris/logs/Moneris_Authorizationlog.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+		<excludeLogs>
+			<log>Read DQ Exception.</log>
+		</excludeLogs>
+	</logFile>
+	
+	<!-- CA_CDRSTL1  -->
+	
+	<logFile>
+		<application_id>CA_CDRSTL1 debug</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/settapps/ENVCDR/log/RCDRDebug.log</filePath>
+		<rolledOutFilePath>/app/payserv/settapps/ENVCDR/log/RCDRDebug.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_CDRSTL1 info</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/settapps/ENVCDR/log/RCDRInfo.log</filePath>
+		<rolledOutFilePath>/app/payserv/settapps/ENVCDR/log/RCDRInfo.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_CDRSTL1 perf</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/settapps/ENVCDR/log/RCDRPerf.log</filePath>
+		<rolledOutFilePath>/app/payserv/settapps/ENVCDR/log/RCDRPerf.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_CDRSTL1 error</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/settapps/ENVCDR/log/RCDRError.log</filePath>
+		<rolledOutFilePath>/app/payserv/settapps/ENVCDR/log/RCDRError.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	
+	<!-- CA_NGPOSPR CA_RES017D  -->
+	
+	<logFile>
+		<application_id>CA_NGPOSPR CA_RES017D debug</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/ENV30RKM/log/NGP_proxy_debug.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/ENV30RKM/log/NGP_proxy_debug.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_NGPOSPR CA_RES017D info</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/ENV30RKM/log/NGP_proxy_info.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/ENV30RKM/log/NGP_proxy_info.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_NGPOSPR CA_RES017D error</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/ENV30RKM/log/NGP_proxy_error.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/ENV30RKM/log/NGP_proxy_error.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	
+	<!-- CA_RESMNTD  -->
+	
+	<logFile>
+		<application_id>CA_RESMNTD debug</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/ENVMNTD/logs/mntd_auth_engine_resp_debug.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/ENVMNTD/logs/mntd_auth_engine_resp_debug.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_RESMNTD perf</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/ENVMNTD/logs/mntd_auth_engine_resp_perf.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/ENVMNTD/logs/mntd_auth_engine_resp_perf.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_RESMNTD error</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/ENVMNTD/logs/mntd_auth_engine_resp_error.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/ENVMNTD/logs/mntd_auth_engine_resp_error.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	
+	<!-- CA_BNKFD_1  -->
+	
+	<logFile>
+		<application_id>CA_BNKFD_1 debug</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/BankCommunication/firstdata/log/RapidConnectDebug.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/BankCommunication/firstdata/log/RapidConnectDebug.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_BNKFD_1 info</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/BankCommunication/firstdata/log/RapidConnectInfo.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/BankCommunication/firstdata/log/RapidConnectInfo.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_BNKFD_1 trace</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/BankCommunication/firstdata/log/RapidConnectTrace.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/BankCommunication/firstdata/log/RapidConnectTrace.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_BNKFD_1 error</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/BankCommunication/firstdata/log/RapidConnectError.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/BankCommunication/firstdata/log/RapidConnectError.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	
+	<!-- CA_BNKFD_2  -->
+	
+	<logFile>
+		<application_id>CA_BNKFD_2 debug</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/BankCommunication/firstdata/log/RCComm2Debug.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/BankCommunication/firstdata/log/RCComm2Debug.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_BNKFD_2 info</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/BankCommunication/firstdata/log/RCComm2Info.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/BankCommunication/firstdata/log/RCComm2Info.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_BNKFD_2 trace</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/BankCommunication/firstdata/log/RCComm2Trace.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/BankCommunication/firstdata/log/RCComm2Trace.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_BNKFD_2 error</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/BankCommunication/firstdata/log/RCComm2Error.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/BankCommunication/firstdata/log/RCComm2Error.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_BNKFD_3 debug</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/BankCommunication/firstdata/log/RCComm3Debug.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/BankCommunication/firstdata/log/RCComm3Debug.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_BNKFD_3 info</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/BankCommunication/firstdata/log/RCComm3Info.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/BankCommunication/firstdata/log/RCComm3Info.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_BNKFD_3 trace</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/BankCommunication/firstdata/log/RCComm3Trace.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/BankCommunication/firstdata/log/RCComm3Trace.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_BNKFD_3 error</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/BankCommunication/firstdata/log/RCComm3Error.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/BankCommunication/firstdata/log/RCComm3Error.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	
+	<!-- CA_BNKFD_4  -->
+	
+	<logFile>
+		<application_id>CA_BNKFD_4 debug</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/BankCommunication/firstdata/log/Comm4_Debug.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/BankCommunication/firstdata/log/Comm4_Debug.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_BNKFD_4 info</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/BankCommunication/firstdata/log/Comm4_Info.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/BankCommunication/firstdata/log/Comm4_Info.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_BNKFD_4 trace</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/BankCommunication/firstdata/log/Comm4_Trace.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/BankCommunication/firstdata/log/Comm4_Trace.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_BNKFD_4 error</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/BankCommunication/firstdata/log/Comm4_Error.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/BankCommunication/firstdata/log/Comm4_Error.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	
+	<!-- CA_BNKFD_5  -->
+	
+	<logFile>
+		<application_id>CA_BNKFD_5 debug</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/BankCommunication/firstdata/log/Comm5_Debug.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/BankCommunication/firstdata/log/Comm5_Debug.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_BNKFD_5 info</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/BankCommunication/firstdata/log/Comm5_Info.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/BankCommunication/firstdata/log/Comm5_Info.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_BNKFD_5 trace</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/BankCommunication/firstdata/log/Comm5_Trace.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/BankCommunication/firstdata/log/Comm5_Trace.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_BNKFD_5 error</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/BankCommunication/firstdata/log/Comm5_Error.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/BankCommunication/firstdata/log/Comm5_Error.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	
+	<!-- CA_BNKMNRS  -->
+	
+	<logFile>
+		<application_id>CA_BNKMNRS debug</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/BankCommunication/Moneris/log/Moneris_Comm1_Debug.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/BankCommunication/Moneris/log/Moneris_Comm1_Debug.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_BNKMNRS info</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/BankCommunication/Moneris/log/Moneris_Comm1_Info.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/BankCommunication/Moneris/log/Moneris_Comm1_Info.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_BNKMNRS trace</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/BankCommunication/Moneris/log/Moneris_Comm1_Trace.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/BankCommunication/Moneris/log/Moneris_Comm1_Trace.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_BNKMNRS error</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/BankCommunication/Moneris/log/Moneris_Comm1_Error.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/BankCommunication/Moneris/log/Moneris_Comm1_Error.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	
+	<!-- CA_PAYEZ01  -->
+	
+	<logFile>
+		<application_id>CA_PAYEZ01 debug</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/BankCommunication/payeezy/logs/PayeezyAppDebugLog01.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/BankCommunication/payeezy/logs/PayeezyAppDebugLog01.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_PAYEZ01 error</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/BankCommunication/payeezy/logs/PayeezyAppErrorLog01.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/BankCommunication/payeezy/logs/PayeezyAppErrorLog01.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	
+	<!-- CA_FDSTUB1  -->
+	
+	<logFile>
+		<application_id>CA_FDSTUB1 debug</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/AuthPerf/stub/firstdata/logs/RCComm1Debug.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/AuthPerf/stub/firstdata/logs/RCComm1Debug.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_FDSTUB1 info</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/AuthPerf/stub/firstdata/logs/RCComm1Info.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/AuthPerf/stub/firstdata/logs/RCComm1Info.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_FDSTUB1 error</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/AuthPerf/stub/firstdata/logs/RCComm1Error.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/AuthPerf/stub/firstdata/logs/RCComm1Error.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	
+	<!-- CA_FDSTUB2  -->
+	
+	<logFile>
+		<application_id>CA_FDSTUB2 debug</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/AuthPerf/stub/firstdata/logs/RCComm2Debug.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/AuthPerf/stub/firstdata/logs/RCComm2Debug.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_FDSTUB2 info</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/AuthPerf/stub/firstdata/logs/RCComm2Info.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/AuthPerf/stub/firstdata/logs/RCComm2Info.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_FDSTUB2 error</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/engine/AuthPerf/stub/firstdata/logs/RCComm2Error.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/engine/AuthPerf/stub/firstdata/logs/RCComm2Error.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	
+	<!-- CA_REQ018D  -->
+	
+	<logFile>
+		<application_id>CA_REQ018D debug</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/proxies/env018D/logs/req_proxy_debug.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/proxies/env018D/logs/req_proxy_debug.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_REQ018D info</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/proxies/env018D/logs/req_proxy_perf.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/proxies/env018D/logs/req_proxy_perf.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_REQ018D error</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/proxies/env018D/logs/req_proxy_error.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/proxies/env018D/logs/req_proxy_error.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	
+	<!-- CA_RES019D  -->
+	
+	<logFile>
+		<application_id>CA_RES019D debug</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/proxies/env019D/logs/resp_proxy_debug.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/proxies/env019D/logs/resp_proxy_debug.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_RES019D info</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/proxies/env019D/logs/resp_proxy_perf.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/proxies/env019D/logs/resp_proxy_perf.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_RES019D error</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/proxies/env019D/logs/resp_proxy_error.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/proxies/env019D/logs/resp_proxy_error.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	
+	<!-- CA_XPRS066  -->
+	
+	<logFile>
+		<application_id>CA_XPRS066 debug</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/proxies/env066D/logs/req_proxy_debug.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/proxies/env066D/logs/req_proxy_debug.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_XPRS066 info</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/proxies/env066D/logs/req_proxy_perf.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/proxies/env066D/logs/req_proxy_perf.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_XPRS066 error</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/proxies/env066D/logs/req_proxy_error.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/proxies/env066D/logs/req_proxy_error.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	
+	<!-- CA_VTA019D  -->
+	
+	<logFile>
+		<application_id>CA_VTA019D debug</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/proxies/VT/logs/req_proxy_debug.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/proxies/VT/logs/req_proxy_debug.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_VTA019D info</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/proxies/VT/logs/req_proxy_perf.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/proxies/VT/logs/req_proxy_perf.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_VTA019D error</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authorization/proxies/VT/logs/req_proxy_error.log</filePath>
+		<rolledOutFilePath>/app/payserv/authorization/proxies/VT/logs/req_proxy_error.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	
+	<!-- CA_XPRR018  -->
+	
+	<logFile>
+		<application_id>CA_XPRR018 debug</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authproxy/env18D/logs/resp_proxy_debug.log</filePath>
+		<rolledOutFilePath>/app/payserv/authproxy/env18D/logs/resp_proxy_debug.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_XPRR018 info</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authproxy/env18D/logs/resp_proxy_perf.log</filePath>
+		<rolledOutFilePath>/app/payserv/authproxy/env18D/logs/resp_proxy_perf.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_XPRR018 error</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/authproxy/env18D/logs/resp_proxy_error.log</filePath>
+		<rolledOutFilePath>/app/payserv/authproxy/env18D/logs/resp_proxy_error.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	
+	<!-- CA_SETP17D  -->
+	
+	<logFile>
+		<application_id>CA_SETP17D debug</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/settapps/SettlementProxies/env17D/logs/sett_proxy_debug.log</filePath>
+		<rolledOutFilePath>/app/payserv/settapps/SettlementProxies/env17D/logs/sett_proxy_debug.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_SETP17D info</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/settapps/SettlementProxies/env17D/logs/sett_proxy_perf.log</filePath>
+		<rolledOutFilePath>/app/payserv/settapps/SettlementProxies/env17D/logs/sett_proxy_perf.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_SETP17D error</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/settapps/SettlementProxies/env17D/logs/sett_proxy_error.log</filePath>
+		<rolledOutFilePath>/app/payserv/settapps/SettlementProxies/env17D/logs/sett_proxy_error.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	
+	<!-- CA_SETP98S  -->
+	
+	<logFile>
+		<application_id>CA_SETP98S debug</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/settapps/SettlementProxies/env98S/logs/sett_proxy_debug.log</filePath>
+		<rolledOutFilePath>/app/payserv/settapps/SettlementProxies/env98S/logs/sett_proxy_debug.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_SETP98S info</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/settapps/SettlementProxies/env98S/logs/sett_proxy_perf.log</filePath>
+		<rolledOutFilePath>/app/payserv/settapps/SettlementProxies/env98S/logs/sett_proxy_perf.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_SETP98S error</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/settapps/SettlementProxies/env98S/logs/sett_proxy_error.log</filePath>
+		<rolledOutFilePath>/app/payserv/settapps/SettlementProxies/env98S/logs/sett_proxy_error.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	
+		<!-- CA_SETPMNT  -->
+	
+	<logFile>
+		<application_id>CA_SETPMNT debug</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/settapps/SettlementProxies/envMNTD/logs/sett_proxy_debug.log</filePath>
+		<rolledOutFilePath>/app/payserv/settapps/SettlementProxies/envMNTD/logs/sett_proxy_debug.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_SETPMNT info</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/settapps/SettlementProxies/envMNTD/logs/sett_proxy_perf.log</filePath>
+		<rolledOutFilePath>/app/payserv/settapps/SettlementProxies/envMNTD/logs/sett_proxy_perf.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+	<logFile>
+		<application_id>CA_SETPMNT error</application_id>
+		<kafkaTopic>log_insert</kafkaTopic>
+		<filePath>/app/payserv/settapps/SettlementProxies/envMNTD/logs/sett_proxy_error.log</filePath>
+		<rolledOutFilePath>/app/payserv/settapps/SettlementProxies/envMNTD/logs/sett_proxy_error.log.1</rolledOutFilePath>
+		<isAsync>true</isAsync>
+	</logFile>
+</logFiles>

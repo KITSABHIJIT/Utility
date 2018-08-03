@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration>
+
+	<appender name="debugOnly" class="org.apache.log4j.RollingFileAppender">
+		<param name="File"
+			value="/app/payserv/KafkaLogData/logs/Debug.log" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d [%t] %-5p (%F:%L) - %m%n" />
+		</layout>
+		<!--Filter to log error messages only -->
+		<filter class="org.apache.log4j.varia.LevelMatchFilter">
+			<param name="LevelToMatch" value="debug" />
+			<param name="AcceptOnMatch" value="true" />
+		</filter>
+		<filter class="org.apache.log4j.varia.DenyAllFilter" />
+	</appender>
+
+	<appender name="infoOnly" class="org.apache.log4j.RollingFileAppender">
+		<param name="File"
+			value="/app/payserv/KafkaLogData/logs/Info.log" />
+		<param name="Append" value="true" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d [%t] %-5p (%F:%L) - %m%n" />
+		</layout>
+		<!--Filter to log debug messages only -->
+		<filter class="org.apache.log4j.varia.LevelMatchFilter">
+			<param name="LevelToMatch" value="info" />
+			<param name="AcceptOnMatch" value="true" />
+		</filter>
+		<filter class="org.apache.log4j.varia.DenyAllFilter" />
+	</appender>
+
+	<appender name="errorOnly" class="org.apache.log4j.RollingFileAppender">
+		<param name="File"
+			value="/app/payserv/KafkaLogData/logs/Error.log" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d [%t] %-5p (%F:%L) - %m%n" />
+		</layout>
+		<!--Filter to log error messages only -->
+		<filter class="org.apache.log4j.varia.LevelMatchFilter">
+			<param name="LevelToMatch" value="error" />
+			<param name="AcceptOnMatch" value="true" />
+		</filter>
+		<filter class="org.apache.log4j.varia.DenyAllFilter" />
+	</appender>
+
+
+	<appender name="stdout" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{ABSOLUTE} %5p %t %c{1}:%L - %m%n" />
+		</layout>
+	</appender>
+
+	<logger name="com">
+		<appender-ref ref="debugOnly" />
+		<appender-ref ref="infoOnly" />
+		<appender-ref ref="errorOnly" />
+		<appender-ref ref="stdout" />
+
+	</logger>
+
+</log4j:configuration>

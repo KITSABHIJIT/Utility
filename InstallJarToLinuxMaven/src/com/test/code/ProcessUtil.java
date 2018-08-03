@@ -131,7 +131,7 @@ public class ProcessUtil {
 
 	public static void downloadFile(String fileName) {
 		String [] jarFileDetailsArr=fileName.split("[|]");
-		String jarFile=jarFileDetailsArr[0];
+		String jarFile=jarFileDetailsArr[0].trim();
 		ReadableByteChannel rbc=null;
 		FileOutputStream fos=null;
 		try {
@@ -161,13 +161,13 @@ public class ProcessUtil {
 
 	public static String createUnixCommand(String jarFileDetails,String mavenCommand) {
 		String [] jarFileDetailsArr=jarFileDetails.split("[|]");
-		mavenCommand=mavenCommand.replaceAll("<JAR_FILE_NAME>", jarFileDetailsArr[0]);
+		mavenCommand=mavenCommand.replaceAll("<JAR_FILE_NAME>", jarFileDetailsArr[0].trim());
 		mavenCommand=mavenCommand.replaceAll("<GROUP_ID>", jarFileDetailsArr[1]);
 		mavenCommand=mavenCommand.replaceAll("<ARTIFACT_ID>", jarFileDetailsArr[2]);
 		mavenCommand=mavenCommand.replaceAll("<VERSION>", jarFileDetailsArr[3]);
 		if(jarFileDetailsArr.length>4) {
 			String pomInstall=PropertiesUtil.getProperty("pom_install");
-			pomInstall=pomInstall.replaceAll("<POM_FILE>", jarFileDetailsArr[4]);
+			pomInstall=pomInstall.replaceAll("<POM_FILE>", jarFileDetailsArr[4].trim());
 			mavenCommand=mavenCommand+" "+pomInstall;
 		}
 		return mavenCommand;
@@ -175,14 +175,14 @@ public class ProcessUtil {
 
 	public static String createDeleteCommand(String jarFileDetails,String deleteCommand) {
 		String [] jarFileDetailsArr=jarFileDetails.split("[|]");
-		deleteCommand=deleteCommand.replaceAll("<JAR_FILE_NAME>", jarFileDetailsArr[0]);
+		deleteCommand=deleteCommand.replaceAll("<JAR_FILE_NAME>", jarFileDetailsArr[0].trim());
 		return deleteCommand;
 	}
 
 	public static String createDeletePOMCommand(String jarFileDetails,String deleteCommand) {
 		String [] jarFileDetailsArr=jarFileDetails.split("[|]");
 		if(jarFileDetailsArr.length>4) {
-			deleteCommand=deleteCommand.replaceAll("<JAR_FILE_NAME>", jarFileDetailsArr[4]);
+			deleteCommand=deleteCommand.replaceAll("<JAR_FILE_NAME>", jarFileDetailsArr[4].trim());
 			return deleteCommand;
 		}else 
 			return "";

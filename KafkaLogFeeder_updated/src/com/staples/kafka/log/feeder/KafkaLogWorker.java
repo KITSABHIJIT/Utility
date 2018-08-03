@@ -3,7 +3,10 @@ package com.staples.kafka.log.feeder;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.RandomAccessFile;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.concurrent.ExecutionException;
 
 import org.apache.kafka.clients.producer.Callback;
@@ -59,8 +62,11 @@ public class KafkaLogWorker implements Runnable {
 						rafOld.seek(filePointer);
 						String line = null;
 						while ((line = rafOld.readLine()) != null) {
-							postLogToKafka(line,messageNo);
-							++messageNo;
+							if(validForPost(line)) {
+								//postLogToKafka(line,messageNo);
+								postToRelic(line);
+								++messageNo;
+							}
 						}
 
 						logger.debug("Rolled out file data reading completed");
@@ -76,8 +82,11 @@ public class KafkaLogWorker implements Runnable {
 					raf.seek(filePointer);
 					String line = null;
 					while ((line = raf.readLine()) != null) {
-						postLogToKafka(line,messageNo);
-						++messageNo;
+						if(validForPost(line)) {
+							//postLogToKafka(line,messageNo);
+							postToRelic(line);
+							++messageNo;
+						}
 					}
 					filePointer = raf.getFilePointer();
 				}
@@ -109,14 +118,11 @@ public class KafkaLogWorker implements Runnable {
 		long startTime = System.currentTimeMillis();
 		messageStr=logFile.getApplicationID()+" :: "+messageStr;
 		if (logFile.getIsAync()) { // Send asynchronously
-			if(validForPost(messageStr)) {
 				producer.send(new ProducerRecord<>(logFile.getKafkaTopic(),
 						String.valueOf(messageNo),
 						messageStr), new DemoCallBackThread(startTime, messageNo, messageStr));
-			}
 		} else { 
 			// Send synchronously
-			if(validForPost(messageStr)) {
 				try {
 					producer.send(new ProducerRecord<>(logFile.getKafkaTopic(),
 							String.valueOf(messageNo),
@@ -126,7 +132,6 @@ public class KafkaLogWorker implements Runnable {
 					e.printStackTrace();
 					// handle the exception
 				}
-			}
 		}
 	}
 
@@ -141,6 +146,46 @@ public class KafkaLogWorker implements Runnable {
 		}
 		return result;
 	}
+
+
+	private void postToRelic(String messageStr) {
+		try {
+			URL url = new URL(PropertiesUtil.getProperty("relic.host"));
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			conn.setDoOutput(true);
+			conn.setRequestMethod("POST");
+			conn.setRequestProperty("Content-Type", PropertiesUtil.getProperty("relic.content.type"));
+			conn.addRequestProperty("X-Insert-Key", PropertiesUtil.getProperty("relic.key"));
+			String input = "{"
+					+ "\"eventType\":\""+PropertiesUtil.getProperty("relic.event.type")+"\","
+					+ "\"application\":\""+logFile.getApplicationID()+"\","					
+					+ "\"jobName\":\""+logFile.getJobName()+"\","
+					+ "\"logLevel\":\""+logFile.getLogLevel()+"\","
+					+ "\"LogFile\":\""+logFile.getLogfilePath()+"\","
+					+ "\"LogMessage\":\""+messageStr
+					+"\"}";
+			OutputStream os = conn.getOutputStream();
+			os.write(input.getBytes());
+			os.flush();
+			if (conn.getResponseCode() != HttpURLConnection.HTTP_CREATED 
+					&& conn.getResponseCode() != HttpURLConnection.HTTP_OK
+					&& conn.getResponseCode() != HttpURLConnection.HTTP_ACCEPTED) {
+				throw new RuntimeException("Failed : HTTP error code : "
+						+ conn.getResponseCode());
+			}
+			/*BufferedReader br = new BufferedReader(new InputStreamReader(
+					(conn.getInputStream())));
+			String output;
+			System.out.println("Output from Server .... \n");
+			while ((output = br.readLine()) != null) {
+				System.out.println(output);
+			}*/
+			conn.disconnect();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 }
 
 class DemoCallBackThread implements Callback {
@@ -172,4 +217,6 @@ class DemoCallBackThread implements Callback {
 			exception.printStackTrace();
 		}
 	}
+
+
 }
