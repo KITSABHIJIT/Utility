@@ -25,7 +25,7 @@ public class DCUDebitTransformer {
 			,"MACYS ONLINE PMT"
 			,"TJX Rewards MC TJX EPAY"
 			,"TJX REWARDS MC TJX EPAY"
-			,"JCPenney MC JCP EPAY"
+			,"JCPENNEY MC JCP EPAY"
 			,"CHASE CREDIT CRDEPAY"
 			
 			,"BEST BUY"

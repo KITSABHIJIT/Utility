@@ -59,7 +59,7 @@ PERIOD_MULTIBAR_MONTHLY_PAYMENT_TYPE_EXPENSE=SELECT CASE WHEN SUM(AMOUNT) IS NUL
 
 LINE_EXPENSE=SELECT DATE_FORMAT(EXPENSE_DATE, '%b-%d'),sum(AMOUNT) FROM EXPENSE E where EXPENSE_DATE >= '<START_DATE>' and EXPENSE_DATE <= '<END_DATE>' group by EXPENSE_DATE order by EXPENSE_DATE
 
-excelPath = C:\\Users\\royab001\\Google Drive\\Expense\\Expense Dumps\\Test Exported Data\\
+excelPath = /Users/royab001/Google Drive/Expense/Expense Dumps/Test Exported Data/
 
 excelFileExtn=.xls
 

@@ -1,7 +1,7 @@
-sourceDirPath=C:\\Users\\royab001\\Google Drive\\Expense\\Expense Dumps\\Formated_Statements
-sourceDirPathMerchant=C:\\Users\\royab001\\Google Drive\\Expense\\Expense Dumps\\Merchant
-sourceDirPathPayMode=C:\\Users\\royab001\\Google Drive\\Expense\\Expense Dumps\\PayMode
-sourceDirPathCategory=C:\\Users\\royab001\\Google Drive\\Expense\\Expense Dumps\\Category
+sourceDirPath=/Users/royab001/Google Drive/Expense/Expense Dumps/Formated_Statements
+sourceDirPathMerchant=/Users/royab001/Google Drive/Expense/Expense Dumps/Merchant
+sourceDirPathPayMode=/Users/royab001/Google Drive/Expense/Expense Dumps/PayMode
+sourceDirPathCategory=/Users/royab001/Google Drive/Expense/Expense Dumps/Category
 delimeter=[|]
 
 MYSQL=//localhost:3306/expdb|root|abhijit
@@ -22,18 +22,18 @@ SQL_NEW_MERCHANT_UPDATE= UPDATE merchant JOIN merchant_mapping ON merchant.merch
 
 SQL_INSERT_CATEGORY= INSERT INTO EXPDB.expense_category (category_id,category) SELECT * FROM (SELECT ?,?) AS tmp WHERE NOT EXISTS (SELECT category_id FROM EXPDB.expense_category WHERE category_id =? AND category =?) LIMIT 1;
 
-BOACreditFile=C:\\Users\\royab001\\Google Drive\\Expense\\Expense Dumps\\Raw_Statements\\BankOfAmericaCredit.csv
-AmexFile=C:\\Users\\royab001\\Google Drive\\Expense\\Expense Dumps\\Raw_Statements\\Amex.csv
-BOAdebitFile=C:\\Users\\royab001\\Google Drive\\Expense\\Expense Dumps\\Raw_Statements\\BankOfAmericaDebit.csv
-DiscoverFile=C:\\Users\\royab001\\Google Drive\\Expense\\Expense Dumps\\Raw_Statements\\Discover.csv
-ChaseFile=C:\\Users\\royab001\\Google Drive\\Expense\\Expense Dumps\\Raw_Statements\\Chase.CSV
-JCPenneyFile=C:\\Users\\royab001\\Google Drive\\Expense\\Expense Dumps\\Raw_Statements\\JC Penney.csv
-BJsFile=C:\\Users\\royab001\\Google Drive\\Expense\\Expense Dumps\\Raw_Statements\\bjscardCreditCard.CSV
-BJsFileTemp=C:\\Users\\royab001\\Google Drive\\Expense\\Expense Dumps\\Raw_Statements\\bjscardCreditCardTemp.CSV
-KholsFile=C:\\Users\\royab001\\Google Drive\\Expense\\Expense Dumps\\Raw_Statements\\khols.csv
-MacysFile=C:\\Users\\royab001\\Google Drive\\Expense\\Expense Dumps\\Raw_Statements\\Macys.csv
-TjMaxFile=C:\\Users\\royab001\\Google Drive\\Expense\\Expense Dumps\\Raw_Statements\\Tjmax.csv
-ZalesFile=C:\\Users\\royab001\\Google Drive\\Expense\\Expense Dumps\\Raw_Statements\\Zales.csv
-ZalesFileTemp=C:\\Users\\royab001\\Google Drive\\Expense\\Expense Dumps\\Raw_Statements\\ZalesTemp.csv
-BestBuyFile=C:\\Users\\royab001\\Google Drive\\Expense\\Expense Dumps\\Raw_Statements\\bestBuy.csv
-DCUdebitFile=C:\\Users\\royab001\\Google Drive\\Expense\\Expense Dumps\\Raw_Statements\\DCU.csv
+BOACreditFile=/Users/royab001/Google Drive/Expense/Expense Dumps/Raw_Statements/BankOfAmericaCredit.csv
+AmexFile=/Users/royab001/Google Drive/Expense/Expense Dumps/Raw_Statements/Amex.csv
+BOAdebitFile=/Users/royab001/Google Drive/Expense/Expense Dumps/Raw_Statements/BankOfAmericaDebit.csv
+DiscoverFile=/Users/royab001/Google Drive/Expense/Expense Dumps/Raw_Statements/Discover.csv
+ChaseFile=/Users/royab001/Google Drive/Expense/Expense Dumps/Raw_Statements/Chase.CSV
+JCPenneyFile=/Users/royab001/Google Drive/Expense/Expense Dumps/Raw_Statements/JC Penney.csv
+BJsFile=/Users/royab001/Google Drive/Expense/Expense Dumps/Raw_Statements/bjscardCreditCard.CSV
+BJsFileTemp=/Users/royab001/Google Drive/Expense/Expense Dumps/Raw_Statements/bjscardCreditCardTemp.CSV
+KholsFile=/Users/royab001/Google Drive/Expense/Expense Dumps/Raw_Statements/khols.csv
+MacysFile=/Users/royab001/Google Drive/Expense/Expense Dumps/Raw_Statements/Macys.csv
+TjMaxFile=/Users/royab001/Google Drive/Expense/Expense Dumps/Raw_Statements/Tjmax.csv
+ZalesFile=/Users/royab001/Google Drive/Expense/Expense Dumps/Raw_Statements/Zales.csv
+ZalesFileTemp=/Users/royab001/Google Drive/Expense/Expense Dumps/Raw_Statements/ZalesTemp.csv
+BestBuyFile=/Users/royab001/Google Drive/Expense/Expense Dumps/Raw_Statements/bestBuy.csv
+DCUdebitFile=/Users/royab001/Google Drive/Expense/Expense Dumps/Raw_Statements/DCU.csv

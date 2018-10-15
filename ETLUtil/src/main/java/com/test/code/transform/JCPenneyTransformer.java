@@ -32,8 +32,12 @@ public class JCPenneyTransformer {
 					Expense exp = new Expense();
 					exp.setModeOfPayment(MODE_OF_PAYMENT);
 					exp.setTransactionDate(DateUtil.getSQLData(DateUtil.getSomeDate(expenseDetails[0].trim(), "MM/dd/yyyy")));
-					exp.setMerchant("JC PENNEY");
-					exp.setExpensePlace(expenseDetails[4].trim().toUpperCase());
+					if("SOLOMON POND MALL".equals(expenseDetails[4].trim().toUpperCase())){
+						exp.setMerchant("JC PENNEY");
+					}else {
+						exp.setMerchant(expenseDetails[4].trim().toUpperCase());
+					}
+					exp.setExpensePlace(expenseDetails[5].trim().toUpperCase());
 					exp.setAmount(-1*StringUtil.getDouble(expenseDetails[3].trim()));
 					if(expenseList.contains(exp)) {
 						System.out.println("Expense Record already exists: "+exp.toString());

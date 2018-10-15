@@ -35,12 +35,20 @@ public class AmexTransformer {
 					Expense exp = new Expense();
 					exp.setModeOfPayment(MODE_OF_PAYMENT);
 					exp.setTransactionDate(DateUtil.getSQLData(DateUtil.getSomeDate(expenseDetails[0].trim().split(DATE_DELIMITER)[0], "MM/dd/yyyy")));
-					String [] MerchantPlace =expenseDetails[2].trim().split(PLACE_DELIMITER);
-					exp.setMerchant(MerchantPlace[0].toUpperCase());
-					if(MerchantPlace.length>1) {
-						exp.setExpensePlace(MerchantPlace[1].toUpperCase());
+					if(expenseDetails[2].trim().contains(PLACE_DELIMITER)) {
+						String [] MerchantPlace =expenseDetails[2].trim().split(PLACE_DELIMITER);
+						String merchant="";
+						for(int i=0;i<MerchantPlace.length-1;i++) {
+							merchant=merchant+MerchantPlace[i];
+						}
+						exp.setMerchant(merchant.toUpperCase());
+						if(MerchantPlace.length>1) {
+							exp.setExpensePlace(MerchantPlace[MerchantPlace.length-1].toUpperCase());
+						}else {
+							System.out.println("Merchant doesnt have a Place: "+ MerchantPlace[0]);
+						}
 					}else {
-						System.out.println("Merchant doesnt have a Place: "+ MerchantPlace[0]);
+						exp.setMerchant(expenseDetails[2].trim().toUpperCase());
 					}
 					exp.setAmount(StringUtil.getDouble(expenseDetails[7].trim()));
 					if(expenseList.contains(exp)) {
