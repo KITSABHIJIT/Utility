@@ -2,8 +2,15 @@
 <style>
 
 #chartdivTotal {
-  width: 100%;
+  width: 50%;
   height: 500px;
+  float: left;
+}
+
+#chartdivAvgTotal {
+  width: 50%;
+  height: 500px;
+  float: left;
 }
 
 #chartdiv {
@@ -622,8 +629,65 @@ setInterval(randomValue, 2000);
 
 function randomValue() {
   chartTotal.arrows[0].setValue(totalExpense);
-  chartTotal.axes[0].setTopText("$"+totalExpense);
+  chartTotal.axes[0].setTopText("$<TOTAL_EXPENSE>");
   chartTotal.axes[0].bands[1].setEndValue(totalExpense);
+}
+
+var totalAvgExpense = Math.round((<TOTAL_AVG_EXPENSE> / 1000),2);
+var endAvgLimit = ((Math.round(totalAvgExpense / 10) + 1) * 10);
+var chartAvgTotal = AmCharts.makeChart("chartdivAvgTotal", {
+  "theme": "light",
+  "type": "gauge",
+  "titles": [ {
+    "text": "Average Monthly Expense",
+    "size": 16
+ 	 } ],
+  "axes": [{
+    "topTextFontSize": 20,
+    "topTextYOffset": 70,
+    "axisColor": "#31d6ea",
+    "axisThickness": 1,
+    "endValue": endAvgLimit,
+    "gridInside": true,
+    "inside": true,
+    "radius": "50%",
+    "valueInterval": endAvgLimit/10,
+    "tickColor": "#67b7dc",
+    "startAngle": -90,
+    "endAngle": 90,
+    "unit": "$",
+    "bandOutlineAlpha": 0,
+    "bands": [{
+      "color": "#0080ff",
+      "endValue": endAvgLimit,
+      "innerRadius": "105%",
+      "radius": "170%",
+      "gradientRatio": [0.5, 0, -0.5],
+      "startValue": 0
+    }, {
+      "color": "#3cd3a3",
+      "endValue": 0,
+      "innerRadius": "105%",
+      "radius": "170%",
+      "gradientRatio": [0.5, 0, -0.5],
+      "startValue": 0
+    }]
+  }],
+  "arrows": [{
+    "alpha": 1,
+    "innerRadius": "35%",
+    "nailRadius": 0,
+    "radius": "170%"
+  }]
+});
+
+setInterval(randomAvgValue, 2000);
+
+
+function randomAvgValue() {
+  chartAvgTotal.arrows[0].setValue(totalAvgExpense);
+  chartAvgTotal.axes[0].setTopText("$<TOTAL_AVG_EXPENSE>");
+  chartAvgTotal.axes[0].bands[1].setEndValue(totalAvgExpense);
 }
 
 jQuery('.chart-input').off().on('input change',function() {
@@ -649,6 +713,8 @@ jQuery('.chart-input').off().on('input change',function() {
 
 <!-- HTML -->
 <div id="chartdivTotal"></div>
+<div id="chartdivAvgTotal"></div>
+<br style="clear: left;" />
 <div id="chartdiv"></div>
 <div id="chartdiv1"></div>
 <div id="chartdiv2"></div>

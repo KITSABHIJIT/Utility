@@ -2,6 +2,7 @@ package com.test.code.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -34,6 +35,7 @@ public class ConnectionUtil {
 			}
 			if (con != null) {
 				//System.out.println("You made it, take control your database now!");
+				setSQLMode(con);
 			} else {
 				System.out.println("Failed to make connection!");
 			}
@@ -41,6 +43,15 @@ public class ConnectionUtil {
 			System.out.println("Unknown Server...");
 		}
 		return con;
+	}
+	
+	public static void setSQLMode(Connection con) {
+		try (PreparedStatement statement = con.prepareStatement("SET sql_mode = ''");
+				) {
+			statement.executeQuery();
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
 	}
 	
 	public static void closeResultSet(ResultSet rs) {

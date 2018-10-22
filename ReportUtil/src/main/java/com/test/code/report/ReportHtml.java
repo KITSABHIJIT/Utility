@@ -15,6 +15,7 @@ public class ReportHtml {
 		String content=FileUtil.getStringFromFile(htmlTemplateFilePath);
 		
 		content=content.replace("<TOTAL_EXPENSE>",String.valueOf(DataExtractor.getTotalExpense(PropertiesUtil.getProperty("TOTAL_EXPENSE"))));
+		content=content.replace("<TOTAL_AVG_EXPENSE>",String.valueOf(DataExtractor.getTotalExpense(PropertiesUtil.getProperty("TOTAL_AVG_EXPENSE"))));
 		content=content.replace("<DONUT_DATA>",(DataExtractor.getDrillDownJsonData(PropertiesUtil.getProperty("JSON_PAYMENT"),false,PropertiesUtil.getProperty("JSON_PAYMENT_DRILL_DOWN")).toString()));
 		content=content.replace("<LINE_DATA>",(DataExtractor.getJsonData(PropertiesUtil.getProperty("JSON_EXPENSE_DATE"),false).toString()));
 		content=content.replace("<PIE_DATA>",(DataExtractor.getDrillDownJsonData(PropertiesUtil.getProperty("JSON_CATEGORY"),false,PropertiesUtil.getProperty("JSON_CATEGORY_DRILL_DOWN")).toString()));
