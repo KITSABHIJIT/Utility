@@ -42,7 +42,6 @@ public class KafkaLogWorker implements Runnable {
 			}
 		} catch (IOException e) {
 			logger.error(e.getMessage(), e);
-			e.printStackTrace();
 		}
 
 		long filePointer = file.length();
@@ -102,7 +101,6 @@ public class KafkaLogWorker implements Runnable {
 					}
 				} catch (IOException e) {
 					logger.error("Not able to close the RandomAccessFile", e);
-					e.printStackTrace();
 				}
 			}
 
@@ -118,20 +116,21 @@ public class KafkaLogWorker implements Runnable {
 		long startTime = System.currentTimeMillis();
 		messageStr=logFile.getApplicationID()+" :: "+messageStr;
 		if (logFile.getIsAync()) { // Send asynchronously
-				producer.send(new ProducerRecord<>(logFile.getKafkaTopic(),
-						String.valueOf(messageNo),
-						messageStr), new DemoCallBackThread(startTime, messageNo, messageStr));
+			producer.send(new ProducerRecord<>(logFile.getKafkaTopic(),
+					String.valueOf(messageNo),
+					messageStr), new DemoCallBackThread(startTime, messageNo, messageStr));
 		} else { 
 			// Send synchronously
-				try {
-					producer.send(new ProducerRecord<>(logFile.getKafkaTopic(),
-							String.valueOf(messageNo),
-							messageStr)).get();
-					logger.debug("Sent message: (" + messageNo + ", " + messageStr + ")");
-				} catch (InterruptedException | ExecutionException e) {
-					e.printStackTrace();
-					// handle the exception
-				}
+			try {
+				producer.send(new ProducerRecord<>(logFile.getKafkaTopic(),
+						String.valueOf(messageNo),
+						messageStr)).get();
+				logger.debug("Sent message: (" + messageNo + ", " + messageStr + ")");
+			} catch (InterruptedException | ExecutionException e) {
+				e.printStackTrace();
+				logger.error("Error while posting message to kafka synchronously. Message: "+messageStr,e);
+				// handle the exception
+			}
 		}
 	}
 
@@ -149,6 +148,7 @@ public class KafkaLogWorker implements Runnable {
 
 
 	private void postToRelic(String messageStr) {
+		String input=null;
 		try {
 			URL url = new URL(PropertiesUtil.getProperty("relic.host"));
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -156,7 +156,7 @@ public class KafkaLogWorker implements Runnable {
 			conn.setRequestMethod("POST");
 			conn.setRequestProperty("Content-Type", PropertiesUtil.getProperty("relic.content.type"));
 			conn.addRequestProperty("X-Insert-Key", PropertiesUtil.getProperty("relic.key"));
-			String input = "{"
+			input = "{"
 					+ "\"eventType\":\""+PropertiesUtil.getProperty("relic.event.type")+"\","
 					+ "\"application\":\""+logFile.getApplicationID()+"\","					
 					+ "\"jobName\":\""+logFile.getJobName()+"\","
@@ -170,8 +170,7 @@ public class KafkaLogWorker implements Runnable {
 			if (conn.getResponseCode() != HttpURLConnection.HTTP_CREATED 
 					&& conn.getResponseCode() != HttpURLConnection.HTTP_OK
 					&& conn.getResponseCode() != HttpURLConnection.HTTP_ACCEPTED) {
-				throw new RuntimeException("Failed : HTTP error code : "
-						+ conn.getResponseCode());
+				logger.error("Failed : HTTP error code : "+ conn.getResponseCode()+" Message: "+input);
 			}
 			/*BufferedReader br = new BufferedReader(new InputStreamReader(
 					(conn.getInputStream())));
@@ -182,7 +181,7 @@ public class KafkaLogWorker implements Runnable {
 			}*/
 			conn.disconnect();
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error("Message: "+input,e);
 		}
 	}
 
@@ -214,7 +213,7 @@ class DemoCallBackThread implements Callback {
 					"), " +
 					"offset(" + metadata.offset() + ") in " + elapsedTime + " ms");
 		} else {
-			exception.printStackTrace();
+			logger.error("Error while onCompletion method will be called when the record sent to the Kafka Server has been acknowledged",exception);
 		}
 	}
 

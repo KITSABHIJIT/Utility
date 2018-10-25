@@ -1,6 +1,9 @@
 package com.staples.kafka.log.util;
 
 import java.io.File;
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -21,12 +24,14 @@ import com.staples.kafka.log.pojo.LogFile;
 public class ConfigUtil {
 
 	private KafkaProducer<String, String> producer;
+	private HttpURLConnection conn;
 	private final Logger LOG = LoggerFactory.getLogger(ConfigUtil.class);
 	private List<LogFile> nodeData;
 
 	public ConfigUtil() {
 		initializeKafkaLogProducer();
 		initializeLogNodeList();
+		initializeRelicHost();
 	}
 
 	public static ConfigUtil getInstance() {
@@ -42,7 +47,18 @@ public class ConfigUtil {
 		return producer;
 	}
 
+	public void initializeRelicHost() {
+		URL url=null;
+		try {
+			url = new URL(PropertiesUtil.getProperty("relic.host"));
+			conn = (HttpURLConnection) url.openConnection();
+			LOG.debug("**********************Relic Host Initialized**********************");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
+	}
 	public List<LogFile> initializeLogNodeList(){
 		nodeData=new ArrayList<LogFile>();
 		try {
@@ -100,5 +116,10 @@ public class ConfigUtil {
 	public List<LogFile> getLogFileList(){
 		LOG.debug("**********************LogNodeList Requested**********************");
 		return nodeData;
+	}
+	
+	public HttpURLConnection getRelicHost(){
+		LOG.debug("**********************Relic Host Requested**********************");
+		return conn;
 	}
 }
