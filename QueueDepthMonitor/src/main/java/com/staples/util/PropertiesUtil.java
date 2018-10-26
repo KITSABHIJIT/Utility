@@ -71,7 +71,7 @@ public class PropertiesUtil {
 					String [] tempObj=obj.split("[|]");
 					MQDetail mqDetail=new MQDetail();
 					mqDetail.setMqName(tempObj[0]);
-					mqDetail.setApplication(tempObj[1]);
+					mqDetail.setApplication((tempObj.length>1)?tempObj[1]:null);
 					mqDetail.setIfsPath((tempObj.length>2)?tempObj[2]:null);
 					mqDetail.setJobName((tempObj.length>3)?tempObj[3]:null);
 					mqDetails.add(mqDetail);

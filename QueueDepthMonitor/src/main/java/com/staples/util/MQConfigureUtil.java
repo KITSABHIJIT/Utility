@@ -85,7 +85,7 @@ public class MQConfigureUtil {
 			input = "{"
 					+ "\"eventType\":\""+PropertiesUtil.getProperty("relic.event.type")+"\","
 					+ "\"system\":\""+PropertiesUtil.getProperty("mqHost")+"\","
-					+ "\"application\":\""+mqDetail.getApplication()+"\","					
+					+ ((null!=mqDetail.getApplication())?"\"application\":\""+mqDetail.getApplication()+"\",":"")				
 					+ ((null!=mqDetail.getJobName())?"\"jobName\":\""+mqDetail.getJobName()+"\",":"")
 					+ ((null!=mqDetail.getIfsPath())?"\"path\":\""+mqDetail.getIfsPath()+"\",":"")
 					+ "\"mqName\":\""+mqDetail.getMqName()+"\","
