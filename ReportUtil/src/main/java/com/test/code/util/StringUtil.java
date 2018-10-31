@@ -1,5 +1,7 @@
 package com.test.code.util;
 
+import java.text.DecimalFormat;
+
 public class StringUtil {
 
 	public static boolean isBlankOrEmpty (String word) {
@@ -28,7 +30,7 @@ public class StringUtil {
 			s1 = s + s1;
 		return (s1);
 	}
-	
+
 	public static boolean isBlankOrEmpty(Object obj){
 		if(null==obj){
 			return true;
@@ -58,7 +60,7 @@ public class StringUtil {
 			return Integer.parseInt(str);
 		}
 	}
-	
+
 	public static double getDouble(String str){
 		double result=0D;
 		if(isBlankOrEmpty(str)){
@@ -124,5 +126,21 @@ public class StringUtil {
 			return String.format("%."+decimalPlace+"f", 0.00);
 		}
 	}
-	
+
+	public static String getTwoDecimal(Object angle) {
+		DecimalFormat df = new DecimalFormat("#.00");
+	    return df.format(angle);
+	}
+	public static boolean isNumeric(String str)  
+	{  
+		try  
+		{  
+			double d = Double.parseDouble(str);  
+		}  
+		catch(NumberFormatException nfe)  
+		{  
+			return false;  
+		}  
+		return true;  
+	}
 }

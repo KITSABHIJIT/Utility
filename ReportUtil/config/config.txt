@@ -94,3 +94,7 @@ CONFIG_PERIOD_BAR_MONTHLY_EXPENSE =Monthly Expense|Category|Expense|true|true|fa
 CONFIG_PERIOD_MULTIBAR_MONTHLY_PAYMENT_TYPE_EXPENSE =Monthly Expense By Payment Type|Category|Expense|true|true|false|1500|400|24|0|FALSE|FALSE|FALSE|TRUE
 
 CONFIG_LINE_EXPENSE =Expense By Date|Dates|Expense|true|true|false|1500|600|0|0|FALSE|TRUE
+
+RIA_SOURCE_RECEIPTS=/Users/royab001/Google Drive/Utility Bills/Ria/Receipts/
+XOOM_SOURCE_RECEIPT=/Users/royab001/Google Drive/Utility Bills/Xoom/xoom.pdf
+RIA_PEPORT=/Users/royab001/Google Drive/Utility Bills/Ria/Report/RiaMoney.xls

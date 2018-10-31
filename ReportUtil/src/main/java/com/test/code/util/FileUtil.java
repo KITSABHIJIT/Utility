@@ -37,7 +37,7 @@ public class FileUtil {
 		File file;
 		try {
 			file = new File(fileName);
-			fop = new FileOutputStream(file);
+			fop = new FileOutputStream(file,true);
 			// if file doesnt exists, then create it
 			if (!file.exists()) {
 				file.createNewFile();
@@ -124,5 +124,17 @@ public class FileUtil {
 			}
 		}
 		return buffer.toString();
+	}
+	
+	public static void deleteFile(String filePath) {
+		File file = new File(filePath);
+        if(file.delete())
+        {
+            System.out.println(filePath+" deleted successfully");
+        }
+        else
+        {
+            System.out.println("Failed to delete the file: "+filePath);
+        }
 	}
 }

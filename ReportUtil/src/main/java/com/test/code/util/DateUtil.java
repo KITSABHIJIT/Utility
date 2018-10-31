@@ -9,6 +9,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 import java.util.TimeZone;
 
@@ -67,7 +68,7 @@ public class DateUtil {
 	}
 	public static Date getSomeDate(final String str, final String inputFormat)
 			throws ParseException {
-		final SimpleDateFormat sdf = new SimpleDateFormat(inputFormat);
+		final SimpleDateFormat sdf = new SimpleDateFormat(inputFormat,Locale.ENGLISH);
 		return sdf.parse(str);
 	}
 	public static String milliToDate(long millisecond){
@@ -170,7 +171,9 @@ public class DateUtil {
 		//DateUtil.getWebMethodsDateString(DateUtil.getSomeDate("20150722 110912", "yyyyMMdd HHmmss"),"{0, date, yyyy-MM-dd}T{0, date, HH:mm:ss}");
 		//System.out.println(getSQLDate(getSomeDate("12/01/2015", "MM/dd/yyyy")));
 		//System.out.println(getDatesFromDateRange(getSomeDate("20150112", "yyyyMMdd"),getSomeDate("20170417", "yyyyMMdd"),"YEARLY"));
-		System.out.println(DateUtil.getDateToString(new Date(), "yyyyMMM"));
+		System.out.println(DateUtil.getSomeDate("August 25, 2015 03:38 AM", "MMMMM dd, yyyy hh:mm a"));
+		System.out.println(DateUtil.getSomeDate("August 25, 2015 03:38 AM", "MMMMM dd, yyyy hh:mm a"));
+		
 	}	
 
 

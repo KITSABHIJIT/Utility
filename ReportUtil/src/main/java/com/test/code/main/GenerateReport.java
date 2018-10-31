@@ -13,6 +13,7 @@ import com.test.code.report.ReportExcel;
 import com.test.code.report.ReportHtml;
 import com.test.code.util.DateUtil;
 import com.test.code.util.FileUtil;
+import com.test.code.util.PDFToText;
 import com.test.code.util.PropertiesUtil;
 
 public class GenerateReport {
@@ -45,6 +46,8 @@ public class GenerateReport {
 		
 		ReportHtml.generateReport();
 		ReportHtml.generateTabularReport();
+		PDFToText.generateRiaReports();
+		
 		long endTime=new  Date().getTime();
 		logger.info("Process ended...");
 		logger.info("Total time taken: "+DateUtil.getHrMinSec(endTime-startTime));
