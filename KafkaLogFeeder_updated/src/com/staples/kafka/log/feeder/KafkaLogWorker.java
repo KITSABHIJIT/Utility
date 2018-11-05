@@ -7,7 +7,11 @@ import java.io.OutputStream;
 import java.io.RandomAccessFile;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.concurrent.ExecutionException;
+import java.util.regex.Pattern;
 
 import org.apache.kafka.clients.producer.Callback;
 import org.apache.kafka.clients.producer.KafkaProducer;
@@ -18,12 +22,14 @@ import org.slf4j.LoggerFactory;
 
 import com.staples.kafka.log.pojo.LogFile;
 import com.staples.kafka.log.util.PropertiesUtil;
+import com.staples.kafka.log.util.StringUtil;
 
 public class KafkaLogWorker implements Runnable {
 	private final static Logger logger =LoggerFactory.getLogger(KafkaLogWorker.class);
 	private final KafkaProducer<String, String> producer;
 	private final LogFile logFile;
-
+	private static Pattern DATE_PATTERN = Pattern.compile("^\\d{4}-\\d{2}-\\d{2}$");
+	private final static String DATE_FORMAT = "yyyy-MM-dd";
 
 	public KafkaLogWorker(LogFile logFile, KafkaProducer<String, String> producer) {
 		this.producer=producer;
@@ -32,8 +38,12 @@ public class KafkaLogWorker implements Runnable {
 
 	public void run() {
 		int messageNo = 1;
+		String current=null,previous=null;
 		File file=null,fileOld=null;
 		RandomAccessFile raf=null,rafOld = null;
+		boolean postToRelic=Boolean.parseBoolean(PropertiesUtil.getProperty("post.to.relic"));
+		boolean postToKafka=Boolean.parseBoolean(PropertiesUtil.getProperty("post.to.kafka"));
+		boolean postLineByLine=Boolean.parseBoolean(PropertiesUtil.getProperty("post.line.by.line"));
 		try {
 			file=new File(logFile.getLogfilePath());
 			fileOld=new File(logFile.getRolledOutLogfilePath());
@@ -61,13 +71,28 @@ public class KafkaLogWorker implements Runnable {
 						rafOld.seek(filePointer);
 						String line = null;
 						while ((line = rafOld.readLine()) != null) {
-							if(validForPost(line)) {
-								//postLogToKafka(line,messageNo);
-								postToRelic(line);
+							if(!StringUtil.isBlankOrEmpty(line) && validForPost(line)) {
+								if(postToKafka) {
+									postLogToKafka(line,messageNo);
+								}
+								if(postToRelic) {
+									if(postLineByLine) {
+										postToRelic(line);
+									}else {
+										current=line;
+										//if(previous!=null && !isDateValid(current.substring(0,10)) && !DATE_PATTERN.matcher(current.substring(0,10)).matches()) {
+										if(previous!=null && !DATE_PATTERN.matcher(current.substring(0,10)).matches()) {
+											previous=previous+"\n"+current;
+										}else {
+											postToRelic(previous);
+											//logger.debug("Sending data "+previous);
+											previous=current;
+										}
+									}
+								}
 								++messageNo;
 							}
 						}
-
 						logger.debug("Rolled out file data reading completed");
 						filePointer = 0;
 					}catch (FileNotFoundException e) {
@@ -81,9 +106,25 @@ public class KafkaLogWorker implements Runnable {
 					raf.seek(filePointer);
 					String line = null;
 					while ((line = raf.readLine()) != null) {
-						if(validForPost(line)) {
-							//postLogToKafka(line,messageNo);
-							postToRelic(line);
+						if(!StringUtil.isBlankOrEmpty(line) && validForPost(line)) {
+							if(postToKafka) {
+								postLogToKafka(line,messageNo);
+							}
+							if(postToRelic) {
+								if(postLineByLine) {
+									postToRelic(line);
+								}else {
+									current=line;
+									//if(previous!=null && !isDateValid(current.substring(0,10)) && !DATE_PATTERN.matcher(current.substring(0,10)).matches()) {
+									if(previous!=null && !DATE_PATTERN.matcher(current.substring(0,10)).matches()) {
+										previous=previous+"\n"+current;
+									}else {
+										postToRelic(previous);
+										//logger.debug("Sending data "+previous);
+										previous=current;
+									}
+								}
+							}
 							++messageNo;
 						}
 					}
@@ -138,7 +179,7 @@ public class KafkaLogWorker implements Runnable {
 		boolean result=true;
 		for(String excludes:logFile.getExcludedLog()) {
 			if(message.contains(excludes)) {
-				logger.debug("Log excluded: "+message);
+				//logger.debug("Log excluded: "+message);
 				result=false;
 				break;
 			}
@@ -146,42 +187,60 @@ public class KafkaLogWorker implements Runnable {
 		return result;
 	}
 
+	private boolean isDateValid(String date) 
+	{
+		try {
+			DateFormat df = new SimpleDateFormat(DATE_FORMAT);
+			df.setLenient(false);
+			df.parse(date);
+			return true;
+		} catch (ParseException e) {
+			return false;
+		}
+	}
 
 	private void postToRelic(String messageStr) {
 		String input=null;
-		try {
-			URL url = new URL(PropertiesUtil.getProperty("relic.host"));
-			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-			conn.setDoOutput(true);
-			conn.setRequestMethod("POST");
-			conn.setRequestProperty("Content-Type", PropertiesUtil.getProperty("relic.content.type"));
-			conn.addRequestProperty("X-Insert-Key", PropertiesUtil.getProperty("relic.key"));
-			input = "{"
-					+ "\"eventType\":\""+PropertiesUtil.getProperty("relic.event.type")+"\","
-					+ "\"application\":\""+logFile.getApplicationID()+"\","					
-					+ "\"jobName\":\""+logFile.getJobName()+"\","
-					+ "\"logLevel\":\""+logFile.getLogLevel()+"\","
-					+ "\"LogFile\":\""+logFile.getLogfilePath()+"\","
-					+ "\"LogMessage\":\""+messageStr
-					+"\"}";
-			OutputStream os = conn.getOutputStream();
-			os.write(input.getBytes());
-			os.flush();
-			if (conn.getResponseCode() != HttpURLConnection.HTTP_CREATED 
-					&& conn.getResponseCode() != HttpURLConnection.HTTP_OK
-					&& conn.getResponseCode() != HttpURLConnection.HTTP_ACCEPTED) {
-				logger.error("Failed : HTTP error code : "+ conn.getResponseCode()+" Message: "+input);
-			}
-			/*BufferedReader br = new BufferedReader(new InputStreamReader(
+		if(!StringUtil.isBlankOrEmpty(messageStr)) {
+			try {
+				URL url = new URL(PropertiesUtil.getProperty("relic.host"));
+				HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+				conn.setDoOutput(true);
+				conn.setRequestMethod("POST");
+				conn.setRequestProperty("Content-Type", PropertiesUtil.getProperty("relic.content.type"));
+				conn.addRequestProperty("X-Insert-Key", PropertiesUtil.getProperty("relic.key"));
+				conn.setRequestProperty("Content-Encoding", PropertiesUtil.getProperty("relic.content.encoding"));
+				messageStr=messageStr.replaceAll("\"", "'");
+				input = "{"
+						+ "\"eventType\":\""+PropertiesUtil.getProperty("relic.event.type")+"\","
+						+ "\"application\":\""+logFile.getApplicationID()+"\","					
+						+ "\"jobName\":\""+logFile.getJobName()+"\","
+						+ "\"logLevel\":\""+logFile.getLogLevel()+"\","
+						+ "\"LogFile\":\""+logFile.getLogfilePath()+"\","
+						//+ "\"LogMessage\":\""+URLEncoder.encode(messageStr, PropertiesUtil.getProperty("relic.content.encoding"))
+						+ "\"LogMessage\":\""+messageStr
+						+"\"}";
+				OutputStream os = conn.getOutputStream();
+				os.write(input.getBytes());
+				os.flush();
+				if (conn.getResponseCode() != HttpURLConnection.HTTP_CREATED 
+						&& conn.getResponseCode() != HttpURLConnection.HTTP_OK
+						&& conn.getResponseCode() != HttpURLConnection.HTTP_ACCEPTED) {
+					logger.error("Failed : HTTP error code : "+ conn.getResponseCode()+" Message: "+input);
+				}else {
+					logger.debug("Message sent to Relic : (" +  messageStr + ")");
+				}
+				/*BufferedReader br = new BufferedReader(new InputStreamReader(
 					(conn.getInputStream())));
 			String output;
 			System.out.println("Output from Server .... \n");
 			while ((output = br.readLine()) != null) {
 				System.out.println(output);
 			}*/
-			conn.disconnect();
-		} catch (IOException e) {
-			logger.error("Message: "+input,e);
+				conn.disconnect();
+			} catch (IOException e) {
+				logger.error("Message: "+input,e);
+			}
 		}
 	}
 

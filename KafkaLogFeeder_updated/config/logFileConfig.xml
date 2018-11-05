@@ -2,31 +2,32 @@
 <logFiles>
 	<logFile>
 		<application_id>HelloKafkaLogger</application_id>
+		<jobName>CA_F00065S</jobName>
+		<logLevel>debug</logLevel>
+		<filePath>/app/payserv/DynamicLog/logs/debug.log</filePath>
+		<rolledOutFilePath>/app/payserv/DynamicLog/logs/debug.log.1
+		</rolledOutFilePath>
 		<kafkaTopic>log_insert</kafkaTopic>
-		<filePath>/DynamicLog/logs/debug.log</filePath>
-		<rolledOutFilePath>/DynamicLog/logs/debug.log.1</rolledOutFilePath>
-		<isAsync>false</isAsync>
+		<isAsync>true</isAsync>
 	</logFile>
 	<logFile>
 		<application_id>HelloKafkaLogger</application_id>
+		<jobName>CA_F00065S</jobName>
+		<logLevel>info</logLevel>
+		<filePath>/app/payserv/DynamicLog/logs/info.log</filePath>
+		<rolledOutFilePath>/app/payserv/DynamicLog/logs/info.log.1
+		</rolledOutFilePath>
 		<kafkaTopic>log_insert</kafkaTopic>
-		<filePath>/DynamicLog/logs/info.log</filePath>
-		<rolledOutFilePath>/DynamicLog/logs/info.log.1</rolledOutFilePath>
-		<isAsync>false</isAsync>
-		<excludeLogs>
-			<log>tgrg</log>
-			<log>wdscdsdvdsbg</log>
-		</excludeLogs>
+		<isAsync>true</isAsync>
 	</logFile>
 	<logFile>
 		<application_id>HelloKafkaLogger</application_id>
+		<jobName>CA_F00065S</jobName>
+		<logLevel>error</logLevel>
+		<filePath>/app/payserv/DynamicLog/logs/error.log</filePath>
+		<rolledOutFilePath>/app/payserv/DynamicLog/logs/error.log.1
+		</rolledOutFilePath>
 		<kafkaTopic>log_insert</kafkaTopic>
-		<filePath>/DynamicLog/logs/error.log</filePath>
-		<rolledOutFilePath>/DynamicLog/logs/error.log.1</rolledOutFilePath>
-		<isAsync>false</isAsync>
-		<excludeLogs>
-			<log>tyytjtyh54y4th</log>
-			<log>hj54rtfefcewrt</log>
-		</excludeLogs>
+		<isAsync>true</isAsync>
 	</logFile>
 </logFiles>

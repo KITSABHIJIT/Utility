@@ -4,7 +4,7 @@ public class StringUtil {
 
 	public static boolean isBlankOrEmpty (String word) {
 
-		if(null!=word && word.trim()!="")
+		if(null!=word && !word.trim().equals("") && !word.equals("null"))
 			return false;
 		else 
 			return true;
