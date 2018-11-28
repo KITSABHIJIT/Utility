@@ -49,11 +49,13 @@ import com.test.code.pojo.PieChartData;
 import com.test.code.pojo.ReportData;
 import com.test.code.pojo.TableData;
 import com.test.code.util.ExcelCellStyleUtil;
+import com.test.code.util.FileUtil;
 import com.test.code.util.StringUtil;
 
 public class ReportExcel {
 	final static Logger logger = Logger.getLogger(ReportExcel.class);
 	public static void writeExcel(Map<String,ReportData> data, String excelFilePath){
+		FileUtil.deleteFile(excelFilePath);
 		HSSFWorkbook workbook = new HSSFWorkbook();
 		ExcelCellStyleUtil cellStyleUtil=new ExcelCellStyleUtil(workbook);
 		Set<Entry<String, ReportData>> mapData=data.entrySet();

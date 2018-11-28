@@ -24,6 +24,12 @@
 	margin-top: 50px;
 }				
 
+/*#chartdiv6 {
+  width: 100%;
+  height: 500px;
+  margin-top: 50px;
+}*/
+
 #chartdiv2 {
   width: 100%;
   height: 100%;
@@ -690,6 +696,311 @@ function randomAvgValue() {
   chartAvgTotal.axes[0].bands[1].setEndValue(totalAvgExpense);
 }
 
+/*
+var chartMultiValueAxes = AmCharts.makeChart("chartdiv6", {
+    "type": "serial",
+    "theme": "light",
+    "legend": {
+        "useGraphSettings": true
+    },
+    "dataProvider": <PERIOD_MULTIPLE_AXES_DATA>,
+    "synchronizeGrid":true,
+    "valueAxes": [{
+        "id":"v1",
+        "axisColor": "#f44242",
+        "axisThickness": 2,
+        "axisAlpha": 1,
+        "position": "left"
+    },{
+        "id":"v2",
+        "axisColor": "#f47441",
+        "axisThickness": 2,
+        "axisAlpha": 1,
+        "position": "right"
+    },{
+        "id":"v3",
+        "axisColor": "#f4b841",
+        "axisThickness": 2,
+        "gridAlpha": 0,
+        "offset": 50,
+        "axisAlpha": 1,
+        "position": "left"
+    },{
+        "id":"v4",
+        "axisColor": "#f4e241",
+        "axisThickness": 2,
+        "gridAlpha": 0,
+        "offset": 50,
+        "axisAlpha": 1,
+        "position": "right"
+    },{
+        "id":"v5",
+        "axisColor": "#dcf441",
+        "axisThickness": 2,
+        "gridAlpha": 0,
+        "offset": 100,
+        "axisAlpha": 1,
+        "position": "left"
+    },{
+        "id":"v6",
+        "axisColor": "#b2f441",
+        "axisThickness": 2,
+        "gridAlpha": 0,
+        "offset": 100,
+        "axisAlpha": 1,
+        "position": "right"
+    },{
+        "id":"v7",
+        "axisColor": "#64f441",
+        "axisThickness": 2,
+        "gridAlpha": 0,
+        "offset": 150,
+        "axisAlpha": 1,
+        "position": "left"
+    },{
+        "id":"v8",
+        "axisColor": "#41f4a9",
+        "axisThickness": 2,
+        "gridAlpha": 0,
+        "offset": 150,
+        "axisAlpha": 1,
+        "position": "right"
+    },{
+        "id":"v9",
+        "axisColor": "#41f1f4",
+        "axisThickness": 2,
+        "gridAlpha": 0,
+        "offset": 200,
+        "axisAlpha": 1,
+        "position": "left"
+    },{
+        "id":"v10",
+        "axisColor": "#41c7f4",
+        "axisThickness": 2,
+        "gridAlpha": 0,
+        "offset": 200,
+        "axisAlpha": 1,
+        "position": "right"
+    },{
+        "id":"v11",
+        "axisColor": "#4185f4",
+        "axisThickness": 2,
+        "gridAlpha": 0,
+        "offset": 250,
+        "axisAlpha": 1,
+        "position": "left"
+    },{
+        "id":"v12",
+        "axisColor": "#4149f4",
+        "axisThickness": 2,
+        "gridAlpha": 0,
+        "offset": 250,
+        "axisAlpha": 1,
+        "position": "right"
+    },{
+        "id":"v13",
+        "axisColor": "#7c41f4",
+        "axisThickness": 2,
+        "gridAlpha": 0,
+        "offset": 300,
+        "axisAlpha": 1,
+        "position": "left"
+    },{
+        "id":"v14",
+        "axisColor": "#d041f4",
+        "axisThickness": 2,
+        "gridAlpha": 0,
+        "offset": 300,
+        "axisAlpha": 1,
+        "position": "right"
+    },{
+        "id":"v15",
+        "axisColor": "#f441e8",
+        "axisThickness": 2,
+        "gridAlpha": 0,
+        "offset": 350,
+        "axisAlpha": 1,
+        "position": "left"
+    },{
+        "id":"v16",
+        "axisColor": "#f4418e",
+        "axisThickness": 2,
+        "gridAlpha": 0,
+        "offset": 350,
+        "axisAlpha": 1,
+        "position": "right"
+    }],
+    "graphs": [{
+        "valueAxis": "v1",
+        "lineColor": "#f44242",
+        "bullet": "round",
+        "bulletBorderThickness": 1,
+        "hideBulletsCount": 30,
+        "title": "BANK OF AMERICA DEBIT CARD",
+        "valueField": "BANK OF AMERICA DEBIT CARD",
+		"fillAlphas": 0
+    },{
+        "valueAxis": "v2",
+        "lineColor": "#f47441",
+        "bullet": "square",
+        "bulletBorderThickness": 1,
+        "hideBulletsCount": 30,
+        "title": "BANK OF AMERICA CREDIT CARD",
+        "valueField": "BANK OF AMERICA CREDIT CARD",
+		"fillAlphas": 0
+    },{
+        "valueAxis": "v3",
+        "lineColor": "#f4b841",
+        "bullet": "triangleUp",
+        "bulletBorderThickness": 1,
+        "hideBulletsCount": 30,
+        "title": "DISCOVER CARD",
+        "valueField": "DISCOVER CARD",
+		"fillAlphas": 0
+    },{
+        "valueAxis": "v4",
+        "lineColor": "#f4e241",
+        "bullet": "round",
+        "bulletBorderThickness": 1,
+        "hideBulletsCount": 30,
+        "title": "AMAZON CHASE CARD",
+        "valueField": "AMAZON CHASE CARD",
+		"fillAlphas": 0
+    },{
+        "valueAxis": "v5",
+        "lineColor": "#dcf441",
+        "bullet": "square",
+        "bulletBorderThickness": 1,
+        "hideBulletsCount": 30,
+        "title": "AMAZON STORE CARD",
+        "valueField": "AMAZON STORE CARD",
+		"fillAlphas": 0
+    },{
+        "valueAxis": "v6",
+        "lineColor": "#b2f441",
+        "bullet": "triangleUp",
+        "bulletBorderThickness": 1,
+        "hideBulletsCount": 30,
+        "title": "MACYS CREDIT CARD",
+        "valueField": "MACYS CREDIT CARD",
+		"fillAlphas": 0
+    },{
+        "valueAxis": "v7",
+        "lineColor": "#64f441",
+        "bullet": "round",
+        "bulletBorderThickness": 1,
+        "hideBulletsCount": 30,
+        "title": "ZALES CREDIT CARD",
+        "valueField": "ZALES CREDIT CARD",
+		"fillAlphas": 0
+    },{
+        "valueAxis": "v8",
+        "lineColor": "#41f4a9",
+        "bullet": "square",
+        "bulletBorderThickness": 1,
+        "hideBulletsCount": 30,
+        "title": "BJS CREDIT CARD",
+        "valueField": "BJS CREDIT CARD",
+		"fillAlphas": 0
+    },{
+        "valueAxis": "v9",
+        "lineColor": "#41f1f4",
+        "bullet": "triangleUp",
+        "bulletBorderThickness": 1,
+        "hideBulletsCount": 30,
+        "title": "KOHLS CREDIT CARD",
+        "valueField": "KOHLS CREDIT CARD",
+		"fillAlphas": 0
+    },{
+        "valueAxis": "v10",
+        "lineColor": "#41c7f4",
+        "bullet": "round",
+        "bulletBorderThickness": 1,
+        "hideBulletsCount": 30,
+        "title": "JC PENNEY CARD",
+        "valueField": "JC PENNEY CARD",
+		"fillAlphas": 0
+    },{
+        "valueAxis": "v11",
+        "lineColor": "#4185f4",
+        "bullet": "square",
+        "bulletBorderThickness": 1,
+        "hideBulletsCount": 30,
+        "title": "SEARS CREDIT CARD",
+        "valueField": "SEARS CREDIT CARD",
+		"fillAlphas": 0
+    },{
+        "valueAxis": "v12",
+        "lineColor": "#4149f4",
+        "bullet": "triangleUp",
+        "bulletBorderThickness": 1,
+        "hideBulletsCount": 30,
+        "title": "TJ MAX CREDIT CARD",
+        "valueField": "TJ MAX CREDIT CARD",
+		"fillAlphas": 0
+    },{
+        "valueAxis": "v13",
+        "lineColor": "#7c41f4",
+        "bullet": "round",
+        "bulletBorderThickness": 1,
+        "hideBulletsCount": 30,
+        "title": "BESTBUY CARD",
+        "valueField": "BESTBUY CARD",
+		"fillAlphas": 0
+    },{
+        "valueAxis": "v14",
+        "lineColor": "#d041f4",
+        "bullet": "square",
+        "bulletBorderThickness": 1,
+        "hideBulletsCount": 30,
+        "title": "WELLS FARGO CREDIT CARD",
+        "valueField": "WELLS FARGO CREDIT CARD",
+		"fillAlphas": 0
+    },{
+        "valueAxis": "v15",
+        "lineColor": "#f441e8",
+        "bullet": "triangleUp",
+        "bulletBorderThickness": 1,
+        "hideBulletsCount": 30,
+        "title": "AMEX CARD",
+        "valueField": "AMEX CARD",
+		"fillAlphas": 0
+    },{
+        "valueAxis": "v16",
+        "lineColor": "#f4418e",
+        "bullet": "round",
+        "bulletBorderThickness": 1,
+        "hideBulletsCount": 30,
+        "title": "DOLLAR",
+        "valueField": "DOLLAR",
+		"fillAlphas": 0
+    }],
+    "chartScrollbar": {},
+    "chartCursor": {
+        "cursorPosition": "mouse"
+    },
+    "categoryField": "ExpenseDate",
+    "categoryAxis": {
+        "parseDates": true,
+        "axisColor": "#DADADA",
+        "minorGridEnabled": true
+    },
+    "export": {
+    	"enabled": true,
+        "position": "bottom-right"
+     }
+});
+
+chartMultiValueAxes.addListener("dataUpdated", zoomMultiValueAxesChart);
+zoomMultiValueAxesChart();
+
+function zoomMultiValueAxesChart(){
+    chartMultiValueAxes.zoomToIndexes(chartMultiValueAxes.dataProvider.length - 20, chartMultiValueAxes.dataProvider.length - 1);
+}
+*/
+
+
+
 jQuery('.chart-input').off().on('input change',function() {
 	var property	= jQuery(this).data('property');
 	var target		= chart;
@@ -717,6 +1028,7 @@ jQuery('.chart-input').off().on('input change',function() {
 <br style="clear: left;" />
 <div id="chartdiv"></div>
 <div id="chartdiv1"></div>
+<!--<div id="chartdiv6"></div>-->
 <div id="chartdiv2"></div>
 <div id="chartdiv3"></div>
 <div id="chartdiv4"></div>

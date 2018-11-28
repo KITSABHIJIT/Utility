@@ -11,7 +11,7 @@ public class ReportHtml {
 	private static final String htmlTemplateMinFilePath = "./config/htmlTemplateMin";
 	private static final String htmlTableTemplateFilePath = "./config/htmlTableTemplate";
 	public static void generateReport(){
-
+		
 		String content=FileUtil.getStringFromFile(htmlTemplateFilePath);
 		
 		content=content.replace("<TOTAL_EXPENSE>",String.valueOf(DataExtractor.getTotalExpense(PropertiesUtil.getProperty("TOTAL_EXPENSE"))));
@@ -22,17 +22,20 @@ public class ReportHtml {
 		content=content.replace("<BAR_DATA>",(DataExtractor.getJsonData(PropertiesUtil.getProperty("JSON_EXPENSE_MONTH"),false).toString()));
 		content=content.replace("<PERIOD_BAR_DATA>",(DataExtractor.getJsonData(PropertiesUtil.getProperty("JSON_PERIOD_BAR_EXPENSE_MONTH"),true).toString()));
 		content=content.replace("<PERIOD_BAR_DATA>",(DataExtractor.getJsonData(PropertiesUtil.getProperty("JSON_PERIOD_BAR_EXPENSE_MONTH"),true).toString()));
+		//content=content.replace("<PERIOD_MULTIPLE_AXES_DATA>",(DataExtractor.getJsonData(PropertiesUtil.getProperty("JSON_PERIOD_LINE_EXPENSE_DAILY"),true).toString()));
+		FileUtil.deleteFile(PropertiesUtil.getProperty("excelPath")+"/report.html");
 		FileUtil.writeToFile(content, PropertiesUtil.getProperty("excelPath")+"/report.html");
 
 	}
 
 	public static void generateReportMin(Date startDate, Date endDate,String fileName){
-
+		FileUtil.deleteFile(fileName);
 		String content=FileUtil.getStringFromFile(htmlTemplateMinFilePath);
 		content=content.replace("<TOTAL_EXPENSE>",String.valueOf(DataExtractor.getTotalExpense(DataExtractor.updateQueryWithDates(PropertiesUtil.getProperty("TOTAL_EXPENSE_MIN"), startDate, endDate))));
 		content=content.replace("<DONUT_DATA>",(DataExtractor.getDrillDownJsonData(DataExtractor.updateQueryWithDates(PropertiesUtil.getProperty("JSON_PAYMENT_MIN"), startDate, endDate),false,DataExtractor.updateQueryWithDates(PropertiesUtil.getProperty("JSON_PAYMENT_MIN_DRILL_DOWN"), startDate, endDate)).toString()));
 		content=content.replace("<LINE_DATA>",(DataExtractor.getJsonData(DataExtractor.updateQueryWithDates(PropertiesUtil.getProperty("JSON_EXPENSE_DATE_MIN"), startDate, endDate),false).toString()));
 		content=content.replace("<PIE_DATA>",(DataExtractor.getDrillDownJsonData(DataExtractor.updateQueryWithDates(PropertiesUtil.getProperty("JSON_CATEGORY_MIN"), startDate, endDate),false,DataExtractor.updateQueryWithDates(PropertiesUtil.getProperty("JSON_CATEGORY_MIN_DRILL_DOWN"), startDate, endDate)).toString()));
+		FileUtil.deleteFile(fileName+".html");
 		FileUtil.writeToFile(content, fileName+".html");
 
 	}
@@ -41,6 +44,7 @@ public class ReportHtml {
 
 		String content=FileUtil.getStringFromFile(htmlTableTemplateFilePath);
 		content=content.replace("<TABULAR_DATA>",(DataExtractor.getJsonArrayData(PropertiesUtil.getProperty("EXPENSE_RECORDS_TABLE"),false).toString()));
+		FileUtil.deleteFile(PropertiesUtil.getProperty("excelPath")+"/TabularReport.html");
 		FileUtil.writeToFile(content, PropertiesUtil.getProperty("excelPath")+"/TabularReport.html");
 
 	}
