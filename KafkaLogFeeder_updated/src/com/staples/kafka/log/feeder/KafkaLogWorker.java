@@ -99,7 +99,8 @@ public class KafkaLogWorker implements Runnable {
 										current=line;
 										//if(previous!=null && !isDateValid(current.substring(0,10)) && !DATE_PATTERN.matcher(current.substring(0,10)).matches()) {
 										if(previous!=null && !DATE_PATTERN.matcher(current.substring(0,10)).matches()) {
-											previous=previous+"\",\""+current;
+											//previous=previous+"\",\""+current;
+											previous=previous+"\\n"+current;
 										}else {
 											postToSplunk(previous);
 											//logger.debug("Sending data "+previous);
@@ -150,7 +151,8 @@ public class KafkaLogWorker implements Runnable {
 									current=line;
 									//if(previous!=null && !isDateValid(current.substring(0,10)) && !DATE_PATTERN.matcher(current.substring(0,10)).matches()) {
 									if(previous!=null && !DATE_PATTERN.matcher(current.substring(0,10)).matches()) {
-										previous=previous+"\",\""+current;
+										//previous=previous+"\",\""+current;
+										previous=previous+"\\n"+current;
 									}else {
 										postToSplunk(previous);
 										//logger.debug("Sending data "+previous);
@@ -293,10 +295,13 @@ public class KafkaLogWorker implements Runnable {
 				conn.setRequestMethod("POST");
 				conn.addRequestProperty("Authorization", PropertiesUtil.getProperty("splunk.key"));
 				//messageStr=messageStr.replaceAll("\"", "'");
+				/*input = "{"
+						+ "\"index\":\""+PropertiesUtil.getProperty("splunk.event.type")+"\","
+						+ "\"event\":{\"application\":\""+logFile.getApplicationID()+"\",\"jobName\":\""+logFile.getJobName()+"\",\"logFile\":\""+logFile.getLogfilePath()+"\",\"data\":[\""+messageStr+"\"]}}";*/
 				input = "{"
 						+ "\"index\":\""+PropertiesUtil.getProperty("splunk.event.type")+"\","
-						+ "\"event\":[\""+messageStr
-						+"\"]}";
+						+ "\"event\":\"application="+logFile.getApplicationID()+",jobName="+logFile.getJobName()+",logFile="+logFile.getLogfilePath()+",\\nlog="+messageStr+"\"}";
+				
 				OutputStream os = conn.getOutputStream();
 				os.write(input.getBytes());
 				os.flush();
