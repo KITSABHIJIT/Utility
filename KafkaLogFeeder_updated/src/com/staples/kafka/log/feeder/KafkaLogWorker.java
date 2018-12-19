@@ -42,6 +42,7 @@ public class KafkaLogWorker implements Runnable {
 		File file=null,fileOld=null;
 		RandomAccessFile raf=null,rafOld = null;
 		boolean postToRelic=Boolean.parseBoolean(PropertiesUtil.getProperty("post.to.relic"));
+		boolean postToSplunk=Boolean.parseBoolean(PropertiesUtil.getProperty("post.to.splunk"));
 		boolean postToKafka=Boolean.parseBoolean(PropertiesUtil.getProperty("post.to.kafka"));
 		boolean postLineByLine=Boolean.parseBoolean(PropertiesUtil.getProperty("post.line.by.line"));
 		try {
@@ -72,6 +73,7 @@ public class KafkaLogWorker implements Runnable {
 						String line = null;
 						while ((line = rafOld.readLine()) != null) {
 							if(!StringUtil.isBlankOrEmpty(line) && validForPost(line)) {
+								line=validDataForPost(line);
 								if(postToKafka) {
 									postLogToKafka(line,messageNo);
 								}
@@ -85,6 +87,21 @@ public class KafkaLogWorker implements Runnable {
 											previous=previous+"\n"+current;
 										}else {
 											postToRelic(previous);
+											//logger.debug("Sending data "+previous);
+											previous=current;
+										}
+									}
+								}
+								if(postToSplunk) {
+									if(postLineByLine) {
+										postToSplunk(line);
+									}else {
+										current=line;
+										//if(previous!=null && !isDateValid(current.substring(0,10)) && !DATE_PATTERN.matcher(current.substring(0,10)).matches()) {
+										if(previous!=null && !DATE_PATTERN.matcher(current.substring(0,10)).matches()) {
+											previous=previous+"\",\""+current;
+										}else {
+											postToSplunk(previous);
 											//logger.debug("Sending data "+previous);
 											previous=current;
 										}
@@ -107,6 +124,7 @@ public class KafkaLogWorker implements Runnable {
 					String line = null;
 					while ((line = raf.readLine()) != null) {
 						if(!StringUtil.isBlankOrEmpty(line) && validForPost(line)) {
+							line=validDataForPost(line);
 							if(postToKafka) {
 								postLogToKafka(line,messageNo);
 							}
@@ -120,6 +138,21 @@ public class KafkaLogWorker implements Runnable {
 										previous=previous+"\n"+current;
 									}else {
 										postToRelic(previous);
+										//logger.debug("Sending data "+previous);
+										previous=current;
+									}
+								}
+							}
+							if(postToSplunk) {
+								if(postLineByLine) {
+									postToSplunk(line);
+								}else {
+									current=line;
+									//if(previous!=null && !isDateValid(current.substring(0,10)) && !DATE_PATTERN.matcher(current.substring(0,10)).matches()) {
+									if(previous!=null && !DATE_PATTERN.matcher(current.substring(0,10)).matches()) {
+										previous=previous+"\",\""+current;
+									}else {
+										postToSplunk(previous);
 										//logger.debug("Sending data "+previous);
 										previous=current;
 									}
@@ -186,6 +219,12 @@ public class KafkaLogWorker implements Runnable {
 		}
 		return result;
 	}
+	
+	private String validDataForPost(String message) {
+		message=message.replaceAll("\"", "'");
+		message=message.trim();
+		return message;
+	}
 
 	private boolean isDateValid(String date) 
 	{
@@ -209,8 +248,8 @@ public class KafkaLogWorker implements Runnable {
 				conn.setRequestMethod("POST");
 				conn.setRequestProperty("Content-Type", PropertiesUtil.getProperty("relic.content.type"));
 				conn.addRequestProperty("X-Insert-Key", PropertiesUtil.getProperty("relic.key"));
-				conn.setRequestProperty("Content-Encoding", PropertiesUtil.getProperty("relic.content.encoding"));
-				messageStr=messageStr.replaceAll("\"", "'");
+				//conn.setRequestProperty("Content-Encoding", PropertiesUtil.getProperty("relic.content.encoding"));
+				//messageStr=messageStr.replaceAll("\"", "'");
 				input = "{"
 						+ "\"eventType\":\""+PropertiesUtil.getProperty("relic.event.type")+"\","
 						+ "\"application\":\""+logFile.getApplicationID()+"\","					
@@ -228,7 +267,7 @@ public class KafkaLogWorker implements Runnable {
 						&& conn.getResponseCode() != HttpURLConnection.HTTP_ACCEPTED) {
 					logger.error("Failed : HTTP error code : "+ conn.getResponseCode()+" Message: "+input);
 				}else {
-					logger.debug("Message sent to Relic : (" +  messageStr + ")");
+					logger.debug("Message sent to Relic. Response Code: "+ conn.getResponseCode()+" : (" +  messageStr + ")");
 				}
 				/*BufferedReader br = new BufferedReader(new InputStreamReader(
 					(conn.getInputStream())));
@@ -244,6 +283,43 @@ public class KafkaLogWorker implements Runnable {
 		}
 	}
 
+	private void postToSplunk(String messageStr) {
+		String input=null;
+		if(!StringUtil.isBlankOrEmpty(messageStr)) {
+			try {
+				URL url = new URL(PropertiesUtil.getProperty("splunk.host"));
+				HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+				conn.setDoOutput(true);
+				conn.setRequestMethod("POST");
+				conn.addRequestProperty("Authorization", PropertiesUtil.getProperty("splunk.key"));
+				//messageStr=messageStr.replaceAll("\"", "'");
+				input = "{"
+						+ "\"index\":\""+PropertiesUtil.getProperty("splunk.event.type")+"\","
+						+ "\"event\":[\""+messageStr
+						+"\"]}";
+				OutputStream os = conn.getOutputStream();
+				os.write(input.getBytes());
+				os.flush();
+				if (conn.getResponseCode() != HttpURLConnection.HTTP_CREATED 
+						&& conn.getResponseCode() != HttpURLConnection.HTTP_OK
+						&& conn.getResponseCode() != HttpURLConnection.HTTP_ACCEPTED) {
+					logger.error("Failed : HTTP error code : "+ conn.getResponseCode()+" Message: "+input);
+				}else {
+					logger.debug("Message sent to Splunk. Response Code: "+ conn.getResponseCode()+" : (" +  messageStr + ")");
+				}
+				/*BufferedReader br = new BufferedReader(new InputStreamReader(
+					(conn.getInputStream())));
+			String output;
+			System.out.println("Output from Server .... \n");
+			while ((output = br.readLine()) != null) {
+				System.out.println(output);
+			}*/
+				conn.disconnect();
+			} catch (IOException e) {
+				logger.error("Message: "+input,e);
+			}
+		}
+	}
 }
 
 class DemoCallBackThread implements Callback {
