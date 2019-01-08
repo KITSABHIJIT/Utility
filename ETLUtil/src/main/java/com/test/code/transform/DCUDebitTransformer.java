@@ -27,7 +27,7 @@ public class DCUDebitTransformer {
 			,"TJX REWARDS MC TJX EPAY"
 			,"JCPENNEY MC JCP EPAY"
 			,"CHASE CREDIT CRDEPAY"
-			
+			,"PAYMENT FOR AMZ STORECARD"
 			,"BEST BUY"
 			,"SEARS"
 			,"KOHL'S DEPT STRS DES"

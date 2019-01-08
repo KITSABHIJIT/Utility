@@ -1,5 +1,6 @@
 package com.test.code.main;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +11,7 @@ import com.test.code.pojo.Category;
 import com.test.code.pojo.Expense;
 import com.test.code.pojo.Merchant;
 import com.test.code.pojo.PayMode;
+import com.test.code.transform.AmazonStroreTransformer;
 import com.test.code.transform.AmexTransformer;
 import com.test.code.transform.BJsTransformer;
 import com.test.code.transform.BOACreditTransformer;
@@ -22,6 +24,7 @@ import com.test.code.transform.JCPenneyTransformer;
 import com.test.code.transform.KholsTransformer;
 import com.test.code.transform.MacysTransformer;
 import com.test.code.transform.TjMaxTransformer;
+import com.test.code.transform.WalmartTransformer;
 import com.test.code.transform.ZalesTransformer;
 import com.test.code.util.PropertiesUtil;
 
@@ -30,11 +33,13 @@ public class StartLoadingData {
 	public static void main (String ...strings){
 		//Expense Load
 		// Extract Data
-		Map<String,List<String>> rawData =DataExtractor.extractDataWithFileName(PropertiesUtil.getProperty("sourceDirPath"));
+		//Map<String,List<String>> rawData =DataExtractor.extractDataWithFileName(PropertiesUtil.getProperty("sourceDirPath"));
 		// Transform Data
-		List<Expense> expList=DataTransformer.transformDataUsingDelimeter(rawData, PropertiesUtil.getProperty("delimeter"));
+		//List<Expense> expList=DataTransformer.transformDataUsingDelimeter(rawData, PropertiesUtil.getProperty("delimeter"));
+		List<Expense> expList=new ArrayList<Expense>();
 		// Load Data
 		AmexTransformer.processData(expList);
+		AmazonStroreTransformer.processData(expList);
 		BestBuyTransformer.processData(expList);
 		BJsTransformer.processData(expList);
 		BOACreditTransformer.processData(expList);
@@ -47,6 +52,7 @@ public class StartLoadingData {
 		MacysTransformer.processData(expList);
 		TjMaxTransformer.processData(expList);
 		ZalesTransformer.processData(expList);
+		WalmartTransformer.processData(expList);
 		DataLoader.loadExpenseData(expList);
 		
 		//Category Load

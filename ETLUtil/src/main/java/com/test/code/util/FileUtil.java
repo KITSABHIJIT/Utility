@@ -18,7 +18,7 @@ public class FileUtil {
 	    // get all the files from a directory
 	    File[] fList = directory.listFiles();
 	    for (File file : fList) {
-	        if (file.isFile()) {
+	        if (file.isFile() && !".DS_Store".equals(file.getName())) {
 	            files.add((absolutepath)?file.getAbsolutePath():file.getName());
 	        } else if (file.isDirectory()) {
 	        	files.addAll(getListOfFiles(file.getAbsolutePath(),absolutepath));

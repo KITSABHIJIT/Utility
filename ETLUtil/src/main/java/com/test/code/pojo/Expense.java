@@ -80,6 +80,11 @@ public class Expense{
 				return false;
 		} else if (!transactionDate.equals(other.transactionDate))
 			return false;
+		if (merchant == null) {
+			if (other.merchant != null)
+				return false;
+		} else if (!merchant.equals(other.merchant))
+			return false;
 		return true;
 	}
 	
