@@ -22,9 +22,9 @@ public class GenerateReport {
 		long startTime=new  Date().getTime();
 		
 		
-		Date startDate=DateUtil.getSomeDate("20180801", "yyyyMMdd");
-		Date endDate=DateUtil.getSomeDate("20181131", "yyyyMMdd");
-		List<Date> dateList =DateUtil.getDatesFromDateRange(startDate, endDate, "MONTHLY");
+		Date startDate=DateUtil.getSomeDate(PropertiesUtil.getProperty("reportStartDate"), "yyyyMMdd");
+		Date endDate=DateUtil.getSomeDate(PropertiesUtil.getProperty("reportEndDate"), "yyyyMMdd");
+		List<Date> dateList =DateUtil.getDatesFromDateRange(startDate, endDate, PropertiesUtil.getProperty("reportType"));
 		int counter=0;
 		logger.info("Process started...");
 		for(int i=1;i<dateList.size();i++){
