@@ -299,8 +299,11 @@ public class KafkaLogWorker implements Runnable {
 						+ "\"index\":\""+PropertiesUtil.getProperty("splunk.event.type")+"\","
 						+ "\"event\":{\"application\":\""+logFile.getApplicationID()+"\",\"jobName\":\""+logFile.getJobName()+"\",\"logFile\":\""+logFile.getLogfilePath()+"\",\"data\":[\""+messageStr+"\"]}}";*/
 				input = "{"
-						+ "\"index\":\""+PropertiesUtil.getProperty("splunk.event.type")+"\","
-						+ "\"event\":\"application="+logFile.getApplicationID()+",jobName="+logFile.getJobName()+",logFile="+logFile.getLogfilePath()+",\\nlog="+messageStr+"\"}";
+						+ "\"index\":\""+PropertiesUtil.getProperty("splunk.event.index")+"\","
+						+ "\"host\":\""+PropertiesUtil.getProperty("splunk.event.host")+"\","
+						+ "\"sourcetype\":\""+PropertiesUtil.getProperty("splunk.event.sourceType")+"\","
+						+ "\"source\":\""+logFile.getLogfilePath()+"\","
+						+ "\"event\":\"application="+logFile.getApplicationID()+",jobName="+logFile.getJobName()+",\\nlog="+messageStr+"\"}";
 				
 				OutputStream os = conn.getOutputStream();
 				os.write(input.getBytes());
