@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.opencsv.CSVReader;
+import com.test.code.pojo.Earning;
 import com.test.code.pojo.Expense;
 import com.test.code.util.DateUtil;
 import com.test.code.util.PropertiesUtil;
@@ -13,6 +14,8 @@ import com.test.code.util.StringUtil;
 public class DCUDebitTransformer {
 	private static final char COMMA_DELIMITER = ',';
 	private static final char QUOTE_CHAR = '"';
+	private static final String EARNING ="TATA CONSULTANCY";
+	private static final String MODE_OF_EARNING ="DCU";
 	private static final String MODE_OF_PAYMENT ="DCU DEBIT CARD";
 	private static final String EXCLUDED_PAYMENTS [] = {"TATA CONSULTANCY"
 			,"AMEX EPAYMENT ACH"
@@ -37,7 +40,7 @@ public class DCUDebitTransformer {
 	private static final String LOAN_PAYMENTS [] = {"TRANSFER TO LOAN", "SH DRAFT"};
 	private static final String LOAN_DESCRIPTIONS [] = {"CAR LOAN", "PARKS VILLAGE RENT"};
 	
-	public static List<Expense> processData(List<Expense> expenseList){
+	public static List<Expense> processData(List<Expense> expenseList,List<Earning> earningList){
 
 		CSVReader csvReader = null;
 		String[] expenseDetails = null;
@@ -73,6 +76,24 @@ public class DCUDebitTransformer {
 						System.out.println("Expense Record already exists: "+exp.toString());
 					}else {
 						expenseList.add(exp);
+					}
+				}else {
+					if(isEarning(expenseDetails[3].trim())) {
+						Earning earning = new Earning();
+						earning.setModeOfPayment(MODE_OF_EARNING);
+						earning.setTransactionDate(DateUtil.getSQLData(DateUtil.getSomeDate(expenseDetails[1].trim(), "MM/dd/yyyy")));
+						earning.setMerchant(expenseDetails[3].trim().toUpperCase());
+						//earning.setEarningPlace(expenseDetails[3].trim().toUpperCase());
+						if(StringUtil.isBlankOrEmpty(expenseDetails[4])) {
+							earning.setAmount(StringUtil.getDouble(expenseDetails[5].trim()));
+						}else {
+							earning.setAmount(StringUtil.getDouble(expenseDetails[4].trim()));
+						}
+						if(earningList.contains(earning)) {
+							System.out.println("Earning Record already exists: "+earning.toString());
+						}else {
+							earningList.add(earning);
+						}
 					}
 				}
 			}
@@ -121,5 +142,13 @@ public class DCUDebitTransformer {
 					exclude=true;
 			}
 		return exclude;
+	}
+	
+	public static boolean isEarning(String expense){
+		boolean result=false;
+			if(expense.toUpperCase().startsWith(EARNING)) {
+				result=true;
+		}
+		return result;
 	}
 }

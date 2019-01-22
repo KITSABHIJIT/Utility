@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.test.code.pojo.Category;
+import com.test.code.pojo.Earning;
 import com.test.code.pojo.Expense;
 import com.test.code.pojo.Merchant;
 import com.test.code.pojo.PayMode;
@@ -15,9 +16,10 @@ import com.test.code.util.ConnectionUtil;
 import com.test.code.util.PropertiesUtil;
 
 public class DataLoader {
+	
 	public static void loadExpenseData(List<Expense> expList){
 		try (Connection connection = ConnectionUtil.getConnection();
-				PreparedStatement statement = connection.prepareStatement(PropertiesUtil.getProperty("SQL_INSERT"));
+				PreparedStatement statement = connection.prepareStatement(PropertiesUtil.getProperty("SQL_EXPENSE_INSERT"));
 				) {
 			int i = 0;
 			for (Expense exp : expList) {
@@ -46,6 +48,45 @@ public class DataLoader {
 
 			}
 			System.out.println("Total number of records added: "+expList.size());
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+	}
+	
+	public static void loadEarningData(List<Earning> earningList){
+		try (Connection connection = ConnectionUtil.getConnection();
+				PreparedStatement statement = connection.prepareStatement(PropertiesUtil.getProperty("SQL_EARNING_INSERT"));
+				PreparedStatement addRewards = connection.prepareStatement(PropertiesUtil.getProperty("SQL_EARNING_REWARDS_ADD"));
+				PreparedStatement eleminateRewards = connection.prepareStatement(PropertiesUtil.getProperty("SQL_ELEMINATE_REWARDS_EXPENSE"));
+				) {
+			int i = 0;
+			for (Earning ear : earningList) {
+				try {
+					statement.setDate(1, ear.getTransactionDate());
+					statement.setString(2, ear.getMerchant());
+					statement.setString(3, ear.getEarningPlace());
+					statement.setString(4, ear.getModeOfPayment());
+					statement.setDouble(5, ear.getAmount());
+					statement.setDate(6, ear.getTransactionDate());
+					statement.setString(7, ear.getMerchant());
+					statement.setString(8, ear.getModeOfPayment());
+					statement.setDouble(9, ear.getAmount());
+					statement.executeUpdate();
+					/*statement.addBatch();
+				i++;
+				if (i % 1000 == 0 || i == expList.size()) {
+					statement.executeBatch(); // Execute every 1000 items.
+				}*/
+					//System.out.println(exp.toString());
+				}catch(SQLException e){
+					e.printStackTrace();
+					System.out.println(ear.toString());
+				}
+				/*if(addRewards.executeUpdate()<0) {
+					eleminateRewards.executeUpdate();
+				}*/
+			}
+			System.out.println("Total number of records added: "+earningList.size());
 		}catch(SQLException e){
 			e.printStackTrace();
 		}

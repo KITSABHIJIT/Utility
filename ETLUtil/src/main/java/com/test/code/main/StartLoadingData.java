@@ -8,6 +8,7 @@ import com.test.code.extract.DataExtractor;
 import com.test.code.extract.DataTransformer;
 import com.test.code.load.DataLoader;
 import com.test.code.pojo.Category;
+import com.test.code.pojo.Earning;
 import com.test.code.pojo.Expense;
 import com.test.code.pojo.Merchant;
 import com.test.code.pojo.PayMode;
@@ -33,18 +34,19 @@ public class StartLoadingData {
 	public static void main (String ...strings){
 		//Expense Load
 		// Extract Data
-		//Map<String,List<String>> rawData =DataExtractor.extractDataWithFileName(PropertiesUtil.getProperty("sourceDirPath"));
+		Map<String,List<String>> rawData =DataExtractor.extractDataWithFileName(PropertiesUtil.getProperty("sourceDirPath"));
 		// Transform Data
-		//List<Expense> expList=DataTransformer.transformDataUsingDelimeter(rawData, PropertiesUtil.getProperty("delimeter"));
-		List<Expense> expList=new ArrayList<Expense>();
+		List<Expense> expList=DataTransformer.transformDataUsingDelimeter(rawData, PropertiesUtil.getProperty("delimeter"));
+		// Transform Data
+		List<Earning> earningList=new ArrayList<Earning>();
 		// Load Data
 		AmexTransformer.processData(expList);
 		AmazonStroreTransformer.processData(expList);
 		BestBuyTransformer.processData(expList);
 		BJsTransformer.processData(expList);
 		BOACreditTransformer.processData(expList);
-		BOADebitTransformer.processData(expList);
-		DCUDebitTransformer.processData(expList);
+		BOADebitTransformer.processData(expList,earningList);
+		DCUDebitTransformer.processData(expList,earningList);
 		ChaseTransformer.processData(expList);
 		DiscoverTransformer.processData(expList);
 		JCPenneyTransformer.processData(expList);
@@ -53,7 +55,9 @@ public class StartLoadingData {
 		TjMaxTransformer.processData(expList);
 		ZalesTransformer.processData(expList);
 		WalmartTransformer.processData(expList);
+		
 		DataLoader.loadExpenseData(expList);
+		DataLoader.loadEarningData(earningList);
 		
 		//Category Load
 		// Extract Data

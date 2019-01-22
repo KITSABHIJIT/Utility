@@ -4,6 +4,7 @@ import java.io.FileReader;
 import java.util.List;
 
 import com.opencsv.CSVReader;
+import com.test.code.pojo.Earning;
 import com.test.code.pojo.Expense;
 import com.test.code.util.DateUtil;
 import com.test.code.util.PropertiesUtil;
@@ -13,6 +14,8 @@ public class BOADebitTransformer {
 	private static final char COMMA_DELIMITER = ',';
 	private static final char QUOTE_CHAR = '"';
 	private static final String MODE_OF_PAYMENT ="BANK OF AMERICA DEBIT CARD";
+	private static final String EARNING ="TATA CONSULTANCY DES:DIRECT DEP ID";
+	private static final String MODE_OF_EARNING ="BANK OF AMERICA";
 	private static final String EXCLUDED_PAYMENTS [] = {"TATA CONSULTANCY DES:DIRECT DEP ID"
 			,"AMERICAN EXPRESS DES:ACH PMT ID"
 			,"DISCOVER DES:E-PAYMENT ID:7562"
@@ -31,7 +34,7 @@ public class BOADebitTransformer {
 			,"CHASE CREDIT CRD DES:EPAY ID"
 			,"CHASE DES:EPAY ID"};
 	
-	public static List<Expense> processData(List<Expense> expenseList){
+	public static List<Expense> processData(List<Expense> expenseList,List<Earning> earningList){
 
 		CSVReader csvReader = null;
 		String[] expenseDetails = null;
@@ -57,6 +60,20 @@ public class BOADebitTransformer {
 					}else {
 						expenseList.add(exp);
 					}
+				}else {
+					if(isEarning(expenseDetails[1].trim())) {
+						Earning earning = new Earning();
+						earning.setModeOfPayment(MODE_OF_EARNING);
+						earning.setTransactionDate(DateUtil.getSQLData(DateUtil.getSomeDate(expenseDetails[0].trim(), "MM/dd/yyyy")));
+						earning.setMerchant(expenseDetails[1].trim().toUpperCase());
+						//earning.setEarningPlace(expenseDetails[3].trim().toUpperCase());
+						earning.setAmount(StringUtil.getDouble(expenseDetails[2].trim()));
+						if(earningList.contains(earning)) {
+							System.out.println("Earning Record already exists: "+earning.toString());
+						}else {
+							earningList.add(earning);
+						}
+					}
 				}
 			}
 		} catch (Exception e) {
@@ -75,5 +92,12 @@ public class BOADebitTransformer {
 			}
 		}
 		return exclude;
+	}
+	public static boolean isEarning(String expense){
+		boolean result=false;
+			if(expense.toUpperCase().startsWith(EARNING)) {
+				result=true;
+		}
+		return result;
 	}
 }
