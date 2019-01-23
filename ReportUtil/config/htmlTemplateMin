@@ -463,6 +463,7 @@ jQuery('.chart-input').off().on('input change',function() {
 <!-- HTML -->
 <div id="chartdivTotal"></div>
 <div id="chartdivEarning"></div>
+<br style="clear: left;" />
 <div id="chartdiv"></div>
 <div id="chartdiv1"></div>
 <div id="chartdiv2"></div>
