@@ -2,8 +2,15 @@
 <style>
 
 #chartdivTotal {
-  width: 100%;
+  width: 50%;
   height: 500px;
+  float: left;
+}
+
+#chartdivEarning {
+  width: 50%;
+  height: 500px;
+  float: left;
 }
 
 #chartdiv {
@@ -375,6 +382,63 @@ function randomValue() {
   chartTotal.axes[0].bands[1].setEndValue(totalExpense);
 }
 
+var totalEarning = Math.round((<TOTAL_EARNING> / 1000),2);
+var endEarningLimit = ((Math.round(totalEarning / 10) + 1) * 10);
+var chartEarning = AmCharts.makeChart("chartdivEarning", {
+  "theme": "light",
+  "type": "gauge",
+  "titles": [ {
+    "text": "Monthly Earning",
+    "size": 16
+ 	 } ],
+  "axes": [{
+    "topTextFontSize": 20,
+    "topTextYOffset": 70,
+    "axisColor": "#31d6ea",
+    "axisThickness": 1,
+    "endValue": endEarningLimit,
+    "gridInside": true,
+    "inside": true,
+    "radius": "50%",
+    "valueInterval": endEarningLimit/10,
+    "tickColor": "#67b7dc",
+    "startAngle": -90,
+    "endAngle": 90,
+    "unit": "$",
+    "bandOutlineAlpha": 0,
+    "bands": [{
+      "color": "#0080ff",
+      "endValue": endEarningLimit,
+      "innerRadius": "105%",
+      "radius": "170%",
+      "gradientRatio": [0.5, 0, -0.5],
+      "startValue": 0
+    }, {
+      "color": "#3cd3a3",
+      "endValue": 0,
+      "innerRadius": "105%",
+      "radius": "170%",
+      "gradientRatio": [0.5, 0, -0.5],
+      "startValue": 0
+    }]
+  }],
+  "arrows": [{
+    "alpha": 1,
+    "innerRadius": "35%",
+    "nailRadius": 0,
+    "radius": "170%"
+  }]
+});
+
+setInterval(randomEarningValue, 2000);
+
+
+function randomEarningValue() {
+  chartEarning.arrows[0].setValue(totalEarning);
+  chartEarning.axes[0].setTopText("$<TOTAL_EARNING>");
+  chartEarning.axes[0].bands[1].setEndValue(totalEarning);
+}
+
 jQuery('.chart-input').off().on('input change',function() {
 	var property	= jQuery(this).data('property');
 	var target		= chart;
@@ -398,6 +462,7 @@ jQuery('.chart-input').off().on('input change',function() {
 
 <!-- HTML -->
 <div id="chartdivTotal"></div>
+<div id="chartdivEarning"></div>
 <div id="chartdiv"></div>
 <div id="chartdiv1"></div>
 <div id="chartdiv2"></div>

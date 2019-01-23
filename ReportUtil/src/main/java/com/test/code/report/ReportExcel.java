@@ -77,13 +77,13 @@ public class ReportExcel {
 			if(!StringUtil.isBlankOrEmpty(dataSet.getValue().getBarData())){
 				for(BarChartData barData : dataSet.getValue().getBarData()){
 					writeBarChart(workbook, sheet, barData);
-					logger.debug(barData.getTitle()+" Pie chart added to sheet: "+dataSet.getKey());
+					logger.debug(barData.getTitle()+" Bar chart added to sheet: "+dataSet.getKey());
 				}
 			}
 			if(!StringUtil.isBlankOrEmpty(dataSet.getValue().getLineData())){
 				for(LineChartData lineData : dataSet.getValue().getLineData()){
 					writeLineChart(workbook, sheet, lineData);
-					logger.debug(lineData.getTitle()+" Pie chart added to sheet: "+dataSet.getKey());
+					logger.debug(lineData.getTitle()+" Line chart added to sheet: "+dataSet.getKey());
 				}
 			}
 			logger.debug("Sheet: "+dataSet.getKey()+" added to Excel.");
