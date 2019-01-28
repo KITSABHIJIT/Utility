@@ -82,9 +82,12 @@ public class DataLoader {
 					e.printStackTrace();
 					System.out.println(ear.toString());
 				}
-				/*if(addRewards.executeUpdate()<0) {
-					eleminateRewards.executeUpdate();
-				}*/
+			}
+			int rewardsAddedToEaring=addRewards.executeUpdate();
+			System.out.println("Total number of rewards added to Earning: "+rewardsAddedToEaring);
+			if(rewardsAddedToEaring>0) {
+				int rewardsEleminatedFromExpense=eleminateRewards.executeUpdate();
+				System.out.println("Total number of rewards eleminated from Expense: "+rewardsEleminatedFromExpense);
 			}
 			System.out.println("Total number of records added: "+earningList.size());
 		}catch(SQLException e){
