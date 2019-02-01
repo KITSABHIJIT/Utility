@@ -45,6 +45,8 @@ JSON_PERIOD_BAR_EXPENSE_MONTH=SELECT distinct r0.ExpenseMonth,  trim(r1.Expense)
 
 JSON_PERIOD_LINE_EXPENSE_DAILY=SELECT * from PAYMODE_DAILY_EXPENSE
 
+JSON_LOSS_GAIN_MONTH=select exp.Month,(ear.Earning-exp.Expense) value from  (SELECT DATE_FORMAT(EXPENSE_DATE, '%y%m') as "Month" ,sum(AMOUNT) as "Expense" FROM EXPENSE E  group by DATE_FORMAT(EXPENSE_DATE, '%y%m')) exp, (SELECT DATE_FORMAT(EARNING_DATE, '%y%m') as "Month" ,sum(AMOUNT) as "Earning" FROM EARNING E  group by DATE_FORMAT(EARNING_DATE, '%y%m')) ear where exp.Month=ear.Month
+
 EXPENSE_RECORDS=SELECT E.EXPENSE_DATE ,E.PAYMENT_MODE ,M.MERCHANT ,M.CATEGORY ,CASE WHEN M.DESCRIPTION IS NULL THEN '' ELSE M.DESCRIPTION END DESCRIPTION ,E.PLACE_OF_EXPENSE ,E.AMOUNT FROM EXPENSE E ,(select m.merchant,e.category, m.description from merchant m left outer join expense_category e on m.category=e.category_id) M WHERE E.MERCHANT=M.MERCHANT AND EXPENSE_DATE >= '<START_DATE>' AND EXPENSE_DATE <= '<END_DATE>'
 
 EXPENSE_TOTAL=SELECT SUM(E.AMOUNT) AS TOTAL_EXPENSE FROM EXPENSE E WHERE EXPENSE_DATE >= '<START_DATE>' AND EXPENSE_DATE <= '<END_DATE>'
@@ -106,6 +108,7 @@ CONFIG_PERIOD_MULTIBAR_MONTHLY_PAYMENT_TYPE_EXPENSE =Monthly Expense By Payment 
 
 CONFIG_LINE_EXPENSE =Expense By Date|Dates|Expense|true|true|false|1500|600|0|0|FALSE|TRUE
 
-RIA_SOURCE_RECEIPTS=/Users/royab001/Google Drive/Utility Bills/Ria/Receipts/
-XOOM_SOURCE_RECEIPT=/Users/royab001/Google Drive/Utility Bills/Xoom/xoom.pdf
+RIA_PDF_SOURCE_RECEIPTS=/Users/royab001/Google Drive/Utility Bills/Ria/Receipts/
+RIA_IMAGE_SOURCE_RECEIPTS=/Users/royab001/Google Drive/Utility Bills/Ria/ImageReceipts/
+XOOM_SOURCE_RECEIPT=/Users/royab001/Google Drive/Utility Bills/Xoom/
 RIA_PEPORT=/Users/royab001/Google Drive/Utility Bills/Ria/Report/RiaMoney.xls

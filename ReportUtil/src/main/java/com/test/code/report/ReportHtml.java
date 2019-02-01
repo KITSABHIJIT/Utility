@@ -10,9 +10,11 @@ public class ReportHtml {
 	private static final String htmlTemplateFilePath = "./config/htmlTemplate";
 	private static final String htmlTemplateMinFilePath = "./config/htmlTemplateMin";
 	private static final String htmlTableTemplateFilePath = "./config/htmlTableTemplate";
+	private static final String lossGainTemplateFilePath = "./config/lossGainTemplate";
 	public static void generateReport(){
 		
 		String content=FileUtil.getStringFromFile(htmlTemplateFilePath);
+		String lossGainContent=FileUtil.getStringFromFile(lossGainTemplateFilePath);
 		
 		content=content.replace("<TOTAL_EARNING>",String.valueOf(DataExtractor.getTotalExpense(PropertiesUtil.getProperty("TOTAL_EARNING"))));
 		content=content.replace("<TOTAL_EXPENSE>",String.valueOf(DataExtractor.getTotalExpense(PropertiesUtil.getProperty("TOTAL_EXPENSE"))));
@@ -25,8 +27,14 @@ public class ReportHtml {
 		content=content.replace("<PERIOD_BAR_DATA>",(DataExtractor.getJsonData(PropertiesUtil.getProperty("JSON_PERIOD_BAR_EXPENSE_MONTH"),true).toString()));
 		content=content.replace("<PERIOD_BAR_DATA>",(DataExtractor.getJsonData(PropertiesUtil.getProperty("JSON_PERIOD_BAR_EXPENSE_MONTH"),true).toString()));
 		//content=content.replace("<PERIOD_MULTIPLE_AXES_DATA>",(DataExtractor.getJsonData(PropertiesUtil.getProperty("JSON_PERIOD_LINE_EXPENSE_DAILY"),true).toString()));
+		
+		lossGainContent=lossGainContent.replace("<LOSS_GAIN_DATA>",(DataExtractor.getJsonData(PropertiesUtil.getProperty("JSON_LOSS_GAIN_MONTH"),false).toString()));
+		
 		FileUtil.deleteFile(PropertiesUtil.getProperty("excelPath")+"/report.html");
 		FileUtil.writeToFile(content, PropertiesUtil.getProperty("excelPath")+"/report.html");
+		
+		FileUtil.deleteFile(PropertiesUtil.getProperty("excelPath")+"/lossGain.html");
+		FileUtil.writeToFile(lossGainContent, PropertiesUtil.getProperty("excelPath")+"/lossGain.html");
 
 	}
 
