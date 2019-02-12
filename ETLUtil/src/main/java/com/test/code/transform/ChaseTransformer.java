@@ -31,10 +31,10 @@ public class ChaseTransformer {
 				if(!PAYMENT_DONE.equals(expenseDetails[3].trim())) {
 					Expense exp = new Expense();
 					exp.setModeOfPayment(MODE_OF_PAYMENT);
-					exp.setTransactionDate(DateUtil.getSQLData(DateUtil.getSomeDate(expenseDetails[1].trim(), "MM/dd/yyyy")));
-					exp.setMerchant(expenseDetails[3].trim().toUpperCase());
+					exp.setTransactionDate(DateUtil.getSQLData(DateUtil.getSomeDate(expenseDetails[0].trim(), "MM/dd/yyyy")));
+					exp.setMerchant(expenseDetails[2].trim().toUpperCase());
 					//exp.setExpensePlace(expenseDetails[3].trim().toUpperCase());
-					exp.setAmount(-1*StringUtil.getDouble(expenseDetails[4].trim()));
+					exp.setAmount(-1*StringUtil.getDouble(expenseDetails[5].trim()));
 					if(expenseList.contains(exp)) {
 						System.out.println("Expense Record already exists: "+exp.toString());
 					}else {
@@ -43,7 +43,7 @@ public class ChaseTransformer {
 				}
 			}
 		} catch (Exception e) {
-			System.err.println("Error file: "+PropertiesUtil.getProperty("ChaseFile")+"\n Error Data: "+expenseDetails.toString());
+			System.err.println("Error file: "+PropertiesUtil.getProperty("ChaseFile")+"\n Error Data: "+StringUtil.printArray(expenseDetails));
 			e.printStackTrace();
 		}
 		return expenseList;

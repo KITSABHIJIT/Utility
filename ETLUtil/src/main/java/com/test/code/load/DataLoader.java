@@ -14,6 +14,7 @@ import com.test.code.pojo.Merchant;
 import com.test.code.pojo.PayMode;
 import com.test.code.util.ConnectionUtil;
 import com.test.code.util.PropertiesUtil;
+import com.test.code.util.StringUtil;
 
 public class DataLoader {
 	
@@ -25,8 +26,8 @@ public class DataLoader {
 			for (Expense exp : expList) {
 				try {
 					statement.setDate(1, exp.getTransactionDate());
-					statement.setString(2, exp.getMerchant());
-					statement.setString(3, exp.getExpensePlace());
+					statement.setString(2, StringUtil.trim(exp.getMerchant()));
+					statement.setString(3, StringUtil.trim(exp.getExpensePlace()));
 					statement.setString(4, exp.getModeOfPayment());
 					statement.setDouble(5, exp.getAmount());
 					statement.setDate(6, exp.getTransactionDate());

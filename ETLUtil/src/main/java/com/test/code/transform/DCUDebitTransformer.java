@@ -98,7 +98,7 @@ public class DCUDebitTransformer {
 				}
 			}
 		} catch (Exception e) {
-			System.err.println("Error file: "+PropertiesUtil.getProperty("DCUdebitFile")+"\n Error Data: "+Arrays.toString(expenseDetails));
+			System.err.println("Error file: "+PropertiesUtil.getProperty("DCUdebitFile")+"\n Error Data: "+StringUtil.printArray(expenseDetails));
 			e.printStackTrace();
 		}
 		return expenseList;

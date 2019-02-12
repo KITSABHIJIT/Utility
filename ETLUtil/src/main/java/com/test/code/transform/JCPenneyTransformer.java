@@ -47,7 +47,7 @@ public class JCPenneyTransformer {
 				}
 			}
 		} catch (Exception e) {
-			System.err.println("Error file: "+PropertiesUtil.getProperty("JCPenneyFile")+"\n Error Data: "+expenseDetails.toString());
+			System.err.println("Error file: "+PropertiesUtil.getProperty("JCPenneyFile")+"\n Error Data: "+StringUtil.printArray(expenseDetails));
 			e.printStackTrace();
 		}
 		return expenseList;

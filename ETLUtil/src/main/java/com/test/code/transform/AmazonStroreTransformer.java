@@ -43,7 +43,7 @@ public class AmazonStroreTransformer {
 				}
 			}
 		} catch (Exception e) {
-			System.err.println("Error file: "+PropertiesUtil.getProperty("StoreCardFile")+"\n Error Data: "+expenseDetails.toString());
+			System.err.println("Error file: "+PropertiesUtil.getProperty("StoreCardFile")+"\n Error Data: "+StringUtil.printArray(expenseDetails));
 			e.printStackTrace();
 		}
 		return expenseList;
