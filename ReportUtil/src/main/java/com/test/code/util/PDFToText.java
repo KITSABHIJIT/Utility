@@ -160,6 +160,11 @@ public class PDFToText {
 				if(line.startsWith("Transfer Amount")) {
 					double total=Double.parseDouble(temp[2].replaceAll(",", ""));
 					tempList.add(total);
+					if(line.indexOf("$")>0) {
+						tempList.add(line.substring(line.indexOf("$")));
+					}
+				}
+				if(line.startsWith("Exchange Rate")) {
 					tempList.add(line.substring(line.indexOf("$")));
 				}
 				if(line.startsWith("Total")) {

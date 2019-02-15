@@ -1,6 +1,6 @@
 
 reportStartDate=20150601
-reportEndDate=20190131
+reportEndDate=
 reportType=MONTHLY
 
 MYSQL=//localhost:3306/expdb|root|abhijit

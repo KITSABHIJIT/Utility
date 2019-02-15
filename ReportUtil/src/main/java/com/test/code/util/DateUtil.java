@@ -69,7 +69,12 @@ public class DateUtil {
 	public static Date getSomeDate(final String str, final String inputFormat)
 			throws ParseException {
 		final SimpleDateFormat sdf = new SimpleDateFormat(inputFormat,Locale.ENGLISH);
-		return sdf.parse(str);
+		if(StringUtil.isBlankOrEmpty(str)) {
+			return sdf.parse(getDateToString(new Date(),inputFormat));
+		}else {
+			return sdf.parse(str);
+		}
+		
 	}
 	public static String milliToDate(long millisecond){
 		DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
