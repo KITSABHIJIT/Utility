@@ -20,8 +20,10 @@ public class DataLoader {
 	
 	public static void loadExpenseData(List<Expense> expList){
 		try (Connection connection = ConnectionUtil.getConnection();
+				PreparedStatement statementCleanup = connection.prepareStatement(PropertiesUtil.getProperty("SQL_EXPENSE_CLEANUP"));
 				PreparedStatement statement = connection.prepareStatement(PropertiesUtil.getProperty("SQL_EXPENSE_INSERT"));
 				) {
+			statementCleanup.executeUpdate();
 			int i = 0;
 			for (Expense exp : expList) {
 				try {
@@ -56,10 +58,12 @@ public class DataLoader {
 	
 	public static void loadEarningData(List<Earning> earningList){
 		try (Connection connection = ConnectionUtil.getConnection();
+				PreparedStatement statementCleanup = connection.prepareStatement(PropertiesUtil.getProperty("SQL_EARNING_CLEANUP"));
 				PreparedStatement statement = connection.prepareStatement(PropertiesUtil.getProperty("SQL_EARNING_INSERT"));
 				PreparedStatement addRewards = connection.prepareStatement(PropertiesUtil.getProperty("SQL_EARNING_REWARDS_ADD"));
 				PreparedStatement eleminateRewards = connection.prepareStatement(PropertiesUtil.getProperty("SQL_ELEMINATE_REWARDS_EXPENSE"));
 				) {
+			statementCleanup.executeUpdate();
 			int i = 0;
 			for (Earning ear : earningList) {
 				try {
@@ -121,8 +125,10 @@ public class DataLoader {
 	}*/
 	public static void loadCategoryData(List<Category> dataList){
 		try (Connection connection = ConnectionUtil.getConnection();
+				PreparedStatement statementCleanup = connection.prepareStatement(PropertiesUtil.getProperty("SQL_CATEGORY_CLEANUP"));
 				PreparedStatement statement = connection.prepareStatement(PropertiesUtil.getProperty("SQL_INSERT_CATEGORY"));
 				) {
+			statementCleanup.executeUpdate();
 			int i = 0;
 			for (Category category : dataList) {
 				statement.setInt(1, category.getCategory_id());
@@ -144,8 +150,10 @@ public class DataLoader {
 	
 	public static void loadMerchantMappingData(List<Merchant> dataList){
 		try (Connection connection = ConnectionUtil.getConnection();
+				PreparedStatement statementCleanup = connection.prepareStatement(PropertiesUtil.getProperty("SQL_MERCHANT_MAPPING_CLEANUP"));
 				PreparedStatement statement = connection.prepareStatement(PropertiesUtil.getProperty("SQL_INSERT_MERCHANT_MAPPING"));
 				) {
+			statementCleanup.executeUpdate();
 			int i = 0;
 			for (Merchant merchant : dataList) {
 				statement.setString(1, merchant.getMerchant());
@@ -168,9 +176,11 @@ public class DataLoader {
 	public static void loadNewMerchant(){
 		List<String> newMerchants=getMerchantData();
 		try (Connection connection = ConnectionUtil.getConnection();
+				PreparedStatement statementCleanup = connection.prepareStatement(PropertiesUtil.getProperty("SQL_MERCHANT_CLEANUP"));
 				PreparedStatement statement = connection.prepareStatement(PropertiesUtil.getProperty("SQL_INSERT_NEW_MERCHANT"));
 				PreparedStatement statementUpdate = connection.prepareStatement(PropertiesUtil.getProperty("SQL_NEW_MERCHANT_UPDATE"));
 				) {
+			statementCleanup.executeUpdate();
 			int i = 0;
 			for (String merchant: newMerchants) {
 				statement.setString(1, merchant);

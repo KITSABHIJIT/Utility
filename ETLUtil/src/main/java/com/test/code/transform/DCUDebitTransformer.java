@@ -1,7 +1,6 @@
 package com.test.code.transform;
 
 import java.io.FileReader;
-import java.util.Arrays;
 import java.util.List;
 
 import com.opencsv.CSVReader;
@@ -33,9 +32,10 @@ public class DCUDebitTransformer {
 			,"PAYMENT FOR AMZ STORECARD"
 			,"BEST BUY"
 			,"SEARS"
-			,"KOHL'S DEPT STRS DES"
+			,"KOHL'S DEPT STRS"
 			,"WELLS FARGO CARDCCPYMT"
-			,"CHASE DES:EPAY ID"};
+			,"CHASE DES:EPAY ID"
+			,"WALMART MC WM EPAY"};
 	
 	private static final String LOAN_PAYMENTS [] = {"TRANSFER TO LOAN", "SH DRAFT"};
 	private static final String LOAN_DESCRIPTIONS [] = {"CAR LOAN", "PARKS VILLAGE RENT"};
