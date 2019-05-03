@@ -5,6 +5,7 @@ sourceDirPathCategory=/Users/royab001/Google Drive/Expense/Expense Dumps/Categor
 delimeter=[|]
 
 MYSQL=//localhost:3306/expdb|root|abhijit
+MYSQLDB=expdb
 
 SQL_EXPENSE_CLEANUP=DELETE FROM EXPDB.EXPENSE
 SQL_EARNING_CLEANUP=DELETE FROM EXPDB.EARNING
@@ -50,3 +51,7 @@ ZalesFileTemp=/Users/royab001/Google Drive/Expense/Expense Dumps/Raw_Statements/
 BestBuyFile=/Users/royab001/Google Drive/Expense/Expense Dumps/Raw_Statements/bestBuy.csv
 DCUdebitFile=/Users/royab001/Google Drive/Expense/Expense Dumps/Raw_Statements/DCU.csv
 WalmartFile=/Users/royab001/Google Drive/Expense/Expense Dumps/Raw_Statements/walmart.csv
+ChaseSapphireFile=/Users/royab001/Google Drive/Expense/Expense Dumps/Raw_Statements/ChaseSapphire.CSV
+CapitalOneFile=/Users/royab001/Google Drive/Expense/Expense Dumps/Raw_Statements/CapitalOne.csv
+
+databaseBackup=/Users/royab001/Google Drive/Expense/Expense Dumps/mysqlBackup/

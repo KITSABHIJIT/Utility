@@ -32,9 +32,13 @@ public class DateUtil {
 	    return result;
 	    }
 	
-	public static String getSomeDateString(final Date dateTime,final TimeZone tz,final String outputFormat){
+	public static String getSomeDateString(Date dateTime,final TimeZone tz,final String outputFormat){
 	     DateFormat converter = new SimpleDateFormat(outputFormat);
-	     converter.setTimeZone(tz);
+	     if(null!=tz)
+	    	 converter.setTimeZone(tz);
+	     if(null==dateTime) {
+	    	 dateTime=new Date();
+	     }
 	     System.out.println("local time : " + dateTime);
 	     String result=converter.format(dateTime);
 	     System.out.println("time in GMT : " + result);

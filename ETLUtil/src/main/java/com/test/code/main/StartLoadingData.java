@@ -18,6 +18,8 @@ import com.test.code.transform.BJsTransformer;
 import com.test.code.transform.BOACreditTransformer;
 import com.test.code.transform.BOADebitTransformer;
 import com.test.code.transform.BestBuyTransformer;
+import com.test.code.transform.CapitaOneTransformer;
+import com.test.code.transform.ChaseSapphireTransformer;
 import com.test.code.transform.ChaseTransformer;
 import com.test.code.transform.DCUDebitTransformer;
 import com.test.code.transform.DiscoverTransformer;
@@ -27,11 +29,15 @@ import com.test.code.transform.MacysTransformer;
 import com.test.code.transform.TjMaxTransformer;
 import com.test.code.transform.WalmartTransformer;
 import com.test.code.transform.ZalesTransformer;
+import com.test.code.util.ConnectionUtil;
 import com.test.code.util.PropertiesUtil;
 
 public class StartLoadingData {
 
 	public static void main (String ...strings){
+		
+		ConnectionUtil.backupdbtosql();
+		ConnectionUtil.cleanupData();
 		//Expense Load
 		// Extract Data
 		Map<String,List<String>> rawData =DataExtractor.extractDataWithFileName(PropertiesUtil.getProperty("sourceDirPath"));
@@ -55,6 +61,8 @@ public class StartLoadingData {
 		TjMaxTransformer.processData(expList);
 		ZalesTransformer.processData(expList);
 		WalmartTransformer.processData(expList);
+		ChaseSapphireTransformer.processData(expList);
+		CapitaOneTransformer.processData(expList);
 		
 		DataLoader.loadExpenseData(expList);
 		DataLoader.loadEarningData(earningList);
@@ -90,5 +98,6 @@ public class StartLoadingData {
 		//List<String> rawData =DataExtractor.extractData(PropertiesUtil.getProperty("sourceDirPath"));
 		// Load Data
 		//DataLoader.loadData(rawData);
+		 
 	}
 }
