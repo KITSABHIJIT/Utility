@@ -35,7 +35,8 @@ public class DCUDebitTransformer {
 			,"KOHL'S DEPT STRS"
 			,"WELLS FARGO CARDCCPYMT"
 			,"CHASE DES:EPAY ID"
-			,"WALMART MC WM EPAY"};
+			,"WALMART MC WM EPAY"
+			,"CAPITAL ONE ONLINE PMT"};
 	
 	private static final String LOAN_PAYMENTS [] = {"TRANSFER TO LOAN", "SH DRAFT"};
 	private static final String LOAN_DESCRIPTIONS [] = {"CAR LOAN", "PARKS VILLAGE RENT"};
