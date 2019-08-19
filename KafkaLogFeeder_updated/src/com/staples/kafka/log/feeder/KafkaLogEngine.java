@@ -16,10 +16,11 @@ public class KafkaLogEngine {
 	private final static Logger logger = LoggerFactory.getLogger(KafkaLogEngine.class);
 	public static void main(String[] args) throws Exception  {
 		PropertiesUtil.loadProperties(args[0]);
+		boolean postToKafka=Boolean.parseBoolean(PropertiesUtil.getProperty("post.to.kafka"));
 		logger.info("Starting Kafka Log Engine!!");
 		logger.info("Start sending Logs to Kafka Instance....");
 		ConfigUtil configUtil =ConfigUtil.getInstance();
-		KafkaProducer<String, String> producer =configUtil.getKafkaProducer();
+		KafkaProducer<String, String> producer =(postToKafka)?configUtil.getKafkaProducer():null;
 		List<LogFile> logFileList = configUtil.getLogFileList();
 		ExecutorService executorService = Executors.newFixedThreadPool(logFileList.size());
 		try {

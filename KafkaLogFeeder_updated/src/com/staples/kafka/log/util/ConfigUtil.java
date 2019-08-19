@@ -27,11 +27,17 @@ public class ConfigUtil {
 	private HttpURLConnection conn;
 	private final Logger LOG = LoggerFactory.getLogger(ConfigUtil.class);
 	private List<LogFile> nodeData;
+	private boolean postToRelic=Boolean.parseBoolean(PropertiesUtil.getProperty("post.to.relic"));
+	private boolean postToKafka=Boolean.parseBoolean(PropertiesUtil.getProperty("post.to.kafka"));
 
 	public ConfigUtil() {
-		initializeKafkaLogProducer();
+		if(postToKafka) {
+			initializeKafkaLogProducer();
+		}
+		if(postToRelic) {
+			initializeRelicHost();
+		}
 		initializeLogNodeList();
-		initializeRelicHost();
 	}
 
 	public static ConfigUtil getInstance() {
