@@ -53,5 +53,7 @@ DCUdebitFile=/Users/royab001/Google Drive/Expense/Expense Dumps/Raw_Statements/D
 WalmartFile=/Users/royab001/Google Drive/Expense/Expense Dumps/Raw_Statements/walmart.csv
 ChaseSapphireFile=/Users/royab001/Google Drive/Expense/Expense Dumps/Raw_Statements/ChaseSapphire.CSV
 CapitalOneFile=/Users/royab001/Google Drive/Expense/Expense Dumps/Raw_Statements/CapitalOne.csv
+WellsFargoFile=/Users/royab001/Google Drive/Expense/Expense Dumps/Raw_Statements/WellsFargo.csv
+BarclaysFile=/Users/royab001/Google Drive/Expense/Expense Dumps/Raw_Statements/barclays.csv
 
 databaseBackup=/Users/royab001/Google Drive/Expense/Expense Dumps/mysqlBackup/
