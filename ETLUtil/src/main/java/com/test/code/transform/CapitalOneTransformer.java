@@ -9,7 +9,7 @@ import com.test.code.util.DateUtil;
 import com.test.code.util.PropertiesUtil;
 import com.test.code.util.StringUtil;
 
-public class CapitaOneTransformer {
+public class CapitalOneTransformer {
 	private static final char COMMA_DELIMITER = ',';
 	private static final char QUOTE_CHAR = '"';
 	private static final String MODE_OF_PAYMENT ="CAPITAL ONE CARD";

@@ -32,15 +32,19 @@ public class WalmartTransformer {
 				if(!PAYMENT_DONE.equals(expenseDetails[4].trim()) && !PAYMENT_DONE1.equals(expenseDetails[4].trim())) {
 					Expense exp = new Expense();
 					exp.setModeOfPayment(MODE_OF_PAYMENT);
-					exp.setTransactionDate(DateUtil.getSQLData(DateUtil.getSomeDate(expenseDetails[0].trim(), "MM/dd/yyyy")));
-					exp.setMerchant(expenseDetails[4].trim().toUpperCase());
-					//exp.setExpensePlace(expenseDetails[5].trim().toUpperCase());
-					exp.setAmount(-1*StringUtil.getDouble(expenseDetails[3].trim()));
-					if(expenseList.contains(exp)) {
-						System.out.println("Expense Record already exists: "+exp.toString());
+					exp.setTransactionDate(DateUtil.getSQLData(DateUtil.getSomeDate(expenseDetails[0].trim(), "yyyy-MM-dd")));
+					exp.setMerchant(expenseDetails[3].trim().toUpperCase());
+					//exp.setExpensePlace(expenseDetails[3].trim().toUpperCase());
+					if(!StringUtil.isBlankOrEmpty(expenseDetails[5].trim())) {
+						exp.setAmount(StringUtil.getDouble(expenseDetails[5].trim()));
 					}else {
-						expenseList.add(exp);
+						exp.setAmount(-1*StringUtil.getDouble(expenseDetails[6].trim()));
 					}
+					//if(expenseList.contains(exp)) {
+					//	System.out.println("Expense Record already exists: "+exp.toString());
+					//}else {
+						expenseList.add(exp);
+					//}
 				}
 			}
 		} catch (Exception e) {

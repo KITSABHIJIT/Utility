@@ -19,7 +19,7 @@ import com.test.code.transform.BOACreditTransformer;
 import com.test.code.transform.BOADebitTransformer;
 import com.test.code.transform.BarclaysTransformer;
 import com.test.code.transform.BestBuyTransformer;
-import com.test.code.transform.CapitaOneTransformer;
+import com.test.code.transform.CapitalOneTransformer;
 import com.test.code.transform.ChaseSapphireTransformer;
 import com.test.code.transform.ChaseTransformer;
 import com.test.code.transform.DCUDebitTransformer;
@@ -64,7 +64,7 @@ public class StartLoadingData {
 		ZalesTransformer.processData(expList);
 		WalmartTransformer.processData(expList);
 		ChaseSapphireTransformer.processData(expList);
-		CapitaOneTransformer.processData(expList);
+		CapitalOneTransformer.processData(expList);
 		WellsFargoTransformer.processData(expList);
 		BarclaysTransformer.processData(expList);
 		
