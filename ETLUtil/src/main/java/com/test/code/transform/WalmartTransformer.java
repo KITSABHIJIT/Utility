@@ -15,6 +15,7 @@ public class WalmartTransformer {
 	private static final String MODE_OF_PAYMENT ="WALMART CREDIT CARD";
 	private static final String PAYMENT_DONE ="ONLINE PAYMENT - THANK YOU";
 	private static final String PAYMENT_DONE1 ="ONLINE PAYMENT THANK YOU";
+	private static final String PAYMENT_DONE2 ="CAPITAL ONE ONLINE PYMT";
 	public static List<Expense> processData(List<Expense> expenseList){
 
 		CSVReader csvReader = null;
@@ -29,7 +30,8 @@ public class WalmartTransformer {
 			csvReader = new CSVReader(new FileReader(PropertiesUtil.getProperty("WalmartFile")),COMMA_DELIMITER,QUOTE_CHAR,1);
 			while((expenseDetails = csvReader.readNext())!=null)
 			{
-				if(!PAYMENT_DONE.equals(expenseDetails[4].trim()) && !PAYMENT_DONE1.equals(expenseDetails[4].trim())) {
+				if(!PAYMENT_DONE.equals(expenseDetails[3].trim()) && !PAYMENT_DONE1.equals(expenseDetails[3].trim())
+						&& !PAYMENT_DONE2.equals(expenseDetails[3].trim())) {
 					Expense exp = new Expense();
 					exp.setModeOfPayment(MODE_OF_PAYMENT);
 					exp.setTransactionDate(DateUtil.getSQLData(DateUtil.getSomeDate(expenseDetails[0].trim(), "yyyy-MM-dd")));
