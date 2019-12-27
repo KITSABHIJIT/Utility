@@ -5,8 +5,11 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -23,6 +26,7 @@ import com.test.code.report.ReportExcel;
 public class PDFToText {
 	private static String sourcePDFDirRia=PropertiesUtil.getProperty("RIA_PDF_SOURCE_RECEIPTS");
 	private static String sourceImageDirRia=PropertiesUtil.getProperty("RIA_IMAGE_SOURCE_RECEIPTS");
+	private static String sourceFeedDirRia=PropertiesUtil.getProperty("RIA_FEED_SOURCE_RECEIPTS");
 	private static String sourceDirXoom=PropertiesUtil.getProperty("XOOM_SOURCE_RECEIPT");
 	private static String excelFilePath=PropertiesUtil.getProperty("RIA_PEPORT");
 
@@ -106,7 +110,7 @@ public class PDFToText {
 			}
 		}
 	}
-	
+
 	public static void processRiaImageReceipts(String sourceDirectory,List<List<Object>> list){
 		File _folder = new File(sourceDirectory); 
 		File[] filesInFolder;
@@ -119,13 +123,44 @@ public class PDFToText {
 			}
 		}
 	}
+
+	public static void processRiaFeedReceipts(String sourceDirectory,List<List<Object>> list){
+		File _folder = new File(sourceDirectory); 
+		File[] filesInFolder;
+		filesInFolder = _folder.listFiles(); 
+		for (File string : filesInFolder){ 
+			if(!".DS_Store".equals(string.getName())) {
+				for(String data:FileUtil.readFromFile(string.getAbsolutePath()))
+					list.add(extractRiaFeedData(data));
+				System.out.println(string.getName()+ " appended Successfully.");
+			}
+		}
+	}
+
 	public static double getTotal(int index,List<List<Object>> list) {
 		double total=0;
+
 		for(List<Object> obj:list) {
 			total+=(Double)obj.get(index);
 		}
+
 		return total;
 	}
+
+	public static List<Object> getYearTotal(int index,List<List<Object>> list,List<Object> yearList) {
+		List<Object> totalList=new ArrayList<Object>();
+		for(Object year:yearList) {
+			double total=0;
+			for(List<Object> obj:list) {
+				if(Integer.parseInt((String)year)==DateUtil.getYear((Date)obj.get(2))) {
+					total+=(Double)obj.get(index);
+				}
+			}
+			totalList.add(Double.parseDouble(StringUtil.getTwoDecimal(total)));
+		}
+		return totalList;
+	}
+
 	public static List<Object> extractRiaData(String data) {
 		String [] temp=null;
 		String to=null;
@@ -178,6 +213,26 @@ public class PDFToText {
 		}
 		return tempList;
 	}
+
+	public static List<Object> extractRiaFeedData(String data) {
+		List<Object> tempList=new ArrayList<Object>();
+		List<String> myList = new ArrayList<String>(Arrays.asList(data.split("[|]")));
+		try {
+			tempList.add("Ria Money");
+			tempList.add(myList.get(0));
+			tempList.add(DateUtil.getSQLDate(DateUtil.getSomeDate(myList.get(1), "MM/dd/yyyy hh:mm:ss a")));
+			tempList.add(myList.get(2));
+			tempList.add(myList.get(3));
+			tempList.add(Double.parseDouble(myList.get(4).replaceAll(",", "")));
+			tempList.add(myList.get(5));
+			tempList.add(Double.parseDouble(myList.get(6).replaceAll(",", "")));
+		}catch(Exception e){
+			System.out.println("Error out Data "+data);
+			e.printStackTrace();
+		}
+		return tempList;
+	}
+
 	public static List<Object> extractRiaImageData(String data) {
 		String [] temp=null;
 		String to=null;
@@ -213,10 +268,10 @@ public class PDFToText {
 					double total=Double.parseDouble(myList.get(i).substring(myList.get(i).indexOf("Recipient ")+10,myList.get(i).indexOf("INR")-1));
 					total=total/100;
 					tempList.add(total);
-					
+
 				}
-				
-				
+
+
 			}
 		}catch(Exception e){
 			System.out.println("Error out Data "+data);
@@ -224,9 +279,30 @@ public class PDFToText {
 		}
 		return tempList;
 	}
+
+	public static List<Object> getYears(List<List<Object>> list){
+		Date endDate=(Date)list.get(0).get(2);
+		Date startDate=(Date)list.get(list.size()-1).get(2);
+		DateFormat formater = new SimpleDateFormat("yyyy");
+		List<Object> result=new ArrayList<Object>();
+		Calendar beginCalendar = Calendar.getInstance();
+		Calendar finishCalendar = Calendar.getInstance();
+		beginCalendar.setTime(startDate);
+		finishCalendar.setTime(endDate);
+		while (beginCalendar.before(finishCalendar)) {
+			String date =     formater.format(beginCalendar.getTime()).toUpperCase();
+			result.add(date);
+			beginCalendar.add(Calendar.YEAR, 1);
+		}
+		return result;
+	}
+
 	public static List<List<Object>> generateRiaReports(){
 		List<List<Object>> list=new ArrayList<List<Object>>();
 		List<Object> headerList=new ArrayList<Object>();
+		List<Object> yearList=new ArrayList<Object>();
+		List<Object> yearWiseDollarTotal=new ArrayList<Object>();
+		List<Object> yearWiseINRTotal=new ArrayList<Object>();
 		headerList.add("Provider");
 		headerList.add("Order No");
 		headerList.add("Transaction Date");
@@ -238,8 +314,9 @@ public class PDFToText {
 		FileUtil.deleteFile(excelFilePath);
 		processXoomReceipts(sourceDirXoom,list);
 		processRiaPDFReceipts(sourcePDFDirRia,list);
-		processRiaImageReceipts(sourceImageDirRia,list);
-		
+		//processRiaImageReceipts(sourceImageDirRia,list);
+		processRiaFeedReceipts(sourceFeedDirRia,list);
+
 		HSSFWorkbook workbook = new HSSFWorkbook();
 		ExcelCellStyleUtil cellStyleUtil=new ExcelCellStyleUtil(workbook);
 		HSSFSheet sheet = (HSSFSheet) workbook.createSheet("Money Transfer");
@@ -262,12 +339,26 @@ public class PDFToText {
 
 		TableData tableData=new TableData();
 		tableData.setColumnPosition(2);
-		tableData.setRowPosition(6);
+		tableData.setRowPosition(11);
 		Collections.sort(list, new Comparator<List<Object>>() {
 			public int compare(List<Object> o1, List<Object> o2) {
 				return ((Date)o2.get(2)).compareTo((Date)(o1.get(2)));
 			}
 		});
+		
+		List<List<Object>> totalYearList=new ArrayList<List<Object>>();
+		yearList=getYears(list);
+		yearWiseDollarTotal=getYearTotal(5,list,yearList);
+		yearWiseINRTotal=getYearTotal(7,list,yearList);
+		totalYearList.add(yearList);
+		totalYearList.add(yearWiseDollarTotal);
+		totalYearList.add(yearWiseINRTotal);
+		TableData tableYearTotalData=new TableData();
+		tableYearTotalData.setColumnPosition(2);
+		tableYearTotalData.setRowPosition(6);
+		tableYearTotalData.setReportData(totalYearList);
+		ReportExcel.writeTabularData(workbook, cellStyleUtil, sheet, tableYearTotalData);
+		
 		list.add(0,headerList);
 		tableData.setReportData(list);
 		ReportExcel.writeTabularData(workbook, cellStyleUtil, sheet, tableData);

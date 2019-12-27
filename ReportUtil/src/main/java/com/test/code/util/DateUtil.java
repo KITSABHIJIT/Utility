@@ -170,6 +170,11 @@ public class DateUtil {
 		return calendar.getTime();
 	}
 	
+	public static int getYear(Date date) {
+		Calendar calendar  = Calendar.getInstance();
+		calendar .setTime(date);
+		return calendar.get(Calendar.YEAR);
+	}
 	public static void main(String ...strings) throws ParseException{
 		//Date localTime=DateUtil.getSomeDateWithTimZone("20151101 200912", TimeZone.getDefault(),"yyyyMMdd HHmmss");
 		//DateUtil.getSomeDateString(localTime,TimeZone.getTimeZone("GMT"),"yyyy-MM-dd HH:mm:ss");
