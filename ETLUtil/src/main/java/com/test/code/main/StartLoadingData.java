@@ -1,6 +1,5 @@
 package com.test.code.main;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -13,10 +12,13 @@ import com.test.code.pojo.Expense;
 import com.test.code.pojo.Merchant;
 import com.test.code.pojo.PayMode;
 import com.test.code.transform.AmazonStroreTransformer;
+import com.test.code.transform.AmexBlueCashTransformer;
+import com.test.code.transform.AmexCashMagnetTransformer;
 import com.test.code.transform.AmexTransformer;
 import com.test.code.transform.BJsTransformer;
 import com.test.code.transform.BOACreditTransformer;
 import com.test.code.transform.BOADebitTransformer;
+import com.test.code.transform.BOATravelCreditTransformer;
 import com.test.code.transform.BarclaysTransformer;
 import com.test.code.transform.BestBuyTransformer;
 import com.test.code.transform.CapitalOneTransformer;
@@ -44,9 +46,9 @@ public class StartLoadingData {
 		// Extract Data
 		Map<String,List<String>> rawData =DataExtractor.extractDataWithFileName(PropertiesUtil.getProperty("sourceDirPath"));
 		// Transform Data
-		List<Expense> expList=DataTransformer.transformDataUsingDelimeter(rawData, PropertiesUtil.getProperty("delimeter"));
+		List<Expense> expList=DataTransformer.transformExpenseUsingDelimeter(rawData, PropertiesUtil.getProperty("delimeter"));
 		// Transform Data
-		List<Earning> earningList=new ArrayList<Earning>();
+		List<Earning> earningList=DataTransformer.transformEarningUsingDelimeter(rawData, PropertiesUtil.getProperty("delimeter"));
 		// Load Data
 		AmexTransformer.processData(expList);
 		AmazonStroreTransformer.processData(expList);
@@ -67,6 +69,9 @@ public class StartLoadingData {
 		CapitalOneTransformer.processData(expList);
 		WellsFargoTransformer.processData(expList);
 		BarclaysTransformer.processData(expList);
+		AmexBlueCashTransformer.processData(expList);
+		AmexCashMagnetTransformer.processData(expList);
+		BOATravelCreditTransformer.processData(expList);
 		
 		DataLoader.loadExpenseData(expList);
 		DataLoader.loadEarningData(earningList);

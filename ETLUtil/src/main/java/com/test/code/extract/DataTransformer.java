@@ -5,21 +5,25 @@ import java.util.List;
 import java.util.Map;
 
 import com.test.code.pojo.Category;
+import com.test.code.pojo.Earning;
 import com.test.code.pojo.Expense;
 import com.test.code.pojo.Merchant;
 import com.test.code.pojo.PayMode;
+import com.test.code.transform.BOADebitTransformer;
 import com.test.code.util.DateUtil;
 import com.test.code.util.StringUtil;
 
 public class DataTransformer {
-	public static List<Expense> transformDataUsingDelimeter(Map<String,List<String>> rawData, String delimeter){
+	
+	
+	public static List<Expense> transformExpenseUsingDelimeter(Map<String,List<String>> rawData, String delimeter){
 		List<Expense> expenseList=new ArrayList<Expense>();
 
 		for (Map.Entry<String, List<String>> entry : rawData.entrySet()) {
 			System.out.println("Expense File : " + entry.getKey() + " Record Count : " + entry.getValue().size());
 			for(String data:entry.getValue()){
 				String [] segmentList = data.split(delimeter);
-				if(segmentList.length>1){
+				if(segmentList.length>1 && !BOADebitTransformer.excludeExpense(segmentList[2].trim())){
 					Expense exp = new Expense();
 					try {
 						exp.setModeOfPayment(segmentList[0].trim());
@@ -36,6 +40,32 @@ public class DataTransformer {
 			}
 		}
 		return expenseList;
+	}
+	
+	public static List<Earning> transformEarningUsingDelimeter(Map<String,List<String>> rawData, String delimeter){
+		List<Earning> earningList=new ArrayList<Earning>();
+
+		for (Map.Entry<String, List<String>> entry : rawData.entrySet()) {
+			System.out.println("Expense File : " + entry.getKey() + " Record Count : " + entry.getValue().size());
+			for(String data:entry.getValue()){
+				String [] segmentList = data.split(delimeter);
+				if(segmentList.length>1 && BOADebitTransformer.isEarning(segmentList[2].trim())){
+					Earning ear = new Earning();
+					try {
+						ear.setModeOfPayment(segmentList[0].trim());
+						ear.setTransactionDate(DateUtil.getSQLData(DateUtil.getSomeDate(segmentList[1].trim(), "MM/dd/yyyy")));
+						ear.setMerchant(segmentList[2].trim());
+						ear.setEarningPlace(segmentList[3].trim());
+						ear.setAmount(-1*StringUtil.getDouble(segmentList[4].trim()));
+						earningList.add(ear);
+					} catch (Exception e) {
+						System.err.println("Error file: "+entry.getKey()+"\n Error Data: "+data);
+						e.printStackTrace();
+					}
+				}
+			}
+		}
+		return earningList;
 	}
 	
 	

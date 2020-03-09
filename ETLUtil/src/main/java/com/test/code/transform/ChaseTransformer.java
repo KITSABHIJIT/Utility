@@ -15,6 +15,7 @@ public class ChaseTransformer {
 	private static final String MODE_OF_PAYMENT ="AMAZON CHASE CARD";
 	private static final String PAYMENT_DONE ="Payment Thank You - Web";
 	private static final String PAYMENT_DONE1 ="PAYMENT THANK YOU - WEB";
+	private static final String PAYMENT_DONE2 ="PAYMENT THANK YOU-MOBILE";
 	public static List<Expense> processData(List<Expense> expenseList){
 
 		CSVReader csvReader = null;
@@ -29,7 +30,9 @@ public class ChaseTransformer {
 			csvReader = new CSVReader(new FileReader(PropertiesUtil.getProperty("ChaseFile")),COMMA_DELIMITER,QUOTE_CHAR,1);
 			while((expenseDetails = csvReader.readNext())!=null)
 			{
-				if(!PAYMENT_DONE.equalsIgnoreCase(expenseDetails[2].trim()) && !PAYMENT_DONE1.equalsIgnoreCase(expenseDetails[2].trim())) {
+				if(!PAYMENT_DONE.equalsIgnoreCase(expenseDetails[2].trim()) 
+						&& !PAYMENT_DONE1.equalsIgnoreCase(expenseDetails[2].trim())
+						&& !PAYMENT_DONE2.equalsIgnoreCase(expenseDetails[2].trim())) {
 					Expense exp = new Expense();
 					exp.setModeOfPayment(MODE_OF_PAYMENT);
 					exp.setTransactionDate(DateUtil.getSQLData(DateUtil.getSomeDate(expenseDetails[0].trim(), "MM/dd/yyyy")));

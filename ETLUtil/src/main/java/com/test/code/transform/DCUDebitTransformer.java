@@ -16,7 +16,7 @@ public class DCUDebitTransformer {
 	private static final String EARNING ="TATA CONSULTANCY";
 	private static final String MODE_OF_EARNING ="DCU";
 	private static final String MODE_OF_PAYMENT ="DCU DEBIT CARD";
-	private static final String EXCLUDED_PAYMENTS [] = {"TATA CONSULTANCY"
+	private static final String EXCLUDED_PAYMENTS [] = {"TATA CONSULTANCY","TATA 04"
 			,"AMEX EPAYMENT ACH"
 			,"DISCOVER E-PAYMENT"
 			,"TRANSFER TO ACCT"

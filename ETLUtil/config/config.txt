@@ -1,4 +1,4 @@
-	sourceDirPath=/Users/royab001/Google Drive/Expense/Expense Dumps/Raw_Statements/OldStatements
+sourceDirPath=/Users/royab001/Google Drive/Expense/Expense Dumps/Raw_Statements/OldStatements
 sourceDirPathMerchant=/Users/royab001/Google Drive/Expense/Expense Dumps/Merchant
 sourceDirPathPayMode=/Users/royab001/Google Drive/Expense/Expense Dumps/PayMode
 sourceDirPathCategory=/Users/royab001/Google Drive/Expense/Expense Dumps/Category
@@ -55,5 +55,12 @@ ChaseSapphireFile=/Users/royab001/Google Drive/Expense/Expense Dumps/Raw_Stateme
 CapitalOneFile=/Users/royab001/Google Drive/Expense/Expense Dumps/Raw_Statements/CapitalOne.csv
 WellsFargoFile=/Users/royab001/Google Drive/Expense/Expense Dumps/Raw_Statements/WellsFargo.csv
 BarclaysFile=/Users/royab001/Google Drive/Expense/Expense Dumps/Raw_Statements/barclays.csv
+BOATravelCreditFile=/Users/royab001/Google Drive/Expense/Expense Dumps/Raw_Statements/BankOfAmericaTravel.csv
+AmexBlueCashFile=/Users/royab001/Google Drive/Expense/Expense Dumps/Raw_Statements/AmexBlueCash.csv
+AmexCashMagnetFile=/Users/royab001/Google Drive/Expense/Expense Dumps/Raw_Statements/AmexCashMagnet.csv
+
+
+
+
 
 databaseBackup=/Users/royab001/Google Drive/Expense/Expense Dumps/mysqlBackup/

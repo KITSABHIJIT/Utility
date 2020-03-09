@@ -14,9 +14,9 @@ public class BOADebitTransformer {
 	private static final char COMMA_DELIMITER = ',';
 	private static final char QUOTE_CHAR = '"';
 	private static final String MODE_OF_PAYMENT ="BANK OF AMERICA DEBIT CARD";
-	private static final String EARNING ="TATA CONSULTANCY DES:DIRECT DEP ID";
+	private static final String EARNING ="TATA CONSULTANCY DES:";
 	private static final String MODE_OF_EARNING ="BANK OF AMERICA";
-	private static final String EXCLUDED_PAYMENTS [] = {"TATA CONSULTANCY DES:DIRECT DEP ID"
+	private static final String EXCLUDED_PAYMENTS [] = {"TATA CONSULTANCY DES:","TATA 04"
 			,"AMERICAN EXPRESS DES:ACH PMT ID"
 			,"DISCOVER DES:E-PAYMENT ID:7562"
 			,"ONLINE BANKING TRANSFER TO SAV 3088"
@@ -32,7 +32,8 @@ public class BOADebitTransformer {
 			,"JCPENNEY CC DES"
 			,"WELLS FARGO CARD DES"
 			,"CHASE CREDIT CRD DES:EPAY ID"
-			,"CHASE DES:EPAY ID"};
+			,"CHASE DES:EPAY ID"
+			,"CAPITAL ONE DES:ONLINE PMT ID"};
 	
 	public static List<Expense> processData(List<Expense> expenseList,List<Earning> earningList){
 
