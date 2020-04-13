@@ -22,7 +22,7 @@ public class GenerateReport {
 		long startTime=new  Date().getTime();
 		
 		
-		/*Date startDate=DateUtil.getSomeDate(PropertiesUtil.getProperty("reportStartDate"), "yyyyMMdd");
+		Date startDate=DateUtil.getSomeDate(PropertiesUtil.getProperty("reportStartDate"), "yyyyMMdd");
 		Date endDate=DateUtil.getSomeDate(PropertiesUtil.getProperty("reportEndDate"), "yyyyMMdd");
 		List<Date> dateList =DateUtil.getDatesFromDateRange(startDate, endDate, PropertiesUtil.getProperty("reportType"));
 		int counter=0;
@@ -45,7 +45,7 @@ public class GenerateReport {
 		}
 	
 		ReportHtml.generateReport();
-		ReportHtml.generateTabularReport();*/
+		ReportHtml.generateTabularReport();
 		PDFToText.generateRiaReports();
 		
 		long endTime=new  Date().getTime();

@@ -288,6 +288,8 @@ public class PDFToText {
 		Calendar beginCalendar = Calendar.getInstance();
 		Calendar finishCalendar = Calendar.getInstance();
 		beginCalendar.setTime(startDate);
+		beginCalendar.set(Calendar.DATE,1);
+		beginCalendar.set(Calendar.MONTH,Calendar.JANUARY);
 		finishCalendar.setTime(endDate);
 		while (beginCalendar.before(finishCalendar)) {
 			String date =     formater.format(beginCalendar.getTime()).toUpperCase();

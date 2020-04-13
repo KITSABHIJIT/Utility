@@ -1,5 +1,5 @@
 
-reportStartDate=20190701
+reportStartDate=20191101
 reportEndDate=
 reportType=MONTHLY
 
@@ -10,6 +10,8 @@ commaDelimeter=[,]
 figureDelimeter=[#]
 
 EXPENSE_RECORDS_TABLE=SELECT trim(E.EXPENSE_DATE) AS "Expense Date"  ,M.MERCHANT AS "Merchant",trim(E.PLACE_OF_EXPENSE) AS "Place",M.CATEGORY AS "Category",trim(E.PAYMENT_MODE) AS "Pay Mode",trim(E.AMOUNT) AS "Amount" FROM EXPENSE E ,(select m.merchant,e.category, m.description from merchant m left outer join expense_category e on m.category=e.category_id) M WHERE E.MERCHANT=M.MERCHANT  ORDER BY E.EXPENSE_DATE DESC
+
+COMPARISION_RECORDS_TABLE=SELECT DATE_FORMAT(Exp.Month, '%Y/%m/01') as "Month",IFNULL(Earn.Earning, 0) as "Earning",Exp.Expense, (IFNULL(Earn.Earning, 0)-Exp.Expense) as "Savings" from (SELECT DATE_FORMAT(EXPENSE_DATE, '%Y-%m-01') as "Month" ,sum(AMOUNT) as "Expense" FROM EXPENSE E  group by DATE_FORMAT(EXPENSE_DATE, '%Y-%m-01')) Exp left outer join (SELECT DATE_FORMAT(EARNING_DATE, '%Y-%m-01') as "Month" ,sum(AMOUNT) as "Earning" FROM EARNING E  group by DATE_FORMAT(EARNING_DATE, '%Y-%m-01')) Earn on Exp.Month=Earn.Month order by Exp.Month desc
 
 JSON_EXPENSE_DATE_MIN=SELECT TRIM(EXPENSE_DATE) AS "date",sum(AMOUNT) as "value" FROM EXPENSE E WHERE E.EXPENSE_DATE >= '<START_DATE>' and E.EXPENSE_DATE <= '<END_DATE>'group by EXPENSE_DATE order by EXPENSE_DATE
 

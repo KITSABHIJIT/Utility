@@ -11,6 +11,7 @@ public class ReportHtml {
 	private static final String htmlTemplateMinFilePath = "./config/htmlTemplateMin";
 	private static final String htmlTableTemplateFilePath = "./config/htmlTableTemplate";
 	private static final String lossGainTemplateFilePath = "./config/lossGainTemplate";
+	private static final String comparisionTemplateFilePath = "./config/comparisionTemplate";
 	public static void generateReport(){
 		
 		String content=FileUtil.getStringFromFile(htmlTemplateFilePath);
@@ -57,6 +58,11 @@ public class ReportHtml {
 		content=content.replace("<TABULAR_DATA>",(DataExtractor.getJsonArrayData(PropertiesUtil.getProperty("EXPENSE_RECORDS_TABLE"),false).toString()));
 		FileUtil.deleteFile(PropertiesUtil.getProperty("excelPath")+"/TabularReport.html");
 		FileUtil.writeToFile(content, PropertiesUtil.getProperty("excelPath")+"/TabularReport.html");
+		
+		content=FileUtil.getStringFromFile(comparisionTemplateFilePath);
+		content=content.replace("<TABULAR_DATA>",(DataExtractor.getJsonArrayData(PropertiesUtil.getProperty("COMPARISION_RECORDS_TABLE"),false).toString()));
+		FileUtil.deleteFile(PropertiesUtil.getProperty("excelPath")+"/ComparisionReport.html");
+		FileUtil.writeToFile(content, PropertiesUtil.getProperty("excelPath")+"/ComparisionReport.html");
 
 	}
 }
