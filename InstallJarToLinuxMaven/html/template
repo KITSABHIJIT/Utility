@@ -1,0 +1,22 @@
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
+
+<script>
+$(document).ready(function() {
+    $('#example').DataTable();
+} );
+</script>
+<h2><center>Staples Internal Jar File Dependencies</center></h2>
+<div align="right"><a href="index.html" target="_top"><h3>Back</h3></a></div>
+<table id="example" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th>Jar File Name</th>
+                <th>Maven Dependency</th>
+                <th>Comments</th>
+                <th>Size</th>
+            </tr>
+        </thead>
+        <tbody><TABLE_BODY></tbody>
+    </table>

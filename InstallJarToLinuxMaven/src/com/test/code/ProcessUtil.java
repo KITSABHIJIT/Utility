@@ -124,7 +124,7 @@ public class ProcessUtil {
 	public static void downloadResource(String fileName) {
 		String [] jarFileDetailsArr=fileName.split("[|]");
 		downloadFile(jarFileDetailsArr[0]);
-		if(jarFileDetailsArr.length>4) {
+		if(jarFileDetailsArr.length>4 && !StringUtil.isBlankOrEmpty(jarFileDetailsArr[4])) {
 			downloadFile(jarFileDetailsArr[4]);
 		}
 	}
@@ -136,6 +136,7 @@ public class ProcessUtil {
 		FileOutputStream fos=null;
 		try {
 			URL website = new URL(PropertiesUtil.getProperty("repositoryURL")+jarFile);
+			System.out.println("Downloading--> "+PropertiesUtil.getProperty("repositoryURL")+jarFile);
 			rbc = Channels.newChannel(website.openStream());
 			fos = new FileOutputStream(System.getProperty("user.dir")+"/"+jarFile);
 			fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
@@ -165,7 +166,7 @@ public class ProcessUtil {
 		mavenCommand=mavenCommand.replaceAll("<GROUP_ID>", jarFileDetailsArr[1]);
 		mavenCommand=mavenCommand.replaceAll("<ARTIFACT_ID>", jarFileDetailsArr[2]);
 		mavenCommand=mavenCommand.replaceAll("<VERSION>", jarFileDetailsArr[3]);
-		if(jarFileDetailsArr.length>4) {
+		if(jarFileDetailsArr.length>4 && !StringUtil.isBlankOrEmpty(jarFileDetailsArr[4])) {
 			String pomInstall=PropertiesUtil.getProperty("pom_install");
 			pomInstall=pomInstall.replaceAll("<POM_FILE>", jarFileDetailsArr[4].trim());
 			mavenCommand=mavenCommand+" "+pomInstall;
@@ -237,6 +238,11 @@ public class ProcessUtil {
 		mavenDependencyCode=mavenDependencyCode.replaceAll("<ARTIFACT_ID>", jarFileDetailsArr[2]);
 		mavenDependencyCode=mavenDependencyCode.replaceAll("<VERSION>", jarFileDetailsArr[3]);
 		mavenDependencyCode=mavenDependencyCode.replaceAll("<JAR_FILE_SIZE>", getFileSize(jarFileDetailsArr[0]));
+		if(jarFileDetailsArr.length>5) {
+			mavenDependencyCode=mavenDependencyCode.replaceAll("<COMMENTS>", jarFileDetailsArr[5]);
+		}else {
+			mavenDependencyCode=mavenDependencyCode.replaceAll("<COMMENTS>", "");
+		}
 		return mavenDependencyCode;
 	}
 	public static void generateHtmlFile(String fileName,String data) {
