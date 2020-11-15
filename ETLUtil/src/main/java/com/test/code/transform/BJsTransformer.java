@@ -16,6 +16,7 @@ public class BJsTransformer {
 	private static final char QUOTE_CHAR = '"';
 	private static final String MODE_OF_PAYMENT ="BJS CREDIT CARD";
 	private static final String PAYMENT_DONE ="PAYMENT-THANK YOU";
+	private static final String PAYMENT_DONE1 ="PAYMENT - THANK YOU";
 	public static List<Expense> processData(List<Expense> expenseList){
 
 		CSVReader csvReader = null;
@@ -40,7 +41,7 @@ public class BJsTransformer {
 			csvReader = new CSVReader(new FileReader(PropertiesUtil.getProperty("BJsFileTemp")),COMMA_DELIMITER,QUOTE_CHAR,0);
 			while((expenseDetails = csvReader.readNext())!=null)
 			{
-				if(!expenseDetails[1].trim().startsWith(PAYMENT_DONE)) {
+				if(!expenseDetails[1].trim().startsWith(PAYMENT_DONE) && !expenseDetails[1].trim().startsWith(PAYMENT_DONE1)) {
 					Expense exp = new Expense();
 					exp.setModeOfPayment(MODE_OF_PAYMENT);
 					exp.setTransactionDate(DateUtil.getSQLData(DateUtil.getSomeDate(expenseDetails[0].trim(), "MM/dd/yyyy")));
