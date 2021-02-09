@@ -1,0 +1,83 @@
+<!-- Resources -->
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/fixedheader/3.1.5/js/dataTables.fixedHeader.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" type="text/css" media="all" />
+<link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.1.5/css/fixedHeader.dataTables.min.css" type="text/css" media="all" />
+
+
+<!-- Chart code -->
+<script>
+
+$(document).ready(function() {
+
+	// Setup - add a text input to each footer cell
+    $('#example thead tr').clone(true).appendTo( '#example thead' );
+    $('#example thead tr:eq(1) th').each( function (i) {
+        var title = $(this).text();
+        $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+ 
+        $( 'input', this ).on( 'keyup change', function () {
+            if ( table.column(i).search() !== this.value ) {
+                table
+                    .column(i)
+                    .search( this.value )
+                    .draw();
+            }
+        } );
+    } );
+
+    var table = $('#example').DataTable( {
+    	"order": [[ 0, "desc" ]],
+    	"fixedHeader": true,
+    	"lengthMenu": [[25, 50,100, -1], [25, 50,100, "All"]],
+        data: [["Globalstar, Inc. (GSAT)","NYSE American",2.01,1.28,2.25,1.23,0.78,-0.05,1.78,"$3,357,523,968.00",20851187,278010377,2.25,0.23,null,null], ["Kosmos Energy Ltd. (KOS)","NYSE",2.85,2.9,2.895,2.78,-0.14,0.09,2.35,"$1,155,546,752.00",9613772,7040498,5.53,0.5,null,0.09], ["Lloyds Banking Group plc (LYG)","NYSE",2.05,2.04,2.05,2.02,0.03,-0.02,0.88,"$37,236,199,424.00",6660591,4549861,3.02,1.17,null,0.041], ["Mizuho Financial Group, Inc. (MFG)","NYSE",2.93,2.93,2.94,2.91,-0.03,0.03,0.97,"$36,415,213,568.00",410701,400182,3.08,1.96,null,0.068], ["New Gold Inc. (NGD)","NYSE American",1.83,1.89,1.9,1.82,-0.04,-0.02,1.44,"$1,234,591,232.00",7931308,4116002,2.4,0.39,null,null], ["Clear Channel Outdoor Holdings, Inc. (CCO)","NYSE",2.18,2.19,2.21,2.08,0,-0.01,1.82,"$1,018,661,696.00",2659191,7535415,2.76,0.36,null,null], ["Companhia Energética de Minas Gerais (CIG)","NYSE",2.61,2.62,2.66,2.5913,-0.05,0.04,1.33,"$4,163,602,432.00",6236132,4029295,3.44,1.28,null,0.134], ["Kosmos Energy Ltd. (KOS)","NYSE",2.85,2.9,2.895,2.78,-0.14,0.09,2.35,"$1,155,546,752.00",9613772,7040498,5.53,0.5,null,0.09], ["Lloyds Banking Group plc (LYG)","NYSE",2.05,2.04,2.05,2.02,0.03,-0.02,0.88,"$37,236,199,424.00",6660591,4549861,3.02,1.17,null,0.041], ["Mizuho Financial Group, Inc. (MFG)","NYSE",2.93,2.93,2.94,2.91,-0.03,0.03,0.97,"$36,415,213,568.00",410701,400182,3.08,1.96,null,0.068], ["Ambev S.A. (ABEV)","NYSE",2.81,2.77,2.84,2.76,-0.02,0.06,0.91,"$43,404,099,584.00",24651393,17915864,3.89,1.9,null,0.142], ["Clear Channel Outdoor Holdings, Inc. (CCO)","NYSE",2.18,2.19,2.21,2.08,0,-0.01,1.82,"$1,018,661,696.00",2659191,7535415,2.76,0.36,null,null], ["Companhia Energética de Minas Gerais (CIG)","NYSE",2.61,2.62,2.66,2.5913,-0.05,0.04,1.33,"$4,163,602,432.00",6236132,4029295,3.44,1.28,null,0.134], ["Ambev S.A. (ABEV)","NYSE",2.81,2.77,2.84,2.76,-0.02,0.06,0.91,"$43,404,099,584.00",24651393,17915864,3.89,1.9,null,0.142]],
+        columns: [
+        { title: "Name" },
+		{ title: "Exchange" },
+		{ title: "Price" },
+		{ title: "Open" },
+		{ title: "High" },
+		{ title: "Low" },
+		{ title: "Change" },
+		{ title: "DailyChange" },
+		{ title: "Near-to-Low" },
+		{ title: "Mkt Cap" },
+		{ title: "Avg Vol." },
+		{ title: "Vol." },
+		{ title: "52-Wks Low" },
+		{ title: "52-Wks High" },
+		{ title: "PEG" },
+		{ title: "Dividend" }
+        ]
+    } );
+} );
+
+
+
+</script>
+
+<!-- HTML -->
+<table id="example" class="display" style="width:100%"> 
+	<thead>
+		<tr>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+		</tr>
+	</thead>
+</table>
+

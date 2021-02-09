@@ -1,0 +1,59 @@
+<!-- Resources -->
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/fixedheader/3.1.5/js/dataTables.fixedHeader.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" type="text/css" media="all" />
+<link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.1.5/css/fixedHeader.dataTables.min.css" type="text/css" media="all" />
+
+
+<!-- Chart code -->
+<script>
+
+$(document).ready(function() {
+
+	// Setup - add a text input to each footer cell
+    $('#example thead tr').clone(true).appendTo( '#example thead' );
+    $('#example thead tr:eq(1) th').each( function (i) {
+        var title = $(this).text();
+        $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+ 
+        $( 'input', this ).on( 'keyup change', function () {
+            if ( table.column(i).search() !== this.value ) {
+                table
+                    .column(i)
+                    .search( this.value )
+                    .draw();
+            }
+        } );
+    } );
+
+    var table = $('#example').DataTable( {
+    	"order": [[ 0, "desc" ]],
+    	"fixedHeader": true,
+    	"lengthMenu": [[25, 50,100, -1], [25, 50,100, "All"]],
+        data: [["Globalstar, Inc. [GSAT]","NYSE American",0.344,0.3462,0.35,0.34,"$574,019,072.00",6482447,1544300,0.6,0.23,null,null],["Turquoise Hill Resources Ltd. [TRQ]","NYSE",0.793,0.815,0.8223,0.78,"$1,612,319,616.00",2171988,839207,0.97,0.3,null,null]],
+        columns: [
+        { title: "Name" },
+		{ title: "Exchange" },
+		{ title: "Price" },
+		{ title: "Open" },
+		{ title: "High" },
+		{ title: "Low" },
+		{ title: "Mkt Cap" },
+		{ title: "Avg Vol." },
+		{ title: "Vol." },
+		{ title: "52-Wks Low" },
+		{ title: "52-Wks High" },
+		{ title: "PEG" },
+		{ title: "Dividend" }
+        ]
+    } );
+} );
+
+
+
+</script>
+
+<!-- HTML -->
+<table id="example" class="display" style="width:100%"> <thead><tr><th></th><th></th> <th></th><th></th> <th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th></tr></thead></table>
+
