@@ -77,152 +77,176 @@ mvn install:install-file -Dfile=stpay-authclient-0.0.1-SNAPSHOT.jar -DgroupId=co
 mvn install:install-file -Dfile=stpayclient-1.0.jar -DgroupId=com.staples.pay -DartifactId=stpayclient -Dversion=1.0 -Dpackaging=jar
 mvn install:install-file -Dfile=STPayCommons-0.0.1-SNAPSHOT.jar -DgroupId=com.staples.pay -DartifactId=staplespay -Dversion=0.0.1-SNAPSHOT -Dpackaging=jar
 mvn install:install-file -Dfile=nds-2.2.139389.jar -DgroupId=nds.sdk.java -DartifactId=nds -Dversion=2.2.139389 -Dpackaging=jar
-rm -r certj.jar
+mvn install:install-file -Dfile=nds-2.2.149918.jar -DgroupId=nds.sdk.java -DartifactId=nds -Dversion=2.2.149918 -Dpackaging=jar
+mvn install:install-file -Dfile=moneris-shared-beans-0.0.1-SNAPSHOT.jar -DgroupId=com.staples.gpas.moneris -DartifactId=moneris-shared-beans -Dversion=0.0.1-SNAPSHOT -Dpackaging=jar
+mvn install:install-file -Dfile=cryptojce-3.5.2.6.jar -DgroupId=com.rsa -DartifactId=cryptojce -Dversion=3.5.2.6 -Dpackaging=jar
+mvn install:install-file -Dfile=cryptojcommon-3.5.2.6.jar -DgroupId=com.rsa -DartifactId=cryptojcommon -Dversion=3.5.2.6 -Dpackaging=jar
+mvn install:install-file -Dfile=jcm-3.5.2.6.jar -DgroupId=com.rsa -DartifactId=jcm -Dversion=3.5.2.6 -Dpackaging=jar
+mvn install:install-file -Dfile=jcmFIPS-3.5.2.6.jar -DgroupId=com.rsa -DartifactId=jcmFIPS -Dversion=3.5.2.6 -Dpackaging=jar
+mvn install:install-file -Dfile=kmsclient-3.5.2.6.jar -DgroupId=com.rsa -DartifactId=kmsclient -Dversion=3.5.2.6 -Dpackaging=jar
+mvn install:install-file -Dfile=sslj-3.5.2.6.jar -DgroupId=com.rsa -DartifactId=sslj -Dversion=3.5.2.6 -Dpackaging=jar
+[ -f certj.jar ] && rm -r certj.jar
 
-rm -r cryptoj.jar
+[ -f cryptoj.jar ] && rm -r cryptoj.jar
 
-rm -r fpeclient.jar
+[ -f fpeclient.jar ] && rm -r fpeclient.jar
 
-rm -r kmcwrapper.jar
+[ -f kmcwrapper.jar ] && rm -r kmcwrapper.jar
 
-rm -r kmsclient.jar
+[ -f kmsclient.jar ] && rm -r kmsclient.jar
 
-rm -r sslj.jar
+[ -f sslj.jar ] && rm -r sslj.jar
 
-rm -r MQService-0.0.1.jar
+[ -f MQService-0.0.1.jar ] && rm -r MQService-0.0.1.jar
 
-rm -r CybersourceClient.jar
+[ -f CybersourceClient.jar ] && rm -r CybersourceClient.jar
 
-rm -r CyberSourceComm.jar
+[ -f CyberSourceComm.jar ] && rm -r CyberSourceComm.jar
 
-rm -r rt.jar
+[ -f rt.jar ] && rm -r rt.jar
 
-rm -r connector.jar
+[ -f connector.jar ] && rm -r connector.jar
 
-rm -r com.ibm.mq.jar
-rm -r mq-1.0.pom
-rm -r com.ibm.mq.commonservices.jar
+[ -f com.ibm.mq.jar ] && rm -r com.ibm.mq.jar
+[ -f mq-1.0.pom ] && rm -r mq-1.0.pom
+[ -f com.ibm.mq.commonservices.jar ] && rm -r com.ibm.mq.commonservices.jar
 
-rm -r com.ibm.mq.headers.jar
+[ -f com.ibm.mq.headers.jar ] && rm -r com.ibm.mq.headers.jar
 
-rm -r com.ibm.mq.jmqi.jar
+[ -f com.ibm.mq.jmqi.jar ] && rm -r com.ibm.mq.jmqi.jar
 
-rm -r com.ibm.mq.pcf.jar
+[ -f com.ibm.mq.pcf.jar ] && rm -r com.ibm.mq.pcf.jar
 
-rm -r com.ibm.mqjms.jar
+[ -f com.ibm.mqjms.jar ] && rm -r com.ibm.mqjms.jar
 
-rm -r jt400Native.jar
+[ -f jt400Native.jar ] && rm -r jt400Native.jar
 
-rm -r jt400.jar
+[ -f jt400.jar ] && rm -r jt400.jar
 
-rm -r org.apache.httpcomponents.httpcore-4.2.1.jar
+[ -f org.apache.httpcomponents.httpcore-4.2.1.jar ] && rm -r org.apache.httpcomponents.httpcore-4.2.1.jar
 
-rm -r wss4j-2.1.jar
+[ -f wss4j-2.1.jar ] && rm -r wss4j-2.1.jar
 
-rm -r common-2.5.0.jar
+[ -f common-2.5.0.jar ] && rm -r common-2.5.0.jar
 
-rm -r accountservice.jar
+[ -f accountservice.jar ] && rm -r accountservice.jar
 
-rm -r DPSAdapter.jar
+[ -f DPSAdapter.jar ] && rm -r DPSAdapter.jar
 
-rm -r DPSClient.jar
+[ -f DPSClient.jar ] && rm -r DPSClient.jar
 
-rm -r EDUconcurrent.jar
+[ -f EDUconcurrent.jar ] && rm -r EDUconcurrent.jar
 
-rm -r FDRapidConnect.jar
+[ -f FDRapidConnect.jar ] && rm -r FDRapidConnect.jar
 
-rm -r GPASSClient.jar
+[ -f GPASSClient.jar ] && rm -r GPASSClient.jar
 
-rm -r jcm.jar
+[ -f jcm.jar ] && rm -r jcm.jar
 
-rm -r POWClient.jar
+[ -f POWClient.jar ] && rm -r POWClient.jar
 
-rm -r RapidConnect.jar
+[ -f RapidConnect.jar ] && rm -r RapidConnect.jar
 
-rm -r SecurityFramework.jar
+[ -f SecurityFramework.jar ] && rm -r SecurityFramework.jar
 
-rm -r tools.jar
+[ -f tools.jar ] && rm -r tools.jar
 
-rm -r sun.misc.BASE64Decoder.jar
+[ -f sun.misc.BASE64Decoder.jar ] && rm -r sun.misc.BASE64Decoder.jar
 
-rm -r gpas-commons-final.jar
+[ -f gpas-commons-final.jar ] && rm -r gpas-commons-final.jar
 
-rm -r gpas-commons-final-1.0.jar
+[ -f gpas-commons-final-1.0.jar ] && rm -r gpas-commons-final-1.0.jar
 
-rm -r gpas-commons-0.0.2.jar
+[ -f gpas-commons-0.0.2.jar ] && rm -r gpas-commons-0.0.2.jar
 
-rm -r gpas-commons-0.0.2.v1.jar
+[ -f gpas-commons-0.0.2.v1.jar ] && rm -r gpas-commons-0.0.2.v1.jar
 
-rm -r gpas-commons-0.0.2.v2.jar
+[ -f gpas-commons-0.0.2.v2.jar ] && rm -r gpas-commons-0.0.2.v2.jar
 
-rm -r gpas-commons-0.0.2.v3.jar
+[ -f gpas-commons-0.0.2.v3.jar ] && rm -r gpas-commons-0.0.2.v3.jar
 
-rm -r gpas-commons-token-1.0.jar
-rm -r 
-rm -r gpas-commons-token-cnp-1.0.jar
-rm -r 
-rm -r gpas-commons-token-rtl-1.0.jar
-rm -r 
-rm -r fps-common.jar
+[ -f gpas-commons-token-1.0.jar ] && rm -r gpas-commons-token-1.0.jar
+[ -f  ] && rm -r 
+[ -f gpas-commons-token-cnp-1.0.jar ] && rm -r gpas-commons-token-cnp-1.0.jar
+[ -f  ] && rm -r 
+[ -f gpas-commons-token-rtl-1.0.jar ] && rm -r gpas-commons-token-rtl-1.0.jar
+[ -f  ] && rm -r 
+[ -f fps-common.jar ] && rm -r fps-common.jar
 
-rm -r EmailSend.jar
+[ -f EmailSend.jar ] && rm -r EmailSend.jar
 
-rm -r JavaAPI.jar
+[ -f JavaAPI.jar ] && rm -r JavaAPI.jar
 
-rm -r cryptojce.jar
+[ -f cryptojce.jar ] && rm -r cryptojce.jar
 
-rm -r cryptojcommon.jar
-rm -r cryptojcommon-1.0.pom
-rm -r kmsclient-3.5.jar
-rm -r kmsclient-3.5.pom
-rm -r JavaAPI-2.5.9.jar
+[ -f cryptojcommon.jar ] && rm -r cryptojcommon.jar
+[ -f cryptojcommon-1.0.pom ] && rm -r cryptojcommon-1.0.pom
+[ -f kmsclient-3.5.jar ] && rm -r kmsclient-3.5.jar
+[ -f kmsclient-3.5.pom ] && rm -r kmsclient-3.5.pom
+[ -f JavaAPI-2.5.9.jar ] && rm -r JavaAPI-2.5.9.jar
 
-rm -r RapidConnect-7.0.jar
+[ -f RapidConnect-7.0.jar ] && rm -r RapidConnect-7.0.jar
 
-rm -r com.ibm.ws.webservices.thinclient_6.1.0.jar
+[ -f com.ibm.ws.webservices.thinclient_6.1.0.jar ] && rm -r com.ibm.ws.webservices.thinclient_6.1.0.jar
 
-rm -r com.ibm.ws.webservices.thinclient_8.5.0.jar
+[ -f com.ibm.ws.webservices.thinclient_8.5.0.jar ] && rm -r com.ibm.ws.webservices.thinclient_8.5.0.jar
 
-rm -r settleReport_0.0.1.jar
+[ -f settleReport_0.0.1.jar ] && rm -r settleReport_0.0.1.jar
 
-rm -r firstapi-client-0.0.1.jar
+[ -f firstapi-client-0.0.1.jar ] && rm -r firstapi-client-0.0.1.jar
 
-rm -r settlementcommon_0.0.1.jar
+[ -f settlementcommon_0.0.1.jar ] && rm -r settlementcommon_0.0.1.jar
 
-rm -r ojdbc6.jar
+[ -f ojdbc6.jar ] && rm -r ojdbc6.jar
 
-rm -r ojdbc7.jar
+[ -f ojdbc7.jar ] && rm -r ojdbc7.jar
 
-rm -r RapidConnect-9.0.jar
+[ -f RapidConnect-9.0.jar ] && rm -r RapidConnect-9.0.jar
 
-rm -r fps-common-1.1.jar
+[ -f fps-common-1.1.jar ] && rm -r fps-common-1.1.jar
 
-rm -r kmcwrapper-1.0.jar
+[ -f kmcwrapper-1.0.jar ] && rm -r kmcwrapper-1.0.jar
 
-rm -r cardIDDomain-1.0.jar
+[ -f cardIDDomain-1.0.jar ] && rm -r cardIDDomain-1.0.jar
 
-rm -r cardIDservice-1.0.jar
+[ -f cardIDservice-1.0.jar ] && rm -r cardIDservice-1.0.jar
 
-rm -r ojdbc7-12.1.0.2.jar
+[ -f ojdbc7-12.1.0.2.jar ] && rm -r ojdbc7-12.1.0.2.jar
 
-rm -r certj-3.1.jar
+[ -f certj-3.1.jar ] && rm -r certj-3.1.jar
 
-rm -r jcm-6.1.jar
+[ -f jcm-6.1.jar ] && rm -r jcm-6.1.jar
 
-rm -r jsafe-4.02.jar
+[ -f jsafe-4.02.jar ] && rm -r jsafe-4.02.jar
 
-rm -r kmsclient-3.5.jar
+[ -f kmsclient-3.5.jar ] && rm -r kmsclient-3.5.jar
 
-rm -r sslj-5.1.1.jar
+[ -f sslj-5.1.1.jar ] && rm -r sslj-5.1.1.jar
 
-rm -r fpeclient-1.0.jar
+[ -f fpeclient-1.0.jar ] && rm -r fpeclient-1.0.jar
 
-rm -r cryptoj-5.0.1.jar
+[ -f cryptoj-5.0.1.jar ] && rm -r cryptoj-5.0.1.jar
 
-rm -r stpay-authclient-0.0.1-SNAPSHOT.jar
+[ -f stpay-authclient-0.0.1-SNAPSHOT.jar ] && rm -r stpay-authclient-0.0.1-SNAPSHOT.jar
 
-rm -r stpayclient-1.0.jar
+[ -f stpayclient-1.0.jar ] && rm -r stpayclient-1.0.jar
 
-rm -r STPayCommons-0.0.1-SNAPSHOT.jar
+[ -f STPayCommons-0.0.1-SNAPSHOT.jar ] && rm -r STPayCommons-0.0.1-SNAPSHOT.jar
 
-rm -r nds-2.2.139389.jar
+[ -f nds-2.2.139389.jar ] && rm -r nds-2.2.139389.jar
+
+[ -f nds-2.2.149918.jar ] && rm -r nds-2.2.149918.jar
+
+[ -f moneris-shared-beans-0.0.1-SNAPSHOT.jar ] && rm -r moneris-shared-beans-0.0.1-SNAPSHOT.jar
+
+[ -f cryptojce-3.5.2.6.jar ] && rm -r cryptojce-3.5.2.6.jar
+
+[ -f cryptojcommon-3.5.2.6.jar ] && rm -r cryptojcommon-3.5.2.6.jar
+
+[ -f jcm-3.5.2.6.jar ] && rm -r jcm-3.5.2.6.jar
+
+[ -f jcmFIPS-3.5.2.6.jar ] && rm -r jcmFIPS-3.5.2.6.jar
+
+[ -f kmsclient-3.5.2.6.jar ] && rm -r kmsclient-3.5.2.6.jar
+
+[ -f sslj-3.5.2.6.jar ] && rm -r sslj-3.5.2.6.jar
