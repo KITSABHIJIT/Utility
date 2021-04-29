@@ -9,7 +9,6 @@ import java.io.OutputStream;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.tool.xml.XMLWorkerHelper;
-import com.myutility.code.FileUtil;
 
 public class HTMLToPDF {
 
