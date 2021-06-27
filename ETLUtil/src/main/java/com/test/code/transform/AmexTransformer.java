@@ -62,6 +62,7 @@ public class AmexTransformer {
 			System.err.println("Error file: "+PropertiesUtil.getProperty("AmexFile")+"\n Error Data: "+StringUtil.printArray(expenseDetails));
 			e.printStackTrace();
 		}
+		System.out.println(Class.class.getName()+ "Completed");
 		return expenseList;
 	}
 
