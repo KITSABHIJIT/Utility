@@ -135,4 +135,7 @@ public class StringUtil {
 		}  
 		return true;  
 	}
+	public static String removeNewLine(String str) {
+		return str.replace("\n", "").replace("\r", "");
+	}
 }

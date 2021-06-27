@@ -70,10 +70,12 @@ public class PDFToText {
 						if(null!=myList.get(i+4) && StringUtil.isNumeric((myList.get(i+4)).substring(0, 2))){
 							i=i+4;
 							String date=(myList.get(i-2)+myList.get(i-1).trim()+myList.get(i)).replaceAll(" ", "");
+							date = StringUtil.removeNewLine(date);
 							tempXoom.add(DateUtil.getSQLDate(DateUtil.getSomeDate(date, "MMMMMdd,yyyyhh:mma")));
 						}else {
 							i=i+3;
 							String date=(myList.get(i-1)+" "+myList.get(i)).replaceAll(" ", "");
+							date = StringUtil.removeNewLine(date);
 							tempXoom.add(DateUtil.getSQLDate(DateUtil.getSomeDate(date, "MMMMMdd,yyyyhh:mma")));
 						}
 						i=i+2;
@@ -105,7 +107,9 @@ public class PDFToText {
 		for (File string : filesInFolder){ 
 			if(!".DS_Store".equals(string.getName())) {
 				String pdfData = getTextFromPDF(string.getAbsolutePath());
-				list.add(extractRiaData(pdfData));
+				List<Object> extractRiaData=extractRiaData(pdfData);
+				if(extractRiaData.size()>0)
+					list.add(extractRiaData);
 				System.out.println(string.getName()+ " appended Successfully.");
 			}
 		}
@@ -141,7 +145,9 @@ public class PDFToText {
 		double total=0;
 
 		for(List<Object> obj:list) {
-			total+=(Double)obj.get(index);
+			if(obj.size()>0)
+				total+=(Double)obj.get(index);
+			
 		}
 
 		return total;
