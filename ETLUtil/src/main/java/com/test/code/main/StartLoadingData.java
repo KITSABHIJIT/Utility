@@ -40,7 +40,7 @@ public class StartLoadingData {
 
 	public static void main (String ...strings){
 		
-		//ConnectionUtil.backupdbtosql();
+		ConnectionUtil.backupdbtosql();
 		ConnectionUtil.cleanupData();
 		//Expense Load
 		// Extract Data

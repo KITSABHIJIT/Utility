@@ -82,6 +82,49 @@ public class ConnectionUtil {
 	}
 	
 	public static void backupdbtosql() {
+ 		try {
+ 			String [] connectionArray; 
+ 			connectionArray=PropertiesUtil.getProperty("MYSQL").split(PropertiesUtil.getProperty("delimeter"));
+ 			if(null!=connectionArray){
+ 				String dbUser = connectionArray[1];
+ 				String dbPass = connectionArray[2];
+ 				String folderPath = PropertiesUtil.getProperty("databaseBackup");
+ 				File f1 = new File(folderPath);
+ 				if(!f1.exists()){
+ 					f1.mkdir();
+ 				}
+ 				String savePath = f1+"/backup"+DateUtil.getSomeDateString(null, null, "yyyyMMddhhmmss")+".sql";
+
+ 				ProcessBuilder pb = new ProcessBuilder(
+ 				        new String[]{
+ 				            "/usr/local/mysql/bin/mysqldump", 
+ 				            "-u" + dbUser,
+ 				            "-p" + dbPass,
+ 				            PropertiesUtil.getProperty("MYSQLDB"),
+ 				            "-r", savePath
+ 				        }
+ 				);
+ 				pb.redirectErrorStream(true);
+ 				try {
+ 				    Process p = pb.start();
+ 				    InputStream is = p.getInputStream();
+ 				    int in = -1;
+ 				    while ((in = is.read()) != -1) {
+ 				        System.out.print((char)in);
+ 				    }
+ 				    int exitWith = p.exitValue();
+ 				    System.out.println("\nExited with " + exitWith);
+ 				} catch (IOException exp) {
+ 				    exp.printStackTrace();
+ 				}
+ 			}
+ 		} catch (Exception ex) {
+ 			System.out.println("Could not take database backup");
+ 			ex.printStackTrace();
+ 		}
+ 	}
+	
+	public static void backupdbtosqlWindows() {
 		try {
 			String [] connectionArray; 
 			connectionArray=PropertiesUtil.getProperty("MYSQL").split(PropertiesUtil.getProperty("delimeter"));
@@ -95,32 +138,9 @@ public class ConnectionUtil {
 				}
 				String savePath = f1+System.getProperty("file.separator")+"backup"+DateUtil.getSomeDateString(null, null, "yyyyMMddhhmmss")+".sql";
 				
-				/*ProcessBuilder pb = new ProcessBuilder(
-				        new String[]{
-				            "/usr/local/mysql/bin/mysqldump", 
-				            "C:\\Program Files\\MySQL\\MySQL Server 8.0\\bin",
-				            "-u" + dbUser,
-				            "-p" + dbPass,
-				            PropertiesUtil.getProperty("MYSQLDB"),
-				            "-r", savePath
-				        }
-				);*/
-				
 				ProcessBuilder pb = new ProcessBuilder("cmd.exe", "/c", "C:\\\"Program Files\"\\MySQL\\\"MySQL Server 8.0\"\\bin\\mysqldump -u "+dbUser+" -p "+dbPass+" "+PropertiesUtil.getProperty("MYSQLDB")+" > "
 				        + savePath);
-				
-				//pb.redirectErrorStream(true);
 				try {
-				    /*Process p = pb.start();
-				    InputStream is = p.getInputStream();
-				    int in = -1;
-				    while ((in = is.read()) != -1) {
-				        System.out.print((char)in);
-				    }
-				    int exitWith = p.exitValue();
-				    System.out.println("\nExited with " + exitWith);*/
-				    
-				    
 				    Process exec = pb.start();
 				    int retCode = exec.waitFor();
 				    if (retCode != 0) { //4
@@ -131,8 +151,6 @@ public class ConnectionUtil {
 
 				        System.out.println(new String(buffer));
 				    }
-				    
-				    
 				} catch (IOException exp) {
 				    exp.printStackTrace();
 				}
