@@ -5,7 +5,7 @@
 	<appender name="debugOnly"
 		class="org.apache.log4j.RollingFileAppender">
 		<param name="File"
-			value="/app/payserv/ReportUtil/debug.log" />
+			value="/Users/abhijit/ReportUtil/debug.log" />
 		<param name="DatePattern" value="'.'yyyy-MM-dd" />
 		<param name="MaxFileSize" value="30MB"/> 
 		<param name="MaxBackupIndex" value="20" />
@@ -24,7 +24,7 @@
 	<appender name="infoOnly"
 		class="org.apache.log4j.RollingFileAppender">
 		<param name="File"
-			value="/app/payserv/ReportUtil/info.log" />
+			value="/Users/abhijit/ReportUtil/info.log" />
 		<param name="DatePattern" value="'.'yyyy-MM-dd" />
 		<param name="MaxFileSize" value="30MB"/> 
 		<param name="MaxBackupIndex" value="20" />
@@ -44,7 +44,7 @@
 	<appender name="errorOnly"
 		class="org.apache.log4j.RollingFileAppender">
 		<param name="File"
-			value="/app/payserv/ReportUtil/error.log" />
+			value="/Users/abhijit/ReportUtil/error.log" />
 		<param name="DatePattern" value="'.'yyyy-MM-dd" />
 		<param name="MaxFileSize" value="30MB"/> 
 		<param name="MaxBackupIndex" value="20" />
