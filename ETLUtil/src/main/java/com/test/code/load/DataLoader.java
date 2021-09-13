@@ -42,7 +42,7 @@ public class DataLoader {
 				if (i % 1000 == 0 || i == expList.size()) {
 					statement.executeBatch(); // Execute every 1000 items.
 				}*/
-					System.out.println(exp.toString());
+					//System.out.println(exp.toString());
 				}catch(SQLException e){
 					e.printStackTrace();
 					System.out.println(exp.toString());
@@ -82,7 +82,7 @@ public class DataLoader {
 				if (i % 1000 == 0 || i == earningList.size()) {
 					statement.executeBatch(); // Execute every 1000 items.
 				}*/
-					System.out.println(ear.toString());
+					//System.out.println(ear.toString());
 				}catch(SQLException e){
 					e.printStackTrace();
 					System.out.println(ear.toString());

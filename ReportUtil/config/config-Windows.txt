@@ -3,7 +3,7 @@ reportStartDate=20191101
 reportEndDate=
 reportType=MONTHLY
 
-MYSQL=//localhost:3306/expdb|root|abhijit
+MYSQL=//localhost/expdb?useSSL=false|root|abhijit
 
 delimeter=[|]
 commaDelimeter=[,]
@@ -75,7 +75,7 @@ PERIOD_MULTIBAR_MONTHLY_PAYMENT_TYPE_EXPENSE=SELECT CASE WHEN SUM(AMOUNT) IS NUL
 
 LINE_EXPENSE=SELECT DATE_FORMAT(EXPENSE_DATE, '%b-%d'),sum(AMOUNT) FROM EXPENSE E where EXPENSE_DATE >= '<START_DATE>' and EXPENSE_DATE <= '<END_DATE>' group by EXPENSE_DATE order by EXPENSE_DATE
 
-excelPath = /Users/royab001/Google Drive/Expense/Expense Dumps/Test Exported Data/
+excelPath = C:\\Users\\home\\Google Drive\\Expense\\Expense Dumps\\Test Exported Data\\
 
 excelFileExtn=.xls
 
@@ -110,8 +110,8 @@ CONFIG_PERIOD_MULTIBAR_MONTHLY_PAYMENT_TYPE_EXPENSE =Monthly Expense By Payment 
 
 CONFIG_LINE_EXPENSE =Expense By Date|Dates|Expense|true|true|false|1500|600|0|0|FALSE|TRUE
 
-RIA_PDF_SOURCE_RECEIPTS=/Users/royab001/Google Drive/Utility Bills/Ria/Receipts/
-RIA_IMAGE_SOURCE_RECEIPTS=/Users/royab001/Google Drive/Utility Bills/Ria/ImageReceipts/
-RIA_FEED_SOURCE_RECEIPTS=/Users/royab001/Google Drive/Utility Bills/Ria/FeedReceipts/
-XOOM_SOURCE_RECEIPT=/Users/royab001/Google Drive/Utility Bills/Xoom/
-RIA_PEPORT=/Users/royab001/Google Drive/Utility Bills/Ria/Report/RiaMoney.xls
+RIA_PDF_SOURCE_RECEIPTS=C:\\Users\\home\\Google Drive\\Utility Bills\\Ria\\Receipts\\
+RIA_IMAGE_SOURCE_RECEIPTS=C:\\Users\\home\\Google Drive\\Utility Bills\\Ria\\ImageReceipts\\
+RIA_FEED_SOURCE_RECEIPTS=C:\\Users\\home\\Google Drive\\Utility Bills\\Ria\\FeedReceipts\\
+XOOM_SOURCE_RECEIPT=C:\\Users\\home\\Google Drive\\Utility Bills\\Xoom\\
+RIA_PEPORT=C:\\Users\\home\\Google Drive\\Utility Bills\\Ria\\Report\\RiaMoney.xls

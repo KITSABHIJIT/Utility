@@ -14,6 +14,7 @@ public class AmexTransformer {
 	private static final char QUOTE_CHAR = '"';
 	private static final String MODE_OF_PAYMENT ="AMEX CARD";
 	private static final String PAYMENT_DONE ="ONLINE PAYMENT - THANK YOU";
+	private static final String PAYMENT_DONE1 ="MOBILE PAYMENT - THANK YOU";
 	private static final String PAYMENT_RECEIVED ="PAYMENT RECEIVED";
 	private static final String PLACE_DELIMITER = "-";
 	private static final String DATE_DELIMITER = "  ";
@@ -31,7 +32,7 @@ public class AmexTransformer {
 			csvReader = new CSVReader(new FileReader(PropertiesUtil.getProperty("AmexFile")),COMMA_DELIMITER,QUOTE_CHAR,1);
 			while((expenseDetails = csvReader.readNext())!=null)
 			{
-				if(!expenseDetails[2].trim().contains(PAYMENT_DONE) && !expenseDetails[2].trim().contains(PAYMENT_RECEIVED)) {
+				if(!expenseDetails[2].trim().contains(PAYMENT_DONE) && !expenseDetails[2].trim().contains(PAYMENT_DONE1) && !expenseDetails[2].trim().contains(PAYMENT_RECEIVED)) {
 					Expense exp = new Expense();
 					exp.setModeOfPayment(MODE_OF_PAYMENT);
 					exp.setTransactionDate(DateUtil.getSQLData(DateUtil.getSomeDate(expenseDetails[0].trim().split(DATE_DELIMITER)[0], "MM/dd/yyyy")));
