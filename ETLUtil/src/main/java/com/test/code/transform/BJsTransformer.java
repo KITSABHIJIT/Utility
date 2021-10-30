@@ -2,9 +2,11 @@ package com.test.code.transform;
 
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.opencsv.CSVReader;
+import com.test.code.load.DataLoader;
 import com.test.code.pojo.Expense;
 import com.test.code.util.DateUtil;
 import com.test.code.util.FileUtil;
@@ -38,6 +40,7 @@ public class BJsTransformer {
 			 * Delimiter is comma
 			 * Start reading from line 1
 			 */
+			Date maxEntryDate=DataLoader.getMaxEntryDate(MODE_OF_PAYMENT);
 			csvReader = new CSVReader(new FileReader(PropertiesUtil.getProperty("BJsFileTemp")),COMMA_DELIMITER,QUOTE_CHAR,0);
 			while((expenseDetails = csvReader.readNext())!=null)
 			{
@@ -48,9 +51,11 @@ public class BJsTransformer {
 					exp.setMerchant(expenseDetails[1].trim().toUpperCase());
 					exp.setExpensePlace(expenseDetails[2].trim().toUpperCase());
 					exp.setAmount(StringUtil.getDouble(expenseDetails[4].trim().substring(1)));
-					if(expenseList.contains(exp)) {
+					if(exp.getTransactionDate()==(maxEntryDate)) {
+						System.out.println("Expense Record already exists on the same Date: "+exp.toString());
+					}else if(expenseList.contains(exp)) {
 						System.out.println("Expense Record already exists: "+exp.toString());
-					}else {
+					}else if(exp.getTransactionDate().after(maxEntryDate)) {
 						expenseList.add(exp);
 					}
 				}

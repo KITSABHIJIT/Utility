@@ -1,5 +1,7 @@
 package com.myutility.code;
 
+
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -12,26 +14,45 @@ import java.util.List;
 
 public class FileUtil {
 
-	@SuppressWarnings("rawtypes")
-	public static List getListOfFiles(String directoryName,boolean absolutepath) {
+	public static List<String> getListOfFiles(String directoryName,boolean absolutepath,List<String> outFiles) {
 		File directory = new File(directoryName);
-		ArrayList<String> files=new ArrayList<String>();
 		// get all the files from a directory
 		File[] fList = directory.listFiles();
 		for (File file : fList) {
 			if (file.isFile()) {
-				files.add((absolutepath)?file.getAbsolutePath():file.getName());
+				outFiles.add((absolutepath)?file.getAbsolutePath():file.getName());
 			} else if (file.isDirectory()) {
-				getListOfFiles(file.getAbsolutePath(),absolutepath);
+				getListOfFiles(file.getAbsolutePath(),absolutepath,outFiles);
 			}
 		}
-		Collections.sort(files, new Comparator<String>() {
-			@Override
+		Collections.sort(outFiles, new Comparator<String>() {
 			public int compare(String s1, String s2) {
 				return s1.compareToIgnoreCase(s2);
 			}
 		});
-		return files;
+		return outFiles;
+	}
+
+	public static void cutPasteFiles(String destinationDir,List<String> files,String prefix) {
+
+		for(String fle:files) {
+			File file = new File(fle);
+			if(null==prefix || file.getName().toUpperCase().endsWith(prefix.toUpperCase())) {
+				// renaming the file and moving it to a new location
+				String newFileName=file.getName().substring(0, file.getName().lastIndexOf("."))+"_"+System.currentTimeMillis()+"."+file.getName().substring(file.getName().lastIndexOf(".")+1);
+				if(file.renameTo
+						(new File(destinationDir+"\\"+newFileName)))
+				{
+					// if file copied successfully then delete the original file
+					file.delete();
+					System.out.println(file.getName()+" File moved successfully");
+				}
+				else
+				{
+					System.out.println(file.getName()+"Failed to move the file");
+				}
+			}
+		}
 	}
 
 	public static void writeToFile(String content,String fileName){
@@ -70,7 +91,7 @@ public class FileUtil {
 		BufferedReader br = null;
 		FileReader fr = null;
 
-		try {
+		try {     
 
 			fr = new FileReader(fileName);
 			br = new BufferedReader(fr);
@@ -106,4 +127,9 @@ public class FileUtil {
 		return list;
 	}
 
+	public static void main(String ...strings) {
+		ArrayList<String> files=new ArrayList<String>();
+		List<String> data=getListOfFiles("F:\\Spoon\\Spoon-002",true,files);
+		cutPasteFiles("F:\\Spoon\\new-dxf",data,null);
+	}
 }

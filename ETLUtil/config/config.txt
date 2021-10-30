@@ -4,6 +4,8 @@ sourceDirPathPayMode=C:\\Users\\home\\Google Drive\\Expense\\Expense Dumps\\PayM
 sourceDirPathCategory=C:\\Users\\home\\Google Drive\\Expense\\Expense Dumps\\Category
 delimeter=[|]
 
+loadIncrementalData=true
+
 MYSQL=//localhost/expdb?useSSL=false|root|abhijit
 MYSQLDB=expdb
 
@@ -33,6 +35,10 @@ SQL_INSERT_NEW_MERCHANT= INSERT INTO EXPDB.MERCHANT (merchant) SELECT * FROM (SE
 SQL_NEW_MERCHANT_UPDATE= UPDATE merchant JOIN merchant_mapping ON merchant.merchant LIKE CONCAT('%', merchant_mapping.merchant_initial, '%') SET merchant.category =merchant_mapping.category
 
 SQL_INSERT_CATEGORY= INSERT INTO EXPDB.expense_category (category_id,category) SELECT * FROM (SELECT ?,?) AS tmp WHERE NOT EXISTS (SELECT category_id FROM EXPDB.expense_category WHERE category_id =? AND category =?) LIMIT 1;
+
+SQL_MAX_ENTRY_DATE= select MAX(EXPENSE_DATE) FROM EXPDB.EXPENSE WHERE PAYMENT_MODE=?
+
+SQL_MAX_ENTRY_DATE_EARNING= select MAX(EARNING_DATE) FROM EXPDB.EARNING WHERE PAYMENT_MODE=?
 
 BOACreditFile=C:\\Users\\home\\Google Drive\\Expense\\Expense Dumps\\Raw_Statements\\BankOfAmericaCredit.csv
 AmexFile=C:\\Users\\home\\Google Drive\\Expense\\Expense Dumps\\Raw_Statements\\Amex.csv
