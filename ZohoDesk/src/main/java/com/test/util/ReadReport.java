@@ -15,8 +15,10 @@ import com.opencsv.CSVReader;
 public class ReadReport {
 
 	public static void main(String ...strings) {
-		String inputPath="C:\\Users\\home\\Google Drive (tanaya.chatt90@gmail.com)\\TicketData.csv";
-		String outputPath="C:\\Users\\\\home\\Google Drive (tanaya.chatt90@gmail.com)\\TicketData.xls";
+		String googleDrivePath="/Users/tanayachattopadhyay/Google Drive/My Drive";
+		String inputPath=googleDrivePath+"/TicketData.csv";
+		String outputPath=googleDrivePath+"/TicketData.xls";
+		
 		List<Tickets> tickets= getTickets(inputPath);
 		tickets.sort(Comparator.comparing(Tickets::getTicketNo));
 		ReportExcel.writeExcel(getFieldsData(tickets), outputPath);
