@@ -16,9 +16,10 @@ public class ReadReport {
 
 	public static void main(String ...strings) {
 		String googleDrivePath="/Users/tanayachattopadhyay/Google Drive/My Drive";
+		//googleDrivePath="C:\\Users\\home\\Desktop";
 		String inputPath=googleDrivePath+"/TicketData.csv";
 		String outputPath=googleDrivePath+"/TicketData.xls";
-		
+
 		List<Tickets> tickets= getTickets(inputPath);
 		tickets.sort(Comparator.comparing(Tickets::getTicketNo));
 		ReportExcel.writeExcel(getFieldsData(tickets), outputPath);
@@ -56,6 +57,8 @@ public class ReadReport {
 						// Setting Quantity
 						if(values[8].contains("Qty-")) {
 							tickets.setQuantity(Integer.parseInt((values[8].substring(values[8].indexOf("Qty-")+4,(values[8].lastIndexOf("-")))).trim()));
+						}else if(values[8].contains("Qty -")) {
+							tickets.setQuantity(Integer.parseInt((values[8].substring(values[8].indexOf("Qty -")+5,(values[8].lastIndexOf("-")))).trim()));
 						}else {
 							tickets.setQuantity(0);
 						}
@@ -85,11 +88,13 @@ public class ReadReport {
 						}
 
 						//setting spoon Type
-						StringBuffer spoonTypes=new StringBuffer();
-						int spoonLineTypes=countWordsUsingStringTokenizer(tempDesc,"Spoon size:");
-						int spoonTypeCount=tempDesc.indexOf("Spoon size:")-1;
-						for(int i=0;i<spoonLineTypes;i++) {
-							if(tempDesc.indexOf("Spoon size:")>0) {
+						
+						if(tempDesc.indexOf("Spoon size:")>0) {
+							StringBuffer spoonTypes=new StringBuffer();
+							int spoonLineTypes=countWordsUsingStringTokenizer(tempDesc,"Spoon size:");
+							int spoonTypeCount=tempDesc.indexOf("Spoon size:")-1;
+							for(int i=0;i<spoonLineTypes;i++) {
+
 								if(tempDesc.indexOf("</li>",tempDesc.indexOf("Spoon size:",spoonTypeCount)+3)<0) {
 									spoonTypes.append((i==0)?tempDesc.substring(tempDesc.indexOf("<b>",tempDesc.indexOf("Spoon size:",spoonTypeCount)+3)+3,(tempDesc.indexOf("poon",tempDesc.indexOf("<b>",tempDesc.indexOf("Spoon size:",spoonTypeCount)+3))-1)).trim()
 											:"|"+tempDesc.substring(tempDesc.indexOf("<b>",tempDesc.indexOf("Spoon size:",spoonTypeCount)+3)+3,(tempDesc.indexOf("poon",tempDesc.indexOf("<b>",tempDesc.indexOf("Spoon size:",spoonTypeCount)+3))-1)).trim());
@@ -97,14 +102,30 @@ public class ReadReport {
 									spoonTypes.append((i==0)?tempDesc.substring(tempDesc.indexOf(":",tempDesc.indexOf("Spoon size",spoonTypeCount))+1,(tempDesc.indexOf("poon",tempDesc.indexOf(":",tempDesc.indexOf("Spoon size",spoonTypeCount)))-1)).trim()
 											:"|"+tempDesc.substring(tempDesc.indexOf(":",tempDesc.indexOf("Spoon size",spoonTypeCount))+1,(tempDesc.indexOf("poon",tempDesc.indexOf(":",tempDesc.indexOf("Spoon size",spoonTypeCount)))-1)).trim());
 								}
-							}else {
-								spoonTypes.append(TicketConstants.TEA);
+								spoonTypeCount+=500;
 							}
-							spoonTypeCount+=500;
+							tickets.setSpoonType((spoonTypes.length()>0)?spoonTypes.toString():TicketConstants.TEA);
+						}else if(tempDesc.indexOf("Spoon Type:")>0) {
+							StringBuffer spoonTypes=new StringBuffer();
+							int spoonLineTypes=countWordsUsingStringTokenizer(tempDesc,"Spoon Type:");
+							int spoonTypeCount=tempDesc.indexOf("Spoon Type:")-1;
+							for(int i=0;i<spoonLineTypes;i++) {
+								if(tempDesc.indexOf("</li>",tempDesc.indexOf("Spoon Type:",spoonTypeCount)+3)<0) {
+									spoonTypes.append((i==0)?tempDesc.substring(tempDesc.indexOf("<b>",tempDesc.indexOf("Spoon Type:",spoonTypeCount)+3)+3,(tempDesc.indexOf("poon",tempDesc.indexOf("<b>",tempDesc.indexOf("Spoon Type:",spoonTypeCount)+3))-1)).trim()
+											:"|"+tempDesc.substring(tempDesc.indexOf("<b>",tempDesc.indexOf("Spoon Type:",spoonTypeCount)+3)+3,(tempDesc.indexOf("poon",tempDesc.indexOf("<b>",tempDesc.indexOf("Spoon Type:",spoonTypeCount)+3))-1)).trim());
+								}else {
+									spoonTypes.append((i==0)?tempDesc.substring(tempDesc.indexOf(":",tempDesc.indexOf("Spoon Type",spoonTypeCount))+1,(tempDesc.indexOf("poon",tempDesc.indexOf(":",tempDesc.indexOf("Spoon Type",spoonTypeCount)))-1)).trim()
+											:"|"+tempDesc.substring(tempDesc.indexOf(":",tempDesc.indexOf("Spoon Type",spoonTypeCount))+1,(tempDesc.indexOf("poon",tempDesc.indexOf(":",tempDesc.indexOf("Spoon Type",spoonTypeCount)))-1)).trim());
+								}
+								spoonTypeCount+=500;
+							}
+							tickets.setSpoonType((spoonTypes.length()>0)?spoonTypes.toString():TicketConstants.TEA);
+						} else {
+							tickets.setSpoonType(TicketConstants.TEA);
 						}
-						tickets.setSpoonType((spoonTypes.length()>0)?spoonTypes.toString():TicketConstants.TEA);
+
 						
-						
+
 						// Setting Customization
 						StringBuffer customization=new StringBuffer();
 						int spoonCount=countWordsUsingStringTokenizer(tempDesc,"Personalization:");
@@ -276,13 +297,13 @@ public class ReadReport {
 
 	public static int countWordsUsingStringTokenizer(String sentence, String delemeter) {
 		if (sentence == null || sentence.isEmpty()) {
-		      return 0;
-		    }
+			return 0;
+		}
 
-		    String[] words = sentence.split(delemeter);
-		    return words.length-1;
-	  }
-	
+		String[] words = sentence.split(delemeter);
+		return words.length-1;
+	}
+
 	public static List<List<Object>> getFieldsData(List<Tickets> tickets){
 		List<List<Object>> data=new ArrayList<List<Object>>();
 		List<Object> header=new ArrayList<Object>();
