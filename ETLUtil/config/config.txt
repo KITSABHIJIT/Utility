@@ -1,13 +1,16 @@
-sourceDirPath=C:\\Users\\home\\Google Drive\\Expense\\Expense Dumps\\Raw_Statements\\OldStatements
-sourceDirPathMerchant=C:\\Users\\home\\Google Drive\\Expense\\Expense Dumps\\Merchant
-sourceDirPathPayMode=C:\\Users\\home\\Google Drive\\Expense\\Expense Dumps\\PayMode
-sourceDirPathCategory=C:\\Users\\home\\Google Drive\\Expense\\Expense Dumps\\Category
+sourceDirPath=/Users/abhijit/Google Drive/Expense/Expense Dumps/Raw_Statements/OldStatements
+sourceDirPathMerchant=/Users/abhijit/Google Drive/Expense/Expense Dumps/Merchant
+sourceDirPathPayMode=/Users/abhijit/Google Drive/Expense/Expense Dumps/PayMode
+sourceDirPathCategory=/Users/abhijit/Google Drive/Expense/Expense Dumps/Category
 delimeter=[|]
+
 
 loadIncrementalData=true
 
-MYSQL=//localhost/expdb?useSSL=false|root|abhijit
-MYSQLDB=expdb
+#MYSQL=//localhost/expdb?useSSL=false|root|abhijit
+
+MYSQL=//localhost:3306/expdb?useSSL=false|root|Abhijit@123
+
 
 SQL_EXPENSE_CLEANUP=DELETE FROM EXPDB.EXPENSE
 SQL_EARNING_CLEANUP=DELETE FROM EXPDB.EARNING
@@ -36,6 +39,7 @@ SQL_NEW_MERCHANT_UPDATE= UPDATE merchant JOIN merchant_mapping ON merchant.merch
 
 SQL_INSERT_CATEGORY= INSERT INTO EXPDB.expense_category (category_id,category) SELECT * FROM (SELECT ?,?) AS tmp WHERE NOT EXISTS (SELECT category_id FROM EXPDB.expense_category WHERE category_id =? AND category =?) LIMIT 1;
 
+<<<<<<< HEAD
 SQL_MAX_ENTRY_DATE= select MAX(EXPENSE_DATE) FROM EXPDB.EXPENSE WHERE PAYMENT_MODE=?
 
 SQL_MAX_ENTRY_DATE_EARNING= select MAX(EARNING_DATE) FROM EXPDB.EARNING WHERE PAYMENT_MODE=?
@@ -64,9 +68,35 @@ BarclaysFile=C:\\Users\\home\\Google Drive\\Expense\\Expense Dumps\\Raw_Statemen
 BOATravelCreditFile=C:\\Users\\home\\Google Drive\\Expense\\Expense Dumps\\Raw_Statements\\BankOfAmericaTravel.csv
 AmexBlueCashFile=C:\\Users\\home\\Google Drive\\Expense\\Expense Dumps\\Raw_Statements\\AmexBlueCash.csv
 AmexCashMagnetFile=C:\\Users\\home\\Google Drive\\Expense\\Expense Dumps\\Raw_Statements\\AmexCashMagnet.csv
+=======
+BOACreditFile=/Users/abhijit/Google Drive/Expense/Expense Dumps/Raw_Statements/BankOfAmericaCredit.csv
+AmexFile=/Users/abhijit/Google Drive/Expense/Expense Dumps/Raw_Statements/Amex.csv
+BOAdebitFile=/Users/abhijit/Google Drive/Expense/Expense Dumps/Raw_Statements/BankOfAmericaDebit.csv
+DiscoverFile=/Users/abhijit/Google Drive/Expense/Expense Dumps/Raw_Statements/Discover.csv
+ChaseFile=/Users/abhijit/Google Drive/Expense/Expense Dumps/Raw_Statements/Chase.CSV
+StoreCardFile=/Users/abhijit/Google Drive/Expense/Expense Dumps/Raw_Statements/AmazonStoreCard.csv
+JCPenneyFile=/Users/abhijit/Google Drive/Expense/Expense Dumps/Raw_Statements/JC Penney.csv
+BJsFile=/Users/abhijit/Google Drive/Expense/Expense Dumps/Raw_Statements/bjscardCreditCard.CSV
+BJsFileTemp=/Users/abhijit/Google Drive/Expense/Expense Dumps/Raw_Statements/bjscardCreditCardTemp.CSV
+KholsFile=/Users/abhijit/Google Drive/Expense/Expense Dumps/Raw_Statements/khols.csv
+MacysFile=/Users/abhijit/Google Drive/Expense/Expense Dumps/Raw_Statements/Macys.csv
+TjMaxFile=/Users/abhijit/Google Drive/Expense/Expense Dumps/Raw_Statements/Tjmax.csv
+ZalesFile=/Users/abhijit/Google Drive/Expense/Expense Dumps/Raw_Statements/Zales.csv
+ZalesFileTemp=/Users/abhijit/Google Drive/Expense/Expense Dumps/Raw_Statements/ZalesTemp.csv
+BestBuyFile=/Users/abhijit/Google Drive/Expense/Expense Dumps/Raw_Statements/bestBuy.csv
+DCUdebitFile=/Users/abhijit/Google Drive/Expense/Expense Dumps/Raw_Statements/DCU.csv
+WalmartFile=/Users/abhijit/Google Drive/Expense/Expense Dumps/Raw_Statements/walmart.csv
+ChaseSapphireFile=/Users/abhijit/Google Drive/Expense/Expense Dumps/Raw_Statements/ChaseSapphire.CSV
+CapitalOneFile=/Users/abhijit/Google Drive/Expense/Expense Dumps/Raw_Statements/CapitalOne.csv
+WellsFargoFile=/Users/abhijit/Google Drive/Expense/Expense Dumps/Raw_Statements/WellsFargo.csv
+BarclaysFile=/Users/abhijit/Google Drive/Expense/Expense Dumps/Raw_Statements/barclays.csv
+BOATravelCreditFile=/Users/abhijit/Google Drive/Expense/Expense Dumps/Raw_Statements/BankOfAmericaTravel.csv
+AmexBlueCashFile=/Users/abhijit/Google Drive/Expense/Expense Dumps/Raw_Statements/AmexBlueCash.csv
+AmexCashMagnetFile=/Users/abhijit/Google Drive/Expense/Expense Dumps/Raw_Statements/AmexCashMagnet.csv
+>>>>>>> branch 'master' of https://github.com/KITSABHIJIT/Utility.git
 
 
 
 
 
-databaseBackup=C:\\Users\\home\\Google Drive\\Expense\\Expense Dumps\\mysqlBackup\\
+databaseBackup=/Users/abhijit/Google Drive/Expense/Expense Dumps/mysqlBackup/

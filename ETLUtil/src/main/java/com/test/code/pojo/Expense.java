@@ -9,6 +9,7 @@ public class Expense{
 	private String merchant;
 	private String expensePlace;
 	private String modeOfPayment;
+	private String referenceNo;
 	private double amount;
 	
 	public Date getTransactionDate() {
@@ -41,13 +42,20 @@ public class Expense{
 	public void setAmount(double amount) {
 		this.amount = amount;
 	}
-	@Override
-	public String toString() {
-		return "Expense [transactionDate=" + transactionDate + ", merchant="
-				+ merchant  + ", expensePlace=" + expensePlace+ ", modeOfPayment=" + modeOfPayment + ", amount=" + amount
-				+ "]";
+	public String getReferenceNo() {
+		return referenceNo;
+	}
+	public void setReferenceNo(String referenceNo) {
+		this.referenceNo = referenceNo;
 	}
 	
+	
+	@Override
+	public String toString() {
+		return "Expense [transactionDate=" + transactionDate + ", merchant=" + merchant + ", expensePlace="
+				+ expensePlace + ", modeOfPayment=" + modeOfPayment + ", referenceNo=" + referenceNo + ", amount="
+				+ amount + "]";
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -57,6 +65,7 @@ public class Expense{
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		result = prime * result + ((modeOfPayment == null) ? 0 : modeOfPayment.hashCode());
 		result = prime * result + ((transactionDate == null) ? 0 : transactionDate.hashCode());
+		result = prime * result + ((referenceNo == null) ? 0 : referenceNo.hashCode());
 		return result;
 	}
 	@Override
@@ -84,6 +93,11 @@ public class Expense{
 			if (other.merchant != null)
 				return false;
 		} else if (!merchant.equals(other.merchant))
+			return false;
+		if (referenceNo == null) {
+			if (other.referenceNo != null)
+				return false;
+		} else if (!referenceNo.equals(other.referenceNo))
 			return false;
 		return true;
 	}

@@ -39,9 +39,8 @@ public class BOACreditTransformer {
 					exp.setMerchant(expenseDetails[2].trim().toUpperCase());
 					exp.setExpensePlace(expenseDetails[3].trim().toUpperCase());
 					exp.setAmount(-1*StringUtil.getDouble(expenseDetails[4].trim()));
-					if(exp.getTransactionDate()==(maxEntryDate)) {
-						System.out.println("Expense Record already exists on the same Date: "+exp.toString());
-					}else if(expenseList.contains(exp)) {
+					exp.setReferenceNo(StringUtil.trim(expenseDetails[1]));
+					if(expenseList.contains(exp)) {
 						System.out.println("Expense Record already exists: "+exp.toString());
 					}else if(exp.getTransactionDate().after(maxEntryDate)) {
 						expenseList.add(exp);

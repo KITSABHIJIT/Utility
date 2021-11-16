@@ -40,7 +40,8 @@ public class DCUDebitTransformer {
 			,"WALMART MC WM EPAY"
 			,"CAPITAL ONE ONLINE PMT"
 			,"WELLS FARGO CARDCCPYMT"
-			,"BARCLAYCARD US CREDITCARD"};
+			,"BARCLAYCARD US CREDITCARD"
+			,"AMZ_STORECRD_PMTPAYMENT"};
 	
 	private static final String LOAN_PAYMENTS [] = {"TRANSFER TO LOAN", "SH DRAFT"};
 	private static final String LOAN_DESCRIPTIONS [] = {"CAR LOAN", "PARKS VILLAGE RENT"};
