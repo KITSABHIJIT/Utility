@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.test.code.pojo.Category;
@@ -268,5 +269,41 @@ public class DataLoader {
 		}catch(SQLException e){
 			e.printStackTrace();
 		}
+	}
+	
+	public static Date getMaxEntryDate(String payMode){
+		Date result=null;
+		try (Connection connection = ConnectionUtil.getConnection();
+				PreparedStatement statement = connection.prepareStatement(PropertiesUtil.getProperty("SQL_MAX_ENTRY_DATE"));
+				) {
+			statement.setString(1, payMode);
+			try (ResultSet resultSet=statement.executeQuery()){
+				while(resultSet.next()) {
+					result = resultSet.getDate(1);
+				}
+			}
+			System.out.println("Max Entry Date for "+payMode+ " is "+result);
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		return (null==result)?new Date(946762544):result;
+	}
+	
+	public static Date getMaxEntryDateEarning(String payMode){
+		Date result=null;
+		try (Connection connection = ConnectionUtil.getConnection();
+				PreparedStatement statement = connection.prepareStatement(PropertiesUtil.getProperty("SQL_MAX_ENTRY_DATE_EARNING"));
+				) {
+			statement.setString(1, payMode);
+			try (ResultSet resultSet=statement.executeQuery()){
+				while(resultSet.next()) {
+					result = resultSet.getDate(1);
+				}
+			}
+			System.out.println("Max Entry Date Earning for "+payMode+ " is "+result);
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		return (null==result)?new Date(946762544):result;
 	}
 }

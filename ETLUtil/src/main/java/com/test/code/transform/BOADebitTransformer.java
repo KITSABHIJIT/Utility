@@ -1,9 +1,11 @@
 package com.test.code.transform;
 
 import java.io.FileReader;
+import java.util.Date;
 import java.util.List;
 
 import com.opencsv.CSVReader;
+import com.test.code.load.DataLoader;
 import com.test.code.pojo.Earning;
 import com.test.code.pojo.Expense;
 import com.test.code.util.DateUtil;
@@ -46,6 +48,8 @@ public class BOADebitTransformer {
 			 * Delimiter is comma
 			 * Start reading from line 1
 			 */
+			Date maxEntryDatePayment=DataLoader.getMaxEntryDate(MODE_OF_PAYMENT);
+			Date maxEntryDateEarning=DataLoader.getMaxEntryDateEarning(MODE_OF_EARNING);
 			csvReader = new CSVReader(new FileReader(PropertiesUtil.getProperty("BOAdebitFile")),COMMA_DELIMITER,QUOTE_CHAR,8);
 			while((expenseDetails = csvReader.readNext())!=null)
 			{
@@ -56,9 +60,11 @@ public class BOADebitTransformer {
 					exp.setMerchant(expenseDetails[1].trim().toUpperCase());
 					//exp.setExpensePlace(expenseDetails[3].trim().toUpperCase());
 					exp.setAmount(-1*StringUtil.getDouble(expenseDetails[2].trim()));
-					if(expenseList.contains(exp)) {
+					if(exp.getTransactionDate()==(maxEntryDatePayment)) {
+						System.out.println("Expense Record already exists on the same Date: "+exp.toString());
+					}else if(expenseList.contains(exp)) {
 						System.out.println("Expense Record already exists: "+exp.toString());
-					}else {
+					}else if(exp.getTransactionDate().after(maxEntryDatePayment)) {
 						expenseList.add(exp);
 					}
 				}else {
@@ -69,9 +75,11 @@ public class BOADebitTransformer {
 						earning.setMerchant(expenseDetails[1].trim().toUpperCase());
 						//earning.setEarningPlace(expenseDetails[3].trim().toUpperCase());
 						earning.setAmount(StringUtil.getDouble(expenseDetails[2].trim()));
-						if(earningList.contains(earning)) {
-							System.out.println("Earning Record already exists: "+earning.toString());
-						}else {
+						if(earning.getTransactionDate()==(maxEntryDateEarning)) {
+							System.out.println("Expense Record already exists on the same Date: "+earning.toString());
+						}else if(earningList.contains(earning)) {
+							System.out.println("Expense Record already exists: "+earning.toString());
+						}else if(earning.getTransactionDate().after(maxEntryDateEarning)) {
 							earningList.add(earning);
 						}
 					}

@@ -1,9 +1,11 @@
 package com.test.code.transform;
 
 import java.io.FileReader;
+import java.util.Date;
 import java.util.List;
 
 import com.opencsv.CSVReader;
+import com.test.code.load.DataLoader;
 import com.test.code.pojo.Expense;
 import com.test.code.util.DateUtil;
 import com.test.code.util.PropertiesUtil;
@@ -26,6 +28,7 @@ public class BOACreditTransformer {
 			 * Delimiter is comma
 			 * Start reading from line 1
 			 */
+			Date maxEntryDate=DataLoader.getMaxEntryDate(MODE_OF_PAYMENT);
 			csvReader = new CSVReader(new FileReader(PropertiesUtil.getProperty("BOACreditFile")),COMMA_DELIMITER,QUOTE_CHAR,1);
 			while((expenseDetails = csvReader.readNext())!=null)
 			{
@@ -39,7 +42,7 @@ public class BOACreditTransformer {
 					exp.setReferenceNo(StringUtil.trim(expenseDetails[1]));
 					if(expenseList.contains(exp)) {
 						System.out.println("Expense Record already exists: "+exp.toString());
-					}else {
+					}else if(exp.getTransactionDate().after(maxEntryDate)) {
 						expenseList.add(exp);
 					}
 				}
