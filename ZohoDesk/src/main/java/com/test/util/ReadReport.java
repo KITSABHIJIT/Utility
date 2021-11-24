@@ -16,7 +16,7 @@ public class ReadReport {
 
 	public static void main(String ...strings) {
 		String googleDrivePath="/Users/tanayachattopadhyay/Google Drive/My Drive";
-		//googleDrivePath="C:\\Users\\home\\Desktop";
+		//googleDrivePath="/Users/abhijit/Desktop";
 		String inputPath=googleDrivePath+"/TicketData.csv";
 		String outputPath=googleDrivePath+"/TicketData.xls";
 
@@ -132,7 +132,10 @@ public class ReadReport {
 						int lineCount=tempDesc.indexOf("Personalization:")-1;
 						for(int i=0;i<spoonCount;i++) {
 							if(tempDesc.contains("Personalization:")) {
-								String tempCustomization=(tempDesc.substring(tempDesc.indexOf("Personalization:",lineCount)+20,(tempDesc.indexOf("</b>",tempDesc.indexOf("Personalization:",lineCount)+20)))).trim().replaceAll("(\\t|\\r?\\n)+", " ");
+								
+								String tempCustomization=((tempDesc.indexOf("</b>",tempDesc.indexOf("Personalization:",lineCount)+20)>0))?
+										(tempDesc.substring(tempDesc.indexOf("Personalization:",lineCount)+20,(tempDesc.indexOf("</b>",tempDesc.indexOf("Personalization:",lineCount)+20)))).trim().replaceAll("(\\t|\\r?\\n)+", " ")
+										:(tempDesc.substring(tempDesc.indexOf("Personalization:",lineCount)+31,(tempDesc.indexOf("</span>",tempDesc.indexOf("Personalization:",lineCount)+20)))).trim().replaceAll("(\\t|\\r?\\n)+", " ");
 								if(tempCustomization.contains("Not requested") && tempDesc.indexOf("poon")>0) {
 									customization.append((i==0)?(tempDesc.substring(tempDesc.indexOf("<td style=\"\">",lineCount-400)+13,(tempDesc.indexOf("poon",tempDesc.indexOf("<td style=\"\">",lineCount-400)+13))-1)).trim()
 											:"|"+(tempDesc.substring(tempDesc.indexOf("<td style=\"\">",lineCount-400)+13,(tempDesc.indexOf("poon",tempDesc.indexOf("<td style=\"\">",lineCount-400)+13))-1)).trim());
