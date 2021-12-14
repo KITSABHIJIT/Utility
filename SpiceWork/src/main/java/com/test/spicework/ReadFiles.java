@@ -1,38 +1,50 @@
 package com.test.spicework;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.util.PDFTextStripper;
 import org.apache.pdfbox.util.PDFTextStripperByArea;
 
+import com.opencsv.CSVReader;
+
 
 public class ReadFiles {
 
-	private static String sourcePDFDir="/Users/abhijit/Downloads/spicework";
-	private static String googleDrivePath="/Users/abhijit/Desktop";
+	private static String sourceDir="/Users/tanayachattopadhyay/Google Drive/My Drive/spicework";
+	private static String googleDrivePath="/Users/tanayachattopadhyay/Google Drive/My Drive";
 	private static String outputPath=googleDrivePath+"/SpiceWorkData.xls";
+	
+	//private static String sourceDir="/Users/abhijit/Downloads/spicework";
+	//private static String googleDrivePath="/Users/abhijit/Desktop";
+	//private static String outputPath=googleDrivePath+"/SpiceWorkData.xls";
+	
 
 	public static void main(String[] args) {
 		List<Tickets> list=new ArrayList<Tickets>();
-		processPDFOrders(sourcePDFDir,list);
+		processOrders(sourceDir,list);
 
 	}
 
-	public static void processPDFOrders(String sourceDirectory,List<Tickets> list){
+	public static void processOrders(String sourceDirectory,List<Tickets> list){
 		File _folder = new File(sourceDirectory); 
 		File[] filesInFolder;
 		filesInFolder = _folder.listFiles(); 
 		for (File string : filesInFolder){ 
 			if(!".DS_Store".equals(string.getName())) {
-				String pdfData = getTextFromPDF(string.getAbsolutePath());
-				list.add(extractData(pdfData,string.getName()));
+				//String pdfData = getTextFromPDF(string.getAbsolutePath());
+				//list.add(extractData(pdfData,string.getName()));
+				list = getTickets(string);
 				System.out.println(string.getName()+ " appended Successfully.");
 			}
 		}
@@ -81,7 +93,7 @@ public class ReadFiles {
 					tickets.setOrderNumber(temp[1].substring(temp[1].indexOf("#")+1));
 				}
 
-				if((myList.get(i).contains("Ship to"))) {
+				if((myList.get(i).contains("Ship to")) || (myList.get(i).contains("Deliver to"))) {
 					i=i+1;
 					tickets.setShippedTo(StringUtil.trim(myList.get(i)));
 				}
@@ -101,7 +113,7 @@ public class ReadFiles {
 					if(tickets.getCustomization()==null)
 						tickets.setCustomization(StringUtil.trim(temp[0]));
 				}
-				
+
 				if((myList.get(i).contains("Personalization")) || (myList.get(i).contains("Personalisation"))) {
 					temp=myList.get(i).split(":");
 					tickets.setCustomization(StringUtil.trim(temp[1]));
@@ -149,7 +161,7 @@ public class ReadFiles {
 			lines.add(ticket.getTicketNo());
 			lines.add(ticket.getQuantity());
 			lines.add("");
-			lines.add(ticket.getQuantity()*2.5);
+			lines.add(ticket.getQuantity()*2);
 			lines.add("PENDING");
 			lines.add("");
 			lines.add("");
@@ -161,5 +173,53 @@ public class ReadFiles {
 		}
 
 		return data;
+	}
+
+	public static List<Tickets> getTickets(File file){
+
+		List<Tickets> records = new ArrayList<Tickets>();
+		try (CSVReader csvReader = new CSVReader(new FileReader(file));) {
+			String[] values = null;
+			int counter=0;
+			while ((values = csvReader.readNext()) != null) {
+
+				if(counter>0) {
+					Tickets tickets=new Tickets();
+					tickets.setTicketNo(Integer.parseInt(values[0]));
+					tickets.setCreatedOn(getDate(values[8],"MMM dd, yyyy @ HH:mm a"));
+					String tempDesc = new String(values[1].getBytes("UTF-8"), "UTF-8");
+					if(tempDesc.contains("-")) {
+						String [] tmpArr=tempDesc.split("-");
+						tickets.setOrderNumber(StringUtil.trim(tmpArr[0].substring(tmpArr[0].indexOf("#")+1)));
+						tickets.setCustomization(StringUtil.trim(tempDesc.substring(tempDesc.indexOf("-")+1,tempDesc.toUpperCase().indexOf("QTY")-1)));
+						tickets.setQuantity(Integer.parseInt(StringUtil.trim(tempDesc.substring(tempDesc.toUpperCase().indexOf("QTY")+3).replaceAll("-", ""))));
+					}else {
+						tickets.setCustomization(StringUtil.trim(tempDesc.substring(tempDesc.indexOf(":")+1)));
+					}
+					tickets.setTicketShop(StringUtil.trim(values[3].substring(values[3].indexOf(" ")+1)));
+					records.add(tickets);
+					System.out.println(tickets.toString());
+				}
+
+				counter++;
+			}
+
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException ex) {
+			// TODO Auto-generated catch block
+			ex.printStackTrace();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return records;
+
+	}
+	public static Date getDate(final String str, final String inputFormat)
+			throws ParseException {
+		final SimpleDateFormat sdf = new SimpleDateFormat(inputFormat);
+		return sdf.parse(str);
 	}
 }
