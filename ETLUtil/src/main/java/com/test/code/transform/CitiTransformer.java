@@ -11,13 +11,15 @@ import com.test.code.util.DateUtil;
 import com.test.code.util.PropertiesUtil;
 import com.test.code.util.StringUtil;
 
-public class WellsFargoTransformer {
+public class CitiTransformer {
 	private static final char COMMA_DELIMITER = ',';
 	private static final char QUOTE_CHAR = '"';
-	private static final String MODE_OF_PAYMENT ="WELLS FARGO CREDIT CARD";
-	private static final String PAYMENT_DONE ="ONLINE ACH PAYMENT - THANK YOU";
-	private static final String PAYMENT_DONE1 ="ONLINE PAYMENT WEST DES MOIN";
-	private static final String PAYMENT_DONE2 ="ONLINE ACH PAYMENT WEST DES MOIN";
+	private static final String MODE_OF_PAYMENT ="CITI CARD";
+	private static final String PAYMENT_DONE ="ONLINE PAYMENT - THANK YOU";
+	private static final String PAYMENT_DONE1 ="MOBILE PAYMENT - THANK YOU";
+	private static final String PAYMENT_RECEIVED ="PAYMENT RECEIVED";
+	private static final String PLACE_DELIMITER = "-";
+	private static final String DATE_DELIMITER = "  ";
 	public static List<Expense> processData(List<Expense> expenseList){
 
 		CSVReader csvReader = null;
@@ -30,18 +32,19 @@ public class WellsFargoTransformer {
 			 * Start reading from line 1
 			 */
 			Date maxEntryDate=DataLoader.getMaxEntryDate(MODE_OF_PAYMENT);
-			csvReader = new CSVReader(new FileReader(PropertiesUtil.getProperty("WellsFargoFile")),COMMA_DELIMITER,QUOTE_CHAR,0);
+			csvReader = new CSVReader(new FileReader(PropertiesUtil.getProperty("CitiFile")),COMMA_DELIMITER,QUOTE_CHAR,1);
 			while((expenseDetails = csvReader.readNext())!=null)
 			{
-				if(!PAYMENT_DONE.equals(expenseDetails[4].trim())
-						&& !PAYMENT_DONE1.equals(expenseDetails[4].trim())
-						&& !PAYMENT_DONE2.equals(expenseDetails[4].trim())) {
+				if(!expenseDetails[2].trim().contains(PAYMENT_DONE) && !expenseDetails[2].trim().contains(PAYMENT_DONE1) && !expenseDetails[2].trim().contains(PAYMENT_RECEIVED)) {
 					Expense exp = new Expense();
 					exp.setModeOfPayment(MODE_OF_PAYMENT);
-					exp.setTransactionDate(DateUtil.getSQLData(DateUtil.getSomeDate(expenseDetails[0].trim(), "MM/dd/yyyy")));
-					exp.setMerchant(expenseDetails[4].trim().toUpperCase());
-					//exp.setExpensePlace(expenseDetails[5].trim().toUpperCase());
-					exp.setAmount(-1*StringUtil.getDouble(expenseDetails[1].trim()));
+					exp.setTransactionDate(DateUtil.getSQLData(DateUtil.getSomeDate(expenseDetails[1].trim().split(DATE_DELIMITER)[0], "MM/dd/yyyy")));
+					exp.setMerchant(expenseDetails[2].trim().toUpperCase());
+					if(StringUtil.isBlankOrEmpty(expenseDetails[3])) {
+						exp.setAmount(StringUtil.getDouble(expenseDetails[4].trim()));
+					}else {
+						exp.setAmount(StringUtil.getDouble(expenseDetails[3].trim()));
+					}
 					if(exp.getTransactionDate()==(maxEntryDate)) {
 						System.out.println("Expense Record already exists on the same Date: "+exp.toString());
 					}else if(expenseList.contains(exp)) {
@@ -52,9 +55,10 @@ public class WellsFargoTransformer {
 				}
 			}
 		} catch (Exception e) {
-			System.err.println("Error file: "+PropertiesUtil.getProperty("WellsFargoFile")+"\n Error Data: "+StringUtil.printArray(expenseDetails));
+			System.err.println("Error file: "+PropertiesUtil.getProperty("CitiFile")+"\n Error Data: "+StringUtil.printArray(expenseDetails));
 			e.printStackTrace();
 		}
+		System.out.println(Class.class.getName()+ "Completed");
 		return expenseList;
 	}
 

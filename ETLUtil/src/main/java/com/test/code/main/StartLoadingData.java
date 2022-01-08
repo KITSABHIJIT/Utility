@@ -22,8 +22,10 @@ import com.test.code.transform.BOATravelCreditTransformer;
 import com.test.code.transform.BarclaysTransformer;
 import com.test.code.transform.BestBuyTransformer;
 import com.test.code.transform.CapitalOneTransformer;
+import com.test.code.transform.CashTransformer;
 import com.test.code.transform.ChaseSapphireTransformer;
 import com.test.code.transform.ChaseTransformer;
+import com.test.code.transform.CitiTransformer;
 import com.test.code.transform.DCUDebitTransformer;
 import com.test.code.transform.DiscoverTransformer;
 import com.test.code.transform.JCPenneyTransformer;
@@ -72,6 +74,8 @@ public class StartLoadingData {
 		AmexBlueCashTransformer.processData(expList);
 		AmexCashMagnetTransformer.processData(expList);
 		BOATravelCreditTransformer.processData(expList);
+		CitiTransformer.processData(expList);
+		CashTransformer.processData(expList);
 		
 		DataLoader.loadExpenseData(expList);
 		DataLoader.loadEarningData(earningList);
