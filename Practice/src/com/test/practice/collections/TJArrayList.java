@@ -30,41 +30,51 @@ public class TJArrayList<E>
 	  @return true  */
 	public boolean add(E obj)
 	{
-		if(myArray.length-size <= 5){
-			myArray = Arrays.copyOf(myArray, myArray.length*2);;
+		if(myArray.length == size)
+		{
+			E[] nArr = (E[]) new Object[myArray.length * 2];
+			for(int i = 0; i < myArray.length; i++)
+			{
+				nArr[i] = myArray[i];
+			}
+
+			myArray = nArr;
 		}
-		myArray[size++] = obj;
+
+		myArray[size] = obj;
+		size++;
 		return true;
 	}
 	/* inserts obj at position index.  increments size. 
 	 */
 	public void add(int index, E obj) throws IndexOutOfBoundsException  //this the way the real ArrayList is coded
 	{
-		if(index > size || index < 0) {
+		if(index > size || index < 0)
 			throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
-		}else {
-			E[] tempMyArray= Arrays.copyOf(myArray, myArray.length+1);
-			for(int i=index+1;i<tempMyArray.length;i++) {
-				tempMyArray[i]=myArray[i-1];
-			}
-			tempMyArray[index] = obj;
-			myArray=tempMyArray;
-			size++;
+
+		E[] nArr = (E[]) new Object[myArray.length];
+		for(int i = 0; i < myArray.length; i++)
+		{
+			nArr[i] = myArray[i];
 		}
 
+		for(int i = index + 1; i < nArr.length; i++) 
+		{
+			nArr[i] = myArray[i - 1];
+		}
+		nArr[index] = obj;
+		myArray = nArr;
+		size++;
 	}
 
 	/* return obj at position index.  
 	 */
 	public E get(int index) throws IndexOutOfBoundsException
 	{
-		if(index >= size || index < 0) {
+		if(index >= size || index < 0)
 			throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
-		}else {
-			return myArray[index];
-		}
 
-
+		return myArray[index];   
 	}
 	/**
 	 * Replaces obj at position index. 
@@ -72,14 +82,15 @@ public class TJArrayList<E>
 	 */  
 	public E set(int index, E obj) throws IndexOutOfBoundsException  
 	{ 
-		E objTemp=null;
-		if(index >= size || index < 0) {
+		E t = null;
+
+		if(index >= size || index < 0) 
 			throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
-		}else {
-			objTemp=myArray[index];
-			myArray[index] = obj;
-		}
-		return objTemp;
+
+		t = myArray[index];
+		myArray[index] = obj;
+
+		return t;
 
 	}
 	/*  removes the node from position index. shifts elements 
@@ -88,20 +99,20 @@ public class TJArrayList<E>
 	 */
 	public E remove(int index) throws IndexOutOfBoundsException  
 	{
-		if(index >= size || index < 0) {
+		if(index >= size || index < 0)
 			throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
-		}else{
-			Object obj = myArray[index];
-			myArray[index] = null;
-			int tmp = index;
-			while(tmp < size){
-				myArray[tmp] = myArray[tmp+1];
-				myArray[tmp+1] = null;
-				tmp++;
-			}
-			size--;
-			return (E) obj;
+
+		Object x = myArray[index];
+		myArray[index] = null;
+		int i = index;
+		while(i < size)
+		{
+			myArray[i] = myArray[i+1];
+			myArray[i+1] = null;
+			i++;
 		}
+		size--;
+		return (E) x;
 	}
 	/*
 		   This method compares objects.
@@ -109,24 +120,34 @@ public class TJArrayList<E>
 	 */
 	public boolean contains(E obj)
 	{
-		boolean contains=false;
-		for(int i=0;i<size;i++) {
-			if(myArray[i].equals(obj)) {
-				contains=true;
-				break;
+		for(int i = 0; i < size; i++)
+		{
+			if(myArray[i].equals(obj))
+			{
+				return true;
 			}
 		}
-		return contains;
+
+		return false;
 	}
 	/*returns a String of E objects in the array with 
     square brackets and commas.
 	 */
 	public String toString()
 	{
-		StringBuffer temp=new StringBuffer();
-		for(int i=0;i<size;i++) {
-			temp.append((i==0)?"["+myArray[i].toString():" , "+myArray[i].toString());
+		String arr = new String();
+		arr += "[";
+		for(int i = 0; i < size; i++) 
+		{
+			if(i == 0)
+			{
+				arr += (myArray[i]);
+			}else {
+				arr += " , " + myArray[i];
+			}
+
 		}
-		return temp.append("]").toString();
-	}
+		arr += "]";
+
+		return arr.toString();   }
 }

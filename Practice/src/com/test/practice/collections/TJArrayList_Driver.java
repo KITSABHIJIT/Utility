@@ -1,8 +1,5 @@
 package com.test.practice.collections;
 
-import java.util.*;
-import java.io.*;
-
 public class TJArrayList_Driver
 {
 	public static void main(String [] args)
