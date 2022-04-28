@@ -40,7 +40,7 @@ public class MainView extends JPanel implements ActionListener
 {
     private static final long serialVersionUID = 1L;
     public static JFrame frame;
-    public static JComboBox comboBox;
+    public static JComboBox<String> comboBox;
     public static JTextField userId;
     public static JPasswordField password;
     public static JTextField passwordTest;
@@ -75,7 +75,7 @@ public class MainView extends JPanel implements ActionListener
         builder.appendColumn("5dlu");
         builder.appendColumn("left:pref");
         builder.appendColumn("fill:max(pref; 26px)");
-        builder.append("Entity:", (Component)(MainView.comboBox = new JComboBox()));
+        builder.append("Entity:", (Component)(MainView.comboBox = new JComboBox<String>()));
         MainView.comboBox.setToolTipText("Entity");
         MainView.comboBox.setEditable(true);
         final JButton btn = new JButton("Show");
@@ -264,7 +264,7 @@ public class MainView extends JPanel implements ActionListener
     }
     
     public static void setUIFont(final FontUIResource f) {
-        final Enumeration keys = UIManager.getDefaults().keys();
+        final Enumeration<?> keys = UIManager.getDefaults().keys();
         while (keys.hasMoreElements()) {
             final Object key = keys.nextElement();
             final Object value = UIManager.get(key);
