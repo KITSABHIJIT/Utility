@@ -13,6 +13,7 @@ import com.test.model.EncryptedEntry;
 
 public class Controller
 {
+    public static final String ROOTDIR;
     public static final String DIR;
     public static final String DRIVE;
     public static String FILE;
@@ -22,8 +23,10 @@ public class Controller
     public static final String VISIBLE_ICON_URL;
     
     static {
-        DIR = String.valueOf(System.getProperty("user.home")) + System.getProperty("file.separator") + "PasswordProtector";
-        DRIVE = String.valueOf(System.getProperty("user.home")) + System.getProperty("file.separator") + "Google Drive" + System.getProperty("file.separator") + "junk";
+    	ROOTDIR="/Users/abhijit";
+    	//ROOTDIR=System.getProperty("user.home");
+        DIR = String.valueOf(ROOTDIR) + System.getProperty("file.separator") + "PasswordProtector";
+        DRIVE = String.valueOf(ROOTDIR) + System.getProperty("file.separator") + "Google Drive" + System.getProperty("file.separator") + "junk";
         Controller.FILE = String.valueOf(Controller.DIR) + System.getProperty("file.separator") + "PasswordProtector.ser";
         DRIVEFILE = String.valueOf(Controller.DRIVE) + System.getProperty("file.separator") + "PasswordProtector.ser";
         DRIVE_ICON_URL = String.valueOf(Controller.DRIVE) + System.getProperty("file.separator") + "googledrive.png";

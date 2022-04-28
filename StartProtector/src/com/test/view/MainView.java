@@ -1,42 +1,40 @@
 package com.test.view;
 
-import java.util.Enumeration;
-import javax.swing.UIManager;
-import java.util.Calendar;
-import java.text.SimpleDateFormat;
-import java.util.Iterator;
-import java.util.List;
-import com.test.model.DecryptedEntry;
-import javax.swing.JDialog;
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
-import com.test.model.EncryptedEntry;
-import com.test.exceptions.ServiceException;
-import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import javax.swing.border.Border;
-import java.awt.Insets;
-import java.awt.Dimension;
-import javax.swing.JButton;
-import javax.swing.BorderFactory;
-import com.jgoodies.forms.builder.DefaultFormBuilder;
-import com.jgoodies.forms.layout.FormLayout;
-import javax.swing.Icon;
-import java.awt.Component;
-import javax.swing.JOptionPane;
-import java.awt.LayoutManager;
-import java.awt.BorderLayout;
 import java.io.File;
-import javax.swing.plaf.FontUIResource;
-import com.test.controller.Controller;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Enumeration;
+import java.util.List;
+
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import java.awt.event.ActionListener;
-import javax.swing.JPanel;
+import javax.swing.UIManager;
+import javax.swing.plaf.FontUIResource;
+
+import com.jgoodies.forms.builder.DefaultFormBuilder;
+import com.jgoodies.forms.layout.FormLayout;
+import com.test.controller.Controller;
+import com.test.exceptions.ServiceException;
+import com.test.model.DecryptedEntry;
+import com.test.model.EncryptedEntry;
 
 public class MainView extends JPanel implements ActionListener
 {
