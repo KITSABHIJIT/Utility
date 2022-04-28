@@ -17,11 +17,11 @@ public class ProtectRevealUtil
     public static final String KEY_FILE;
     
     static {
-        KEY_FILE = String.valueOf(Controller.DIR) + System.getProperty("file.separator") + "PasswordProtectorKey.ser";
+        KEY_FILE = String.valueOf(Controller.DRIVE) + System.getProperty("file.separator") + "PasswordProtectorKey.ser";
     }
     
     public static void initialize() throws ServiceException {
-        final File dir = new File(Controller.DIR);
+        final File dir = new File(Controller.DRIVE);
         if (!dir.exists()) {
             dir.mkdirs();
         }

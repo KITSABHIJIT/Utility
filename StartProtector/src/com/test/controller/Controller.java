@@ -14,7 +14,7 @@ import com.test.model.EncryptedEntry;
 public class Controller
 {
     public static final String ROOTDIR;
-    public static final String DIR;
+    //public static final String DIR;
     public static final String DRIVE;
     public static String FILE;
     public static final String DRIVEFILE;
@@ -25,9 +25,9 @@ public class Controller
     static {
     	ROOTDIR="/Users/abhijit";
     	//ROOTDIR=System.getProperty("user.home");
-        DIR = String.valueOf(ROOTDIR) + System.getProperty("file.separator") + "PasswordProtector";
+        //DIR = String.valueOf(ROOTDIR) + System.getProperty("file.separator") + "PasswordProtector";
         DRIVE = String.valueOf(ROOTDIR) + System.getProperty("file.separator") + "Google Drive" + System.getProperty("file.separator") + "junk";
-        Controller.FILE = String.valueOf(Controller.DIR) + System.getProperty("file.separator") + "PasswordProtector.ser";
+        Controller.FILE = String.valueOf(Controller.DRIVE) + System.getProperty("file.separator") + "PasswordProtector.ser";
         DRIVEFILE = String.valueOf(Controller.DRIVE) + System.getProperty("file.separator") + "PasswordProtector.ser";
         DRIVE_ICON_URL = String.valueOf(Controller.DRIVE) + System.getProperty("file.separator") + "googledrive.png";
         TITLE_ICON_URL = String.valueOf(Controller.DRIVE) + System.getProperty("file.separator") + "images.png";
@@ -36,7 +36,7 @@ public class Controller
     
     public static boolean insertData(final EncryptedEntry entry) throws ServiceException {
         boolean result = false;
-        final File directory = new File(Controller.DIR);
+        final File directory = new File(Controller.DRIVE);
         if (!directory.exists()) {
             directory.mkdirs();
         }
@@ -62,7 +62,7 @@ public class Controller
     
     public static boolean deleteData(final EncryptedEntry entry) throws ServiceException {
         boolean result = false;
-        final File directory = new File(Controller.DIR);
+        final File directory = new File(Controller.DRIVE);
         if (!directory.exists()) {
             directory.mkdirs();
         }
