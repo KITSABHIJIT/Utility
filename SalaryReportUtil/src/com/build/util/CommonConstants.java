@@ -1,4 +1,4 @@
-package com.build.pdf.util;
+package com.build.util;
 
 public class CommonConstants {
 	

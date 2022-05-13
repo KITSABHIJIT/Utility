@@ -1,4 +1,4 @@
-package com.build.pdf.util;
+package com.build.util;
 
 import java.text.DateFormat;
 import java.text.MessageFormat;
@@ -7,10 +7,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
-import java.util.Set;
 import java.util.TimeZone;
 
 public class DateUtil {

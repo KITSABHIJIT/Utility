@@ -1,4 +1,4 @@
-package com.build.pdf.util;
+package com.build.util;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -87,6 +87,7 @@ public class StringUtil {
 		if(null==str){
 			return "";
 		}else{
+			str = str.replace("\u00A0","");
 			return str.trim();
 		}
 	}
