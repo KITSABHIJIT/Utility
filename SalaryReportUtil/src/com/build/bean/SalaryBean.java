@@ -15,9 +15,11 @@ public class SalaryBean {
 	public double variableAllowance;
 	public double conveyanceNonTaxable;
 	public double conveyanceTaxable;
-	
-	
 	public double performancePay;
+	public double overtime;
+	public double miscellaneous;
+	public double cityAllowance;
+	
 	public double providentFund;
 	public double professionalTax;
 	public double incomeTax;
@@ -104,6 +106,24 @@ public class SalaryBean {
 	}
 	public void setPerformancePay(double performancePay) {
 		this.performancePay = performancePay;
+	}
+	public double getOvertime() {
+		return overtime;
+	}
+	public void setOvertime(double overtime) {
+		this.overtime = overtime;
+	}
+	public double getMiscellaneous() {
+		return miscellaneous;
+	}
+	public void setMiscellaneous(double miscellaneous) {
+		this.miscellaneous = miscellaneous;
+	}
+	public double getCityAllowance() {
+		return cityAllowance;
+	}
+	public void setCityAllowance(double cityAllowance) {
+		this.cityAllowance = cityAllowance;
 	}
 	public double getProvidentFund() {
 		return providentFund;
@@ -196,13 +216,14 @@ public class SalaryBean {
 				+ ", sundryMedicalAllowance=" + sundryMedicalAllowance + ", leaveTravelAllowance="
 				+ leaveTravelAllowance + ", personalAllowance=" + personalAllowance + ", variableAllowance="
 				+ variableAllowance + ", conveyanceNonTaxable=" + conveyanceNonTaxable + ", conveyanceTaxable="
-				+ conveyanceTaxable + ", performancePay=" + performancePay + ", providentFund=" + providentFund
-				+ ", professionalTax=" + professionalTax + ", incomeTax=" + incomeTax + ", healthInsurance="
-				+ healthInsurance + ", tcsWelfareTrust=" + tcsWelfareTrust + ", voluntaryProvidentFund="
-				+ voluntaryProvidentFund + ", totalAllowance=" + totalAllowance + ", totalEarning=" + totalEarning
-				+ ", totalDeduction=" + totalDeduction + ", totalProvidentFund=" + totalProvidentFund
-				+ ", totalGratuity=" + totalGratuity + ", netPay=" + netPay + ", usNetPay1=" + usNetPay1
-				+ ", usNetPay2=" + usNetPay2 + "]";
+				+ conveyanceTaxable + ", performancePay=" + performancePay + ", overtime=" + overtime
+				+ ", miscellaneous=" + miscellaneous + ", cityAllowance=" + cityAllowance + ", providentFund="
+				+ providentFund + ", professionalTax=" + professionalTax + ", incomeTax=" + incomeTax
+				+ ", healthInsurance=" + healthInsurance + ", tcsWelfareTrust=" + tcsWelfareTrust
+				+ ", voluntaryProvidentFund=" + voluntaryProvidentFund + ", totalAllowance=" + totalAllowance
+				+ ", totalEarning=" + totalEarning + ", totalDeduction=" + totalDeduction + ", totalProvidentFund="
+				+ totalProvidentFund + ", totalGratuity=" + totalGratuity + ", netPay=" + netPay + ", usNetPay1="
+				+ usNetPay1 + ", usNetPay2=" + usNetPay2 + "]";
 	}
 	
 }

@@ -44,6 +44,7 @@ public class ReportExcel {
 			for (Object field : aBook) {
 				Cell cell = row.createCell(StartColumnPosition);
 				sheet.autoSizeColumn((short) (StartColumnPosition));//Set word wrap
+				sheet.createFreezePane(1, 1);
 				if(rowCount==0){
 					cell.setCellStyle(cellStyleUtil.getHeaderCellStyle());
 				}else{

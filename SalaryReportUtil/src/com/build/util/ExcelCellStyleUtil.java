@@ -18,7 +18,7 @@ public class ExcelCellStyleUtil {
 
 		Font fontHeader = workbook.createFont();//Create font
 		fontHeader.setFontName("Calibri");
-		fontHeader.setFontHeightInPoints((short) 12);
+		fontHeader.setFontHeightInPoints((short) 14);
 		fontHeader.setBoldweight(Font.BOLDWEIGHT_BOLD);//Make font bold
 		
 		Font fontBody = workbook.createFont();//Create font
@@ -32,7 +32,7 @@ public class ExcelCellStyleUtil {
 		headerCellStyle.setBorderTop(HSSFCellStyle.BORDER_THIN);
 		headerCellStyle.setBorderRight(HSSFCellStyle.BORDER_THIN);
 		headerCellStyle.setBorderLeft(HSSFCellStyle.BORDER_THIN);
-		headerCellStyle.setFillForegroundColor(HSSFColor.GREY_25_PERCENT.index);
+		headerCellStyle.setFillForegroundColor(HSSFColor.CORNFLOWER_BLUE.index);
 		headerCellStyle.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
 		
 		bodyDateCellStyle = workbook.createCellStyle();

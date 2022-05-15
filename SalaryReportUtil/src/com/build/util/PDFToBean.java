@@ -2,6 +2,7 @@ package com.build.util;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -26,10 +27,12 @@ public class PDFToBean {
 			result.add(extractSalaryData(temp));
 		}
 		Collections.sort(result, new Comparator<SalaryBean>() {
-			  public int compare(SalaryBean u1, SalaryBean u2) {
-			    return u2.getSalaryDate().compareTo(u1.getSalaryDate());
-			  }
-			});
+			public int compare(SalaryBean u1, SalaryBean u2) {
+				return u2.getSalaryDate().compareTo(u1.getSalaryDate());
+			}
+		});
+
+
 		List<List<Object>> tableData=new ArrayList<List<Object>>();
 		List<Object> tableHeader=new ArrayList<Object>();
 		tableHeader.add("Salary Date");
@@ -42,6 +45,9 @@ public class PDFToBean {
 		tableHeader.add("Variable Allowance");
 		tableHeader.add("Conveyance NonTaxable");
 		tableHeader.add("Conveyance Taxable");
+		tableHeader.add("Overtime");
+		tableHeader.add("Miscellaneous");
+		tableHeader.add("City Allowance");
 		tableHeader.add("Performance Pay");
 		tableHeader.add("Provident Fund");
 		tableHeader.add("Professional Tax");
@@ -52,11 +58,14 @@ public class PDFToBean {
 		tableHeader.add("Total Allowance");
 		tableHeader.add("Total Earning");
 		tableHeader.add("Total Deduction");
-		tableHeader.add("Total ProvidentFund");
-		tableHeader.add("Total Gratuity");
 		tableHeader.add("Net Pay");
 		tableHeader.add("US Net Pay1");
 		tableHeader.add("US Net Pay2");
+		
+
+		tableHeader.add("Total ProvidentFund");
+		tableHeader.add("Total Gratuity");
+		
 		tableData.add(tableHeader);
 		for(SalaryBean bean:result) {
 			List<Object> tableRow=new ArrayList<Object>();
@@ -70,6 +79,9 @@ public class PDFToBean {
 			tableRow.add(bean.getVariableAllowance());
 			tableRow.add(bean.getConveyanceNonTaxable());
 			tableRow.add(bean.getConveyanceTaxable());
+			tableRow.add(bean.getOvertime());
+			tableRow.add(bean.getMiscellaneous());
+			tableRow.add(bean.getCityAllowance());
 			tableRow.add(bean.getPerformancePay());
 			tableRow.add(bean.getProvidentFund());
 			tableRow.add(bean.getProfessionalTax());
@@ -80,18 +92,19 @@ public class PDFToBean {
 			tableRow.add(bean.getTotalAllowance());
 			tableRow.add(bean.getTotalEarning());
 			tableRow.add(bean.getTotalDeduction());
-			tableRow.add(bean.getTotalProvidentFund());
-			tableRow.add(bean.getTotalGratuity());
 			tableRow.add(bean.getNetPay());
 			tableRow.add(bean.getUsNetPay1());
 			tableRow.add(bean.getUsNetPay2());
+			tableRow.add(bean.getTotalProvidentFund());
+			tableRow.add(bean.getTotalGratuity());
 			tableData.add(tableRow);
 		}
 		TableData data = new TableData();
 		data.setReportData(tableData);
-		data.setRowPosition(3);
-		data.setColumnPosition(1);
+		data.setRowPosition(0);
+		data.setColumnPosition(0);
 		ReportExcel.writeExcel(data, destExcel);
+
 	} 
 
 	public static List<String> readPDF(String sourceDir){
@@ -151,35 +164,45 @@ public class PDFToBean {
 					salaryBean.setSalaryDate(DateUtil.getSomeDate(StringUtil.trim(myList.get(i).substring(myList.get(i).indexOf(":")+1,myList.get(i).indexOf(","))), "dd MMM yyyy"));
 				}
 				if(myList.get(i).contains("Basic Salary")) {
-					salaryBean.setBasic(StringUtil.getDoubleFromString(myList.get(i).substring(myList.get(i).indexOf("Basic Salary")+12),true));
+					salaryBean.setBasic(appendSpaceDelimitedAmounts(myList.get(i).substring(myList.get(i).indexOf("Basic Salary")+12)));
 				}
-				
-				
 				if(myList.get(i).contains("BoB Kitty Allowance")) {
-					salaryBean.setBobKittyAllowance(StringUtil.getDoubleFromString(myList.get(i).substring(myList.get(i).indexOf("BoB Kitty Allowance")+19),true));
+					salaryBean.setBobKittyAllowance(appendSpaceDelimitedAmounts(myList.get(i).substring(myList.get(i).indexOf("BoB Kitty Allowance")+19)));
 				}
 				if(myList.get(i).contains("House Rent Allowance")) {
-					salaryBean.setHouseRentAllowance(StringUtil.getDoubleFromString(myList.get(i).substring(myList.get(i).indexOf("House Rent Allowance")+20),true));
+					salaryBean.setHouseRentAllowance(appendSpaceDelimitedAmounts(myList.get(i).substring(myList.get(i).indexOf("House Rent Allowance")+20)));
 				}
 				if(myList.get(i).contains("Sundry Medical")) {
-					salaryBean.setSundryMedicalAllowance(StringUtil.getDoubleFromString(myList.get(i).substring(myList.get(i).indexOf("Sundry Medical")+14),true));
+					salaryBean.setSundryMedicalAllowance(appendSpaceDelimitedAmounts(myList.get(i).substring(myList.get(i).indexOf("Sundry Medical")+14)));
 				}
 				if(myList.get(i).contains("Leave Travel Allowance")) {
-					salaryBean.setLeaveTravelAllowance(StringUtil.getDoubleFromString(myList.get(i).substring(myList.get(i).indexOf("Leave Travel Allowance")+22),true));
+					salaryBean.setLeaveTravelAllowance(appendSpaceDelimitedAmounts(myList.get(i).substring(myList.get(i).indexOf("Leave Travel Allowance")+22)));
 				}
 				if(myList.get(i).contains("Personal Allowance")) {
-					salaryBean.setPersonalAllowance(StringUtil.getDoubleFromString(myList.get(i).substring(myList.get(i).indexOf("Personal Allowance")+18),true));
+					salaryBean.setPersonalAllowance(appendSpaceDelimitedAmounts(myList.get(i).substring(myList.get(i).indexOf("Personal Allowance")+18)));
 				}
 				if(myList.get(i).contains("Convy. Allowance Taxable")) {
-					salaryBean.setConveyanceTaxable(StringUtil.getDoubleFromString(myList.get(i).substring(myList.get(i).indexOf("Convy. Allowance Taxable")+24),true));
+					salaryBean.setConveyanceTaxable(appendSpaceDelimitedAmounts(myList.get(i).substring(myList.get(i).indexOf("Convy. Allowance Taxable")+24)));
 				}
 				if(myList.get(i).contains("Conveyance Non Taxable")) {
-					salaryBean.setConveyanceNonTaxable(StringUtil.getDoubleFromString(myList.get(i).substring(myList.get(i).indexOf("Conveyance Non Taxable")+22),true));
+					salaryBean.setConveyanceNonTaxable(appendSpaceDelimitedAmounts(myList.get(i).substring(myList.get(i).indexOf("Conveyance Non Taxable")+22)));
 				}
 				if(myList.get(i).contains("Variable Allowance")) {
-					salaryBean.setVariableAllowance(StringUtil.getDoubleFromString(myList.get(i).substring(myList.get(i).indexOf("Variable Allowance")+18),true));
+					salaryBean.setVariableAllowance(appendSpaceDelimitedAmounts(myList.get(i).substring(myList.get(i).indexOf("Variable Allowance")+18)));
 				}
-				
+				if(myList.get(i).contains("Overtime")) {
+					salaryBean.setOvertime(appendSpaceDelimitedAmounts(myList.get(i).substring(myList.get(i).indexOf("Overtime")+8)));
+				}
+				if(myList.get(i).contains("Miscellaneous")) {
+					salaryBean.setMiscellaneous(appendSpaceDelimitedAmounts(myList.get(i).substring(myList.get(i).indexOf("Miscellaneous")+13)));
+				}
+				if(myList.get(i).contains("City Allowance")) {
+					if(myList.get(i).contains("City Allowance Retro"))
+						salaryBean.setCityAllowance(appendSpaceDelimitedAmounts(myList.get(i).substring(myList.get(i).indexOf("City Allowance Retro")+20)));
+					else
+						salaryBean.setCityAllowance(appendSpaceDelimitedAmounts(myList.get(i).substring(myList.get(i).indexOf("City Allowance")+14)));
+				}
+
 				salaryBean.setTotalAllowance(salaryBean.getBobKittyAllowance()
 						+salaryBean.getHouseRentAllowance()
 						+salaryBean.getSundryMedicalAllowance()
@@ -188,10 +211,11 @@ public class PDFToBean {
 						+salaryBean.getConveyanceTaxable()
 						+salaryBean.getConveyanceNonTaxable()
 						+salaryBean.getVariableAllowance());
-				
+
 				if(myList.get(i).contains("Performance Pay")) {
-					salaryBean.setPerformancePay(StringUtil.getDoubleFromString(myList.get(i).substring(myList.get(i).indexOf("Performance Pay")+15),true));
-					
+					if(!"Performance Pay".equals(StringUtil.trim(myList.get(i))))
+						salaryBean.setPerformancePay(appendSpaceDelimitedAmounts(myList.get(i).substring(myList.get(i).indexOf("Performance Pay")+15)));
+
 				}
 				if(myList.get(i).contains("Professional Tax") && profesionalTaxCounter==0) {
 					salaryBean.setProfessionalTax(StringUtil.getDoubleFromString(myList.get(i).substring(myList.get(i).indexOf("Professional Tax")+16),true));
@@ -213,15 +237,19 @@ public class PDFToBean {
 				if(myList.get(i).contains("US Net Pay 2 (2nd Semi-Monthly)")) {
 					salaryBean.setUsNetPay2(StringUtil.getDoubleFromString(myList.get(i).substring(myList.get(i).indexOf("US Net Pay 2 (2nd Semi-Monthly)")+31),true));
 				}
-				
+				if(myList.get(i).contains("US Net Pay") && usPayCounter==0) {
+					salaryBean.setUsNetPay2(StringUtil.getDoubleFromString(myList.get(i).substring(myList.get(i).indexOf("US Net Pay")+10),true));
+					usPayCounter++;
+				}
 				if(myList.get(i).contains("Provident Fund") && !myList.get(i).contains("*")) {
-					salaryBean.setProvidentFund(StringUtil.getDoubleFromString(myList.get(i).substring(myList.get(i).indexOf("Provident Fund")+14),true));
+					if(myList.get(i).startsWith("Arrears")) {
+						salaryBean.setProvidentFund(salaryBean.getProvidentFund()+StringUtil.getDoubleFromString(myList.get(i).substring(myList.get(i).indexOf("Arrears Provident Fund")+22),true));
+					}else if(myList.get(i).startsWith("Voluntary")){
+						salaryBean.setVoluntaryProvidentFund(StringUtil.getDoubleFromString(myList.get(i).substring(myList.get(i).indexOf("Voluntary Provident Fund")+24),true));
+					}else {
+						salaryBean.setProvidentFund(StringUtil.getDoubleFromString(myList.get(i).substring(myList.get(i).indexOf("Provident Fund")+14),true));
+					}
 				}
-
-				if(myList.get(i).contains("Voluntary Provident Fund")) {
-					salaryBean.setVoluntaryProvidentFund(StringUtil.getDoubleFromString(myList.get(i).substring(myList.get(i).indexOf("Voluntary Provident Fund")+24),true));
-				}
-
 				if(myList.get(i).contains("Provident Fund") && myList.get(i).contains("*")) {
 					if("Provident Fund*".equals(myList.get(i))){
 						i=i+1;
@@ -229,10 +257,10 @@ public class PDFToBean {
 					}else {
 						salaryBean.setTotalProvidentFund(StringUtil.getDoubleFromString(myList.get(i).substring(myList.get(i).indexOf("Provident Fund*")+15),true));
 					}
-					
+
 				}
 				if(myList.get(i).contains("Gratuity")) {
-					
+
 					if("Gratuity".equals(myList.get(i))){
 						i=i+1;
 						salaryBean.setTotalGratuity(StringUtil.getDoubleFromString(myList.get(i),true));
@@ -240,12 +268,12 @@ public class PDFToBean {
 						salaryBean.setTotalGratuity(StringUtil.getDoubleFromString(myList.get(i).substring(myList.get(i).indexOf("Gratuity")+8),true));
 					}
 				}
-				
+
 				if(myList.get(i).contains("Total Earnings") && myList.get(i).contains("Total Deductions")) {
 					salaryBean.setTotalEarning(StringUtil.getDoubleFromString(myList.get(i).substring(myList.get(i).indexOf("Total Earnings  (Current + Arrears)")+36,myList.get(i).indexOf("Total Deductions")),true));
 					salaryBean.setTotalDeduction(StringUtil.getDoubleFromString(myList.get(i).substring(myList.get(i).indexOf("Total Deductions")+16),true));
 				}
-				
+
 				if(myList.get(i).contains("Net Pay (INR)")) {
 					double netPay=StringUtil.getDoubleFromString(myList.get(i).substring(myList.get(i).indexOf("Net Pay (INR)")+13),true);
 					if(netPay==0) {
@@ -254,12 +282,22 @@ public class PDFToBean {
 						salaryBean.setNetPay(netPay);
 					}
 				}
-
+				//System.out.println(myList.get(i));
 			}
 		}catch(Exception e){
 			System.out.println("Error out Data "+data);
 			e.printStackTrace();
 		}
 		return salaryBean;
+	}
+
+	public static double appendSpaceDelimitedAmounts(String data) throws ParseException {
+		double output =0D;
+		if(!StringUtil.isBlankOrEmpty(data)) {
+			for(String temp: data.split("[ ]")) {
+				output+=StringUtil.getDoubleFromString(temp, true);
+			}
+		}
+		return output;
 	}
 }
