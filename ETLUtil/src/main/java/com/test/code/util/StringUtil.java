@@ -1,5 +1,7 @@
 package com.test.code.util;
 
+import java.text.ParseException;
+
 public class StringUtil {
 
 	public static String padZeros(String s, int padLength,boolean left) {
@@ -59,12 +61,12 @@ public class StringUtil {
 		}
 	}
 	
-	public static double getDouble(String str){
+	public static double getDouble(String str) throws ParseException{
 		double result=0D;
 		if(isBlankOrEmpty(str)){
 			return result;
 		}else{
-			return Double.parseDouble(str);
+			return Double.parseDouble(str.replace("$", "").replace(",", ""));
 		}
 	}
 	public static String getIntToStr(int value){

@@ -17,6 +17,7 @@ public class CitiTransformer {
 	private static final String MODE_OF_PAYMENT ="CITI CARD";
 	private static final String PAYMENT_DONE ="ONLINE PAYMENT - THANK YOU";
 	private static final String PAYMENT_DONE1 ="MOBILE PAYMENT - THANK YOU";
+	private static final String PAYMENT_DONE2 ="ONLINE PAYMENT, THANK YOU";
 	private static final String PAYMENT_RECEIVED ="PAYMENT RECEIVED";
 	private static final String PLACE_DELIMITER = "-";
 	private static final String DATE_DELIMITER = "  ";
@@ -35,11 +36,14 @@ public class CitiTransformer {
 			csvReader = new CSVReader(new FileReader(PropertiesUtil.getProperty("CitiFile")),COMMA_DELIMITER,QUOTE_CHAR,1);
 			while((expenseDetails = csvReader.readNext())!=null)
 			{
-				if(!expenseDetails[2].trim().contains(PAYMENT_DONE) && !expenseDetails[2].trim().contains(PAYMENT_DONE1) && !expenseDetails[2].trim().contains(PAYMENT_RECEIVED)) {
+				if(!expenseDetails[2].trim().contains(PAYMENT_DONE) 
+						&& !expenseDetails[2].trim().contains(PAYMENT_DONE1) 
+						&& !expenseDetails[2].trim().contains(PAYMENT_DONE2) 
+						&& !expenseDetails[2].trim().contains(PAYMENT_RECEIVED)) {
 					Expense exp = new Expense();
 					exp.setModeOfPayment(MODE_OF_PAYMENT);
 					exp.setTransactionDate(DateUtil.getSQLData(DateUtil.getSomeDate(expenseDetails[1].trim().split(DATE_DELIMITER)[0], "MM/dd/yyyy")));
-					exp.setMerchant(expenseDetails[2].trim().toUpperCase());
+					exp.setMerchant((expenseDetails[2].length()<100)?expenseDetails[2].trim().toUpperCase():expenseDetails[2].trim().toUpperCase().substring(0,100));
 					if(StringUtil.isBlankOrEmpty(expenseDetails[3])) {
 						exp.setAmount(StringUtil.getDouble(expenseDetails[4].trim()));
 					}else {
