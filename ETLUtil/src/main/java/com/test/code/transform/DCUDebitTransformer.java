@@ -143,7 +143,7 @@ public class DCUDebitTransformer {
 					}else {
 						exp.setMerchant((expenseDetails1[1].length()<100)?expenseDetails1[1].trim().toUpperCase():expenseDetails1[1].trim().toUpperCase().substring(0,99));
 					}
-					exp.setAmount(StringUtil.getDouble(expenseDetails1[2].trim()));
+					exp.setAmount(-1*StringUtil.getDouble(expenseDetails1[2].trim()));
 					if(exp.getTransactionDate()==(maxEntryDatePayment)) {
 						System.out.println("Expense Record already exists on the same Date: "+exp.toString());
 					}else if(expenseList.contains(exp)) {
