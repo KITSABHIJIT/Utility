@@ -3,7 +3,7 @@ package com.build.bean;
 import java.util.Date;
 
 public class SalaryBean {
-	
+
 	public String salaryFile;
 	public Date salaryDate;
 	public double basic;
@@ -19,14 +19,14 @@ public class SalaryBean {
 	public double overtime;
 	public double miscellaneous;
 	public double cityAllowance;
-	
+
 	public double providentFund;
 	public double professionalTax;
 	public double incomeTax;
 	public double healthInsurance;
 	public double tcsWelfareTrust;
 	public double voluntaryProvidentFund;
-	
+
 	public double totalAllowance;
 	public double totalEarning;
 	public double totalDeduction;
@@ -35,6 +35,149 @@ public class SalaryBean {
 	public double netPay;
 	public double usNetPay1;
 	public double usNetPay2;
+
+	public double workHours;
+	public double indianSalary;
+	public double livingAllowance;
+	public double grossPay;
+	public double federalIncomeTax;
+	public double socialSecurityTax;
+	public double medicareTax;
+	public double maStateIncomeTax;
+	public double isRecovery;
+	public double dentalInsurance;
+	public double maFliMa;
+	public double maMliEe;
+	public double medicalInsurance;
+	public double visionInsurance;
+	public double plan401K;
+	
+	public double payRate;
+	public double baseSalary;
+	public double paidOffTime;
+
+	public double getPayRate() {
+		return payRate;
+	}
+	public void setPayRate(double payRate) {
+		this.payRate = payRate;
+	}
+	public double getBaseSalary() {
+		return baseSalary;
+	}
+	public void setBaseSalary(double baseSalary) {
+		this.baseSalary = baseSalary;
+	}
+	public double getPaidOffTime() {
+		return paidOffTime;
+	}
+	public void setPaidOffTime(double paidOffTime) {
+		this.paidOffTime = paidOffTime;
+	}
+	public double getIsRecovery() {
+		return isRecovery;
+	}
+	public void setIsRecovery(double isRecovery) {
+		if((this.getIsRecovery()==0 || this.getIsRecovery()>isRecovery) && isRecovery>-1100)
+			this.isRecovery = isRecovery;
+	}
+	public double getWorkHours() {
+		return workHours;
+	}
+	public void setWorkHours(double workHours) {
+		this.workHours = workHours;
+	}
+	public double getIndianSalary() {
+		return indianSalary;
+	}
+	public void setIndianSalary(double indianSalary) {
+		if(this.getIndianSalary()==0)
+			this.indianSalary = indianSalary;
+	}
+	public double getLivingAllowance() {
+		return livingAllowance;
+	}
+	public void setLivingAllowance(double livingAllowance) {
+		if(this.getLivingAllowance()==0 || this.getLivingAllowance()<livingAllowance)
+			this.livingAllowance = livingAllowance;
+	}
+	public double getGrossPay() {
+		return grossPay;
+	}
+	public void setGrossPay(double grossPay) {
+		if(this.getGrossPay()==0)
+			this.grossPay = grossPay;
+	}
+	public double getFederalIncomeTax() {
+		return federalIncomeTax;
+	}
+	public void setFederalIncomeTax(double federalIncomeTax) {
+		if(this.getFederalIncomeTax()==0)
+			this.federalIncomeTax = federalIncomeTax;
+	}
+	public double getSocialSecurityTax() {
+		return socialSecurityTax;
+	}
+	public void setSocialSecurityTax(double socialSecurityTax) {
+		if(this.getSocialSecurityTax()==0)
+			this.socialSecurityTax = socialSecurityTax;
+	}
+	public double getMedicareTax() {
+		return medicareTax;
+	}
+	public void setMedicareTax(double medicareTax) {
+		if(this.getMedicareTax()==0)
+			this.medicareTax = medicareTax;
+	}
+	public double getMaStateIncomeTax() {
+		return maStateIncomeTax;
+	}
+	public void setMaStateIncomeTax(double maStateIncomeTax) {
+		if(this.getMaStateIncomeTax()==0)
+			this.maStateIncomeTax = maStateIncomeTax;
+	}
+	public double getDentalInsurance() {
+		return dentalInsurance;
+	}
+	public void setDentalInsurance(double dentalInsurance) {
+		if(this.getDentalInsurance()==0 || this.getDentalInsurance()>dentalInsurance)
+			this.dentalInsurance = dentalInsurance;
+	}
+	public double getMaFliMa() {
+		return maFliMa;
+	}
+	public void setMaFliMa(double maFliMa) {
+		if(this.getMaFliMa()==0)
+			this.maFliMa = maFliMa;
+	}
+	public double getMaMliEe() {
+		return maMliEe;
+	}
+	public void setMaMliEe(double maMliEe) {
+		if(this.getMaMliEe()==0)
+			this.maMliEe = maMliEe;
+	}
+	public double getMedicalInsurance() {
+		return medicalInsurance;
+	}
+	public void setMedicalInsurance(double medicalInsurance) {
+		if(this.getMedicalInsurance()==0)
+			this.medicalInsurance = medicalInsurance;
+	}
+	public double getVisionInsurance() {
+		return visionInsurance;
+	}
+	public void setVisionInsurance(double visionInsurance) {
+		if(this.getVisionInsurance()==0)
+			this.visionInsurance = visionInsurance;
+	}
+	public double getPlan401K() {
+		return plan401K;
+	}
+	public void setPlan401K(double plan401k) {
+		if((this.getPlan401K()==0  || this.getPlan401K()>plan401k) && plan401k>-300)
+			plan401K = plan401k;
+	}
 	public String getSalaryFile() {
 		return salaryFile;
 	}
@@ -211,19 +354,25 @@ public class SalaryBean {
 	}
 	@Override
 	public String toString() {
-		return "SalaryBean [salaryFile=" + salaryFile + ", salaryDate=" + salaryDate + ", basic=" + basic
-				+ ", bobKittyAllowance=" + bobKittyAllowance + ", houseRentAllowance=" + houseRentAllowance
-				+ ", sundryMedicalAllowance=" + sundryMedicalAllowance + ", leaveTravelAllowance="
-				+ leaveTravelAllowance + ", personalAllowance=" + personalAllowance + ", variableAllowance="
-				+ variableAllowance + ", conveyanceNonTaxable=" + conveyanceNonTaxable + ", conveyanceTaxable="
-				+ conveyanceTaxable + ", performancePay=" + performancePay + ", overtime=" + overtime
-				+ ", miscellaneous=" + miscellaneous + ", cityAllowance=" + cityAllowance + ", providentFund="
-				+ providentFund + ", professionalTax=" + professionalTax + ", incomeTax=" + incomeTax
-				+ ", healthInsurance=" + healthInsurance + ", tcsWelfareTrust=" + tcsWelfareTrust
-				+ ", voluntaryProvidentFund=" + voluntaryProvidentFund + ", totalAllowance=" + totalAllowance
-				+ ", totalEarning=" + totalEarning + ", totalDeduction=" + totalDeduction + ", totalProvidentFund="
-				+ totalProvidentFund + ", totalGratuity=" + totalGratuity + ", netPay=" + netPay + ", usNetPay1="
-				+ usNetPay1 + ", usNetPay2=" + usNetPay2 + "]";
+		return "SalaryBean [salaryFile=" + salaryFile 
+				+ ", salaryDate=" + salaryDate 
+				+ ", workHours=" + workHours 
+				+ ", payRate="+ payRate 
+				+ ", baseSalary=" + baseSalary 
+				+ ", federalIncomeTax=" + federalIncomeTax 
+				+ ", socialSecurityTax=" + socialSecurityTax
+				+ ", medicareTax=" + medicareTax 
+				+ ", maStateIncomeTax=" + maStateIncomeTax 
+				+ ", dentalInsurance="+ dentalInsurance 
+				+ ", maFliMa=" + maFliMa 
+				+ ", maMliEe=" + maMliEe 
+				+ ", medicalInsurance="+ medicalInsurance 
+				+ ", visionInsurance=" + visionInsurance 
+				+ ", plan401K=" + plan401K 
+				+ ", paidOffTime=" + paidOffTime 
+				+ ", grossPay=" + grossPay
+				+ ", netPay=" + netPay+ "]";
+				
 	}
-	
+
 }

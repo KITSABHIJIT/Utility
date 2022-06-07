@@ -139,6 +139,7 @@ public class StringUtil {
 		DecimalFormat df = new DecimalFormat("#.00");
 		return df.format(angle);
 	}
+	
 	public static boolean isNumeric(String str)  
 	{  
 		try  
