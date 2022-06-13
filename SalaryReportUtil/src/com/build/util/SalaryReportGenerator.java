@@ -581,6 +581,8 @@ public class SalaryReportGenerator {
 			tableHeader.add("Vision Insurance");
 			tableHeader.add("401k Plan");
 			tableHeader.add("Gross Pay");
+			tableHeader.add("Total Tax");
+			tableHeader.add("Tax Break Up");
 			tableHeader.add("Net Pay");
 
 			tableData.add(tableHeader);
@@ -600,6 +602,23 @@ public class SalaryReportGenerator {
 				tableRow.add(bean.getVisionInsurance());
 				tableRow.add(bean.getPlan401K());
 				tableRow.add(bean.getBaseSalary());
+				tableRow.add(StringUtil.getTwoDecimal(-1*(bean.getFederalIncomeTax()
+						+bean.getSocialSecurityTax()
+						+bean.getMedicareTax()
+						+bean.getMaStateIncomeTax()
+						+bean.getMaFliMa()
+						+bean.getMaMliEe()))+" ("+StringUtil.getTwoDecimal(-1*((bean.getFederalIncomeTax()*100)/bean.getBaseSalary()
+								+(bean.getSocialSecurityTax()*100)/bean.getBaseSalary()
+								+(bean.getMedicareTax()*100)/bean.getBaseSalary()
+								+(bean.getMaStateIncomeTax()*100)/bean.getBaseSalary()
+								+(bean.getMaFliMa()*100)/bean.getBaseSalary()
+								+(bean.getMaMliEe()*100)/bean.getBaseSalary()))+"%)");
+				tableRow.add("FD: "+StringUtil.getTwoDecimal(-1*(bean.getFederalIncomeTax()*100)/bean.getBaseSalary())+"%"
+						+" SS: "+StringUtil.getTwoDecimal(-1*(bean.getSocialSecurityTax()*100)/bean.getBaseSalary())+"%"
+						+" M: "+StringUtil.getTwoDecimal(-1*(bean.getMedicareTax()*100)/bean.getBaseSalary())+"%"
+						+" ST: "+StringUtil.getTwoDecimal(-1*(bean.getMaStateIncomeTax()*100)/bean.getBaseSalary())+"%"
+						+" MaFli: "+StringUtil.getTwoDecimal(-1*(bean.getMaFliMa()*100)/bean.getBaseSalary())+"%"
+						+" MaMli: "+StringUtil.getTwoDecimal(-1*(bean.getMaMliEe()*100)/bean.getBaseSalary())+"%");
 				tableRow.add(bean.getNetPay());
 				tableData.add(tableRow);
 				System.out.println(bean.toString());
@@ -638,6 +657,15 @@ public class SalaryReportGenerator {
 					}
 					if(myList.get(i).startsWith("401(k) Yes $")) {
 						salaryBean.setPlan401K(-1*StringUtil.getDoubleFromString(StringUtil.trim(myList.get(i).substring(myList.get(i).indexOf("401(k) Yes $")+12,myList.get(i).indexOf("$",myList.get(i).indexOf("401(k) Yes $")+12))),true));
+					}
+					if(myList.get(i).startsWith("Dental Plan Yes $")) {
+						salaryBean.setDentalInsurance(-1*StringUtil.getDoubleFromString(StringUtil.trim(myList.get(i).substring(myList.get(i).indexOf("Dental Plan Yes $")+17,myList.get(i).indexOf("$",myList.get(i).indexOf("Dental Plan Yes $")+17))),true));
+					}
+					if(myList.get(i).startsWith("Medical Plan Yes $")) {
+						salaryBean.setMedicalInsurance(-1*StringUtil.getDoubleFromString(StringUtil.trim(myList.get(i).substring(myList.get(i).indexOf("Medical Plan Yes $")+18,myList.get(i).indexOf("$",myList.get(i).indexOf("Medical Plan Yes $")+18))),true));
+					}
+					if(myList.get(i).startsWith("Vision Plan Yes $")) {
+						salaryBean.setVisionInsurance(-1*StringUtil.getDoubleFromString(StringUtil.trim(myList.get(i).substring(myList.get(i).indexOf("Vision Plan Yes $")+17,myList.get(i).indexOf("$",myList.get(i).indexOf("Vision Plan Yes $")+17))),true));
 					}
 					if(myList.get(i).startsWith("Federal Income Tax $")) {
 						salaryBean.setFederalIncomeTax(-1*StringUtil.getDoubleFromString(StringUtil.trim(myList.get(i).substring(myList.get(i).indexOf("Federal Income Tax $")+20,myList.get(i).indexOf("$",myList.get(i).indexOf("Federal Income Tax $")+20))),true));

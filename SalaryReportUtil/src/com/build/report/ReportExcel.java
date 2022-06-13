@@ -22,7 +22,7 @@ public class ReportExcel {
 		FileUtil.deleteFile(excelFilePath);
 		HSSFWorkbook workbook = new HSSFWorkbook();
 		ExcelCellStyleUtil cellStyleUtil=new ExcelCellStyleUtil(workbook);
-		HSSFSheet sheet = (HSSFSheet) workbook.createSheet("TCS Salary");
+		HSSFSheet sheet = (HSSFSheet) workbook.createSheet("Salary");
 		writeTabularData(workbook,cellStyleUtil,sheet,data);
 		try (FileOutputStream outputStream = new FileOutputStream(excelFilePath)) {
 			workbook.write(outputStream);
