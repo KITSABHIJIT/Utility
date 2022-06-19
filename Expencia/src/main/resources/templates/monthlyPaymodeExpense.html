@@ -1,0 +1,183 @@
+<!-- HTML -->
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<title>Expencia</title>
+    <link rel="shortcut icon" type="image/ico" th:href="@{images/bar.ico}"/>
+
+    <link rel="stylesheet" th:href="@{webjars/bootstrap/4.2.1/css/bootstrap.min.css}"/>
+	<script type="text/javascript" th:src="@{webjars/bootstrap/4.2.1/js/bootstrap.min.js}"></script>
+
+<!-- Resources -->
+<script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+<script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+<script src="https://www.amcharts.com/lib/3/plugins/dataloader/dataloader.min.js"></script>
+<link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+<script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+<script src="https://www.amcharts.com/lib/3/serial.js"></script>
+<script type="text/javascript" src="../static/script/config.js" th:src="@{script/config.js}"></script>
+
+
+<!-- Styles -->
+<style>
+
+#chartdiv4 {
+  width: 100%;
+  height: 100%;
+  margin-top: 50px;
+}
+
+
+</style>
+
+<!-- Chart code -->
+<script>
+
+var periodBarChart = AmCharts.makeChart("chartdiv4", {
+    "theme": "light",
+    "type": "serial",
+    "dataLoader": {
+    "url": monthlyPaymodeExpenseUrl,
+    "format": "json"
+  },"valueAxes": [{
+        "stackType": "3d",
+        "unit": "$",
+        "position": "left",
+        "title": "Expense rate",
+    }],
+    "startDuration": 0.05,
+    "graphs": [{
+        "balloonText": "Expense in [[category]] (DOLLAR): <b>[[value]]</b>",
+        "fillAlphas": 0.9,
+        "lineAlpha": 0.2,
+        "title": "DOLLAR",
+        "type": "column",
+        "valueField": "dollar"
+    }, {
+        "balloonText": "Expense in [[category]] (AMAZON STORE CARD): <b>[[value]]</b>",
+        "fillAlphas": 0.9,
+        "lineAlpha": 0.2,
+        "title": "AMAZON STORE CARD",
+        "type": "column",
+        "valueField": "amazonStoreCard"
+    }, {
+        "balloonText": "Expense in [[category]] (AMAZON CHASE CARD): <b>[[value]]</b>",
+        "fillAlphas": 0.9,
+        "lineAlpha": 0.2,
+        "title": "AMAZON CHASE CARD",
+        "type": "column",
+        "valueField": "amazonChaseCard"
+    }, {
+        "balloonText": "Expense in [[category]] (SEARS CREDIT CARD): <b>[[value]]</b>",
+        "fillAlphas": 0.9,
+        "lineAlpha": 0.2,
+        "title": "SEARS CREDIT CARD",
+        "type": "column",
+        "valueField": "searsCreditCard"
+    }, {
+        "balloonText": "Expense in [[category]] (ZALES CREDIT CARD): <b>[[value]]</b>",
+        "fillAlphas": 0.9,
+        "lineAlpha": 0.2,
+        "title": "ZALES CREDIT CARD",
+        "type": "column",
+        "valueField": "zalesCreditCard"
+    }, {
+        "balloonText": "Expense in [[category]] (BESTBUY CARD): <b>[[value]]</b>",
+        "fillAlphas": 0.9,
+        "lineAlpha": 0.2,
+        "title": "BESTBUY CARD",
+        "type": "column",
+        "valueField": "bestBuyCard"
+    }, {
+        "balloonText": "Expense in [[category]] (WELLS FARGO CREDIT CARD): <b>[[value]]</b>",
+        "fillAlphas": 0.9,
+        "lineAlpha": 0.2,
+        "title": "WELLS FARGO CREDIT CARD",
+        "type": "column",
+        "valueField": "wellsFargoCreditCard"
+    }, {
+        "balloonText": "Expense in [[category]] (MACYS CREDIT CARD): <b>[[value]]</b>",
+        "fillAlphas": 0.9,
+        "lineAlpha": 0.2,
+        "title": "MACYS CREDIT CARD",
+        "type": "column",
+        "valueField": "macysCreditCard"
+    }, {
+        "balloonText": "Expense in [[category]] (KOHLS CREDIT CARD): <b>[[value]]</b>",
+        "fillAlphas": 0.9,
+        "lineAlpha": 0.2,
+        "title": "KOHLS CREDIT CARD",
+        "type": "column",
+        "valueField": "kohlsCreditCard"
+    }, {
+        "balloonText": "Expense in [[category]] (JC PENNEY CARD): <b>[[value]]</b>",
+        "fillAlphas": 0.9,
+        "lineAlpha": 0.2,
+        "title": "JC PENNEY CARD",
+        "type": "column",
+        "valueField": "jcPenneyCard"
+    }, {
+        "balloonText": "Expense in [[category]] (TJ MAX CREDIT CARD): <b>[[value]]</b>",
+        "fillAlphas": 0.9,
+        "lineAlpha": 0.2,
+        "title": "TJ MAX CREDIT CARD",
+        "type": "column",
+        "valueField": "tjMaxCreditCard"
+    }, {
+        "balloonText": "Expense in [[category]] (DISCOVER CARD): <b>[[value]]</b>",
+        "fillAlphas": 0.9,
+        "lineAlpha": 0.2,
+        "title": "DISCOVER CARD",
+        "type": "column",
+        "valueField": "discoverCard"
+    }, {
+        "balloonText": "Expense in [[category]] (AMEX CARD): <b>[[value]]</b>",
+        "fillAlphas": 0.9,
+        "lineAlpha": 0.2,
+        "title": "AMEX CARD",
+        "type": "column",
+        "valueField": "amexCard"
+    }, {
+        "balloonText": "Expense in [[category]] (BJS CREDIT CARD): <b>[[value]]</b>",
+        "fillAlphas": 0.9,
+        "lineAlpha": 0.2,
+        "title": "BJS CREDIT CARD",
+        "type": "column",
+        "valueField": "bjsCreditCard"
+    }, {
+        "balloonText": "Expense in [[category]] (BANK OF AMERICA CREDIT CARD): <b>[[value]]</b>",
+        "fillAlphas": 0.9,
+        "lineAlpha": 0.2,
+        "title": "BANK OF AMERICA CREDIT CARD",
+        "type": "column",
+        "valueField": "bankOfAmericaCreditCard"
+    },{
+        "balloonText": "Expense in [[category]] (BANK OF AMERICA DEBIT CARD): <b>[[value]]</b>",
+        "fillAlphas": 0.9,
+        "lineAlpha": 0.2,
+        "title": "BANK OF AMERICA DEBIT CARD",
+        "type": "column",
+        "valueField": "bankOfAmericaDebitCard"
+    } ],
+    "plotAreaFillAlphas": 1,
+    "depth3D": 120,
+    "angle": 30,
+    "categoryField": "expenseMonth",
+    "categoryAxis": {
+        "gridPosition": "start"
+    },
+    "export": {
+    	"enabled": true
+     }
+});
+
+
+</script>
+
+<!-- HTML -->
+<div><a href="/" target="_top">Back</a></div>
+<div><center><h2>Periodic Expense by Cards</h2></center></div>
+<div id="chartdiv4"></div>

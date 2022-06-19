@@ -1,0 +1,112 @@
+<!-- HTML -->
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<title>Expencia</title>
+    <link rel="shortcut icon" type="image/ico" th:href="@{images/bar.ico}"/>
+
+    <link rel="stylesheet" th:href="@{webjars/bootstrap/4.2.1/css/bootstrap.min.css}"/>
+	<script type="text/javascript" th:src="@{webjars/bootstrap/4.2.1/js/bootstrap.min.js}"></script>
+
+<!-- Resources -->
+<script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+<script src="https://www.amcharts.com/lib/3/pie.js"></script>
+<script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+<script src="https://www.amcharts.com/lib/3/plugins/dataloader/dataloader.min.js"></script>
+<link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+<script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+	
+<script type="text/javascript" src="../static/script/config.js" th:src="@{script/config.js}"></script>
+
+
+<!-- Styles -->
+<style>
+						
+#chartdiv2 {
+  width: 100%;
+  height: 100%;
+  margin-top: 50px;
+}
+
+</style>
+
+
+<!-- Chart code -->
+<script>
+
+$(function() {
+
+    var start = moment().startOf('month');
+    var end = moment();
+
+    function cb(start, end) {
+        $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+		$.ajax({
+        url: categoryExpenseUrl+start.format('YYYYMMDD')+"/"+end.format('YYYYMMDD'),
+        type: "GET",
+        dataType: "json",
+        success: function (data) {
+            var chartDonut = AmCharts.makeChart( "chartdiv2", {
+			  "type": "pie",
+			  "theme": "light",
+			  "dataProvider": data,
+			  "valueField": "amount",
+			  "titleField": "category",
+			  "startEffect": "elastic",
+			  "startDuration": 2,
+			  "labelRadius": 15,
+			  "innerRadius": "50%",
+			  "legend":{
+				"position":"right",
+				"marginRight":100,
+				"autoMargins":false
+			  },
+			  "depth3D": 10,
+			  "balloonText": "[[title]]<br><span style='font-size:14px'><b>$[[value]]</b> ([[percents]]%)</span>",
+			  "angle": 15,
+			  "export": {
+				"enabled": true
+			  }
+			} );
+			}
+    });
+    }
+
+    $('#reportrange').daterangepicker({
+        startDate: start,
+        endDate: end,
+        ranges: {
+           'Today': [moment(), moment()],
+           'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+           'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+           'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+           'This Month': [moment().startOf('month'), moment().endOf('month')],
+           'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
+		   'Last 3 Months': [moment().subtract(3, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        }
+    }, cb);
+
+    cb(start, end);
+
+});
+
+</script>
+
+<!-- HTML -->
+<div><a href="/" target="_top">Back</a></div>
+<link rel="shortcut icon" type="image/png" href="images/bar.ico"/>
+<div id="reportrange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 20%">
+    Date Range Selected: <i class="fa fa-calendar"></i>&nbsp;
+    <span></span> <i class="fa fa-caret-down"></i>
+</div>
+<div><center><h2>Expense by Category</h2></center></div>
+<div id="chartdiv2"></div>

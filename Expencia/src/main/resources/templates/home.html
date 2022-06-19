@@ -1,0 +1,37 @@
+<!-- HTML -->
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Expencia</title>
+    <link rel="shortcut icon" type="image/ico" th:href="@{images/bar.ico}"/>
+	
+
+    <link rel="stylesheet" th:href="@{webjars/bootstrap/4.2.1/css/bootstrap.min.css}"/>
+    <script type="text/javascript" th:src="@{webjars/bootstrap/4.2.1/js/bootstrap.min.js}"></script>
+
+</head>
+
+
+
+<table style="width:100%"  cellpadding="30%">
+  <tr>
+    <td style="width:50%" align="center"><a href="expenseDetails"><img src="../static/images/report.jpg" th:src="@{images/report.jpg}" alt="Expense Details" style="width:100px;height:100px;border:0;"><br>Expense Details</a></td>
+    <td style="width:50%"align="center"><a href="totalExpense"><img src="../static/images/total.png" th:src="@{images/total.png}" alt="Total Expense" style="width:100px;height:100px;border:0;"><br>Total Expense</a></td>
+  </tr>
+  <tr>
+    <td style="width:50%" align="center"><a href="categoryExpense"><img src="../static/images/Donut.png" th:src="@{images/Donut.png}" alt="Expense By Category" style="width:100px;height:100px;border:0;"><br>Expense By Category</a></td>
+    <td style="width:50%"align="center"><a href="paymodeExpense"><img src="../static/images/Pie.png" th:src="@{images/Pie.png}" alt="Expense by Payment Mode" style="width:100px;height:100px;border:0;"><br>Expense by Payment Mode</a></td>
+  </tr>
+    <tr>
+	<td style="width:50%"align="center"><a href="dailyExpense"><img src="../static/images/line.png" th:src="@{images/line.png}" alt="Daily Expenses" style="width:100px;height:100px;border:0;"><br>Daily Expenses</a></td>
+    <td style="width:50%" align="center"><a href="monthExpense"><img src="../static/images/bar.png" th:src="@{images/total.png}" alt="Monthly Expense" style="width:100px;height:100px;border:0;"><br>Monthly Expense</a></td>
+  </tr>
+  <tr>
+    <td style="width:50%" align="center"><a href="monthlyPaymodeExpense"><img src="../static/images/3d_chart.png" th:src="@{images/3d_chart.png}" alt="Monthly Expenses Payment wise [Bar]" style="width:100px;height:100px;border:0;"><br>Monthly Expenses Payment wise [Bar]</a></td>
+	<td style="width:50%" align="center"><a href="monthlyPaymodeStackedExpense"><img src="../static/images/BarChart.png" th:src="@{images/BarChart.png}" alt="Monthly Expenses Payment wise [Stack]" style="width:100px;height:100px;border:0;"><br>Monthly Expenses Payment wise [Stack]</a></td>
+  </tr>
+</table>
+</html>
