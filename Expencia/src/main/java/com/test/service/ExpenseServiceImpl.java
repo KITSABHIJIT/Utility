@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.test.dao.ExpenseDaoImpl;
+import com.test.dao.StartLoadingData;
 import com.test.entity.CategoryExpense;
 import com.test.entity.DateExpense;
 import com.test.entity.Expense;
@@ -16,6 +17,8 @@ import com.test.entity.PaymodeMonthExpense;
 public class ExpenseServiceImpl implements ExpenseService {
 	@Autowired
 	private ExpenseDaoImpl expenseDaoImpl;
+	@Autowired
+	private StartLoadingData startLoadingData;
 
 	public List<Expense> getAllExpenses(String startDate,String endDate) {
 		return expenseDaoImpl.getAllExpenses(startDate,endDate);
@@ -43,5 +46,8 @@ public class ExpenseServiceImpl implements ExpenseService {
 
 	public List<PaymodeMonthExpense> getPaymodeMonthExpenses() {
 		return expenseDaoImpl.getPaymodeMonthExpenses();
+	}
+	public void loadBankStatements() {
+		startLoadingData.loadData();
 	}
 }

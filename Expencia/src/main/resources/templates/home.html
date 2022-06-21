@@ -11,11 +11,9 @@
 
     <link rel="stylesheet" th:href="@{webjars/bootstrap/4.2.1/css/bootstrap.min.css}"/>
     <script type="text/javascript" th:src="@{webjars/bootstrap/4.2.1/js/bootstrap.min.js}"></script>
+    	<link rel="stylesheet" type="text/css" href="../static/css/styles.css" th:href="@{css/styles.css}" />
 
-</head>
-
-
-
+<div th:insert="/menu::menu">  </div>
 <table style="width:100%"  cellpadding="30%">
   <tr>
     <td style="width:50%" align="center"><a href="expenseDetails"><img src="../static/images/report.jpg" th:src="@{images/report.jpg}" alt="Expense Details" style="width:100px;height:100px;border:0;"><br>Expense Details</a></td>

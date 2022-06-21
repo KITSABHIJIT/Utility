@@ -10,7 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.test.entity.CategoryExpense;
 import com.test.entity.DateExpense;
@@ -29,6 +31,10 @@ public class ReportController {
 	@GetMapping("/")
     public String main(Model model) {
         return "home"; //view
+    }
+	@GetMapping("/loadBankStatements")
+    public String loadBankStatements(Model model) {
+        return "loadBankStatements"; //view
     }
 	@GetMapping("/categoryExpense")
     public String categoryExpense(Model model) {
@@ -107,5 +113,10 @@ public class ReportController {
 	public ResponseEntity<List<PaymodeMonthExpense>> getPaymodeMonthExpenses() {
 		List<PaymodeMonthExpense> list = expenseService.getPaymodeMonthExpenses();
 		return new ResponseEntity<List<PaymodeMonthExpense>>(list, HttpStatus.OK);
+	}
+	@RequestMapping(value = "/loadBankStatements", method = RequestMethod.POST)
+	@ResponseStatus(value = HttpStatus.OK)
+	public void loadBankStatements() {
+		expenseService.loadBankStatements();
 	}
 }

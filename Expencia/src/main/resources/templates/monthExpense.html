@@ -12,24 +12,15 @@
 	<script type="text/javascript" th:src="@{webjars/bootstrap/4.2.1/js/bootstrap.min.js}"></script>
 
 <!-- Resources -->
-<script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
-<script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
-<script src="https://www.amcharts.com/lib/3/plugins/dataloader/dataloader.min.js"></script>
-<link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
-<script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
-<script src="https://www.amcharts.com/lib/3/serial.js"></script>
-<script type="text/javascript" src="../static/script/config.js" th:src="@{script/config.js}"></script>
-
-
-<!-- Styles -->
-<style>
-#chartdiv3 {
-  width: 100%;
-  height: 100%;
-  margin-top: 50px;
-}
-
-</style>
+	<script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+	<script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+	<script src="https://www.amcharts.com/lib/3/plugins/dataloader/dataloader.min.js"></script>
+	<link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+	<script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+	<script src="https://www.amcharts.com/lib/3/serial.js"></script>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+	<script type="text/javascript" src="../static/script/config.js" th:src="@{script/config.js}"></script>
+	<link rel="stylesheet" type="text/css" href="../static/css/styles.css" th:href="@{css/styles.css}" />
 
 
 <!-- Chart code -->
@@ -80,6 +71,6 @@ var chartBar = AmCharts.makeChart("chartdiv3", {
 </script>
 
 <!-- HTML -->
-<div><a href="/" target="_top">Back</a></div>
+<div th:insert="/menu::menu">  </div>
 <div><center><h2>Expense by Month</h2></center>
 <div id="chartdiv3"></div>

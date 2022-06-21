@@ -18,6 +18,7 @@
 
 	
 	<script type="text/javascript" src="../static/script/config.js" th:src="@{script/config.js}"></script>
+	<link rel="stylesheet" type="text/css" href="../static/css/styles.css" th:href="@{css/styles.css}" />
 
 
 <!-- Styles -->
@@ -125,6 +126,6 @@ function zoomChart() {
 </script>
 
 <!-- HTML -->
-<div><a href="/" target="_top">Back</a></div>
+<div th:insert="/menu::menu">  </div>
 <div><center><h2>Daily Expense</h2></center>
 <div id="chartdiv1"></div>

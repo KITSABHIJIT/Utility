@@ -17,4 +17,5 @@ public interface ExpenseService {
 	List<MonthExpense> getMonthExpenses();
 	List<PaymodeExpense> getPaymodeExpenses(String startDate,String endDate);
 	List<PaymodeMonthExpense> getPaymodeMonthExpenses();
+	void loadBankStatements();
 }

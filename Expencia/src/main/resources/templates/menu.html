@@ -1,0 +1,18 @@
+<div th:fragment="menu" class="hamburger-menu">
+    <input id="menu__toggle" type="checkbox" />
+    <label class="menu__btn" for="menu__toggle">
+      <span></span>
+    </label>
+
+    <ul class="menu__box">
+      <li><a class="menu__item" href="loadBankStatements"><img class= "menuImage" src="../static/images/bankStatement.png" th:src="@{images/bankStatement.png}">Load Bank Data</a></li>
+      <li><a class="menu__item" href="expenseDetails"><img class= "menuImage" src="../static/images/report.jpg" th:src="@{images/report.jpg}">Expense Details</a></li>
+      <li><a class="menu__item" href="totalExpense">Total Expense</a></li>
+      <li><a class="menu__item" href="categoryExpense">Expense by Category</a></li>
+      <li><a class="menu__item" href="paymodeExpense">Expense by Payment Mode</a></li>
+      <li><a class="menu__item" href="dailyExpense">Daily Expenses</a></li>
+      <li><a class="menu__item" href="monthExpense">Monthly Expense</a></li>
+      <li><a class="menu__item" href="monthlyPaymodeExpense">Monthly Expenses Payment wise [Bar]</a></li>
+      <li><a class="menu__item" href="monthlyPaymodeStackedExpense">Monthly Expenses Payment wise [Stack]</a></li>
+    </ul>
+  </div>

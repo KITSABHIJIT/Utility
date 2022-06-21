@@ -1,0 +1,70 @@
+<!-- HTML -->
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Expencia</title>
+    <link rel="shortcut icon" type="image/ico" th:href="@{images/bar.ico}"/>
+	
+
+    <link rel="stylesheet" th:href="@{webjars/bootstrap/4.2.1/css/bootstrap.min.css}"/>
+    <script type="text/javascript" th:src="@{webjars/bootstrap/4.2.1/js/bootstrap.min.js}"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../static/css/styles.css" th:href="@{css/styles.css}" />
+    <link rel="stylesheet" type="text/css" href="../static/css/button.css" th:href="@{css/button.css}" />
+    <link rel="stylesheet" type="text/css" href="../static/css/loading.css" th:href="@{css/loading.css}" />
+    
+	<script>
+	$(document).ready(function(){
+	  $("#loadBankStatement").click(function(e) {
+	    e.preventDefault();
+	    $("body").addClass("loading"); 
+	    $.ajax({
+	        type: "POST",
+	        url: "/loadBankStatements",
+	        success: function(result) {
+	       		$("body").removeClass("loading"); 
+	      	    alert('ok');
+	        },
+	        error: function(result) {
+	            alert('error');
+	        }
+	    });
+	  });
+	  $("#CategoriesMerchants").click(function(e) {
+	    e.preventDefault();
+	    $.ajax({
+	        type: "POST",
+		    url: "/loadBankStatements",
+		    success: function(result) {
+	            alert('ok');
+	        },
+	        error: function(result) {
+	            alert('error');
+	        }
+		});
+	  });
+	});
+	</script>
+</head>
+<div th:insert="/menu::menu">  </div>
+<div id="loadBankStatement">
+  <button class="learn-more">
+    <span class="circle" aria-hidden="true">
+      <span class="icon arrow"></span>
+    </span>
+    <span class="button-text">Load Bank Statements</span>
+  </button>
+</div>
+<div id="CategoriesMerchants">
+  <button class="learn-more">
+    <span class="circle" aria-hidden="true">
+      <span class="icon arrow"></span>
+    </span>
+    <span class="button-text">Categories Merchants</span>
+  </button>
+</div>
+<div class="overlay"></div>
+</html>

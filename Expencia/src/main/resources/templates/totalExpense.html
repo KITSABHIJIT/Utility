@@ -19,20 +19,15 @@
 <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
 <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
 
-<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-<script type="text/javascript" src="../static/script/config.js" th:src="@{script/config.js}"></script>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+	<link rel="stylesheet" type="text/css"href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	
+	<script type="text/javascript" src="../static/script/config.js" th:src="@{script/config.js}"></script>
+	<link rel="stylesheet" type="text/css" href="../static/css/styles.css" th:href="@{css/styles.css}" />
 
-
-<!-- Styles -->
-<style>
-#chartdivTotal {
-  width: 100%;
-  height: 90%;
-}
-</style>
 
 <!-- Chart code -->
 <script>
@@ -44,9 +39,6 @@ function randomValue(amount,totalExpense,chartTotal) {
 }
 
 $(function() {
-
-    var start = moment().startOf('month');
-    var end = moment();
 
     function cb(start, end) {
         $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
@@ -107,15 +99,7 @@ $(function() {
     $('#reportrange').daterangepicker({
         startDate: start,
         endDate: end,
-        ranges: {
-           'Today': [moment(), moment()],
-           'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-           'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-           'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-           'This Month': [moment().startOf('month'), moment().endOf('month')],
-           'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
-		   'Last 3 Months': [moment().subtract(3, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-        }
+        ranges: datePickerConfiguredRange
     }, cb);
 
     cb(start, end);
@@ -125,10 +109,8 @@ $(function() {
 </script>
 
 <!-- HTML -->
-<div><a href="/" target="_top">Back</a></div>
-<div id="reportrange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 20%;align: center" >
-    Date Range Selected: <i class="fa fa-calendar"></i>&nbsp;
-    <span></span> <i class="fa fa-caret-down"></i>
+<div th:insert="/menu::menu">  </div>
+<div id="reportrange"><b>Date Range:</b> <i class="fa fa-calendar"></i><span></span> <i class="fa fa-caret-down"></i>
 </div>
 <div><center><h2>Total Expense</h2></center></div>
 <div id="chartdivTotal"></div>
