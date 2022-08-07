@@ -17,6 +17,7 @@ public class DCUDebitTransformer {
 	private static final char QUOTE_CHAR = '"';
 	private static final String EARNING ="TATA CONSULTANCY";
 	private static final String EARNING1 ="ELECTRONIC DEPOSIT - TATA CONSULTANCY";
+	private static final String EARNING2 ="ELECTRONIC DEPOSIT - CITIZENS BANK";
 	private static final String MODE_OF_EARNING ="DCU";
 	private static final String MODE_OF_PAYMENT ="DCU DEBIT CARD";
 	private static final String EXCLUDED_PAYMENTS [] = {"TATA CONSULTANCY","TATA 04"
@@ -56,6 +57,7 @@ public class DCUDebitTransformer {
 			,"ELECTRONIC WITHDRAWAL PAYMENT FOR AMZ STORECARD"
 			,"ELECTRONIC WITHDRAWAL WELLS FARGO"
 			,"ELECTRONIC WITHDRAWAL DISCOVER"
+			,"ELECTRONIC DEPOSIT - CITIZENS BANK"
 	};
 
 	private static final String LOAN_PAYMENTS [] = {"TRANSFER TO LOAN", "SH DRAFT","TRANSFER - 5821038-141","ELECTRONIC WITHDRAWAL PL*EAGLEROCKMANAWEB"};
@@ -224,7 +226,9 @@ public class DCUDebitTransformer {
 
 	public static boolean isEarning(String expense){
 		boolean result=false;
-		if(expense.toUpperCase().startsWith(EARNING) || expense.toUpperCase().startsWith(EARNING1)) {
+		if(expense.toUpperCase().startsWith(EARNING) 
+				|| expense.toUpperCase().startsWith(EARNING1)
+				|| expense.toUpperCase().startsWith(EARNING2)) {
 			result=true;
 		}
 		return result;
