@@ -581,6 +581,7 @@ public class SalaryReportGenerator {
 			tableHeader.add("Vision Insurance");
 			tableHeader.add("401k Plan");
 			tableHeader.add("Gross Pay");
+			tableHeader.add("PTO Days");
 			tableHeader.add("Total Tax");
 			tableHeader.add("Tax Break Up");
 			tableHeader.add("Net Pay");
@@ -602,6 +603,7 @@ public class SalaryReportGenerator {
 				tableRow.add(bean.getVisionInsurance());
 				tableRow.add(bean.getPlan401K());
 				tableRow.add(bean.getBaseSalary());
+				tableRow.add(StringUtil.getTwoDecimal(bean.getPaidOffTime()/8));
 				tableRow.add(StringUtil.getTwoDecimal(-1*(bean.getFederalIncomeTax()
 						+bean.getSocialSecurityTax()
 						+bean.getMedicareTax()

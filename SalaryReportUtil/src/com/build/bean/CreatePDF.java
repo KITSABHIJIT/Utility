@@ -1,4 +1,4 @@
-package com.build.beanToPdf;
+package com.build.bean;
 
 import java.io.File;
 import java.io.FileOutputStream;
