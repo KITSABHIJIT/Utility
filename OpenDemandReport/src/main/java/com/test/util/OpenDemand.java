@@ -5,6 +5,7 @@ public class OpenDemand {
 	boolean isCrossChannel;
 	int site;
 	String soldToName;
+	String teamMember;
 	long articleNumber;
 	String articleDescripion;
 	int variance;
@@ -70,6 +71,12 @@ public class OpenDemand {
 	}
 	public void setCrossChannel(boolean isCrossChannel) {
 		this.isCrossChannel = isCrossChannel;
+	}
+	public String getTeamMember() {
+		return teamMember;
+	}
+	public void setTeamMember(String teamMember) {
+		this.teamMember = teamMember;
 	}
 	@Override
 	public String toString() {

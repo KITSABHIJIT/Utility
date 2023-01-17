@@ -62,6 +62,9 @@ public class ReadReport {
 								od.setCrossChannel(true);
 							}
 							break;
+						case 2:
+							od.setTeamMember(cell.getStringCellValue());
+							break;
 						case 5:
 							od.setArticleNumber((long) cell.getNumericCellValue());
 							break;
@@ -102,15 +105,15 @@ public class ReadReport {
 		return new OpenDemandStock(stockAvailability, records);
 
 	}
-	
+
 	public static List<OpenDemand> updateOpenDemandAvailability(OpenDemandStock odStocks){
 		List<OpenDemand> result=new ArrayList<OpenDemand>();
 		Map<Long,Long> availableStock=odStocks.getStockAvaialability();
-		
+
 		List<OpenDemand> tempList=odStocks.getOpenDemandRecords();
 		tempList.sort(Comparator.comparing(OpenDemand::isCrossChannel,Comparator.reverseOrder())
-                .thenComparing(OpenDemand::getArticleNumber)
-                .thenComparing(OpenDemand::getDaysAged,Comparator.reverseOrder()));
+				.thenComparing(OpenDemand::getArticleNumber)
+				.thenComparing(OpenDemand::getDaysAged,Comparator.reverseOrder()));
 		for(OpenDemand od:tempList) {
 			OpenDemand temp=od;
 			if(availableStock.get(od.getArticleNumber())>=od.getVariance()){
@@ -124,7 +127,7 @@ public class ReadReport {
 		}
 		return result;
 	}
-	
+
 	public static boolean isBlankOrEmpty(Object obj){
 		if(null==obj){
 			return true;
@@ -167,13 +170,12 @@ public class ReadReport {
 		List<Object> header=new ArrayList<Object>();
 		header.add("Site");
 		header.add("Sold-to Name");
+		header.add("Sales Group (Team Member)");
 		header.add("Article Number");
 		header.add("Article Description");
 		header.add("Variance");
-		header.add("Avail OH+IT QTY\r\n"
-				+ "For Delivery");
-		header.add("Days\r\n"
-				+ "Aged");
+		header.add("Avail OH+IT QTY For Delivery");
+		header.add("Days Aged");
 		header.add("Units to fill");
 		data.add(header);
 		Collections.sort(openDemands, (OpenDemand a1, OpenDemand a2) -> a1.slNo-a2.slNo);
@@ -181,6 +183,7 @@ public class ReadReport {
 			List<Object> lines=new ArrayList<Object>();
 			lines.add(openDemand.getSite());
 			lines.add(openDemand.getSoldToName());
+			lines.add(openDemand.getTeamMember());
 			lines.add(openDemand.getArticleNumber());
 			lines.add(openDemand.getArticleDescripion());
 			lines.add(openDemand.getVariance());
