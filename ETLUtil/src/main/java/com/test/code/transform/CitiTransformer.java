@@ -18,6 +18,7 @@ public class CitiTransformer {
 	private static final String PAYMENT_DONE ="ONLINE PAYMENT - THANK YOU";
 	private static final String PAYMENT_DONE1 ="MOBILE PAYMENT - THANK YOU";
 	private static final String PAYMENT_DONE2 ="ONLINE PAYMENT, THANK YOU";
+	private static final String PAYMENT_DONE3 ="PAYMENT THANK YOU";
 	private static final String PAYMENT_RECEIVED ="PAYMENT RECEIVED";
 	private static final String PLACE_DELIMITER = "-";
 	private static final String DATE_DELIMITER = "  ";
@@ -39,6 +40,7 @@ public class CitiTransformer {
 				if(!expenseDetails[2].trim().contains(PAYMENT_DONE) 
 						&& !expenseDetails[2].trim().contains(PAYMENT_DONE1) 
 						&& !expenseDetails[2].trim().contains(PAYMENT_DONE2) 
+						&& !expenseDetails[2].trim().contains(PAYMENT_DONE3) 
 						&& !expenseDetails[2].trim().contains(PAYMENT_RECEIVED)) {
 					Expense exp = new Expense();
 					exp.setModeOfPayment(MODE_OF_PAYMENT);

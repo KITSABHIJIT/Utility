@@ -60,6 +60,7 @@ TjMaxFile=/Users/abhijit/Google Drive/Expense/Expense Dumps/Raw_Statements/Tjmax
 ZalesFile=/Users/abhijit/Google Drive/Expense/Expense Dumps/Raw_Statements/Zales.csv
 ZalesFileTemp=/Users/abhijit/Google Drive/Expense/Expense Dumps/Raw_Statements/ZalesTemp.csv
 BestBuyFile=/Users/abhijit/Google Drive/Expense/Expense Dumps/Raw_Statements/bestBuy.csv
+DCUdebitFile2=/Users/abhijit/Google Drive/Expense/Expense Dumps/Raw_Statements/DCU-20221017.csv
 DCUdebitFile1=/Users/abhijit/Google Drive/Expense/Expense Dumps/Raw_Statements/DCU.csv
 DCUdebitFile=/Users/abhijit/Google Drive/Expense/Expense Dumps/Raw_Statements/DCU-Old.csv
 WalmartFile=/Users/abhijit/Google Drive/Expense/Expense Dumps/Raw_Statements/walmart.csv

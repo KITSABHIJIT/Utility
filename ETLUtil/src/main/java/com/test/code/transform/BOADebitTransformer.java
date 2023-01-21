@@ -16,7 +16,7 @@ public class BOADebitTransformer {
 	private static final char COMMA_DELIMITER = ',';
 	private static final char QUOTE_CHAR = '"';
 	private static final String MODE_OF_PAYMENT ="BANK OF AMERICA DEBIT CARD";
-	private static final String EARNING ="TATA CONSULTANCY DES:";
+	private static final String EARNING []={"TATA CONSULTANCY DES:","CITIZENS BANK DES:"};
 	private static final String MODE_OF_EARNING ="BANK OF AMERICA";
 	private static final String EXCLUDED_PAYMENTS [] = {"TATA CONSULTANCY DES:","TATA 04"
 			,"AMERICAN EXPRESS DES:ACH PMT ID"
@@ -35,8 +35,9 @@ public class BOADebitTransformer {
 			,"WELLS FARGO CARD DES"
 			,"CHASE CREDIT CRD DES:EPAY ID"
 			,"CHASE DES:EPAY ID"
-			,"CAPITAL ONE DES:ONLINE PMT ID"};
-	
+			,"CAPITAL ONE DES:ONLINE PMT ID"
+			,"CITIZENS BANK DES:"};
+
 	public static List<Expense> processData(List<Expense> expenseList,List<Earning> earningList){
 
 		CSVReader csvReader = null;
@@ -104,8 +105,11 @@ public class BOADebitTransformer {
 	}
 	public static boolean isEarning(String expense){
 		boolean result=false;
-			if(expense.toUpperCase().startsWith(EARNING)) {
+		for(String earing : EARNING) {
+			if(expense.toUpperCase().startsWith(earing)) {
 				result=true;
+				break;
+			}
 		}
 		return result;
 	}
