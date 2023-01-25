@@ -580,6 +580,7 @@ public class SalaryReportGenerator {
 			tableHeader.add("Dental Insurance");
 			tableHeader.add("Vision Insurance");
 			tableHeader.add("401k Plan");
+			tableHeader.add("Employee StockPurchase Plan");
 			tableHeader.add("Gross Pay");
 			tableHeader.add("PTO Days");
 			tableHeader.add("Total Tax");
@@ -602,8 +603,9 @@ public class SalaryReportGenerator {
 				tableRow.add(bean.getDentalInsurance());
 				tableRow.add(bean.getVisionInsurance());
 				tableRow.add(bean.getPlan401K());
+				tableRow.add(bean.getEmployeeStockPurchase());
 				tableRow.add(bean.getBaseSalary());
-				tableRow.add(StringUtil.getTwoDecimal(bean.getPaidOffTime()/8));
+				tableRow.add(bean.getPaidOffTime()/8);
 				tableRow.add(StringUtil.getTwoDecimal(-1*(bean.getFederalIncomeTax()
 						+bean.getSocialSecurityTax()
 						+bean.getMedicareTax()
@@ -659,6 +661,9 @@ public class SalaryReportGenerator {
 					}
 					if(myList.get(i).startsWith("401(k) Yes $")) {
 						salaryBean.setPlan401K(-1*StringUtil.getDoubleFromString(StringUtil.trim(myList.get(i).substring(myList.get(i).indexOf("401(k) Yes $")+12,myList.get(i).indexOf("$",myList.get(i).indexOf("401(k) Yes $")+12))),true));
+					}
+					if(myList.get(i).startsWith("Emp St Pur Plan No $")) {
+						salaryBean.setEmployeeStockPurchase(-1*StringUtil.getDoubleFromString(StringUtil.trim(myList.get(i).substring(myList.get(i).indexOf("Emp St Pur Plan No $")+20,myList.get(i).indexOf("$",myList.get(i).indexOf("Emp St Pur Plan No $")+20))),true));
 					}
 					if(myList.get(i).startsWith("Dental Plan Yes $")) {
 						salaryBean.setDentalInsurance(-1*StringUtil.getDoubleFromString(StringUtil.trim(myList.get(i).substring(myList.get(i).indexOf("Dental Plan Yes $")+17,myList.get(i).indexOf("$",myList.get(i).indexOf("Dental Plan Yes $")+17))),true));

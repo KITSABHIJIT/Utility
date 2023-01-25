@@ -51,6 +51,7 @@ public class SalaryBean {
 	public double medicalInsurance;
 	public double visionInsurance;
 	public double plan401K;
+	public double employeeStockPurchase;
 	
 	public double payRate;
 	public double baseSalary;
@@ -177,6 +178,12 @@ public class SalaryBean {
 	public void setPlan401K(double plan401k) {
 		if((this.getPlan401K()==0  || this.getPlan401K()>plan401k) && plan401k>-300)
 			plan401K = plan401k;
+	}
+	public double getEmployeeStockPurchase() {
+		return employeeStockPurchase;
+	}
+	public void setEmployeeStockPurchase(double employeeStockPurchase) {
+			this.employeeStockPurchase = employeeStockPurchase;
 	}
 	public String getSalaryFile() {
 		return salaryFile;
