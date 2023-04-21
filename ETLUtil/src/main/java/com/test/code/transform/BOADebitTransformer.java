@@ -36,7 +36,8 @@ public class BOADebitTransformer {
 			,"CHASE CREDIT CRD DES:EPAY ID"
 			,"CHASE DES:EPAY ID"
 			,"CAPITAL ONE DES:ONLINE PMT ID"
-			,"CITIZENS BANK DES:"};
+			,"CITIZENS BANK DES:"
+			,"PAYMENT FOR AMZ DES:STORECARD"};
 
 	public static List<Expense> processData(List<Expense> expenseList,List<Earning> earningList){
 

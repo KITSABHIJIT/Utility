@@ -15,6 +15,7 @@ import com.test.code.transform.AmazonStroreTransformer;
 import com.test.code.transform.AmexBlueCashTransformer;
 import com.test.code.transform.AmexCashMagnetTransformer;
 import com.test.code.transform.AmexTransformer;
+import com.test.code.transform.BJsCapitalOneTransformer;
 import com.test.code.transform.BJsTransformer;
 import com.test.code.transform.BOACreditTransformer;
 import com.test.code.transform.BOADebitTransformer;
@@ -23,6 +24,7 @@ import com.test.code.transform.BarclaysTransformer;
 import com.test.code.transform.BestBuyTransformer;
 import com.test.code.transform.CapitalOneTransformer;
 import com.test.code.transform.CashTransformer;
+import com.test.code.transform.ChaseFreedomTransformer;
 import com.test.code.transform.ChaseSapphireTransformer;
 import com.test.code.transform.ChaseTransformer;
 import com.test.code.transform.CitiTransformer;
@@ -41,7 +43,7 @@ import com.test.code.util.PropertiesUtil;
 public class StartLoadingData {
 
 	public static void main (String ...strings){
-		
+
 		ConnectionUtil.backupdbtosql();
 		ConnectionUtil.cleanupData();
 		//Expense Load
@@ -51,11 +53,13 @@ public class StartLoadingData {
 		List<Expense> expList=DataTransformer.transformExpenseUsingDelimeter(rawData, PropertiesUtil.getProperty("delimeter"));
 		// Transform Data
 		List<Earning> earningList=DataTransformer.transformEarningUsingDelimeter(rawData, PropertiesUtil.getProperty("delimeter"));
+
 		// Load Data
 		AmexTransformer.processData(expList);
 		AmazonStroreTransformer.processData(expList);
 		BestBuyTransformer.processData(expList);
 		BJsTransformer.processData(expList);
+		BJsCapitalOneTransformer.processData(expList);
 		BOACreditTransformer.processData(expList);
 		BOADebitTransformer.processData(expList,earningList);
 		DCUDebitTransformer.processData(expList,earningList);
@@ -76,10 +80,11 @@ public class StartLoadingData {
 		BOATravelCreditTransformer.processData(expList);
 		CitiTransformer.processData(expList);
 		CashTransformer.processData(expList);
-		
+		ChaseFreedomTransformer.processData(expList);
+
 		DataLoader.loadExpenseData(expList);
 		DataLoader.loadEarningData(earningList);
-		
+
 		//Category Load
 		// Extract Data
 		Map<String,List<String>> rawDataCategory =DataExtractor.extractDataWithFileName(PropertiesUtil.getProperty("sourceDirPathCategory"));
@@ -87,7 +92,7 @@ public class StartLoadingData {
 		List<Category> categoryList=DataTransformer.transformDataUsingDelimeterCategory(rawDataCategory, PropertiesUtil.getProperty("delimeter"));
 		// Load Data
 		DataLoader.loadCategoryData(categoryList);
-		
+
 		//Merchant Load
 		// Extract Data
 		Map<String,List<String>> rawDataMerchant =DataExtractor.extractDataWithFileName(PropertiesUtil.getProperty("sourceDirPathMerchant"));
@@ -96,7 +101,7 @@ public class StartLoadingData {
 		// Load Data
 		DataLoader.loadMerchantMappingData(merchantList);
 		DataLoader.loadNewMerchant();
-		
+
 
 		//PAYMODE Load
 		// Extract Data
@@ -105,12 +110,10 @@ public class StartLoadingData {
 		List<PayMode> payModeList=DataTransformer.transformDataUsingDelimeterPayMode(rawDataPayMode, PropertiesUtil.getProperty("delimeter"));
 		// Load Data
 		DataLoader.loadPayModeData(payModeList);
-
-
 		// Extract Data
 		//List<String> rawData =DataExtractor.extractData(PropertiesUtil.getProperty("sourceDirPath"));
 		// Load Data
 		//DataLoader.loadData(rawData);
-		 
+
 	}
 }

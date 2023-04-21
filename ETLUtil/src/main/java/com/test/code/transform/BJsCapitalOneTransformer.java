@@ -11,18 +11,18 @@ import com.test.code.util.DateUtil;
 import com.test.code.util.PropertiesUtil;
 import com.test.code.util.StringUtil;
 
-public class WalmartTransformer {
+public class BJsCapitalOneTransformer {
 	private static final char COMMA_DELIMITER = ',';
 	private static final char QUOTE_CHAR = '"';
-	private static final String MODE_OF_PAYMENT ="WALMART CREDIT CARD";
-	private static final String PAYMENT_DONE ="ONLINE PAYMENT - THANK YOU";
-	private static final String PAYMENT_DONE1 ="ONLINE PAYMENT THANK YOU";
-	private static final String PAYMENT_DONE2 ="CAPITAL ONE ONLINE PYMT";
-	private static final String PAYMENT_DONE3 ="CAPITAL ONE MOBILE PYMT";
+	private static final String MODE_OF_PAYMENT ="BJS CREDIT CARD";
+	private static final String PAYMENT_DONE1 ="CAPITAL ONE ONLINE PYMT";
+	private static final String PAYMENT_DONE2 ="PAYMENT - THANK YOU";
 	public static List<Expense> processData(List<Expense> expenseList){
 
 		CSVReader csvReader = null;
 		String[] expenseDetails = null;
+		Date maxEntryDate=DataLoader.getMaxEntryDate(MODE_OF_PAYMENT);
+		
 		try
 		{
 			/**
@@ -30,13 +30,10 @@ public class WalmartTransformer {
 			 * Delimiter is comma
 			 * Start reading from line 1
 			 */
-			Date maxEntryDate=DataLoader.getMaxEntryDate(MODE_OF_PAYMENT);
-			csvReader = new CSVReader(new FileReader(PropertiesUtil.getProperty("WalmartFile")),COMMA_DELIMITER,QUOTE_CHAR,1);
+			csvReader = new CSVReader(new FileReader(PropertiesUtil.getProperty("BJsCapitaOneFile")),COMMA_DELIMITER,QUOTE_CHAR,1);
 			while((expenseDetails = csvReader.readNext())!=null)
 			{
-				if(!PAYMENT_DONE.equals(expenseDetails[3].trim()) && !PAYMENT_DONE1.equals(expenseDetails[3].trim())
-						&& !PAYMENT_DONE2.equals(expenseDetails[3].trim())
-						&& !PAYMENT_DONE3.equals(expenseDetails[3].trim())) {
+				if(null !=expenseDetails[3].trim() && !expenseDetails[3].trim().contains(PAYMENT_DONE1)&& !expenseDetails[3].trim().contains(PAYMENT_DONE2)) {
 					Expense exp = new Expense();
 					exp.setModeOfPayment(MODE_OF_PAYMENT);
 					exp.setTransactionDate(DateUtil.getSQLData(DateUtil.getSomeDate(expenseDetails[0].trim(), "yyyy-MM-dd")));
@@ -57,10 +54,9 @@ public class WalmartTransformer {
 				}
 			}
 		} catch (Exception e) {
-			System.err.println("Error file: "+PropertiesUtil.getProperty("WalmartFile")+"\n Error Data: "+StringUtil.printArray(expenseDetails));
+			System.err.println("Error file: "+PropertiesUtil.getProperty("BJsCapitaOneFile")+"\n Error Data: "+StringUtil.printArray(expenseDetails));
 			e.printStackTrace();
 		}
 		return expenseList;
 	}
-
 }

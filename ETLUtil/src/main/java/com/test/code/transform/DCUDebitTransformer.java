@@ -44,7 +44,7 @@ public class DCUDebitTransformer {
 			,"WELLS FARGO CARDCCPYMT"
 			,"BARCLAYCARD US CREDITCARD"
 			,"AMZ_STORECRD_PMTPAYMENT"
-			,"ELECTRONIC DEPOSIT - TATA CONSULTANCY"
+			,"ELECTRONIC DEPOSIT"
 			,"ELECTRONIC WITHDRAWAL COMENITY PAY BH"
 			,"ELECTRONIC WITHDRAWAL TJX REWARDS MC  TJX EPAY"
 			,"ELECTRONIC WITHDRAWAL CITI CARD ONLINEPAYMENT"
@@ -57,7 +57,6 @@ public class DCUDebitTransformer {
 			,"ELECTRONIC WITHDRAWAL PAYMENT FOR AMZ STORECARD"
 			,"ELECTRONIC WITHDRAWAL WELLS FARGO"
 			,"ELECTRONIC WITHDRAWAL DISCOVER"
-			,"ELECTRONIC DEPOSIT - CITIZENS BANK"
 	};
 
 	private static final String LOAN_PAYMENTS [] = {"TRANSFER TO LOAN", "SH DRAFT","TRANSFER - 5821038-141","ELECTRONIC WITHDRAWAL PL*EAGLEROCKMANAWEB"};
@@ -133,56 +132,6 @@ public class DCUDebitTransformer {
 			while((expenseDetails1 = csvReader1.readNext())!=null)
 			{
 
-				if(!excludeExpense(expenseDetails1[1].trim())
-						&& (!excludeATMDeposits(expenseDetails1[1].trim(),-1*StringUtil.getDouble(expenseDetails1[2].trim())))
-						&& !excludeP2PTransfers(expenseDetails1[1].trim())) {
-					Expense exp = new Expense();
-					exp.setModeOfPayment(MODE_OF_PAYMENT);
-					exp.setTransactionDate(DateUtil.getSQLData(DateUtil.getSomeDate(expenseDetails1[0].trim(), "MM/dd/yyyy")));
-					String includeExpense=includeExpense(expenseDetails1[1].trim());
-					if(!StringUtil.isBlankOrEmpty(includeExpense)) {
-						exp.setMerchant(includeExpense.toUpperCase());
-					}else {
-						exp.setMerchant((expenseDetails1[1].length()<100)?expenseDetails1[1].trim().toUpperCase():expenseDetails1[1].trim().toUpperCase().substring(0,99));
-					}
-					exp.setAmount(-1*StringUtil.getDouble(expenseDetails1[2].trim()));
-					if(exp.getTransactionDate()==(maxEntryDatePayment)) {
-						System.out.println("Expense Record already exists on the same Date: "+exp.toString());
-					}else if(expenseList.contains(exp)) {
-						System.out.println("Expense Record already exists: "+exp.toString());
-					}else if(exp.getTransactionDate().after(maxEntryDatePayment)) {
-						expenseList.add(exp);
-					}
-				}else {
-					if(isEarning(expenseDetails1[1].trim())) {
-						Earning earning = new Earning();
-						earning.setModeOfPayment(MODE_OF_EARNING);
-						earning.setTransactionDate(DateUtil.getSQLData(DateUtil.getSomeDate(expenseDetails1[0].trim(), "MM/dd/yyyy")));
-						earning.setMerchant(expenseDetails1[1].trim().toUpperCase());
-						earning.setAmount(StringUtil.getDouble(expenseDetails1[2].trim()));
-						if(earning.getTransactionDate()==(maxEntryDateEarning)) {
-							System.out.println("Earning Record already exists on the same Date: "+earning.toString());
-						}else if(earningList.contains(earning)) {
-							System.out.println("Earning Record already exists: "+earning.toString());
-						}else if(earning.getTransactionDate().after(maxEntryDateEarning)) {
-							earningList.add(earning);
-						}
-					}
-				}
-
-			}
-
-		} catch (Exception e) {
-			System.err.println("Error file: "+PropertiesUtil.getProperty("DCUdebitFile1")+"\n Error Data: "+StringUtil.printArray(expenseDetails1));
-			e.printStackTrace();
-		}
-
-		try
-		{
-			csvReader1 = new CSVReader(new FileReader(PropertiesUtil.getProperty("DCUdebitFile2")),COMMA_DELIMITER,QUOTE_CHAR,1);
-			while((expenseDetails1 = csvReader1.readNext())!=null)
-			{
-
 				if(!excludeExpense(expenseDetails1[2].trim())
 						&& (!excludeATMDeposits(expenseDetails1[2].trim(),-1*StringUtil.getDouble(expenseDetails1[3].trim())))
 						&& !excludeP2PTransfers(expenseDetails1[2].trim())) {
@@ -210,6 +159,56 @@ public class DCUDebitTransformer {
 						earning.setTransactionDate(DateUtil.getSQLData(DateUtil.getSomeDate(expenseDetails1[0].trim(), "MM/dd/yyyy")));
 						earning.setMerchant(expenseDetails1[2].trim().toUpperCase());
 						earning.setAmount(StringUtil.getDouble(expenseDetails1[3].trim()));
+						if(earning.getTransactionDate()==(maxEntryDateEarning)) {
+							System.out.println("Earning Record already exists on the same Date: "+earning.toString());
+						}else if(earningList.contains(earning)) {
+							System.out.println("Earning Record already exists: "+earning.toString());
+						}else if(earning.getTransactionDate().after(maxEntryDateEarning)) {
+							earningList.add(earning);
+						}
+					}
+				}
+
+			}
+
+		} catch (Exception e) {
+			System.err.println("Error file: "+PropertiesUtil.getProperty("DCUdebitFile1")+"\n Error Data: "+StringUtil.printArray(expenseDetails1));
+			e.printStackTrace();
+		}
+
+		try
+		{
+			csvReader1 = new CSVReader(new FileReader(PropertiesUtil.getProperty("DCUdebitFile2")),COMMA_DELIMITER,QUOTE_CHAR,1);
+			while((expenseDetails1 = csvReader1.readNext())!=null)
+			{
+
+				if(!excludeExpense(expenseDetails1[1].trim())
+						&& (!excludeATMDeposits(expenseDetails1[1].trim(),-1*StringUtil.getDouble(expenseDetails1[2].trim())))
+						&& !excludeP2PTransfers(expenseDetails1[1].trim())) {
+					Expense exp = new Expense();
+					exp.setModeOfPayment(MODE_OF_PAYMENT);
+					exp.setTransactionDate(DateUtil.getSQLData(DateUtil.getSomeDate(expenseDetails1[0].trim(), "MM/dd/yyyy")));
+					String includeExpense=includeExpense(expenseDetails1[1].trim());
+					if(!StringUtil.isBlankOrEmpty(includeExpense)) {
+						exp.setMerchant(includeExpense.toUpperCase());
+					}else {
+						exp.setMerchant((expenseDetails1[1].length()<100)?expenseDetails1[1].trim().toUpperCase():expenseDetails1[1].trim().toUpperCase().substring(0,99));
+					}
+					exp.setAmount(-1*StringUtil.getDouble(expenseDetails1[2].trim()));
+					if(exp.getTransactionDate()==(maxEntryDatePayment)) {
+						System.out.println("Expense Record already exists on the same Date: "+exp.toString());
+					}else if(expenseList.contains(exp)) {
+						System.out.println("Expense Record already exists: "+exp.toString());
+					}else if(exp.getTransactionDate().after(maxEntryDatePayment)) {
+						expenseList.add(exp);
+					}
+				}else {
+					if(isEarning(expenseDetails1[1].trim())) {
+						Earning earning = new Earning();
+						earning.setModeOfPayment(MODE_OF_EARNING);
+						earning.setTransactionDate(DateUtil.getSQLData(DateUtil.getSomeDate(expenseDetails1[0].trim(), "MM/dd/yyyy")));
+						earning.setMerchant(expenseDetails1[1].trim().toUpperCase());
+						earning.setAmount(StringUtil.getDouble(expenseDetails1[2].trim()));
 						if(earning.getTransactionDate()==(maxEntryDateEarning)) {
 							System.out.println("Earning Record already exists on the same Date: "+earning.toString());
 						}else if(earningList.contains(earning)) {
