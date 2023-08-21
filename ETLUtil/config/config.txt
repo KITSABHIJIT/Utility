@@ -56,6 +56,7 @@ BJsFileTemp=/Users/abhijit/Google Drive/Expense/Expense Dumps/Raw_Statements/bjs
 BJsCapitaOneFile=/Users/abhijit/Google Drive/Expense/Expense Dumps/Raw_Statements/bjscardCapitalOne.CSV
 KholsFile=/Users/abhijit/Google Drive/Expense/Expense Dumps/Raw_Statements/khols-Old.csv
 KholsFile1=/Users/abhijit/Google Drive/Expense/Expense Dumps/Raw_Statements/khols.csv
+KohlsCapitaOneFile=/Users/abhijit/Google Drive/Expense/Expense Dumps/Raw_Statements/kholsCapitalOne.csv
 MacysFile=/Users/abhijit/Google Drive/Expense/Expense Dumps/Raw_Statements/Macys.csv
 TjMaxFile=/Users/abhijit/Google Drive/Expense/Expense Dumps/Raw_Statements/Tjmax.csv
 ZalesFile=/Users/abhijit/Google Drive/Expense/Expense Dumps/Raw_Statements/Zales.csv
@@ -75,6 +76,10 @@ AmexCashMagnetFile=/Users/abhijit/Google Drive/Expense/Expense Dumps/Raw_Stateme
 CitiFile=/Users/abhijit/Google Drive/Expense/Expense Dumps/Raw_Statements/Citi.csv
 CashFile=/Users/abhijit/Google Drive/Expense/Expense Dumps/Raw_Statements/Cash.csv
 ChaseFreedomFile=/Users/abhijit/Google Drive/Expense/Expense Dumps/Raw_Statements/ChaseFreedom.CSV
+lowesFile=/Users/abhijit/Google Drive/Expense/Expense Dumps/Raw_Statements/lowes.csv
 
+ChaseFreedomFileTanaya=/Users/abhijit/Google Drive/Expense/Expense Dumps/Raw_Statements/ChaseFreedom-T.CSV
+DiscoverFileTanaya=/Users/abhijit/Google Drive/Expense/Expense Dumps/Raw_Statements/Discover-T.csv
+lowesFileTanaya=/Users/abhijit/Google Drive/Expense/Expense Dumps/Raw_Statements/lowes-T.csv
 
 databaseBackup=/Users/abhijit/Google Drive/Expense/Expense Dumps/mysqlBackup/

@@ -32,6 +32,7 @@ import com.test.code.transform.DCUDebitTransformer;
 import com.test.code.transform.DiscoverTransformer;
 import com.test.code.transform.JCPenneyTransformer;
 import com.test.code.transform.KholsTransformer;
+import com.test.code.transform.LowesTransformer;
 import com.test.code.transform.MacysTransformer;
 import com.test.code.transform.TjMaxTransformer;
 import com.test.code.transform.WalmartTransformer;
@@ -81,7 +82,8 @@ public class StartLoadingData {
 		CitiTransformer.processData(expList);
 		CashTransformer.processData(expList);
 		ChaseFreedomTransformer.processData(expList);
-
+		LowesTransformer.processData(expList);
+		
 		DataLoader.loadExpenseData(expList);
 		DataLoader.loadEarningData(earningList);
 
