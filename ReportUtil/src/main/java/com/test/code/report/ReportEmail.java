@@ -1,6 +1,7 @@
 package com.test.code.report;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
@@ -23,16 +24,17 @@ public class ReportEmail {
 		Date startDate = DateUtil.getDateBeforeNDays(new Date(),30);
 		Date endDate=new Date();
 		StringBuilder sb = new StringBuilder();
-		appendTagwithContent(sb, "h2", "Expense Report of last 30 days");
-		sb.append("<p/>");
-		sb.append("<p/>");
-		sb.append(getHtmlData(DataExtractor.getData(DataExtractor.updateQueryWithDates(PropertiesUtil.getProperty("CATEGORY_EXPENSE"),startDate,endDate))));
-		appendTag(sb,"table border=\"1\"");
-		sb.append("<p/>");
-		sb.append("<p/>");
+		sb.append(getHtmlData(DataExtractor.getData(DataExtractor.updateQueryWithDates(PropertiesUtil.getProperty("CATEGORY_EXPENSE"),startDate,endDate)),"#edf3f5;","#d0ecf5;"));
+		appendTag(sb,"table border=\"1\" align=\"center\"");
+		sb.insert(0,"<div style=\"font-family: 'Calibri'\"> <div> ");
+		sb.insert(0, "<h2 style=\"text-align: center; font-family: 'Calibri'\"> Expense Report of last 30 days</h2>");
+		sb.append("</div>");
 		StringBuilder sb1 = new StringBuilder();
-		sb1.append(getHtmlData(DataExtractor.getData(DataExtractor.updateQueryWithDates(PropertiesUtil.getProperty("PAYMENT_TYPE_EXPENSE"),startDate,endDate))));
-		appendTag(sb1,"table border=\"1\"");
+		sb1.append(getHtmlData(DataExtractor.getData(DataExtractor.updateQueryWithDates(PropertiesUtil.getProperty("PAYMENT_TYPE_EXPENSE"),startDate,endDate)),"#f5f5eb;","#f0f0d8;"));
+		appendTag(sb1,"table border=\"1\" align=\"center\"");
+		sb1.insert(0,"<div style=\"margin-top:10px; \">");
+		sb1.append("</div>");
+		sb1.append("</div>");
 		//sb1.append("<p/>");
 		//StringBuilder sb2 = new StringBuilder();
 		//sb2.append(getHtmlData(DataExtractor.getData(DataExtractor.updateQueryWithDates(PropertiesUtil.getProperty("CARD_TYPE_EXPENSE"),startDate,endDate))));
@@ -88,9 +90,10 @@ public class ReportEmail {
 			message.setSubject(PropertiesUtil.getProperty("mailSubject"));
 
 			// Send the actual HTML message.
-			message.setContent(getEmailContent(),"text/html");
+			String emailContent=getEmailContent();
+			message.setContent(emailContent,"text/html");
 
-			System.out.println("sending...");
+			System.out.println("sending..."+emailContent);
 			// Send message
 			Transport.send(message);
 			System.out.println("Sent message successfully....");
@@ -100,32 +103,41 @@ public class ReportEmail {
 
 	}
 
-	public static String getHtmlData(List<List<Object>> data){
+	public static String getHtmlData(List<List<Object>> data,String color1, String color2){
 		int rowCount=0;
 		StringBuilder sb = new StringBuilder();
 		StringBuilder sbTemp = null;
+		DecimalFormat df = new DecimalFormat("0.00");
+		df.setMaximumFractionDigits(2);
 		for (List<Object> aBook : data) {
 			sbTemp =new StringBuilder();
 			for (Object field : aBook) {
 				String tempColumns="";
+				boolean rightAligned=false;
 				if (field instanceof String) {
 					tempColumns+=(String) field;
 				} else if (field instanceof Integer) {
 					tempColumns+=(Integer) field;
+					rightAligned=true;
 				} else if (field instanceof Double) {
 					tempColumns+=((Double) field);
+					rightAligned=true;
 				} else if (field instanceof Date) {
 					tempColumns+=((Date) field);
 				}else if (field instanceof BigDecimal) {
-					tempColumns+=(((BigDecimal) field).doubleValue());
+					tempColumns+=df.format(((BigDecimal) field).doubleValue());
+					rightAligned=true;
 				}
 				if(rowCount==0){
 					appendTagwithContent(sbTemp,"th",tempColumns);
 				}else{
-					appendTagwithContent(sbTemp,"td",tempColumns);
+					appendTagwithContent(sbTemp,(rightAligned)?"td align=\"right\"":"td",tempColumns);
 				}
 			}
-			appendTagwithContent(sb,"tr",sbTemp.toString());
+			if(rowCount%2==0)
+				appendTagwithContent(sb,"tr style=\"background-color: "+color1+"\"",sbTemp.toString());
+			else
+				appendTagwithContent(sb,"tr style=\"background-color: "+color2+"\"",sbTemp.toString());
 			rowCount++;
 		}
 
@@ -134,13 +146,13 @@ public class ReportEmail {
 	static void appendTagwithContent(StringBuilder sb, String tag, String contents) {
 		sb.append('<').append(tag).append('>');
 		sb.append(contents);
-		sb.append("</").append(tag).append('>');
+		sb.append("</").append(tag.split(" ")[0]).append('>');
 	}
 	static void appendTag(StringBuilder sb,String tag) {
 		sb.insert(0, ">");
 		sb.insert(0, tag);
 		sb.insert(0, "<");
-		sb.append("</").append(tag).append('>');
+		sb.append("</").append(tag.split(" ")[0]).append('>');
 	}
 
 }
