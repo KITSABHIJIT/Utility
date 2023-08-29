@@ -162,6 +162,13 @@ public class DateUtil {
 		return calendar.getTime();
 	}
 	
+	public static Date getDateBeforeNDays(Date input,int interval){
+		Calendar calendar  = Calendar.getInstance();
+		calendar .setTime(input);
+		calendar.add(Calendar.DATE, -interval); 
+		return calendar.getTime();
+	}
+	
 	public static Date getLastDayOfTheYear(Date input){
 		Calendar calendar  = Calendar.getInstance();
 		calendar .setTime(input);

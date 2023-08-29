@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 
 import com.test.code.extract.DataExtractor;
 import com.test.code.pojo.ReportData;
+import com.test.code.report.ReportEmail;
 import com.test.code.report.ReportExcel;
 import com.test.code.report.ReportHtml;
 import com.test.code.util.DateUtil;
@@ -21,7 +22,7 @@ public class GenerateReport {
 	public static void main (String ...strings) throws ParseException{
 		long startTime=new  Date().getTime();
 		
-		
+	
 		Date startDate=DateUtil.getSomeDate(PropertiesUtil.getProperty("reportStartDate"), "yyyyMMdd");
 		Date endDate=DateUtil.getSomeDate(PropertiesUtil.getProperty("reportEndDate"), "yyyyMMdd");
 		List<Date> dateList =DateUtil.getDatesFromDateRange(startDate, endDate, PropertiesUtil.getProperty("reportType"));
@@ -47,7 +48,8 @@ public class GenerateReport {
 		ReportHtml.generateReport();
 		ReportHtml.generateTabularReport();
 		PDFToText.generateRiaReports();
-		
+
+		ReportEmail.sendEmailReport();
 		long endTime=new  Date().getTime();
 		logger.info("Process ended...");
 		logger.info("Total time taken: "+DateUtil.getHrMinSec(endTime-startTime));
