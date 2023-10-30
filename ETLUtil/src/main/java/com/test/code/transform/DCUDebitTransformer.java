@@ -31,6 +31,7 @@ public class DCUDebitTransformer {
 			,"MACYS ONLINE PMT"
 			,"TJX Rewards MC TJX EPAY"
 			,"TJX REWARDS MC TJX EPAY"
+			,"TJX REW MSTRCRD DES:SYF"
 			,"JCPENNEY MC JCP EPAY"
 			,"CHASE CREDIT CRDEPAY"
 			,"PAYMENT FOR AMZ STORECARD"
@@ -59,8 +60,8 @@ public class DCUDebitTransformer {
 			,"ELECTRONIC WITHDRAWAL DISCOVER"
 	};
 
-	private static final String LOAN_PAYMENTS [] = {"TRANSFER TO LOAN", "SH DRAFT","TRANSFER - 5821038-141","ELECTRONIC WITHDRAWAL PL*EAGLEROCKMANAWEB"};
-	private static final String LOAN_DESCRIPTIONS [] = {"CAR LOAN", "PARKS VILLAGE RENT","CAR LOAN","PARKS VILLAGE RENT"};
+	private static final String LOAN_PAYMENTS [] = {"TRANSFER - ***1038-141","TRANSFER TO LOAN", "SH DRAFT","TRANSFER - 5821038-141","ELECTRONIC WITHDRAWAL PL*EAGLEROCKMANAWEB"};
+	private static final String LOAN_DESCRIPTIONS [] = {"CAR LOAN","CAR LOAN", "PARKS VILLAGE RENT","CAR LOAN","PARKS VILLAGE RENT"};
 
 	public static List<Expense> processData(List<Expense> expenseList,List<Earning> earningList){
 

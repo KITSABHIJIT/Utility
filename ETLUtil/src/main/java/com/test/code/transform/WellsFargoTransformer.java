@@ -20,6 +20,7 @@ public class WellsFargoTransformer {
 	private static final String PAYMENT_DONE2 ="ONLINE ACH PAYMENT WEST DES MOIN";
 	private static final String PAYMENT_DONE3 ="ONLINE ACH PAYMENT THANK YOU";
 	private static final String PAYMENT_DONE4 ="PAYMENT THANK YOU WF";
+	private static final String PAYMENT_DONE5 ="ONLINE ACH PAYMENT";
 	public static List<Expense> processData(List<Expense> expenseList){
 
 		CSVReader csvReader = null;
@@ -39,7 +40,8 @@ public class WellsFargoTransformer {
 						&& !PAYMENT_DONE1.equals(expenseDetails[4].trim())
 						&& !PAYMENT_DONE2.equals(expenseDetails[4].trim())
 						&& !PAYMENT_DONE3.equals(expenseDetails[4].trim())
-						&& !PAYMENT_DONE4.equals(expenseDetails[4].trim())) {
+						&& !PAYMENT_DONE4.equals(expenseDetails[4].trim())
+						&& !PAYMENT_DONE5.equals(expenseDetails[4].trim())) {
 					Expense exp = new Expense();
 					exp.setModeOfPayment(MODE_OF_PAYMENT);
 					exp.setTransactionDate(DateUtil.getSQLData(DateUtil.getSomeDate(expenseDetails[0].trim(), "MM/dd/yyyy")));
