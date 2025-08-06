@@ -24,6 +24,7 @@ import com.test.code.transform.BarclaysTransformer;
 import com.test.code.transform.BestBuyTransformer;
 import com.test.code.transform.CapitalOneTransformer;
 import com.test.code.transform.CashTransformer;
+import com.test.code.transform.ChaseDebitTransformer;
 import com.test.code.transform.ChaseFreedomTransformer;
 import com.test.code.transform.ChaseSapphireTransformer;
 import com.test.code.transform.ChaseTransformer;
@@ -34,6 +35,7 @@ import com.test.code.transform.JCPenneyTransformer;
 import com.test.code.transform.KholsTransformer;
 import com.test.code.transform.LowesTransformer;
 import com.test.code.transform.MacysTransformer;
+import com.test.code.transform.TargetMyCircleTransformer;
 import com.test.code.transform.TjMaxTransformer;
 import com.test.code.transform.WalmartTransformer;
 import com.test.code.transform.WellsFargoTransformer;
@@ -83,6 +85,8 @@ public class StartLoadingData {
 		CashTransformer.processData(expList);
 		ChaseFreedomTransformer.processData(expList);
 		LowesTransformer.processData(expList);
+		ChaseDebitTransformer.processData(expList,earningList);
+		TargetMyCircleTransformer.processData(expList);
 		
 		DataLoader.loadExpenseData(expList);
 		DataLoader.loadEarningData(earningList);

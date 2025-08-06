@@ -81,5 +81,7 @@ lowesFile=/Users/abhijit/Google Drive/Expense/Expense Dumps/Raw_Statements/lowes
 ChaseFreedomFileTanaya=/Users/abhijit/Google Drive/Expense/Expense Dumps/Raw_Statements/ChaseFreedom-T.CSV
 DiscoverFileTanaya=/Users/abhijit/Google Drive/Expense/Expense Dumps/Raw_Statements/Discover-T.csv
 lowesFileTanaya=/Users/abhijit/Google Drive/Expense/Expense Dumps/Raw_Statements/lowes-T.csv
+ChaseDebitFile=/Users/abhijit/Google Drive/Expense/Expense Dumps/Raw_Statements/Chase-Debit.CSV
+TargetMyCircleFile=/Users/abhijit/Google Drive/Expense/Expense Dumps/Raw_Statements/TargetMyCircle.CSV
 
 databaseBackup=/Users/abhijit/Google Drive/Expense/Expense Dumps/mysqlBackup/
