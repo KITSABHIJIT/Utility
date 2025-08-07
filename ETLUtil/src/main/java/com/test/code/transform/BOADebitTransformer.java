@@ -60,7 +60,7 @@ public class BOADebitTransformer {
 					Expense exp = new Expense();
 					exp.setModeOfPayment(MODE_OF_PAYMENT);
 					exp.setTransactionDate(DateUtil.getSQLData(DateUtil.getSomeDate(expenseDetails[0].trim(), "MM/dd/yyyy")));
-					exp.setMerchant(expenseDetails[1].trim().toUpperCase());
+					exp.setMerchant((expenseDetails[1].trim().length()>100)?expenseDetails[1].trim().substring(0, 100).toUpperCase():expenseDetails[1].trim().toUpperCase());
 					//exp.setExpensePlace(expenseDetails[3].trim().toUpperCase());
 					exp.setAmount(-1*StringUtil.getDouble(expenseDetails[2].trim()));
 					if(exp.getTransactionDate()==(maxEntryDatePayment)) {
@@ -75,7 +75,7 @@ public class BOADebitTransformer {
 						Earning earning = new Earning();
 						earning.setModeOfPayment(MODE_OF_EARNING);
 						earning.setTransactionDate(DateUtil.getSQLData(DateUtil.getSomeDate(expenseDetails[0].trim(), "MM/dd/yyyy")));
-						earning.setMerchant(expenseDetails[1].trim().toUpperCase());
+						earning.setMerchant((expenseDetails[1].trim().length()>100)?expenseDetails[1].trim().substring(0, 100).toUpperCase():expenseDetails[1].trim().toUpperCase());
 						//earning.setEarningPlace(expenseDetails[3].trim().toUpperCase());
 						earning.setAmount(StringUtil.getDouble(expenseDetails[2].trim()));
 						if(earning.getTransactionDate()==(maxEntryDateEarning)) {

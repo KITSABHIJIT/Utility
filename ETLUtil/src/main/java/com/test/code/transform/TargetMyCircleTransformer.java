@@ -34,7 +34,7 @@ public class TargetMyCircleTransformer {
 				if(!PAYMENT_DONE.equalsIgnoreCase(expenseDetails[5].trim())) {
 					Expense exp = new Expense();
 					exp.setModeOfPayment(MODE_OF_PAYMENT);
-					exp.setTransactionDate(DateUtil.getSQLData(DateUtil.getSomeDate(expenseDetails[0].trim(), "MM/dd/yyyy")));
+					exp.setTransactionDate(DateUtil.getSQLData(DateUtil.getSomeDate(expenseDetails[0].trim(), "yyyy-mm-dd")));
 					exp.setMerchant(expenseDetails[4].trim().toUpperCase());
 					//exp.setExpensePlace(expenseDetails[3].trim().toUpperCase());
 					exp.setAmount(-1*StringUtil.getDouble(expenseDetails[3].trim()));
