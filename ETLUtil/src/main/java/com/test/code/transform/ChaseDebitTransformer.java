@@ -16,7 +16,7 @@ public class ChaseDebitTransformer {
 	private static final char COMMA_DELIMITER = ',';
 	private static final char QUOTE_CHAR = '"';
 	private static final String MODE_OF_PAYMENT ="CHASE DEBIT CARD";
-	private static final String EARNING []={"Citizens Bank","CITIZENS BANK DES:","IRS  TREAS 310"};
+	private static final String EARNING []={"Citizens Bank","CITIZENS BANK DES:","IRS  TREAS","CITIZENS BANK    PAYROLL"};
 	private static final String MODE_OF_EARNING ="CHASE";
 	private static final String EXCLUDED_PAYMENTS [] = {"FID BKG SVC LLC  MONEYLINE","Citizens Bank"
 			,"DISCOVER DES:E-PAYMENT ID"
@@ -38,7 +38,11 @@ public class ChaseDebitTransformer {
 			,"CAPITAL ONE DES:ONLINE PMT ID"
 			,"Payment to Chase card"
 			,"PAYMENT FOR AMZ DES:STORECARD"
-			,"DIGITAL FEDERAL  TRANSFER"};
+			,"DIGITAL FEDERAL  TRANSFER"
+			,"CAPITAL ONE      ONLINE PMT"
+			,"PAYMENT TO CHASE CARD"
+			,"CITIZENS BANK    PAYROLL"
+			,"IRS  TREAS"};
 
 	public static List<Expense> processData(List<Expense> expenseList,List<Earning> earningList){
 

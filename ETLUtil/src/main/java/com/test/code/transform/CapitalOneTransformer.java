@@ -16,6 +16,8 @@ public class CapitalOneTransformer {
 	private static final char QUOTE_CHAR = '"';
 	private static final String MODE_OF_PAYMENT ="CAPITAL ONE CARD";
 	private static final String PAYMENT_DONE ="CAPITAL ONE ONLINE PYMT";
+	private static final String PAYMENT_DONE_MOBILE ="CAPITAL ONE MOBILE PYMT";
+	private static final String PAYMENT_DONE_1 ="Payment from";
 	public static List<Expense> processData(List<Expense> expenseList){
 
 		CSVReader csvReader = null;
@@ -31,7 +33,9 @@ public class CapitalOneTransformer {
 			csvReader = new CSVReader(new FileReader(PropertiesUtil.getProperty("CapitalOneFile")),COMMA_DELIMITER,QUOTE_CHAR,1);
 			while((expenseDetails = csvReader.readNext())!=null)
 			{
-				if(null !=expenseDetails[3].trim() && !expenseDetails[3].trim().contains(PAYMENT_DONE)) {
+				if(null !=expenseDetails[3].trim() && !expenseDetails[3].trim().contains(PAYMENT_DONE)
+						&& !expenseDetails[3].trim().contains(PAYMENT_DONE_MOBILE)
+						&& !expenseDetails[3].trim().startsWith(PAYMENT_DONE_1)) {
 					Expense exp = new Expense();
 					exp.setModeOfPayment(MODE_OF_PAYMENT);
 					exp.setTransactionDate(DateUtil.getSQLData(DateUtil.getSomeDate(expenseDetails[0].trim(), "yyyy-MM-dd")));

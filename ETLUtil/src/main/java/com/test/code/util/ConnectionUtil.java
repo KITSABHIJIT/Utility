@@ -27,7 +27,6 @@ public class ConnectionUtil {
 				System.out.println("Where is your MySQL JDBC Driver?");
 				e.printStackTrace();
 			}
-			System.out.println("MySQL JDBC Driver Registered!");
 			try {
 				con = DriverManager.getConnection(
 						"jdbc:mysql:"+connectionArray[0], connectionArray[1],connectionArray[2]);
@@ -36,9 +35,7 @@ public class ConnectionUtil {
 				System.out.println("Connection Failed! Check output console");
 				e.printStackTrace();
 			}
-			if (con != null) {
-				System.out.println("You made it, take control your database now!");
-			} else {
+			if (con == null) {
 				System.out.println("Failed to make connection!");
 			}
 		}else{
