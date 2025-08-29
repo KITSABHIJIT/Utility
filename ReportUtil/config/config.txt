@@ -1,5 +1,5 @@
 
-reportStartDate=20221201
+reportStartDate=20240101
 reportEndDate=
 reportType=MONTHLY
 

@@ -22,34 +22,41 @@ public class GenerateReport {
 	public static void main (String ...strings) throws ParseException{
 		long startTime=new  Date().getTime();
 		
-	
-		Date startDate=DateUtil.getSomeDate(PropertiesUtil.getProperty("reportStartDate"), "yyyyMMdd");
-		Date endDate=DateUtil.getSomeDate(PropertiesUtil.getProperty("reportEndDate"), "yyyyMMdd");
-		List<Date> dateList =DateUtil.getDatesFromDateRange(startDate, endDate, PropertiesUtil.getProperty("reportType"));
-		int counter=0;
-		logger.info("Process started...");
-		for(int i=1;i<dateList.size();i++){
-			if(counter%2==0){
-			// Extract Data
-				Map<String,ReportData> data=DataExtractor.getReportData(dateList.get(i-1), dateList.get(i));
-				StringBuilder exportFilename =new StringBuilder(PropertiesUtil.getProperty("excelPath"));
-				exportFilename.append(System.getProperty("file.separator"))
-				.append(DateUtil.getDateToString(dateList.get(i), "yyyy"))
-				.append(System.getProperty("file.separator"))
-				.append(DateUtil.getDateToString(dateList.get(i), "MMM"));
-				FileUtil.createDirectory(exportFilename.toString());
-				// Generate Report
-				ReportExcel.writeExcel(data,exportFilename.toString()+System.getProperty("file.separator")+DateUtil.getDateToString(dateList.get(i), "MMM")+PropertiesUtil.getProperty("excelFileExtn"));
-				ReportHtml.generateReportMin(dateList.get(i-1), dateList.get(i),exportFilename.toString()+System.getProperty("file.separator")+DateUtil.getDateToString(dateList.get(i), "MMM"));
-			}
-			counter++;
-		}
-	
-		ReportHtml.generateReport();
-		ReportHtml.generateTabularReport();
-		PDFToText.generateRiaReports();
+		boolean createRiaReports=true;
+		boolean sendEmail=true;
+		boolean createExpenseReports=true;
 
-		ReportEmail.sendEmailReport();
+		if(createExpenseReports) {
+			Date startDate=DateUtil.getSomeDate(PropertiesUtil.getProperty("reportStartDate"), "yyyyMMdd");
+			Date endDate=DateUtil.getSomeDate(PropertiesUtil.getProperty("reportEndDate"), "yyyyMMdd");
+			List<Date> dateList =DateUtil.getDatesFromDateRange(startDate, endDate, PropertiesUtil.getProperty("reportType"));
+			int counter=0;
+			logger.info("Process started...");
+			for(int i=1;i<dateList.size();i++){
+				if(counter%2==0){
+					// Extract Data
+					Map<String,ReportData> data=DataExtractor.getReportData(dateList.get(i-1), dateList.get(i));
+					StringBuilder exportFilename =new StringBuilder(PropertiesUtil.getProperty("excelPath"));
+					exportFilename.append(System.getProperty("file.separator"))
+					.append(DateUtil.getDateToString(dateList.get(i), "yyyy"))
+					.append(System.getProperty("file.separator"))
+					.append(DateUtil.getDateToString(dateList.get(i), "MMM"));
+					FileUtil.createDirectory(exportFilename.toString());
+					// Generate Report
+					ReportExcel.writeExcel(data,exportFilename.toString()+System.getProperty("file.separator")+DateUtil.getDateToString(dateList.get(i), "MMM")+PropertiesUtil.getProperty("excelFileExtn"));
+					ReportHtml.generateReportMin(dateList.get(i-1), dateList.get(i),exportFilename.toString()+System.getProperty("file.separator")+DateUtil.getDateToString(dateList.get(i), "MMM"));
+				}
+				counter++;
+			}
+
+			ReportHtml.generateReport();
+			ReportHtml.generateTabularReport();
+		}
+		if(createRiaReports)
+			PDFToText.generateRiaReports();
+
+		if(sendEmail)
+			ReportEmail.sendEmailReport();
 		long endTime=new  Date().getTime();
 		logger.info("Process ended...");
 		logger.info("Total time taken: "+DateUtil.getHrMinSec(endTime-startTime));

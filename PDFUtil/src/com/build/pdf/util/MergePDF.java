@@ -1,6 +1,8 @@
 package com.build.pdf.util;
 
 import java.io.File;
+import java.util.Arrays;
+import java.util.Collections;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
@@ -8,9 +10,9 @@ import org.apache.pdfbox.util.PDFMergerUtility;
 
 public class MergePDF {
 	public static void main(String args[]) {
-		String sourceDir="C:\\Users\\royab001\\pdfUtil\\source"+System.getProperty("file.separator");
-		String destDir="C:\\Users\\royab001\\pdfUtil\\Merge PDF"+System.getProperty("file.separator");
-		decryptcombine(sourceDir,destDir,"Combined.pdf");
+		String sourceDir="/Users/abhijit/Library/CloudStorage/GoogleDrive-cemkabhijit@gmail.com/My Drive/personal details/Medical Docs/Maa/Tata-Medical/HISTOPATHOLOGY-Reports/";
+		String destDir="/Users/abhijit/Library/CloudStorage/GoogleDrive-cemkabhijit@gmail.com/My Drive/personal details/Medical Docs/Maa/Tata-Medical/HISTOPATHOLOGY-Reports/";
+		decryptcombine(sourceDir,destDir,"HISTOPATHOLOGY-Report.pdf");
 	} 
 	
 	public static void decryptcombine(String sourcefolder,String destFolder,String mergedFile) { 
@@ -25,9 +27,12 @@ public class MergePDF {
 			File _destFolder = new File(destFolder); 
 			File[] destFilesInFolder; 
 			destFilesInFolder = _destFolder.listFiles(); 
+			Arrays.sort(destFilesInFolder,Collections.reverseOrder());
 			for (File string : destFilesInFolder){ 
+				if(!".DS_Store".equals(string.getName())) {
 				mergePdf.addSource(string);	
 				System.out.println("Document appended: " +string.getName());
+				}
 			}
 			mergePdf.setDestinationFileName(destFolder+mergedFile); 
 			mergePdf.mergeDocuments(); 
@@ -43,8 +48,10 @@ public class MergePDF {
 			File[] filesInFolder; 
 			filesInFolder = _folder.listFiles(); 
 			for (File string : filesInFolder){ 
-				mergePdf.addSource(string);	
-				System.out.println("Document appended: " +string.getName());
+				if(!".DS_Store".equals(string.getName())) {
+					mergePdf.addSource(string);	
+					System.out.println("Document appended: " +string.getName());
+				}
 			}
 			mergePdf.setDestinationFileName(sourcefolder+mergedFile); 
 			mergePdf.mergeDocuments(); 
